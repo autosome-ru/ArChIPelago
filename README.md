@@ -2,6 +2,8 @@
 
 This repository allows reproducing the _Kravchenko et al., biorxiv (2024)_ analysis. It contains scripts for sequences generation, model training/testing and plot generation for — ArChIPelago <https://github.com/autosome-ru/ArChIPelago> — the arrangement of multiple position weight matrices with ChIP-Seq and machine learning for prediction of transcription factor binding sites.
 </br>
+Use the scanning tool from ArChIPelago-TFBS-finder: <https://github.com/Pavel-Kravchenko/ArChIPelago-TFBS-finder> to look for known motifs in the input sequences.
+</br>
  
 ## Before you start
 
