@@ -39,7 +39,7 @@ Install SARUS folowing instructions in ```sarus``` directory or in <https://gith
 -  ```4.2_Violin_plot_data_collector.ipynb``` - the script for collection of model performances from 3.2_Archipelago_training_with_PWM_sampling.ipynb</br></br>
 -  Use ```R_scripts_for_visualization``` to reproduce Fig 3, Fig. S5, Fig. S6</br></br>
 
-# Inner clockworks & Citing
+# Citing
 TBA
 </br></br>
 
