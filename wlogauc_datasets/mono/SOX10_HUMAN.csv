@@ -1,0 +1,7 @@
+	0	1	2	organism
+0	SOX10_HUMAN.PEAKS037501.sissrs.control	3.3472006525040747	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX10.M.txt	HUMAN
+1	SOX10_HUMAN.PEAKS037501.gem.control	3.243151647440809	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX10.M.txt	HUMAN
+2	SOX10_HUMAN.PEAKS037501.macs.control	3.2200569956392022	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX10.M.txt	HUMAN
+6	SOX10_HUMAN.PEAKS037501.sissrs.control	2.818289779154881	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX10.S.txt	HUMAN
+7	SOX10_HUMAN.PEAKS037501.macs.control	2.645797444106184	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX10.S.txt	HUMAN
+9	SOX10_HUMAN.PEAKS037501.gem.control	2.5272288972587758	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX10.S.txt	HUMAN

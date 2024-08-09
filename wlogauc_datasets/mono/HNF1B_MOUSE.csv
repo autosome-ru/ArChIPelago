@@ -1,0 +1,17 @@
+	0	1	2	organism
+0	HNF1B_MOUSE.PEAKS038349.pics.control	7.872307349566094	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+1	HNF1B_MOUSE.PEAKS038350.pics.control	7.606511057083544	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+2	HNF1B_MOUSE.PEAKS038349.sissrs.control	7.279630953483318	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+3	HNF1B_MOUSE.PEAKS038349.gem.control	7.012633667075213	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+4	HNF1B_MOUSE.PEAKS038350.gem.control	6.885620585532732	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+5	HNF1B_MOUSE.PEAKS038350.sissrs.control	6.881135332371558	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+6	HNF1B_MOUSE.PEAKS038349.macs.control	6.690562419253078	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+13	HNF1B_MOUSE.PEAKS038349.sissrs.control	6.664387789147858	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
+14	HNF1B_MOUSE.PEAKS038349.pics.control	6.568180371833426	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
+7	HNF1B_MOUSE.PEAKS038350.macs.control	6.565446264542715	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
+15	HNF1B_MOUSE.PEAKS038350.pics.control	6.443969753243097	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
+16	HNF1B_MOUSE.PEAKS038350.sissrs.control	6.400295761090238	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
+17	HNF1B_MOUSE.PEAKS038349.gem.control	5.568396731685011	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
+18	HNF1B_MOUSE.PEAKS038350.gem.control	5.566971394674819	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
+19	HNF1B_MOUSE.PEAKS038349.macs.control	5.531278847048951	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
+20	HNF1B_MOUSE.PEAKS038350.macs.control	5.416341595643032	/home/pavel-kravchenko/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE

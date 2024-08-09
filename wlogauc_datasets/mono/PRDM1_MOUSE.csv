@@ -1,0 +1,10 @@
+	0	1	2	organism
+4	PRDM1_MOUSE.PEAKS038375.gem.control	4.454881153610518	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+5	PRDM1_MOUSE.PEAKS038375.macs.control	4.377567554493947	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+12	PRDM1_MOUSE.PEAKS038654.gem.control	3.30311424246238	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+13	PRDM1_MOUSE.PEAKS038654.macs.control	2.373384276832128	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+14	PRDM1_MOUSE.PEAKS038655.macs.control	1.5568426213024404	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+16	PRDM1_MOUSE.PEAKS038654.sissrs.control	1.4122773490055025	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+18	PRDM1_MOUSE.PEAKS038655.sissrs.control	1.2868182863497055	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+19	PRDM1_MOUSE.PEAKS036298.macs.control	1.2628085586709008	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE
+20	PRDM1_MOUSE.PEAKS036298.sissrs.control	0.9201516234005958	/home/pavel-kravchenko/wlogauc_datasets/mono/PRDM1.M.txt	MOUSE

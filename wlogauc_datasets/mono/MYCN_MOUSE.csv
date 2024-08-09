@@ -1,0 +1,11 @@
+	0	1	2	organism
+4	MYCN_MOUSE.PEAKS035192.pics.control	3.5306005348868874	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+6	MYCN_MOUSE.PEAKS035192.gem.control	3.22289254572381	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+7	MYCN_MOUSE.PEAKS035192.macs.control	3.1902725243573657	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+9	MYCN_MOUSE.PEAKS035192.sissrs.control	3.0799770746396518	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+12	MYCN_MOUSE.PEAKS037700.pics.control	2.988716624681325	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+23	MYCN_MOUSE.PEAKS037700.gem.control	2.3203912497597967	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+25	MYCN_MOUSE.PEAKS037700.sissrs.control	2.2285142860426728	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+26	MYCN_MOUSE.PEAKS037700.macs.control	2.2184947987932904	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+30	MYCN_MOUSE.PEAKS037698.sissrs.control	2.096350959301106	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE
+35	MYCN_MOUSE.PEAKS037698.macs.control	1.584979013799495	/home/pavel-kravchenko/wlogauc_datasets/mono/MYCN.M.txt	MOUSE

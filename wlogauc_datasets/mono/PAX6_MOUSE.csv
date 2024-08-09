@@ -1,0 +1,9 @@
+	0	1	2	organism
+0	PAX6_MOUSE.PEAKS037886.sissrs.control	2.5972749647502615	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE
+1	PAX6_MOUSE.PEAKS037887.sissrs.control	2.4920499907394484	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE
+2	PAX6_MOUSE.PEAKS037886.macs.control	2.250444886595813	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE
+3	PAX6_MOUSE.PEAKS037886.gem.control	2.1717363339836604	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE
+4	PAX6_MOUSE.PEAKS037887.gem.control	2.0886989296793272	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE
+5	PAX6_MOUSE.PEAKS037887.macs.control	1.8524364563543891	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE
+12	PAX6_MOUSE.PEAKS036087.macs.control	0.8821515987731688	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE
+13	PAX6_MOUSE.PEAKS036087.gem.control	0.8617001140045135	/home/pavel-kravchenko/wlogauc_datasets/mono/PAX6.M.txt	MOUSE

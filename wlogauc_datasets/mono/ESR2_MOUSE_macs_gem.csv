@@ -1,0 +1,9 @@
+	0	1	2	organism
+0	ESR2_MOUSE.PEAKS036565.gem.control	4.445045911764941	/home/pavelkrav/wlogauc_datasets/mono/ESR2.M.txt	MOUSE
+3	ESR2_MOUSE.PEAKS036565.macs.control	3.6511297000673766	/home/pavelkrav/wlogauc_datasets/mono/ESR2.M.txt	MOUSE
+16	ESR2_MOUSE.PEAKS036650.gem.control	2.2024682203014088	/home/pavelkrav/wlogauc_datasets/mono/ESR2.M.txt	MOUSE
+21	ESR2_MOUSE.PEAKS036565.gem.control	2.2003421477053107	/home/pavelkrav/wlogauc_datasets/mono/ESR2.S.txt	MOUSE
+17	ESR2_MOUSE.PEAKS036650.macs.control	2.002120342332362	/home/pavelkrav/wlogauc_datasets/mono/ESR2.M.txt	MOUSE
+24	ESR2_MOUSE.PEAKS036565.macs.control	1.9785832752741035	/home/pavelkrav/wlogauc_datasets/mono/ESR2.S.txt	MOUSE
+34	ESR2_MOUSE.PEAKS036650.macs.control	1.2822164484564258	/home/pavelkrav/wlogauc_datasets/mono/ESR2.S.txt	MOUSE
+35	ESR2_MOUSE.PEAKS036650.gem.control	1.2157089603898494	/home/pavelkrav/wlogauc_datasets/mono/ESR2.S.txt	MOUSE

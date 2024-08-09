@@ -1,0 +1,11 @@
+	0	1	2	organism
+17	PDX1_HUMAN.PEAKS035182.gem.control	4.16673481510221	/home/pavelkrav/wlogauc_datasets/mono/PDX1.T.txt	HUMAN
+18	PDX1_HUMAN.PEAKS035182.macs.control	4.1059339206183925	/home/pavelkrav/wlogauc_datasets/mono/PDX1.T.txt	HUMAN
+19	PDX1_HUMAN.PEAKS039498.gem.control	3.6816742211670017	/home/pavelkrav/wlogauc_datasets/mono/PDX1.T.txt	HUMAN
+20	PDX1_HUMAN.PEAKS039498.macs.control	3.3554773175408625	/home/pavelkrav/wlogauc_datasets/mono/PDX1.T.txt	HUMAN
+26	PDX1_HUMAN.PEAKS034154.macs.control	1.6973268601825189	/home/pavelkrav/wlogauc_datasets/mono/PDX1.T.txt	HUMAN
+7	PDX1_HUMAN.PEAKS035182.macs.control	1.4877322615101316	/home/pavelkrav/wlogauc_datasets/mono/PDX1.M.txt	HUMAN
+8	PDX1_HUMAN.PEAKS035182.gem.control	1.4812282858950852	/home/pavelkrav/wlogauc_datasets/mono/PDX1.M.txt	HUMAN
+9	PDX1_HUMAN.PEAKS039498.macs.control	1.4428189994939185	/home/pavelkrav/wlogauc_datasets/mono/PDX1.M.txt	HUMAN
+10	PDX1_HUMAN.PEAKS039498.gem.control	1.3236188816005412	/home/pavelkrav/wlogauc_datasets/mono/PDX1.M.txt	HUMAN
+11	PDX1_HUMAN.PEAKS034154.macs.control	1.17143972799711	/home/pavelkrav/wlogauc_datasets/mono/PDX1.M.txt	HUMAN

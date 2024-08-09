@@ -1,0 +1,5 @@
+	0	1	2	organism
+62	MEIS1_HUMAN.PEAKS034782.gem.control	2.780110639144894	/home/pavel-kravchenko/wlogauc_datasets/mono/MEIS1.T.txt	HUMAN
+64	MEIS1_HUMAN.PEAKS034782.macs.control	2.7476813142832923	/home/pavel-kravchenko/wlogauc_datasets/mono/MEIS1.T.txt	HUMAN
+26	MEIS1_HUMAN.PEAKS034782.macs.control	2.046017472676472	/home/pavel-kravchenko/wlogauc_datasets/mono/MEIS1.M.txt	HUMAN
+29	MEIS1_HUMAN.PEAKS034782.gem.control	1.996205298946872	/home/pavel-kravchenko/wlogauc_datasets/mono/MEIS1.M.txt	HUMAN

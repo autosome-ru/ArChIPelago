@@ -1,0 +1,9 @@
+	0	1	2	organism
+29	EGR2_HUMAN.PEAKS038801.pics.control	5.719699490079155	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.T.txt	HUMAN
+30	EGR2_HUMAN.PEAKS038801.macs.control	5.4427458957748165	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.T.txt	HUMAN
+9	EGR2_HUMAN.PEAKS038801.pics.control	4.421686939722712	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.M.txt	HUMAN
+13	EGR2_HUMAN.PEAKS038801.macs.control	4.2206080134489765	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.M.txt	HUMAN
+53	EGR2_HUMAN.PEAKS034422.sissrs.control	1.9032067971926452	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.T.txt	HUMAN
+27	EGR2_HUMAN.PEAKS034422.sissrs.control	1.357908094000532	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.M.txt	HUMAN
+57	EGR2_HUMAN.PEAKS034422.macs.control	1.3483429678983938	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.T.txt	HUMAN
+28	EGR2_HUMAN.PEAKS034422.macs.control	0.780094405564014	/home/pavel-kravchenko/wlogauc_datasets/mono/EGR2.M.txt	HUMAN

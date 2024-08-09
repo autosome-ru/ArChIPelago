@@ -1,0 +1,13 @@
+	0	1	2	organism
+10	SOX9_HUMAN.PEAKS037655.sissrs.control	2.533730285056329	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.M.txt	HUMAN
+37	SOX9_HUMAN.PEAKS037655.sissrs.control	2.482611782147869	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.S.txt	HUMAN
+11	SOX9_HUMAN.PEAKS037655.pics.control	2.332935392817212	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.M.txt	HUMAN
+41	SOX9_HUMAN.PEAKS037655.pics.control	2.0087188057748344	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.S.txt	HUMAN
+45	SOX9_HUMAN.PEAKS037655.gem.control	1.836219900054897	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.S.txt	HUMAN
+15	SOX9_HUMAN.PEAKS037655.gem.control	1.7263733136242148	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.M.txt	HUMAN
+51	SOX9_HUMAN.PEAKS037655.macs.control	1.6191026324739537	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.S.txt	HUMAN
+23	SOX9_HUMAN.PEAKS037655.macs.control	1.3494280145481763	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.M.txt	HUMAN
+59	SOX9_HUMAN.PEAKS034379.macs.control	1.2396387835499718	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.S.txt	HUMAN
+60	SOX9_HUMAN.PEAKS034379.sissrs.control	1.214920487548002	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.S.txt	HUMAN
+27	SOX9_HUMAN.PEAKS034379.macs.control	1.1229624932847655	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.M.txt	HUMAN
+28	SOX9_HUMAN.PEAKS034379.sissrs.control	1.0818531317792734	/home/pavel-kravchenko/wlogauc_datasets/mono/SOX9.M.txt	HUMAN

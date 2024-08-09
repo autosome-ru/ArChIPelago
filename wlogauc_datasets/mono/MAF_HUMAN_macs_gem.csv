@@ -1,0 +1,11 @@
+	0	1	2	organism
+18	MAF_HUMAN.PEAKS039476.gem.control	3.238985998115757	/home/pavelkrav/wlogauc_datasets/mono/MAF.M.txt	HUMAN
+19	MAF_HUMAN.PEAKS039476.macs.control	3.0723893480265065	/home/pavelkrav/wlogauc_datasets/mono/MAF.M.txt	HUMAN
+3	MAF_HUMAN.PEAKS039476.gem.control	2.213676906798429	/home/pavelkrav/wlogauc_datasets/mono/MAF.S.txt	HUMAN
+6	MAF_HUMAN.PEAKS039476.macs.control	2.1561027211646264	/home/pavelkrav/wlogauc_datasets/mono/MAF.S.txt	HUMAN
+25	MAF_HUMAN.PEAKS038455.macs.control	1.057359429281141	/home/pavelkrav/wlogauc_datasets/mono/MAF.M.txt	HUMAN
+26	MAF_HUMAN.PEAKS038451.macs.control	1.0189203264783937	/home/pavelkrav/wlogauc_datasets/mono/MAF.M.txt	HUMAN
+27	MAF_HUMAN.PEAKS038455.gem.control	1.0186609356007672	/home/pavelkrav/wlogauc_datasets/mono/MAF.M.txt	HUMAN
+10	MAF_HUMAN.PEAKS038455.macs.control	1.0107625940244085	/home/pavelkrav/wlogauc_datasets/mono/MAF.S.txt	HUMAN
+11	MAF_HUMAN.PEAKS038451.macs.control	0.9980512595282062	/home/pavelkrav/wlogauc_datasets/mono/MAF.S.txt	HUMAN
+12	MAF_HUMAN.PEAKS038455.gem.control	0.946438689816984	/home/pavelkrav/wlogauc_datasets/mono/MAF.S.txt	HUMAN

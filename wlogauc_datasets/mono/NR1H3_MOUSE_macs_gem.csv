@@ -1,0 +1,11 @@
+	0	1	2	organism
+0	NR1H3_MOUSE.PEAKS035806.gem.control	3.6407182887825456	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.T.txt	MOUSE
+3	NR1H3_MOUSE.PEAKS035808.gem.control	3.5807413570014615	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.T.txt	MOUSE
+4	NR1H3_MOUSE.PEAKS035806.macs.control	3.5142507032963914	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.T.txt	MOUSE
+6	NR1H3_MOUSE.PEAKS035808.macs.control	3.404355970638725	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.T.txt	MOUSE
+7	NR1H3_MOUSE.PEAKS035807.gem.control	3.4031875754123906	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.T.txt	MOUSE
+8	NR1H3_MOUSE.PEAKS035807.macs.control	3.3492565067382634	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.T.txt	MOUSE
+23	NR1H3_MOUSE.PEAKS035808.gem.control	3.3439278346293877	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.M.txt	MOUSE
+25	NR1H3_MOUSE.PEAKS035808.macs.control	3.1733223957174936	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.M.txt	MOUSE
+28	NR1H3_MOUSE.PEAKS035807.gem.control	3.0734104461866285	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.M.txt	MOUSE
+29	NR1H3_MOUSE.PEAKS035806.macs.control	3.0477587986972083	/home/pavelkrav/wlogauc_datasets/mono/NR1H3.M.txt	MOUSE
