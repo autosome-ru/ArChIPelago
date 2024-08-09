@@ -4,3 +4,6 @@
 [submodule "seqtk"]
 	path = seqtk
 	url = https://github.com/lh3/seqtk.git
+[submodule "ArChIPelago-TFBS-finder"]
+	path = ArChIPelago-TFBS-finder
+	url = https://github.com/Pavel-Kravchenko/ArChIPelago-TFBS-finder
