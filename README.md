@@ -10,7 +10,7 @@ Use the scanning tool from ArChIPelago-TFBS-finder: <https://github.com/Pavel-Kr
 Make sure that you have installed:
 <ul>
 <li>Python 3.7 (or upper) https://www.python.org/</br></br>
-<li>Optionally: R 4.2.1 (or upper) and RStudio https://posit.co/download/rstudio-desktop/</br></br>
+<li>R 4.2.1 (or upper) and RStudio https://posit.co/download/rstudio-desktop/</br></br>
 </ul>
 
 ## Getting started
