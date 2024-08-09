@@ -1,3 +1,6 @@
 [submodule "sarus"]
 	path = sarus
 	url = https://github.com/autosome-ru/sarus.git
+[submodule "seqtk"]
+	path = seqtk
+	url = https://github.com/lh3/seqtk.git
