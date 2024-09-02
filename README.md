@@ -39,7 +39,7 @@ Install SARUS folowing instructions in ```sarus``` directory or in <https://gith
 -  ```4_Plot_generation_and_analysis.ipynb``` - the script for collection of model performances from 2_ArChIPelago_and_Slim_training.ipynb</br></br>
 
 # Citing
-TBA
+TBA. Kravchenko et al., biorxiv (2024)
 </br></br>
 
 # License
