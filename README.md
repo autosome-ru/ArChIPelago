@@ -26,7 +26,7 @@ Install SARUS folowing instructions in ```sarus``` directory or in <https://gith
 ### Steps to reproduce the ArChIPelago analysis
 (1) Create the ArChIPelago environment by running ```conda env create -f environment_rpy2.yml``` and activate it with ```conda activate ArChIPelago```</br></br>
 
-(2) Generate sequences from the train-test data splits:
+(2) Generate sequences and features from the train-test data splits:
 -  ```0_Data_preparation and_test_train_split.ipynb``` - takes bed files from GTRD and extracts genomic sequences</br></br>
 -  ```1_Scanning_with_CHIPMUNK_feature_generation_MONO_DI.ipynb``` - takes generated fasta files with genomic sequences for train/test with positive/negative examples and scanes them with PWMs using SARUS <https://github.com/autosome-ru/sarus></br></br>
 
