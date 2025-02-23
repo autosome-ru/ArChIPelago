@@ -10,20 +10,26 @@ Use the scanning tool from ArChIPelago-TFBS-finder: <https://github.com/Pavel-Kr
 Make sure that you have installed:
 <ul>
 <li>Python 3.7 (or upper) https://www.python.org/</br></br>
-<li>R 4.2.1 (or upper) and RStudio https://posit.co/download/rstudio-desktop/</br></br>
+<li>Optionally: R 4.2.1 (or upper) and RStudio https://posit.co/download/rstudio-desktop/</br></br>
 </ul>
 
 ## Getting started
 
-Please ```clone``` this directory with ```git clone https://github.com/autosome-ru/ArChIPelago/```</br></br>
-Then ```cd``` in ArChIPelago: ```cd ArChIPelago```</br></br>
-Install SARUS folowing instructions in ```sarus``` directory or in <https://github.com/autosome-ru/sarus></br>
+Please ```clone``` this directory with ```git clone https://github.com/autosome-ru/MEX-ArChIPelago/```</br></br>
+Then ```cd``` in MEX-ArChIPelago: ```cd MEX-ArChIPelago```</br></br>
+Install the SARUS PWM scanner into `./sarus` directory, copying the `sarus.jar`-file should be enough; see also the instructions at <https://github.com/autosome-ru/sarus></br>
+_Note: SARUS is written in Java (hence it requires JRE)._</br></br>
 
 ### Input data organization
 (1) Download repeatmasker data and place it into ```Repeatmasker_data``` directory </br></br>
 (2) Download and unzip the hg38 and mm10 reference genomes ```wget https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz; gunzip hg38.fa.gz``` ```wget https://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/mm10.fa.gz; gunzip mm10.fa.gz```. Place the files into the ```Genomic_data``` folder.</br></br>
 
 ### Steps to reproduce the ArChIPelago analysis
+
+ArChIPelago was developed and tested on Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-113-generic x86_64). The model training process utilized 100 AMD EPYC 7662 64-Core Processor cores, with a total runtime of approximately 8 hours for training across all transcription factors (TFs).
+
+**For DEMO tests use ["GABPA"]**
+
 (1) Create the ArChIPelago environment by running ```conda env create -f environment_rpy2.yml``` and activate it with ```conda activate ArChIPelago```</br></br>
 
 (2) Generate sequences and features from the train-test data splits:
@@ -39,7 +45,7 @@ Install SARUS folowing instructions in ```sarus``` directory or in <https://gith
 -  ```4_Plot_generation_and_analysis.ipynb``` - the script for collection of model performances from 2_ArChIPelago_and_Slim_training.ipynb</br></br>
 
 # Citing
-TBA. Kravchenko et al., biorxiv (2024)
+TBA. Kravchenko et al., biorxiv (2025)
 </br></br>
 
 # License
