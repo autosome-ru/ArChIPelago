@@ -1,9 +1,0 @@
-	0	1	2	organism
-16	HNF1B_MOUSE.PEAKS038349.gem.control	7.012633667075213	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
-17	HNF1B_MOUSE.PEAKS038350.gem.control	6.885620585532732	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
-19	HNF1B_MOUSE.PEAKS038349.macs.control	6.690562419253078	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
-20	HNF1B_MOUSE.PEAKS038350.macs.control	6.565446264542715	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.M.txt	MOUSE
-4	HNF1B_MOUSE.PEAKS038349.gem.control	5.568396731685011	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
-5	HNF1B_MOUSE.PEAKS038350.gem.control	5.566971394674819	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
-6	HNF1B_MOUSE.PEAKS038349.macs.control	5.531278847048951	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
-7	HNF1B_MOUSE.PEAKS038350.macs.control	5.416341595643032	/home/pavelkrav/wlogauc_datasets/mono/HNF1B.T.txt	MOUSE
