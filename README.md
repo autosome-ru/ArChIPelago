@@ -18,8 +18,8 @@ Make sure that you have installed:
 Please ```clone``` this directory with ```git clone https://github.com/autosome-ru/MEX-ArChIPelago/```</br></br>
 Then ```cd``` in MEX-ArChIPelago: ```cd MEX-ArChIPelago```</br></br>
 Install the SARUS PWM scanner into `./sarus` directory, copying the `sarus.jar`-file should be enough; see also the instructions at <https://github.com/autosome-ru/sarus></br>
-_Note: SARUS is written in Java (hence it requires JRE)._</br></br
-Download raw peaks data and PWMs from the Zenodo repository: 10.5281/zenodo.14927304.
+_Note: SARUS is written in Java (hence it requires JRE)._</br></br>
+Download raw peaks data and PWMs from the Zenodo repository: 10.5281/zenodo.14927304. </br></br>
 
 ### Input data organization
 (1) Download repeatmasker data and place it into ```Repeatmasker_data``` directory </br></br>
