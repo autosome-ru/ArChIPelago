@@ -3,7 +3,12 @@
 import numpy as np
 import pandas as pd
 import pytest
-from archipielago.scanning import build_feature_matrix, select_top_features
+from archipielago.scanning import (
+    build_feature_matrix,
+    load_sarus_scores,
+    run_sarus,
+    select_top_features,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -81,3 +86,63 @@ def test_select_top_features_no_duplicates(small_feature_matrix):
     X, y = small_feature_matrix
     selected = select_top_features(X, y, n=5)
     assert len(selected) == len(set(selected))
+
+
+# ---------------------------------------------------------------------------
+# load_sarus_scores
+# ---------------------------------------------------------------------------
+
+def test_load_sarus_scores_basic(tmp_path):
+    score_file = tmp_path / "scores.txt"
+    score_file.write_text("1.5\n2.3\n0.7\n")
+    s = load_sarus_scores(score_file)
+    assert list(s) == pytest.approx([1.5, 2.3, 0.7])
+    assert s.index.tolist() == [0, 1, 2]
+
+
+def test_load_sarus_scores_empty_file(tmp_path):
+    score_file = tmp_path / "empty.txt"
+    score_file.write_text("")
+    s = load_sarus_scores(score_file)
+    assert isinstance(s, pd.Series)
+    assert len(s) == 0
+
+
+def test_load_sarus_scores_missing_file(tmp_path):
+    s = load_sarus_scores(tmp_path / "does_not_exist.txt")
+    assert isinstance(s, pd.Series)
+    assert len(s) == 0
+
+
+# ---------------------------------------------------------------------------
+# run_sarus — validation-only (no Java invoked)
+# ---------------------------------------------------------------------------
+
+def test_run_sarus_missing_fasta(tmp_path):
+    pwm_file = tmp_path / "motif.pwm"
+    pwm_file.write_text("dummy")
+    jar_file = tmp_path / "sarus.jar"
+    jar_file.write_text("dummy")
+
+    with pytest.raises(FileNotFoundError, match="FASTA"):
+        run_sarus(
+            fasta_path=tmp_path / "missing.fasta",
+            pwm_path=pwm_file,
+            sarus_jar=jar_file,
+            output_path=tmp_path / "out.txt",
+        )
+
+
+def test_run_sarus_missing_jar(tmp_path):
+    fasta_file = tmp_path / "seqs.fasta"
+    fasta_file.write_text(">seq1\nACGT\n")
+    pwm_file = tmp_path / "motif.pwm"
+    pwm_file.write_text("dummy")
+
+    with pytest.raises(FileNotFoundError, match="SARUS jar"):
+        run_sarus(
+            fasta_path=fasta_file,
+            pwm_path=pwm_file,
+            sarus_jar=tmp_path / "missing_sarus.jar",
+            output_path=tmp_path / "out.txt",
+        )

@@ -16,6 +16,14 @@ paths:
   # Output base directory (can be relative to ArChIPelago root)
   output_dir: "Release/TF-ML"
 
+  # HOCOMOCO11 wLogAUC benchmark directories (used in NB1 for PWM selection)
+  hocomoco11_wlogauc_mono: "/path/to/hocomoco11/wlogauc/mono"
+  hocomoco11_wlogauc_di:   "/path/to/hocomoco11/wlogauc/di"
+
+  # PCM logo source directories (used in NB1 for logo generation)
+  pcms_mono: "/path/to/pcms_for_logo_mono"
+  pcms_di:   "/path/to/pcms_for_logo_di"
+
 tools:
   # SARUS PWM scanner JAR (current release: 2.2.3)
   sarus_jar: "../sarus/releases/sarus-2.2.3.jar"

@@ -139,10 +139,8 @@ def test_scorer_info_to_dict_roundtrip():
 # PRROC tests — skipped if rpy2 unavailable
 # ---------------------------------------------------------------------------
 
-rpy2 = pytest.importorskip("rpy2", reason="rpy2 not installed — skipping PRROC tests")
-
-
 def test_prroc_rocauc_score():
+    pytest.importorskip("rpy2", reason="rpy2 not installed — skipping PRROC tests")
     scorer = PRROC_ROCAUC("prroc_roc")
     y_score = [0.9, 0.8, 0.7, 0.2, 0.1, 0.0]
     y_real  = [1,   1,   1,   0,   0,   0  ]
@@ -151,6 +149,7 @@ def test_prroc_rocauc_score():
 
 
 def test_prroc_prauc_integral_score():
+    pytest.importorskip("rpy2", reason="rpy2 not installed — skipping PRROC tests")
     scorer = PRROC_PRAUC("prroc_pr", "integral")
     y_score = [0.9, 0.8, 0.1, 0.0]
     y_real  = [1,   1,   0,   0  ]

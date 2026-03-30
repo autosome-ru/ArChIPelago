@@ -57,7 +57,7 @@ def tmp_fasta(tmp_path):
 
 @pytest.fixture
 def small_feature_matrix():
-    """3 sequences × 5 features."""
+    """6 sequences × 10 features."""
     np.random.seed(0)
     X = pd.DataFrame(
         np.random.rand(6, 10),
