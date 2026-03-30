@@ -89,10 +89,11 @@ ArChIPelago/
 ├── sarus/                           # SPRY-SARUS PWM scanner (git submodule)
 ├── seqtk/                           # seqtk sequence toolkit (git submodule)
 │
-├── Slim/                            # Slim model tools (Java)
-│   ├── SlimDimont.jar
-│   ├── TrainAndApplySlim.jar
-│   └── jdk8u232-b09/                # Bundled OpenJDK 8 for Slim
+├── Slim/                            # Slim/diChIPMunk model tools (Java)
+│   ├── SlimDimont.jar               # diChIPMunk: de novo diPWM discovery
+│   ├── TrainAndApplySlim.jar        # Slim: sparse local inhomogeneous mixture models
+│   ├── ytilib/                      # Ruby utilities for diChIPMunk
+│   └── jdk8u232-b09/                # Bundled OpenJDK 8 (required by Slim jars)
 │
 ├── Table_1.xlsx                     # ChIP-seq experiment identifiers (Sup. Table 1)
 ├── Table_2.xlsx                     # TF metadata: experiments, peaks, GC% (Sup. Table 2)
@@ -180,8 +181,10 @@ paths:
   output_dir:   "Release/TF-ML"         # Output directory
 
 tools:
-  sarus_jar:  "../sarus/releases/sarus-2.2.3.jar"
-  java_bin:   "java"
+  sarus_jar:      "../sarus/releases/sarus-2.2.3.jar"
+  java_bin:       "java"
+  slim_apply_jar: "../Slim/TrainAndApplySlim.jar"   # Slim model training
+  slim_java_bin:  "../Slim/jdk8u232-b09/bin/java"   # JDK 8 for Slim jars
 ```
 
 ---
@@ -200,6 +203,8 @@ tools:
 | `PWMs_di_HUMAN.tar.gz` | Dinucleotide PWMs per TF | Notebooks 1, 2, 5 |
 | `hocomoco11.tar.gz` | HOCOMOCO v11 benchmark data | Notebook 1 |
 | `Models.tar.gz` | Pre-trained RF models (sklearn 1.3) | Inference only |
+| `Slim.tar.gz` | Slim jar files and bundled JDK 8 | Notebook 2 (Slim training) |
+| `Slim_models.tar.gz` | Pre-trained Slim models | Notebook 2 (comparison) |
 | `macs.tar.gz` | GTRD MACS peak intervals | Notebook 0 |
 | `Archipelago_intermediate_files.tar.gz` | Pre-computed feature matrices | Skip notebooks 0–1 |
 
@@ -238,6 +243,10 @@ Run notebooks sequentially. Each reads `config.yml` for external paths.
 **PWM scanning:** Genomic regions were scanned with SPRY-SARUS (Kulakovskiy et al. 2016) using `--skipn --show-non-matching --output-scoring-mode score besthit`. Log-odds best-hit scores serve as features.
 
 **Model parameters (Random Forest):** `max_depth=6, max_samples=0.8, n_estimators=100` (selected via GridSearchCV). Features were scale-transformed with `sklearn.preprocessing.StandardScaler`.
+
+**Slim models (Notebook 2):** ArChIPelago was benchmarked against sparse local inhomogeneous mixture (Slim) models (Grau et al. 2013), trained side-by-side from extended 1001 bp genomic regions around the same peak summits. Slim models were trained using `TrainAndApplySlim.jar` with the bundled JDK 8 (`Slim/jdk8u232-b09/bin/java`). Three Slim model orders were compared: `markov_order=0` (equivalent to monoPWM), `markov_order=1` (equivalent to diPWM), and LSlim with `markov_order=-5` (limited Slim; Keilwagen and Grau 2015). Peak signal annotations were derived from the `-10*log10(pvalue)` MACS output field. Slim predictions used `max_score` for performance assessment. Additionally, diPWMs were constructed *de novo* from positive sequences using diChIPMunk (`run_dichiphorde8.rb`). The RF model trained on all available PWMs was then augmented with Slim and diChIPMunk features to test whether combining diverse model types improves prediction beyond PWM ensembles alone (see Fig. 4).
+
+The Slim Python wrapper is available at: https://github.com/autosome-ru/ArChIPelago
 
 **Supported TFs (36):** ANDR, AP2A, CEBPB, COE1, CTCF, E2F4, ERG, ESR1, FLI1, GATA1, GATA2, GATA3, GCR, HNF4A, IRF1, IRF4, JUND, MAFK, MAX, MYC, P53, PPARG, PRGR, REST, RUNX1, RXRA, SOX2, SPI1, SRF, STA5A, STAT1, STAT3, TAL1, TF65, TFE2, USF2.
 
