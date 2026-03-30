@@ -100,7 +100,7 @@ def load_sarus_scores(score_file):
     path = Path(score_file)
     if not path.exists() or path.stat().st_size == 0:
         return pd.Series(dtype=float)
-    scores = pd.read_csv(path, header=None, sep="\t")[0]
+    scores = pd.read_csv(path, header=None, sep="\t", comment=">")[0]
     return scores.reset_index(drop=True)
 
 
