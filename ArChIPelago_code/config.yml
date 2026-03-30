@@ -1,0 +1,29 @@
+# ArChIPelago configuration
+# Edit the paths below before running any notebook.
+# See README.md for download instructions for each resource.
+
+paths:
+  # Reference genomes (downloaded from UCSC Golden Path)
+  genome_human: "/path/to/hg38.fa"
+  genome_mouse: "/path/to/mm10.fa"
+
+  # RepeatMasker BED file for masking repeat regions (MOUSE only)
+  repeatmasker: "/path/to/repeatmasker/track_out.bed"
+
+  # Directory containing MACS peak .interval files from GTRD
+  macs_peaks: "/path/to/macs/"
+
+  # Output base directory (can be relative to ArChIPelago root)
+  output_dir: "Release/TF-ML"
+
+tools:
+  # SARUS PWM scanner JAR (current release: 2.2.3)
+  sarus_jar: "../sarus/releases/sarus-2.2.3.jar"
+
+  # Java executable (full path if not in PATH)
+  java_bin: "java"
+
+  # Optional: path to SLIM jars (for SLIM model training only)
+  slim_dimont_jar: "../Slim/SlimDimont.jar"
+  slim_apply_jar:  "../Slim/TrainAndApplySlim.jar"
+  slim_java_bin:   "../Slim/jdk8u232-b09/bin/java"

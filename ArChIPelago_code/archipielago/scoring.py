@@ -1,13 +1,3 @@
-# scorer_module.py — backward-compatibility shim.
-# All scorer classes now live in archipielago/scoring.py.
-# This file re-exports everything so existing notebooks still work.
-from archipielago.scoring import (  # noqa: F401
-    Scorer, ConstantScorer, BinaryScorer, SklearnScorer,
-    SklearnROCAUC, SklearnPRAUC, PRROCScorer,
-    PRROC_PRAUC, PRROC_ROCAUC, ScorerInfo, import_PRROC,
-)
-
-# Keep original imports so `from scorer_module import X` continues to work
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass, field
 
