@@ -30,7 +30,7 @@ ArChIPelago/
 │   │   ├── test_scanning.py
 │   │   ├── test_training.py
 │   │   └── test_scoring.py
-│   ├── 0_Data_preparation_and_test_train_split.ipynb
+│   ├── 0_Data_preparation and_test_train_split.ipynb
 │   │                             # BED files → FASTA sequences (requires genome + GTRD data)
 │   ├── 1_Scanning_with_CHIPMUNK_feature_generation_MONO_DI.ipynb
 │   │                             # SARUS PWM scanning → feature matrices
