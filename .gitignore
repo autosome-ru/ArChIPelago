@@ -1,5 +1,35 @@
+# Python
 **/__pycache__/
 **/*.pyc
-**/.ipynb_checkpoints/
-.DS_Store
 *.egg-info/
+
+# Jupyter
+**/.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Zenodo download (large data — not tracked)
+14927304/
+
+# Figures: keep R code, ignore generated images and design files
+Figures/**/*.pdf
+Figures/**/*.png
+Figures/**/*.ai
+Figures/**/*.csv
+Figures/**/PWMs/
+
+# Slim: keep only the two jars, ignore bundled JDK
+Slim/jdk8u232-b09/
+Slim/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz
+
+# hocomoco11 data (downloaded separately)
+hocomoco11/
+
+# R session
+.Rhistory
+.RData
+
+# Temporary/output files
+*.tmp
+~$*
