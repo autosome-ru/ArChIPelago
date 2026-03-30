@@ -19,8 +19,7 @@ Figures/**/*.ai
 Figures/**/*.csv
 Figures/**/PWMs/
 
-# Slim: keep only the two jars, ignore bundled JDK
-Slim/jdk8u232-b09/
+# Slim: tarball not needed (JDK already extracted)
 Slim/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz
 
 # hocomoco11 data (downloaded separately)
