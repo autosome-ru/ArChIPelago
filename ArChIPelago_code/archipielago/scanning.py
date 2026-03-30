@@ -63,10 +63,15 @@ def run_sarus(fasta_path, pwm_path, sarus_jar, output_path, java_bin="java",
 
     sarus_class = "ru.autosome.SARUS" if pwm_type == "mono" else "ru.autosome.di.SARUS"
 
-    # Command kept identical to notebooks to preserve reproducibility
+    # Command matches notebooks and manuscript (Kravchenko et al.):
+    # --skipn: skip N-containing positions
+    # --show-non-matching: output score even if no match found
+    # grep -v '>': strip FASTA headers from output (one score per line)
     cmd = (
         f"{java_bin} -Xmx{xmx} -cp {sarus_jar} {sarus_class} "
-        f"{fasta_path} {pwm_path} besthit --output-scoring-mode score"
+        f"{fasta_path} {pwm_path} "
+        f"--skipn --show-non-matching --output-scoring-mode score besthit"
+        f" | grep -v '>'"
     )
 
     with open(output_path, "w") as out_f:
