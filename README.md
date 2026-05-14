@@ -8,7 +8,7 @@ Using 704 ChIP-Seq datasets spanning 36 orthologous human-mouse transcription fa
 
 This repository contains the full analysis pipeline, pre-trained models, and code to reproduce all results from:
 
-> Kravchenko P., Vorontsov I.E., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). *Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.*.
+> Kravchenko P., Vorontsov I.E., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). *Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.*
 
 > **Want to scan your own sequences?** See the companion tool [ArChIPelago-TFBS-finder](https://github.com/Pavel-Kravchenko/ArChIPelago-TFBS-finder) for a ready-to-use CLI that applies pre-trained models to any FASTA file.
 
