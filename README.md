@@ -8,7 +8,7 @@ Using 704 ChIP-Seq datasets spanning 36 orthologous human-mouse transcription fa
 
 This repository contains the full analysis pipeline, pre-trained models, and code to reproduce all results from:
 
-> Kravchenko P., Vorontsov I.E., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). *Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.* Bioinformatics (ECCB 2026).
+> Kravchenko P., Vorontsov I.E., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). *Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.*.
 
 > **Want to scan your own sequences?** See the companion tool [ArChIPelago-TFBS-finder](https://github.com/Pavel-Kravchenko/ArChIPelago-TFBS-finder) for a ready-to-use CLI that applies pre-trained models to any FASTA file.
 
@@ -350,6 +350,6 @@ ArChIPelago is distributed under [WTFPL](http://www.wtfpl.net/). If you prefer a
 
 ## Citation
 
-Kravchenko P., Vorontsov I.E., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites. *Bioinformatics* (ECCB 2026).
+Kravchenko P., Vorontsov I.E., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.
 
 Zenodo data archive: [10.5281/zenodo.14927304](https://zenodo.org/records/14927304)
