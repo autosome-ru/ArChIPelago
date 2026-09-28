@@ -189,14 +189,16 @@ tools:
 |---------|----------|-------------|
 | `train.tar.gz` | Training peak sets (BED) and sequences (FASTA) of the 36 TFs, human and mouse | Notebooks 2, 5 |
 | `test.tar.gz` | Test peak sets (BED) and sequences (FASTA) of the 36 TFs, human and mouse | Notebooks 2, 5 |
-| `PWMs_mono_HUMAN.tar.gz`, `PWMs_di_HUMAN.tar.gz` | Human monoPWMs and diPWMs per TF | Notebooks 1, 2, 5 |
-| `PWMs_mono_MOUSE.tar.gz`, `PWMs_di_MOUSE.tar.gz` | Mouse monoPWMs and diPWMs per TF | Notebooks 1, 2; mouse-trained control |
-| `hocomoco11.tar.gz` | HOCOMOCO v11 benchmark data | Notebook 0 |
-| `Models.tar.gz` | Pre-trained RF models (sklearn 1.3) | Inference only |
-| `Slim.tar.gz` | Slim jar files and bundled JDK 8 | Notebook 2 (Slim training) |
-| `Slim_models.tar.gz` | Pre-trained Slim models | Notebook 2 (comparison) |
+| `PWMs_mono_HUMAN.tar.gz`, `PWMs_di_HUMAN.tar.gz` | Human monoPWMs (1,495) and diPWMs (780) of the 36 TFs | Notebooks 1, 2, 5 |
+| `PWMs_mono_MOUSE.tar.gz`, `PWMs_di_MOUSE.tar.gz` | Mouse monoPWMs (1,192) and diPWMs (624) of the 36 TFs | Notebooks 1, 2; mouse-trained control |
+| `hocomoco11.tar.gz` | HOCOMOCO v11 models, benchmark data and curation tables | Notebook 0 |
 | `macs.tar.gz` | GTRD MACS peak intervals | Notebook 0 |
 | `Archipelago_intermediate_files.tar.gz` | Global sequence tables and FASTA files of the training and test sets, result tables of notebook 2 | Skip notebook 0 |
+| `Models.tar.gz` | Pre-trained Random Forest models on all PWMs of each TF, alone and with Slim / diChIPMunk features (sklearn 1.3) | Inference |
+| `Slim.tar.gz` | Slim jar files and bundled JDK 8 | Notebook 2 (Slim training) |
+| `Slim_models.tar.gz` | Pre-trained Slim models | Notebook 2 (comparison) |
+| `Manuscript_analysis.tar.gz` | `Manuscript_analysis/` of this repository (results table, Sup. Tables 1-6, figure panels and source data, scripts, per-TF analysis outputs) and the supplementary figures PDF | Tables and figures of the manuscript |
+| `ArChIPelago_code_<commit>.tar.gz` | Snapshot of this repository at the commit named in the file name (without the submodules) | Code |
 
 In every archive, files named `train` hold the training chromosomes and files named `test` or `control` hold the test chromosomes (see the split below).
 
