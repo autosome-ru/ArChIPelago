@@ -1,0 +1,5 @@
+Comparison (36 TFs),median dauROC,TFs with dauROC > 0,Wilcoxon P (auROC),median dauPRC,TFs with dauPRC > 0,Wilcoxon P (auPRC),TFs below baseline on >= 1 metric
+Human-trained model on the mouse test set vs the best monoPWM (selected on human training data),0.0148,35,2.9e-10,0.0218,34,1.1e-08,"ERG, P53, STA5A"
+Mouse-trained model on the mouse test set vs the best mouse monoPWM (selected on mouse training data),0.0224,35,5.8e-11,0.0357,36,2.9e-11,USF2
+Mouse-trained minus human-trained model on the same mouse test set (positive = the mouse-trained model is better),0.0086,31,2.3e-06,0.0255,32,2.2e-07,"ANDR, E2F4, MAX, REST, SRF, USF2"
+Human-trained model on the human test set vs the best monoPWM [reference],0.0244,36,2.9e-11,0.0409,36,2.9e-11,none
