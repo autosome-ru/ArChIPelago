@@ -1,5 +1,5 @@
 """
-archi_data.py -- reusable loader for the ArChIPelago per-TF feature matrices.
+pipeline_data.py -- reusable loader for the ArChIPelago per-TF feature matrices.
 
 Reads ONLY from the pipeline output directory $ARCHI_RELEASE_DIR (default ~/Release/TF-ML: the files written by
 notebooks 0-2); never writes there.
@@ -194,8 +194,8 @@ def load_tf(tf, species_train="HUMAN", pwm_species="HUMAN", pwm_set="mono_di", s
 
 def auprc_integral(y, s):
     """auPRC with Davis-Goadrich continuous interpolation between consecutive distinct-score
-    points == PRROC::pr.curve()$auc.integral, the estimator behind the published tables
-    (verified to all printed digits on the SRF single-PWM baselines; see REPORT.md)."""
+    points == PRROC::pr.curve()$auc.integral, the auPRC estimator of the manuscript
+    (identical to all printed digits on the SRF single-PWM baselines)."""
     y = np.asarray(y, float); s = np.asarray(s, float)
     o = np.argsort(-s, kind="mergesort"); y = y[o]; s = s[o]
     last = np.r_[s[1:] != s[:-1], True]                      # end of each tie block
@@ -267,7 +267,7 @@ def evaluate(model, d):
 def load_saved_model(tf, pwm_set="mono_di"):
     """finalized_model_<TF>_HUMAN_RandomForestClassifier_<set>_full_MODEL_all_features.sav
     (joblib; 25 features for SRF; column order of the release run = code_H_base_1_*.sh order)."""
-    import joblib  # own model files from the published pipeline (trusted source)
+    import joblib  # model files written by notebook 2 (trusted source)
     p = os.path.join(OUT, tf, "finalized_model_%s_HUMAN_RandomForestClassifier_%s_full_MODEL_all_features.sav" % (tf, pwm_set))
     return joblib.load(p)
 

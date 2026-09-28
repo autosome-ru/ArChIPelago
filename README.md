@@ -71,10 +71,11 @@ ArChIPelago/
 │   └── environment_rpy_2.yml        # Conda environment specification
 │
 ├── Manuscript_analysis/             # Numbers, tables and figures of the manuscript
-│   ├── HUMAN_MOUSE_total_100k.csv   # Results table (36 TFs x 5 algorithms x 3 PWM sets)
+│   ├── results_table.csv            # Results table (36 TFs x 5 algorithms x 3 PWM sets)
+│   ├── numbers_in_text*.json        # Every number quoted in the text
 │   ├── Sup_Tables/                  # Supplementary Tables 1-6 (xlsx + csv)
 │   ├── Figures/                     # Figure panels (PDF) and their source data (csv)
-│   ├── scripts/                     # Table and figure generators; run_local.sh
+│   ├── scripts/                     # Table, source-data and figure builders; rebuild_tables_and_figures.sh
 │   └── analysis/                    # Per-TF analyses and their outputs
 │
 ├── Kravchenko_et_al_Supplementary_Materials.pdf   # Supplementary figures S1-S7 and table legends
@@ -233,9 +234,9 @@ Run the notebooks sequentially. Each reads `config.yml` for external paths.
 | 1 | PWM scanning | FASTA + HOCOMOCO PWMs | Per-TF SPRY-SARUS feature matrices |
 | 2 | Model training | Feature matrices | Trained RF and Slim models, auROC/auPRC scores |
 | 3 | BiasAway QC | Negative sequences | GC-content quality control plots |
-| 4 | Results collection | Model scores | Results table of notebook 2 (`HUMAN_MOUSE_total_100k.csv`) |
+| 4 | Results collection | Model scores | Results table of notebook 2 (`HUMAN_MOUSE_total_100k.csv`; kept as `Manuscript_analysis/analysis/inputs/notebook4_results_table.csv`) |
 
-The numbers, supplementary tables and figure panels of the manuscript are computed from the outputs of notebooks 0-2 by the scripts in [`Manuscript_analysis/`](Manuscript_analysis/README.md): the evaluation of every model and baseline on both test sets, the mouse-trained control, the operational metrics, the dependence on the number of PWMs, the Fig. 4 models on the best monoPWM and diPWM, the cross-species table and the motif-subtype figure. `bash Manuscript_analysis/scripts/run_local.sh` rebuilds all tables and panels from the per-TF outputs in `Manuscript_analysis/analysis/`.
+The numbers, supplementary tables and figure panels of the manuscript are computed from the outputs of notebooks 0-2 by the scripts in [`Manuscript_analysis/`](Manuscript_analysis/README.md): the evaluation of every model and baseline on both test sets, the mouse-trained control, the operational metrics, the dependence on the number of PWMs, the Fig. 4 models on the best monoPWM and diPWM, the cross-species table and the motif-subtype figure. `bash Manuscript_analysis/scripts/rebuild_tables_and_figures.sh` rebuilds all tables and panels from the per-TF outputs in `Manuscript_analysis/analysis/`.
 
 **Data preparation (Notebook 0):** ChIP-Seq peaks from GTRD were called with MACS (Zhang et al. 2008). Peak lists were filtered by `tags >= 10` and sorted by `-log10(P value)`. Putative binding regions [-150;+150] were extracted centred at the peak summit. Repeat-overlapping peaks were removed using RepeatMasker (Smit et al. 2013-2015) via pybedtools `subtract(f=0.7, N=True)`.
 
@@ -247,7 +248,7 @@ The numbers, supplementary tables and figure panels of the manuscript are comput
 
 **Model parameters (Random Forest):** `max_depth=6, max_samples=0.8, n_estimators=100` (selected via GridSearchCV). Features were scale-transformed with `sklearn.preprocessing.StandardScaler`.
 
-**Slim models (Notebook 2):** ArChIPelago was benchmarked against sparse local inhomogeneous mixture (Slim) models (Grau et al. 2013), trained side-by-side from extended 1001 bp genomic regions around the same peak summits. Slim models were trained using `TrainAndApplySlim.jar` with the bundled JDK 8 (`Slim/jdk8u232-b09/bin/java`). Three Slim model orders were compared: `markov_order=0` (equivalent to monoPWM), `markov_order=1` (equivalent to diPWM), and LSlim with `markov_order=-5` (limited Slim; Keilwagen and Grau 2015). Peak signal annotations were derived from the `-10*log10(pvalue)` MACS output field. Slim predictions used `max_score` for performance assessment. Additionally, diPWMs were constructed *de novo* from the positive sequences using diChIPMunk (`run_dichiphorde8.rb`). The Random Forest on the best monoPWM and the best diPWM (RF2f) was augmented with Slim and diChIPMunk features to test whether combining diverse model types improves prediction (Fig. 4, `Manuscript_analysis/analysis/fig4/`).
+**Slim models (Notebook 2):** ArChIPelago was benchmarked against sparse local inhomogeneous mixture (Slim) models (Grau et al. 2013), trained side-by-side from extended 1001 bp genomic regions around the same peak summits. Slim models were trained using `TrainAndApplySlim.jar` with the bundled JDK 8 (`Slim/jdk8u232-b09/bin/java`). Three Slim model orders were compared: `markov_order=0` (equivalent to monoPWM), `markov_order=1` (equivalent to diPWM), and LSlim with `markov_order=-5` (limited Slim; Keilwagen and Grau 2015). Peak signal annotations were derived from the `-10*log10(pvalue)` MACS output field. Slim predictions used `max_score` for performance assessment. Additionally, diPWMs were constructed *de novo* from the positive sequences using diChIPMunk (`run_dichiphorde8.rb`). The Random Forest on the best monoPWM and the best diPWM (RF2f) was augmented with Slim and diChIPMunk features to test whether combining diverse model types improves prediction (Fig. 4, `Manuscript_analysis/analysis/slim_dichipmunk/`).
 
 **Supported TFs (36):** ANDR, AP2A, CEBPB, COE1, CTCF, E2F4, ERG, ESR1, FLI1, GATA1, GATA2, GATA3, GCR, HNF4A, IRF1, IRF4, JUND, MAFK, MAX, MYC, P53, PPARG, PRGR, REST, RUNX1, RXRA, SOX2, SPI1, SRF, STA5A, STAT1, STAT3, TAL1, TF65, TFE2, USF2.
 
@@ -318,17 +319,17 @@ The test suite covers all package modules (59 tests). Tests run without Zenodo d
 
 Every figure panel and supplementary table is produced by a script in `Manuscript_analysis/`; the figure PDFs are in `Manuscript_analysis/Figures/panels/`, the plotted values in `Manuscript_analysis/Figures/source_data/`.
 
-| Item | Script | Data |
+| Item | Script (`Manuscript_analysis/scripts/`) | Data |
 |------|--------|------|
-| Fig. 2 / S1 | `scripts/Figure_2_H_H.R`, `scripts/Figure_S1_H_M.R` | `HUMAN_MOUSE_total_100k.csv` |
-| Fig. 3A-C / S3 | `scripts/Figure_3_H_H.R`, `scripts/Figure_S3_H_M.R` | `HUMAN_MOUSE_total_100k.csv` |
-| Fig. 4 / S4 | `scripts/Figure_4_and_S4.R` | `analysis/fig4/` |
-| Fig. S2 | `scripts/make_figures_S2_S5_S6.py` | `HUMAN_MOUSE_total_100k.csv` |
-| Fig. S5 | `scripts/Figure_S5_saturation.R` | `analysis/saturation/` |
-| Fig. S6 | `scripts/Figure_S6_cross_species.R` | Sup. Table 5 |
-| Fig. S7 | `analysis/subtypes/Figure_S7_motif_subtypes.R` | `analysis/subtypes/` |
-| Sup. Tables 1-2 | `scripts/make_sup_tables_1_2.py` | `analysis/inputs/`, `analysis/gc/`, `analysis/hm_mm/` |
-| Sup. Tables 3-6 | `scripts/make_sup_tables.py` | results table and `analysis/` outputs |
+| Fig. 2 / S1 | `Figure_2_human_test.R`, `Figure_S1_mouse_test.R` | `results_table.csv` |
+| Fig. S2 | `Figure_S2_RF_vs_best_monoPWM.py` | `results_table.csv` |
+| Fig. 3A-C / S3 | `Figure_3ABC_human_test.R`, `Figure_S3ABC_mouse_test.R` | `results_table.csv` |
+| Fig. 4 / S4 | `Figure_4_and_S4.R` | `analysis/slim_dichipmunk/` |
+| Fig. S5 | `Figure_S5_saturation.R` | `analysis/saturation/` |
+| Fig. S6 | `Figure_S6_cross_species.R` | Sup. Table 5 |
+| Fig. S7 | `Figure_S7_motif_subtypes.R` | `analysis/motif_subtypes/` |
+| Sup. Tables 1-2 | `make_sup_tables_1_2.py` | `analysis/inputs/`, `analysis/datasets/`, `analysis/mouse_transfer/` |
+| Sup. Tables 3-6 | `make_sup_tables_3_to_6.py` | results table and `analysis/` outputs |
 
 Supplementary Tables: 1, ChIP-Seq experiments; 2, PWMs and datasets per TF; 3, ArChIPelago performance; 4, operational metrics; 5, cross-species transfer and the mouse-trained control; 6, runtime and memory. Their legends and the supplementary figures are in `Kravchenko_et_al_Supplementary_Materials.pdf`.
 

@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """Supplementary Tables 3-6 of the manuscript.
 
-Basis: human values of every ArChIPelago model = the notebook 4 run; mouse test set = mouse chromosomes 1, 8
+Basis: human values of every ArChIPelago model = notebook 4; mouse test set = mouse chromosomes 1, 8
 and 19 (mouse training set = mouse chromosomes 2-7, 9, 10 and 13-18); baseline everywhere = the best single monoPWM
 selected on the training set (human training set for the human-trained models, mouse training set for the
 mouse-trained control). No other reference PWM is reported.
 
 Inputs (under Manuscript_analysis/analysis/, see archi_paths.py):
-  ../HUMAN_MOUSE_total_100k.csv                             results table (make_results_table.py)
-  operational/operational_metrics.csv                       tie-aware operational metrics
-  hm_mm/hm_mm_results.csv                                   cross-species + mouse-trained control
-  crossspecies/crossspecies_table.csv                       TF metadata + motif similarity (crossspecies_analysis.py)
+  ../results_table.csv                        results table (make_results_table.py)
+  operational/operational_metrics.csv         tie-aware operational metrics
+  mouse_transfer/mouse_transfer_results.csv   human-trained models on the mouse test set, mouse-trained control
+  cross_species/cross_species_table.csv       TF metadata + motif similarity (cross_species_table.py)
   saturation/saturation_summary_by_k.csv, saturation_per_tf.csv, saturation_results.csv   (analyze_saturation.py)
 
-Sup. Table 3  -- the performance table (+ README, summary)
-Sup. Table 4  -- operational metrics (+ README, summary)
-Sup. Table 5  -- cross-species diagnostics + mouse-trained control (+ README, summary, correlations)
+Sup. Table 3  -- the performance table (sheets summary, performance)
+Sup. Table 4  -- operational metrics (summary, per_TF)
+Sup. Table 5  -- cross-species transfer + mouse-trained control (summary, correlations, per_TF)
 Sup. Table 6  -- runtime / memory benchmark (values measured with the raw timings in analysis/runtime/)
-headline_numbers.json -- every headline number quoted in the manuscript (written to Sup_Tables/)
+numbers_in_text.json -- every number quoted in the text of the manuscript (written to Manuscript_analysis/)
 """
 import json
 import os
@@ -32,7 +32,7 @@ os.makedirs(OUT, exist_ok=True)
 MOUSE_TEST = "chr1, 8, 19"
 HUMAN_TEST = "chr1, 8, 21"
 
-T = pd.read_csv(os.path.join(RES, "HUMAN_MOUSE_total_100k.csv"), sep="\t")
+T = pd.read_csv(os.path.join(RES, "results_table.csv"), sep="\t")
 assert T.shape == (900, 47)
 TFS = sorted(T.TF_name.unique())
 assert len(TFS) == 36
@@ -60,22 +60,6 @@ def desc(d):
 # ----------------------------------------------------------------------------------------------
 t3 = T.drop(columns=["Unnamed: 0", "Names"] + [c for c in T.columns if c.startswith(("mean_", "median_", "std_"))])
 t3 = t3.rename(columns={"Count": "Number of PWMs", "PWM": "PWM type"})
-readme3 = pd.DataFrame({"Sup. Table 3 -- ArChIPelago performance": [
-    "One row per TF x model x PWM set (900 rows, 36 TFs). Models: RandomForestClassifier, XGBClassifier, LogisticRegression, "
-    "BaggingClassifier_XGBClassifier, BaggingClassifier_LogisticRegression; the 'Single best mono PWM' / 'Single best di PWM' rows give the "
-    "single-PWM values (repeated once per model block). All ArChIPelago models of this table are trained on human data only.",
-    f"roc_auc_* / pr_auc_* = auROC / auPRC (PRROC integral) on the human training set (train_H), the human test set (test_H, {HUMAN_TEST}) "
-    f"and the mouse test set (test_M, mouse {MOUSE_TEST}; the mouse training set of the mouse-trained control of Sup. Table 5 is the remaining "
-    "mouse autosomes).",
-    "*_PWM_mono / *_PWM_di = the best single monoPWM / diPWM of the TF, selected on the human training set (independently by auROC and by "
-    "auPRC) and evaluated by PWM identity on each test set; the same value is repeated in every row of that TF. *_PWM = the baseline the "
-    "figures and the text compare against = the best single monoPWM, the common reference for models built on monoPWMs, on diPWMs and on "
-    "both, as stated in the figure legends. Sheet 'summary': the Random Forest on monoPWMs + diPWMs against this baseline on both test sets.",
-    "The human values of the ArChIPelago models are those of the published run. The mouse values are computed with the same models and "
-    "hyperparameters (random_state = 0) trained on the human training set and evaluated on the aligned mouse feature matrix of the mouse "
-    "test set; the mouse baselines are the same human-train-selected PWMs evaluated on the mouse test set.",
-    "'Number of PWMs' = number of monoPWMs of the TF; Seq_count = number of human training positives.",
-]})
 sum3 = []
 for sp, lab in (("H", f"human test set ({HUMAN_TEST})"), ("M", f"mouse test set ({MOUSE_TEST})")):
     b_r, b_p = mono[f"roc_auc_test_{sp}_PWM_mono"], mono[f"pr_auc_test_{sp}_PWM_mono"]
@@ -199,22 +183,6 @@ headline["operational"] = {b: dict(
     M_fp50=[round(om[f"fp_reduction_recall0.5_pct_vs_{b}"].median(), 1), int((om[f"fp_reduction_recall0.5_pct_vs_{b}"] > 0).sum())],
     M_fp80=[round(om[f"fp_reduction_recall0.8_pct_vs_{b}"].median(), 1), int((om[f"fp_reduction_recall0.8_pct_vs_{b}"] > 0).sum())],
 )}
-readme4 = pd.DataFrame({"Sup. Table 4 -- operational relevance of the ArChIPelago gain": [
-    "For each TF and test set, the predictions of the human-trained ArChIPelago Random Forest (monoPWMs + diPWMs) and of the best single "
-    "monoPWM are ranked by score over all candidate regions of the held-out test chromosomes (positives = ChIP-Seq peak summits of the TF; "
-    f"negatives = GC-matched peaks of unrelated TFs, about 1:100). Test sets: human {HUMAN_TEST}; mouse {MOUSE_TEST}.",
-    "Ties: single-PWM scores are heavily tied (a large share of the candidate regions share their best-hit score with other regions; the fraction is "
-    "given per TF). Every block of equal scores is therefore treated as a unit and counts are the expectation under a random order inside "
-    "the block (the linear interpolation of the precision-recall curve through the tie block), identically for the Random Forest and for the "
-    "single PWM.",
-    "Reported: false positives (per 10,000 candidate regions) that must be accepted to recover 50 % and 80 % of the true sites; the precision at "
-    "these recall levels; true sites among the top 1,000 and the top 1 % of the ranked regions; the relative reduction of false positives and "
-    "the additional true sites of ArChIPelago over the baseline; and the paired per-TF precision gain at 50 % recall.",
-    "Baseline: the best single monoPWM, selected on the human training set by auPRC (PRROC integral).",
-    f"Top-1,000 counts on the mouse test set are close to saturation ({int(om.n.min()):,}-{int(om.n.max()):,} regions with up to "
-    f"{int(om.n_pos.max()):,} positives), so the fixed-recall statistics are the informative ones there. Sheet 'summary' gives medians and "
-    "interquartile ranges over the 36 TFs.",
-]})
 with pd.ExcelWriter(os.path.join(OUT, "Sup_Table_4_operational_metrics.xlsx")) as xw:
     sum4.to_excel(xw, sheet_name="summary", index=False)
     t4.to_excel(xw, sheet_name="per_TF", index=False)
@@ -224,8 +192,8 @@ sum4.to_csv(os.path.join(OUT, "Sup_Table_4_operational_metrics_summary.csv"), in
 # ----------------------------------------------------------------------------------------------
 # Sup. Table 5 -- cross-species + mouse-trained control (baseline: best single monoPWM)
 # ----------------------------------------------------------------------------------------------
-hm = pd.read_csv(os.path.join(BASIS, "hm_mm", "hm_mm_results.csv")).set_index("TF").sort_index()
-cs = pd.read_csv(os.path.join(BASIS, "crossspecies", "crossspecies_table.csv")).set_index("TF").sort_index()
+hm = pd.read_csv(os.path.join(BASIS, "mouse_transfer", "mouse_transfer_results.csv")).set_index("TF").sort_index()
+cs = pd.read_csv(os.path.join(BASIS, "cross_species", "cross_species_table.csv")).set_index("TF").sort_index()
 assert list(hm.index) == TFS == list(cs.index) == list(rf.index) and hm.MM_available.all()
 assert np.allclose(rf.roc_auc_test_M, hm.HM_rf_test_M_auroc_s0) and np.allclose(rf.pr_auc_test_M, hm.HM_rf_test_M_auprc_s0)
 assert np.allclose(mono.roc_auc_test_M_PWM_mono, hm.HM_broc_test_M_auroc) and np.allclose(mono.pr_auc_test_M_PWM_mono, hm.HM_bprc_test_M_auprc)
@@ -347,23 +315,6 @@ headline["crossspecies"] = dict(
     gt005_auroc=desc(dHM_roc[dHM_roc > 0.05]), gt006_auprc=desc(dHM_prc[dHM_prc > 0.06]),
     mouse_train_pos_median=int(hm.n_train_pos_M.median()),
 )
-readme5 = pd.DataFrame({"Sup. Table 5 -- cross-species transfer (human -> mouse) and the mouse-trained control": [
-    "H>M = the ArChIPelago Random Forest trained on human ChIP-Seq data with human monoPWMs + diPWMs (the model of the paper), evaluated on the "
-    f"mouse test set (mouse {MOUSE_TEST}). Baseline: the best single monoPWM selected on the HUMAN training set (by PWM identity, "
-    "independently by auROC and by auPRC) and evaluated on the mouse test set.",
-    "M>M = the ArChIPelago Random Forest trained on MOUSE ChIP-Seq data (mouse training set = mouse chromosomes 2-7, 9, 10 and 13-18; mouse monoPWMs + "
-    "diPWMs of the same TF) and evaluated on the same mouse test set; baseline = the best single mouse monoPWM selected on the mouse training set. "
-    "'M>M minus H>M' compares the two models on identical test rows (positive = the mouse-trained model is better).",
-    "H>M values are the mouse numbers of Sup. Table 3 (random_state = 0); M>M values are the mean of two fits (random_state 0 and 1, given "
-    f"separately); the 'M>M minus H>M' columns use the two-seed mean for both models. Between the two seeds a per-TF auROC changes by at most "
-    f"{seed_spread_roc:.3f} and an auPRC by at most {seed_spread_prc:.3f}, so differences of that size should be read as ties.",
-    "Metadata: TF family and TFClass id, PWM counts, numbers of ChIP-Seq experiments and cell types (from Sup. Tables 1-2 and the GTRD metadata), "
-    "training and test positives. Motif similarity = maximum over alignments (both strands, at least 5 overlapping columns) of the mean per-column "
-    "Pearson correlation between the log-odds matrices of the baseline human monoPWM (the best by training auROC, i.e. the *_PWM baseline of Sup. Table 3) "
-    "and its most similar mouse monoPWM of the same TF (maximum over all mouse monoPWMs of the TF).",
-    "Sheets: 'summary' (medians, counts and Wilcoxon signed-rank tests over the 36 TFs), 'correlations' (Spearman correlations of the cross-species "
-    "gain with TF properties), 'per_TF'.",
-]})
 with pd.ExcelWriter(os.path.join(OUT, "Sup_Table_5_cross_species_and_mouse_trained.xlsx")) as xw:
     sum5.to_excel(xw, sheet_name="summary", index=False)
     pd.DataFrame({"Spearman correlations of the cross-species gain with TF properties": CORR_HEADER}).to_excel(xw, sheet_name="correlations", index=False)
@@ -495,7 +446,7 @@ for metric in ["auroc_H", "auprc_H"]:
     sat_topk_minus_random[metric] = {str(k): round(float(t_[k] - r_[k]), 4) for k in r_.index if str(k) not in ("all", "P")}
 headline["saturation_topk_minus_random_median_curve"] = sat_topk_minus_random
 
-with open(os.path.join(OUT, "headline_numbers.json"), "w") as fh:
+with open(os.path.join(RES, "numbers_in_text.json"), "w") as fh:
     json.dump(headline, fh, indent=1, default=str)
 print("written to", OUT)
 print(json.dumps({k: headline[k] for k in ["RF_H", "RF_M", "operational", "crossspecies"]}, indent=1, default=str))

@@ -1,11 +1,11 @@
 # =============================================================================
-# Figure_3_H_H.R -- Fig. 3, panels A-C: Random Forest on monoPWMs, diPWMs and monoPWMs+diPWMs against
+# Figure_3ABC_human_test.R -- Fig. 3, panels A-C: Random Forest on monoPWMs, diPWMs and monoPWMs+diPWMs against
 # the best single monoPWM (selected on the human training set), human test set (chr1, 8, 21); C = gain of the
 # monoPWM+diPWM model per TF (colour: number of PWMs, size: training positives).
 #
-# Input : ../HUMAN_MOUSE_total_100k.csv (make_results_table.py)
-# Usage : Rscript Figure_3_H_H.R [input_table] [output_dir]     (default output: ../Figures/panels)
-# Writes: Figure_3_panels_ABC_human_test.pdf
+# Input : ../results_table.csv (make_results_table.py)
+# Usage : Rscript Figure_3ABC_human_test.R [input_table] [output_dir]     (default output: ../Figures/panels)
+# Writes: Figure_3ABC_human_test.pdf
 # Optional packages (hrbrthemes, gapminder, extrafont, viridis, ggpubr) are used when installed;
 # otherwise ggplot2 / cowplot fallbacks are used.
 # =============================================================================
@@ -18,7 +18,7 @@ script_dir <- local({
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
 })
 args <- commandArgs(trailingOnly = TRUE)
-input_path <- if (length(args) >= 1) args[1] else file.path(script_dir, "..", "HUMAN_MOUSE_total_100k.csv")
+input_path <- if (length(args) >= 1) args[1] else file.path(script_dir, "..", "results_table.csv")
 out_dir    <- if (length(args) >= 2) args[2] else file.path(script_dir, "..", "Figures", "panels")
 if (!file.exists(input_path)) stop("Input table not found: ", input_path)
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
@@ -61,7 +61,7 @@ if (requireNamespace("ggExtra", quietly = TRUE)) {
 }
 if (requireNamespace("extrafont", quietly = TRUE)) {
   library(extrafont)
-  # original: font_import()  -- interactive & slow; use the already-imported fonts instead
+  # use the fonts already imported by extrafont (font_import() is interactive and slow)
   try(suppressMessages(loadfonts(quiet = TRUE)), silent = TRUE)
 } else {
   message("extrafont not installed: skipping font import (device default fonts used)")
@@ -71,7 +71,6 @@ if (requireNamespace("extrafont", quietly = TRUE)) {
 theme_set(theme_get() + theme(text = element_text(family = 'Arial')))
 
 
-# Figure 1   (original stray line; commented out so Rscript can parse the file)
 ##### CHS ####
 
 Model_key_list=c("RandomForestClassifier", "LogisticRegression", "XGBClassifier", "BaggingClassifier_XGBClassifier", "BaggingClassifier_LogisticRegression")
@@ -237,7 +236,7 @@ plot = ggarrange(
 image = annotate_figure(plot, top = text_grob("", 
                                       color = "black", face = "bold", size = 25))
 
-pdf_out <- out_file('Figure_3_panels_ABC_human_test.pdf')
+pdf_out <- out_file('Figure_3ABC_human_test.pdf')
 if (requireNamespace("Cairo", quietly = TRUE)) {
   library(Cairo)
   Cairo(file=pdf_out, type="pdf", width=310, height=185, units="mm")

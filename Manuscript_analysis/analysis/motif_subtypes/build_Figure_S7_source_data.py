@@ -21,7 +21,7 @@
 Outputs (all in this folder): tf_ranking.csv, importances/<TF>_HUMAN_forest_importances_all_features.csv,
 Figure_S7_source_data.csv, matrices/<TF>_<feature>.txt (probability matrices, 4 x L, for R).
 r_max_vs_panel1 of the source data = similarity of each panel to panel 1 = the top monoPWM (max over offsets/strands of the mean per-column Pearson r of the
-per-position z-scored probability matrices, min overlap 5, as in ../crossspecies/motif_similarity.py; panels on the '-'
+per-position z-scored probability matrices, min overlap 5, as in ../cross_species/motif_similarity.py; panels on the '-'
 strand are reverse-complemented for display so that all logos of a TF are on the strand of panel 1).  Never writes outside this folder.
 """
 import csv
@@ -37,7 +37,7 @@ import pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "..", "scripts"))
 from archi_paths import RES, INPUTS, ZENODO as PWM_ROOT  # noqa: E402
-META = os.path.join(INPUTS, "metadata_new_23_02_17_with_control.csv")
+META = os.path.join(INPUTS, "GTRD_metadata.csv")
 SRC = os.path.join(RES, "Figures", "source_data", "Figure_3_source_data.csv")
 SUP5 = os.path.join(RES, "Sup_Tables", "Sup_Table_5_cross_species_and_mouse_trained.csv")
 RAW = os.path.join(HERE, "importances", "sav_model_importances_raw.tsv")
@@ -136,7 +136,7 @@ def zrows(m):
 
 
 def pcc_max(a, b, min_overlap=5):
-    """As ../crossspecies/motif_similarity.py: max over offsets and both strands of the mean
+    """As ../cross_species/motif_similarity.py: max over offsets and both strands of the mean
     per-column Pearson r of two per-position z-scored 4-column matrices. Returns (r, strand, offset, overlap):
     strand "-" = b reverse-complemented; offset k = a[i] is aligned with b[i-k]."""
     best = (-1.0, "+", 0, 0)

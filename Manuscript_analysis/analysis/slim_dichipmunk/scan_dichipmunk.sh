@@ -1,14 +1,14 @@
 #!/bin/bash
 # SARUS scan of the mouse test set with the diChIPMunk diPWM of a TF (built by notebook 2 from the human
-# training positives); input of run_fig4.py.
-# usage: munk_one.sh <TF> [mouse_test_set]
+# training positives); input of fit_RF2f_models.py.
+# usage: scan_dichipmunk.sh <TF> [mouse_test_set]
 #   mouse_test_set: MOUSE_10000_control (default; MOUSE_10000_train in a pipeline directory with ARCHI_MOUSE_FILES_SWAPPED=1)
-# -> $ARCHI_FIG4_SCANS_DIR/munk/<TF>_full_train_M_1_ChIPMunk_no_repeats_0.tab
-# Environment: ARCHI_RELEASE_DIR (default ~/Release/TF-ML), SARUS_JAR (default ../../../sarus/releases/sarus-2.0.1.jar), ARCHI_FIG4_SCANS_DIR.
+# -> $ARCHI_SLIM_SCANS_DIR/munk/<TF>_full_train_M_1_ChIPMunk_no_repeats_0.tab
+# Environment: ARCHI_RELEASE_DIR (default ~/Release/TF-ML), SARUS_JAR (default ../../../sarus/releases/sarus-2.0.1.jar), ARCHI_SLIM_SCANS_DIR.
 HERE=$(cd "$(dirname "$0")" && pwd)
 TFML=${ARCHI_RELEASE_DIR:-~/Release/TF-ML}
 JAR=${SARUS_JAR:-$HERE/../../../sarus/releases/sarus-2.0.1.jar}
-SCANS=${ARCHI_FIG4_SCANS_DIR:-$HERE}
+SCANS=${ARCHI_SLIM_SCANS_DIR:-$HERE}
 TF=$1; SET=${2:-MOUSE_10000_control}
 mkdir -p $SCANS/munk
 out=$SCANS/munk/${TF}_full_train_M_1_ChIPMunk_no_repeats_0.tab

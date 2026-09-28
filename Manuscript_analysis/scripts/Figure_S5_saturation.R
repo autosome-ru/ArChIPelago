@@ -6,7 +6,7 @@
 #
 # Input : Figures/source_data/Figure_S5_source_data.csv   (per-TF curves)
 #         Figures/source_data/Figure_S5_median_curves.csv (median curves)
-#         (written by scripts/make_figures_S2_S5_S6.py)
+#         (written by make_figure_source_data.py)
 # Usage : Rscript Figure_S5_saturation.R [source_data_dir] [output_dir]
 #         (defaults: ../Figures/source_data and ../Figures/panels)
 # Mouse test set = mouse chr1/8/19; reference = best single monoPWM.

@@ -5,12 +5,12 @@ mouse test set = chromosomes 1, 8 and 19; mouse training set = chromosomes 2-7, 
 Inputs:
   * mouse performance (H>M: ArChIPelago RF mono+di seed 0 vs the best human monoPWM, train-selected by auROC /
     by auPRC) and the mouse training / test sizes (n_train_pos_M, n_test_pos_M) come from
-    ../hm_mm/hm_mm_results.csv; the human values from the notebook 4 table (../inputs/HUMAN_MOUSE_total_100k_notebook4.csv);
+    ../mouse_transfer/mouse_transfer_results.csv; the human values from the notebook 4 table (../inputs/notebook4_results_table.csv);
   * the motif similarity of the baseline human monoPWM to the nearest mouse monoPWM: motif_similarity.csv
     (motif_similarity.py; the baseline PWM name is asserted to be the one whose similarity was computed);
-  * TF metadata: ../inputs/Table_1_GTRD_experiments.xlsx, Table_2_TF_metadata.xlsx, metadata_new_23_02_17_with_control.csv.
-Output: crossspecies_table.csv in this folder.
-Run with the system python3 (3.9); reads only; never overwrites an existing crossspecies_table.csv.
+  * TF metadata: ../inputs/GTRD_experiments.xlsx, TF_table.xlsx, GTRD_metadata.csv.
+Output: cross_species_table.csv in this folder.
+Run with the system python3 (3.9); reads only; never overwrites an existing cross_species_table.csv.
 """
 import os, re, sys, collections
 import numpy as np
@@ -19,16 +19,16 @@ from scipy import stats
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
 from archi_paths import INPUTS, BASIS  # noqa: E402
-OUT = os.path.join(BASIS, "crossspecies")
+OUT = os.path.join(BASIS, "cross_species")
 os.makedirs(OUT, exist_ok=True)
-if os.path.exists(os.path.join(OUT, "crossspecies_table.csv")):
-    raise SystemExit("refusing to overwrite %s" % os.path.join(OUT, "crossspecies_table.csv"))
+if os.path.exists(os.path.join(OUT, "cross_species_table.csv")):
+    raise SystemExit("refusing to overwrite %s" % os.path.join(OUT, "cross_species_table.csv"))
 SIM = pd.read_csv(os.path.join(OUT, "motif_similarity.csv")).set_index("TF").sort_index()
 
 # --------------------------------------------------------------------------
-# 1. Results: human side from the notebook 4 table, mouse side from the hm_mm results
+# 1. Results: human side from the notebook 4 table, mouse side from the mouse_transfer results
 # --------------------------------------------------------------------------
-csv = pd.read_csv(os.path.join(INPUTS, "HUMAN_MOUSE_total_100k_notebook4.csv"), sep="\t")
+csv = pd.read_csv(os.path.join(INPUTS, "notebook4_results_table.csv"), sep="\t")
 rf = (csv[(csv.Model == "RandomForestClassifier") & (csv.PWM == "mono+di")]
       .set_index("TF_name").sort_index())
 assert len(rf) == 36 and not rf.index.duplicated().any()
@@ -36,7 +36,7 @@ TFS = list(rf.index)
 mono = (csv[(csv.Model == "Single best mono PWM") & (csv.PWM == "mono")].drop_duplicates("TF_name")
         .set_index("TF_name").sort_index())              # the human best-monoPWM baselines
 assert list(mono.index) == TFS
-hm = pd.read_csv(os.path.join(BASIS, "hm_mm", "hm_mm_results.csv")).set_index("TF").sort_index()
+hm = pd.read_csv(os.path.join(BASIS, "mouse_transfer", "mouse_transfer_results.csv")).set_index("TF").sort_index()
 assert list(hm.index) == TFS and hm.MM_available.all()
 
 A = pd.DataFrame(index=TFS)
@@ -49,7 +49,7 @@ A["PWM_auPRC_H"] = mono.pr_auc_test_H_PWM_mono
 A["ARCH_auROC_H"] = rf.roc_auc_test_H
 A["ARCH_auPRC_H"] = rf.pr_auc_test_H
 assert np.allclose(A.PWM_auROC_H, hm.HM_broc_test_H_auroc) and np.allclose(A.PWM_auPRC_H, hm.HM_bprc_test_H_auprc), \
-    "human baselines of the hm_mm results must equal the notebook 4 best-monoPWM baselines"
+    "human baselines of the mouse_transfer results must equal the notebook 4 best-monoPWM baselines"
 A["dROC_M"] = A.ARCH_auROC_M - A.PWM_auROC_M
 A["dPRC_M"] = A.ARCH_auPRC_M - A.PWM_auPRC_M
 A["dROC_H"] = A.ARCH_auROC_H - A.PWM_auROC_H
@@ -59,15 +59,15 @@ A["n_train_pos"] = rf.Seq_count
 assert (A.n_train_pos == hm.n_train_pos_H).all()
 A["n_train_pos_M"] = hm.n_train_pos_M
 A["n_test_pos_M"] = hm.n_test_pos_M
-worse_now = sorted(A.index[(A.dROC_M < 0) | (A.dPRC_M < 0)])
+below_M = sorted(A.index[(A.dROC_M < 0) | (A.dPRC_M < 0)])
 
 # --------------------------------------------------------------------------
-# 2. Published dataset counts (Sup. Table 1 / 2) and cell types from metadata
+# 2. Dataset and PWM counts (pipeline TF table, Sup. Table 1 experiments) and cell types from metadata
 # --------------------------------------------------------------------------
-t2 = pd.read_excel(os.path.join(INPUTS, "Table_2_TF_metadata.xlsx")).dropna(subset=["TF_name"]).set_index("TF_name").sort_index()
+t2 = pd.read_excel(os.path.join(INPUTS, "TF_table.xlsx")).dropna(subset=["TF_name"]).set_index("TF_name").sort_index()
 assert list(t2.index) == TFS
-t1h = pd.read_excel(os.path.join(INPUTS, "Table_1_GTRD_experiments.xlsx"), sheet_name="Sheet1").assign(sp="H")
-t1m = pd.read_excel(os.path.join(INPUTS, "Table_1_GTRD_experiments.xlsx"), sheet_name="Sheet2").assign(sp="M")
+t1h = pd.read_excel(os.path.join(INPUTS, "GTRD_experiments.xlsx"), sheet_name="Sheet1").assign(sp="H")
+t1m = pd.read_excel(os.path.join(INPUTS, "GTRD_experiments.xlsx"), sheet_name="Sheet2").assign(sp="M")
 t1 = pd.concat([t1h, t1m], ignore_index=True)
 assert (t1.groupby(["TF", "sp"]).size().unstack()["H"] == t2.HUMAN_datasets).all()
 assert (t1.groupby(["TF", "sp"]).size().unstack()["M"] == t2.MOUSE_datasets).all()
@@ -76,7 +76,7 @@ assert (t1.groupby(["TF", "sp"]).size().unstack()["M"] == t2.MOUSE_datasets).all
 # columns for ~100 experiments. The cell-line field is always the one immediately
 # preceding the PEAKSxxxxxx token, so parse the raw lines instead of trusting pandas.
 raw = {}
-for line in open(os.path.join(INPUTS, "metadata_new_23_02_17_with_control.csv")):
+for line in open(os.path.join(INPUTS, "GTRD_metadata.csv")):
     tok = line.rstrip("\n").split(",")
     if not tok[0].startswith("EXP"):
         continue
@@ -268,7 +268,7 @@ D["n_paralogs_approx"] = [FAM[t][1] for t in TFS]
 # 4. Motif similarity human vs mouse monoPWMs (motif_similarity.py);
 #    the baseline monoPWM of the new basis must be the PWM whose similarity was computed
 # --------------------------------------------------------------------------
-names = pd.read_csv(os.path.join(INPUTS, "per_pwm_with_names.csv"))
+names = pd.read_csv(os.path.join(INPUTS, "single_PWM_features.csv"))
 names = names.set_index(["TF", "feature"]).pwm_name
 E = pd.DataFrame(index=TFS)
 for tf in TFS:
@@ -284,7 +284,7 @@ assert (E.n_monoPWM_M_found == D.n_monoPWM_M).all() and (E.n_monoPWM_H_found == 
 # --------------------------------------------------------------------------
 T = pd.concat([A, D, E], axis=1)
 T.index.name = "TF"
-T["below_baseline_M"] = T.index.isin(worse_now)
+T["below_baseline_M"] = T.index.isin(below_M)
 order = ["below_baseline_M", "family", "TFclass_id", "n_paralogs_approx", "n_monoPWM_H", "n_diPWM_H", "n_monoPWM_M", "n_train_pos",
          "n_train_pos_M", "n_test_pos_M",
          "n_exp_H", "n_exp_M", "n_exp_H_metafile", "n_exp_M_metafile", "cells_H", "cells_M", "celltype_overlap", "celltype_overlap_note",
@@ -292,7 +292,7 @@ order = ["below_baseline_M", "family", "TFclass_id", "n_paralogs_approx", "n_mon
          "PWM_auROC_H", "PWM_auPRC_H", "ARCH_auROC_H", "ARCH_auPRC_H",
          "n_monoPWM_H_found", "n_monoPWM_M_found", "topH_PWM", "topH_vs_nearestM_pcc", "median_H_vs_nearestM_pcc", "median_H_vs_nearestH_pcc"]
 T = T[order]
-T.to_csv(os.path.join(OUT, "crossspecies_table.csv"), float_format="%.4f")
+T.to_csv(os.path.join(OUT, "cross_species_table.csv"), float_format="%.4f")
 
 # --------------------------------------------------------------------------
 # 6. Statistics
@@ -329,7 +329,7 @@ if fb.any():
 mw_md = (f"| Mann-Whitney ({int(fb.sum())} below vs {int((~fb).sum())} others) | median (below) | median (others) | p |\n|---|---|---|---|\n"
          + "\n".join(mw)) if mw else "no TF below the baseline on the mouse test set"
 
-print("below the baseline on the mouse test set (chr1/8/19):", worse_now)
+print("below the baseline on the mouse test set (chr1/8/19):", below_M)
 print(stats_md); print(mw_md)
 print(T[["dROC_M", "dPRC_M", "n_train_pos_M", "topH_vs_nearestM_pcc", "median_H_vs_nearestM_pcc"]].round(3).to_string())
-print("written:", os.path.join(OUT, "crossspecies_table.csv"))
+print("written:", os.path.join(OUT, "cross_species_table.csv"))

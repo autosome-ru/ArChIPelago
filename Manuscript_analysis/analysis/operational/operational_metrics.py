@@ -1,7 +1,7 @@
 """Operational relevance of the ArChIPelago gain (Sup. Table 4).
 
 The baseline is the best monoPWM selected
-by TRAINING auPRC on the human training set (score vector pwmH_byprc_test_<H|M> of the hm_mm npz), compared
+by TRAINING auPRC on the human training set (score vector pwmH_byprc_test_<H|M> of the mouse_transfer npz), compared
 with the human-trained RF (seed 0, rf_<H|M>_s0).  Ranking is tie-aware: every block of
 equal scores is a unit and the expectation under a random order inside the block is taken (linear
 interpolation of the PR curve through a tie block):
@@ -11,8 +11,8 @@ interpolation of the PR curve through a tie block):
   * precision at recall r = r*P / (r*P + FP);
   * true positives among the top N: whole blocks plus the proportional share of the block cut by N.
 
-Reads per-TF score vectors saved by the hm_mm run (<scores_dir>/<TF>.npz; test_M = mouse chr1/8/19).
-Usage: python operational_metrics.py <scores_dir> <out_csv>   (scores_dir = --scores-dir of hm_mm/run_hm_mm.py)
+Reads per-TF score vectors saved by the mouse_transfer run (<scores_dir>/<TF>.npz; test_M = mouse chr1/8/19).
+Usage: python operational_metrics.py <scores_dir> <out_csv>   (scores_dir = --scores-dir of mouse_transfer/run_mouse_transfer.py)
 """
 import sys, glob, os
 import numpy as np, pandas as pd

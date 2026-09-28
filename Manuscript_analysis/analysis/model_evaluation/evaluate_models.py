@@ -1,5 +1,5 @@
 """
-run_results_table.py -- compute the rows of the main results table (HUMAN_MOUSE_total_100k) from the
+evaluate_models.py -- compute the rows of the evaluation table (schema of the results table) from the
 per-TF feature files, with aligned human/mouse feature columns and the single-best-PWM baseline selected on
 the human training set by PWM identity; mouse test set = chr1/8/19.
 
@@ -11,7 +11,7 @@ Writes ONLY into --rows-dir (one json per TF/model/mode + one <TF>__baseline.jso
 are never overwritten: combinations whose json exists are skipped, so a second instance can be started on
 the remaining TFs (use --tfs ... or --reverse) and reruns resume.
 
-usage: python run_results_table.py --workers N --threads-per-worker T [--tfs SRF P53 ...] [--reverse]
+usage: python evaluate_models.py --workers N --threads-per-worker T [--tfs SRF P53 ...] [--reverse]
        [--models ...] [--modes mono di mono_di] [--rows-dir rows]
 Thread use = workers x threads-per-worker (RF/XGB n_jobs, Bagging n_jobs with single-threaded members,
 OMP/BLAS caps).  Always launch with nice -n 10.
@@ -36,9 +36,9 @@ from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
-import archi_data as ad
+import pipeline_data as ad
 
-PRC = "integral"     # published auPRC estimator (PRROC pr.curve()$auc.integral)
+PRC = "integral"     # auPRC estimator of the manuscript (PRROC pr.curve()$auc.integral)
 SEED = 0
 MODELS = ["RandomForestClassifier", "LogisticRegression", "XGBClassifier",
           "BaggingClassifier_XGBClassifier", "BaggingClassifier_LogisticRegression"]
@@ -189,7 +189,7 @@ def main():
         tfs = tfs[::-1]
     for m in a.models:
         make_model(m, 1)          # validate names early
-    print("run_results_table: %d TFs, workers=%d threads/worker=%d models=%s modes=%s rows=%s" % (
+    print("evaluate_models: %d TFs, workers=%d threads/worker=%d models=%s modes=%s rows=%s" % (
         len(tfs), a.workers, a.threads_per_worker, a.models, a.modes, a.rows_dir), flush=True)
     jobs = [(tf, a.models, a.modes, a.rows_dir, a.threads_per_worker) for tf in tfs]
     if a.workers == 1:
@@ -200,7 +200,7 @@ def main():
         with mp.get_context("fork").Pool(a.workers, maxtasksperchild=1) as pool:
             for tf in pool.imap_unordered(_worker, jobs):
                 pass
-    print("run_results_table: finished", flush=True)
+    print("evaluate_models: finished", flush=True)
 
 
 if __name__ == "__main__":

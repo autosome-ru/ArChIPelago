@@ -1,8 +1,8 @@
 """
-run_hm_mm.py -- H->M (human-trained) and M->M (mouse-trained) RF vs correct single-mono-PWM baselines
+run_mouse_transfer.py -- H->M (human-trained) and M->M (mouse-trained) RF vs correct single-mono-PWM baselines
 for the 36 ArChIPelago TFs (mouse test set = chr1/8/19).  Writes ONLY into --rows-dir, --scores-dir and --out-csv.
 
-usage: python run_hm_mm.py --tfs SRF P53 ... --workers 3 --rf-jobs 4 --out-csv <path> --rows-dir <dir> --scores-dir <dir>
+usage: python run_mouse_transfer.py --tfs SRF P53 ... --workers 3 --rf-jobs 4 --out-csv <path> --rows-dir <dir> --scores-dir <dir>
 Existing per-TF row json / npz are never overwritten: a TF whose row json exists is skipped.
 """
 import os, sys, json, time, argparse, traceback
@@ -14,9 +14,9 @@ import pandas as pd
 from joblib import parallel_backend
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
-import archi_data as ad
+import pipeline_data as ad
 
-PRC = "integral"          # published auPRC estimator (PRROC)
+PRC = "integral"          # auPRC estimator of the manuscript (PRROC)
 SEEDS = (0, 1)
 
 

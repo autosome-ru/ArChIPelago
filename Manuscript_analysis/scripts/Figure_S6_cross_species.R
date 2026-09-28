@@ -5,7 +5,7 @@
 # Set2 palette, dotted zero lines, ggrepel labels, cairo_pdf output).
 #
 # Input : Figures/source_data/Figure_S6_source_data.csv (extract of Sup. Table 5,
-#         written by scripts/make_figures_S2_S5_S6.py)
+#         written by make_figure_source_data.py)
 # Usage : Rscript Figure_S6_cross_species.R [source_data_dir] [output_dir]
 #         (defaults: ../Figures/source_data and ../Figures/panels)
 # Mouse test set = mouse chr1/8/19; baseline = best single monoPWM. The TFs

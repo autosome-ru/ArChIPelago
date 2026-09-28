@@ -1,13 +1,13 @@
 """
-run_fig4.py -- the models of Fig. 4 / S4 that contain the two single-PWM features (RF2f family).
+fit_RF2f_models.py -- the models of Fig. 4 / S4 that contain the two single-PWM features (RF2f family).
 
-Loader = ../common/archi_data.py; mouse test set = chr1/8/19 (logical ("MOUSE", "control")).
+Loader = ../common/pipeline_data.py; mouse test set = chr1/8/19 (logical ("MOUSE", "control")).
   * Slim test_M scores = scans of the mouse test-set fasta with the Slim models of the TF
-    ($ARCHI_FIG4_SCANS_DIR/slim_scans/<TF>/m<m>_<MOUSE_SET>/model1_predictions.txt, written by scan_one.sh;
+    ($ARCHI_SLIM_SCANS_DIR/slim_scans/<TF>/m<m>_<MOUSE_SET>/model1_predictions.txt, written by scan_slim.sh;
     checked by row count and by sequence-name order against the tab file); ANDR m=1 from the model in
     slim_ANDR_m1/ (its human scores from slim_scans/ANDR/m1_HUMAN_*);
-  * diChIPMunk test_M scores = SARUS scans $ARCHI_FIG4_SCANS_DIR/munk/<TF>_full_train_M_1_ChIPMunk_no_repeats_0.tab
-    (munk_one.sh);
+  * diChIPMunk test_M scores = SARUS scans $ARCHI_SLIM_SCANS_DIR/munk/<TF>_full_train_M_1_ChIPMunk_no_repeats_0.tab
+    (scan_dichipmunk.sh);
   * every TF must have Slim m=0, m=1, m=-5 and diChIPMunk on all three sets, otherwise the script fails.
 
 The two single-PWM features of the RF2f models are the best monoPWM and the best diPWM of the TF, each
@@ -20,15 +20,14 @@ each matrix standardised on itself as in the release code):
   RF2f_slim1      + Slim m=1
   RF2f_lslim5     + LSlim m=-5
   RF2f_all5       + Slim m=1 + LSlim m=-5 + diChIPMunk   (the five-feature model of the text)
-Also written: single-model metrics of Slim m=0, m=1, m=-5, m=-7 and diChIPMunk on test_H/test_M
-(test_H values check the scans against the notebook 2 Slim table), and the metrics of the two
-selected PWMs.  Slim scores are read from the saved Slim predictions on the global sequence sets
+Also written: single-model metrics of Slim m=0, m=1, m=-5, m=-7 and diChIPMunk on test_H/test_M,
+and the metrics of the two selected PWMs.  Slim scores are read from the saved Slim predictions on the global sequence sets
 (<TF>_SlimModel_<m>/*_predictions/model1_predictions.txt, column 4 = maxscore, one row per line of
 out_tab_<SP>_10000_<split>.tab; the newest complete file per set is used), diChIPMunk scores from
 HUMAN_seq_HUMAN_pwm_mono/full_{train_H,control_H}_1_ChIPMunk_no_repeats_0.tab and
 MOUSE_seq_HUMAN_pwm_mono/full_control_M_1_ChIPMunk_no_repeats_0.tab (global order).
 
-usage: python run_fig4.py --tfs A B ... --rows-dir rows     (never overwrites)
+usage: python fit_RF2f_models.py --tfs A B ... --rows-dir rows     (never overwrites)
 """
 import os, sys, json, time, glob, argparse
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -36,11 +35,11 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
-import archi_data as ad
+import pipeline_data as ad
 
 PRC = "integral"
 N_GLOBAL = {("HUMAN", "train"): 241362, ("HUMAN", "control"): 91074, ("MOUSE", "control"): 170571}
-SWAP = os.environ.get("ARCHI_FIG4_SCANS_DIR", os.path.dirname(os.path.abspath(__file__)))
+SWAP = os.environ.get("ARCHI_SLIM_SCANS_DIR", os.path.dirname(os.path.abspath(__file__)))
 MOUSE_SET = "MOUSE_10000_" + ad._file_split("MOUSE", "control")   # on-disk name of the chr1/8/19 mouse table / fasta
 SLIM = {"slim0": 0, "slim1": 1, "lslim5": 5}
 

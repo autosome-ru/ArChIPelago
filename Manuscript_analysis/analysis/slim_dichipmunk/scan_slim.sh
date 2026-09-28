@@ -1,16 +1,16 @@
 #!/bin/bash
-# Slim scan of one sequence set with one Slim model of a TF (inputs of run_fig4.py).
-# usage: scan_one.sh <TF> <m> <set> [model_xml]
+# Slim scan of one sequence set with one Slim model of a TF (inputs of fit_RF2f_models.py).
+# usage: scan_slim.sh <TF> <m> <set> [model_xml]
 #   <m>   Slim model order as in the pipeline folder name (0, 1, 5 for LSlim m=-5)
 #   <set> global sequence set: HUMAN_10000_train, HUMAN_10000_control, or the mouse test set
 #         (MOUSE_10000_control; MOUSE_10000_train in a pipeline directory with ARCHI_MOUSE_FILES_SWAPPED=1)
-# -> $ARCHI_FIG4_SCANS_DIR/slim_scans/<TF>/m<m>_<set>/model1_predictions.txt
+# -> $ARCHI_SLIM_SCANS_DIR/slim_scans/<TF>/m<m>_<set>/model1_predictions.txt
 # Environment: ARCHI_RELEASE_DIR (pipeline output, default ~/Release/TF-ML), SLIM_DIR (folder with
-# TrainAndApplySlim.jar and jdk8u232-b09/, default ../../../Slim of this repository), ARCHI_FIG4_SCANS_DIR (default this folder).
+# TrainAndApplySlim.jar and jdk8u232-b09/, default ../../../Slim of this repository), ARCHI_SLIM_SCANS_DIR (default this folder).
 HERE=$(cd "$(dirname "$0")" && pwd)
 TFML=${ARCHI_RELEASE_DIR:-~/Release/TF-ML}
 SLIM=${SLIM_DIR:-$HERE/../../../Slim}
-SCANS=${ARCHI_FIG4_SCANS_DIR:-$HERE}
+SCANS=${ARCHI_SLIM_SCANS_DIR:-$HERE}
 TF=$1; M=$2; SET=$3; XML=${4:-$TFML/outputdir/$TF/${TF}_SlimModel_$M/Motif_1/SlimDimont_1.xml}
 out=$SCANS/slim_scans/$TF/m${M}_$SET
 if [ -s $out/model1_predictions.txt ]; then echo "skip $TF m$M $SET"; exit 0; fi

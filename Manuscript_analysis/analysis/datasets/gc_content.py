@@ -1,10 +1,10 @@
 """Mean GC content (%) of the positive and negative sequences of every set used in the manuscript
 (human training = chr2-7, 9, 10, 13-20; human test = chr1, 8, 21; mouse training = chr2-7, 9, 10, 13-18;
-mouse test = chr1, 8, 19), for the 36 TFs, on exactly the rows that archi_data.select_rows() returns
+mouse test = chr1, 8, 19), for the 36 TFs, on exactly the rows that pipeline_data.select_rows() returns
 (up to 10,000 positives and 1,000,000 negatives per TF and set, random_state=0).
 
 Two sequence versions are read (same row order as out_tab_<SP>_10000_<train|control>.tab; the loader maps the logical split to the
-file name, see ../common/archi_data.py):
+file name, see ../common/pipeline_data.py):
   genomic     $ARCHI_RELEASE_DIR/all_mfa_file_<SP>_10000_<train|control>.fasta  -- 300-bp genome extracts,
               soft-masked (lowercase = RepeatMasker repeats), a few N; GC = (G+C)/(A+C+G+T), case-insensitive,
               N excluded.  These are the values reported in Sup. Table 2.
@@ -16,9 +16,9 @@ Output: gc_content.csv (one row per TF).  Read-only on $ARCHI_RELEASE_DIR; one t
 import os, sys
 import numpy as np, pandas as pd
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
-import archi_data as ad
+import pipeline_data as ad
 HERE = os.path.dirname(os.path.abspath(__file__))
-TFS = sorted(pd.read_csv(os.path.join(HERE, "table1_ids.csv")).TF.unique())
+TFS = sorted(pd.read_csv(os.path.join(HERE, "experiment_ids.csv")).TF.unique())
 assert len(TFS) == 36
 
 def gc_array(path, allow_n):

@@ -6,7 +6,7 @@ Design A ("random"): for each k in {1,2,4,...,128} (k < P) draw R random subsets
 k = P is fitted with 2 seeds.  Design B ("topk"): the k columns with the highest TRAIN auROC
 (deterministic, one fit per k < P).  Metrics: auROC and auPRC (PRROC integral) on test_H and
 test_M, the human-train-selected best single mono-PWM baseline, and the best single PWM inside
-the subset.  Uses the loader ../common/archi_data.py.
+the subset.  Uses the loader ../common/pipeline_data.py.
 
 Outputs (this folder):
   per_tf/<TF>.csv            rows of this TF (written when the TF finishes; a TF with an existing
@@ -29,12 +29,12 @@ import pandas as pd
 from joblib import parallel_backend
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
-import archi_data as ad  # noqa: E402
+import pipeline_data as ad  # noqa: E402
 
 OUTDIR = os.path.dirname(os.path.abspath(__file__))
 PER_TF = os.path.join(OUTDIR, "per_tf")
 MASTER = os.path.join(OUTDIR, "saturation_results.csv")
-CSV36 = os.path.join(OUTDIR, "..", "inputs", "HUMAN_MOUSE_total_100k_notebook4.csv")
+CSV36 = os.path.join(OUTDIR, "..", "inputs", "notebook4_results_table.csv")
 K_GRID = [1, 2, 4, 8, 16, 32, 64, 128]
 COLS = ["tf", "design", "k", "P", "rep", "seed", "auroc_H", "auprc_H", "auroc_M", "auprc_M",
         "base_auroc_H", "base_auprc_H", "base_auroc_M", "base_auprc_M",
@@ -112,7 +112,7 @@ def run_tf(args):
             ct.to_csv(ct_path, index=False)
 
         # paper baseline: best single MONO PWM selected on human train (column choice as in the
-        # release code), re-evaluated with the published (integral) auPRC estimator
+        # release code), evaluated with the PRROC integral auPRC estimator
         tests = {"test_H": (d["X_test_H"], d["y_test_H"]), "test_M": (d["X_test_M"], d["y_test_M"])}
         b = ad.best_pwm_baseline(d["X_train"], d["y_train"], tests, mask=d["is_mono"])
         jr, jp = b["by_roc"]["col"], b["by_prc"]["col"]

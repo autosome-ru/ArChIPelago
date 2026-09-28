@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Assemble the Figure 4 / S4 table from the per-TF rows (analysis/fig4/rows/<TF>.json) and
-the results table (Manuscript_analysis/HUMAN_MOUSE_total_100k.csv).
+"""Assemble the Figure 4 / S4 table from the per-TF rows (analysis/slim_dichipmunk/rows/<TF>.json) and
+the results table (Manuscript_analysis/results_table.csv).
 
 Mouse test set = chromosomes 1, 8 and 19. Every TF carries all five RF2f-family
 models (n = 36 in every row); a missing model or a missing single-model value stops the script.
 
 Rows of the figure (delta = model metric - the best single monoPWM, train-selected; the *_PWM columns of the results table):
   Slim m=0, Slim m=1, LSlim m=-5, diChIPMunk            single models: human test set = the notebook 2 Slim
-                                                          tables (analysis/inputs/HUMAN_MOUSE_SLIM_*.txt), mouse test set = the scans of
+                                                          tables (analysis/inputs/notebook2_Slim_diChIPMunk_RF2f_*.txt), mouse test set = the scans of
                                                           the chr1/8/19 set (single_<model>_test_M of the rows)
   RF2f, RF2f+diChIPMunk, RF2f+Slim m=1, RF2f+LSlim m=-5,
   RF2f+Slim m=1+LSlim m=-5+diChIPMunk                     fitted on the best monoPWM + best diPWM (random_state 0)
   RF on all PWMs                                          the ArChIPelago model of Fig. 2/3 (results table)
-Outputs: analysis/fig4/fig4_table.csv (wide), Figures/source_data/Figure_4_source_data.csv
-and Figure_S4_source_data.csv (long), Sup_Tables/fig4_numbers.json (headline numbers).
+Outputs: analysis/slim_dichipmunk/RF2f_Slim_diChIPMunk_table.csv (wide), Figures/source_data/Figure_4_source_data.csv
+and Figure_S4_source_data.csv (long), numbers_in_text_Figure_4.json (the numbers of Fig. 4 / S4 quoted in the text).
 """
 import glob
 import json
@@ -27,7 +27,7 @@ from scipy.stats import wilcoxon
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
 from archi_paths import INPUTS, BASIS, RES  # noqa: E402
 
-ROWS = os.path.join(BASIS, "fig4", "rows")
+ROWS = os.path.join(BASIS, "slim_dichipmunk", "rows")
 SLIM_COLS_H = {"slim0": 11, "slim1": 12, "lslim5": 13, "munk": 14}   # 1-based columns of the notebook 2 Slim table
 SINGLE = ("slim0", "slim1", "lslim5", "munk")
 RF2F = ("RF2f", "RF2f_munk", "RF2f_slim1", "RF2f_lslim5", "RF2f_all5")
@@ -40,20 +40,20 @@ LABEL = {"slim0": "Slim m=0", "slim1": "Slim m=1", "lslim5": "LSlim m=-5", "munk
 
 def main():
     rows = {os.path.basename(f)[:-5]: json.load(open(f)) for f in sorted(glob.glob(os.path.join(ROWS, "*.json")))}
-    T = pd.read_csv(os.path.join(RES, "HUMAN_MOUSE_total_100k.csv"), sep="\t")
+    T = pd.read_csv(os.path.join(RES, "results_table.csv"), sep="\t")
     rf = T[(T.Model == "RandomForestClassifier") & (T.PWM == "mono+di")].set_index("TF_name")
     tfs = sorted(rf.index)
     assert len(tfs) == 36
     missing = [tf for tf in tfs if tf not in rows]
     if missing:
-        raise SystemExit("fig4 rows missing in %s for: %s" % (ROWS, ", ".join(missing)))
+        raise SystemExit("rows missing in %s for: %s" % (ROWS, ", ".join(missing)))
     for tf in tfs:
         r = rows[tf]
         bad = [m for m in RF2F if not r.get(m)] + [f"single_{m}_test_M" for m in SINGLE if not r.get(f"single_{m}_test_M")]
         if bad:
             raise SystemExit("%s.json lacks %s (every TF must carry all five RF2f-family models and the four single models on the mouse test set)" % (tf, ", ".join(bad)))
     slim_h = {}
-    for met, fn in (("roc", "HUMAN_MOUSE_SLIM_roc_mono_di_RandomForestClassifier.txt"), ("pr", "HUMAN_MOUSE_SLIM_pr_mono_di_RandomForestClassifier.txt")):
+    for met, fn in (("roc", "notebook2_Slim_diChIPMunk_RF2f_auROC.txt"), ("pr", "notebook2_Slim_diChIPMunk_RF2f_auPRC.txt")):
         s = pd.read_csv(os.path.join(INPUTS, fn), sep="\t", header=None)
         s[0] = s[0].str[:-6]
         slim_h[met] = s.set_index(0)
@@ -92,8 +92,7 @@ def main():
     long = pd.DataFrame(long)
     assert long[["auROC", "auPRC"]].notna().all().all() and len(long) == 36 * 2 * len(MODELS)
     os.makedirs(os.path.join(RES, "Figures", "source_data"), exist_ok=True)
-    os.makedirs(os.path.join(RES, "Sup_Tables"), exist_ok=True)
-    wide.to_csv(os.path.join(BASIS, "fig4", "fig4_table.csv"), index=False)
+    wide.to_csv(os.path.join(BASIS, "slim_dichipmunk", "RF2f_Slim_diChIPMunk_table.csv"), index=False)
     long[long.test_set == "human"].to_csv(os.path.join(RES, "Figures", "source_data", "Figure_4_source_data.csv"), index=False)
     long[long.test_set == "mouse"].to_csv(os.path.join(RES, "Figures", "source_data", "Figure_S4_source_data.csv"), index=False)
 
@@ -109,7 +108,7 @@ def main():
                                    p_auprc=float(wilcoxon(d.d_auPRC, alternative="greater").pvalue),
                                    median_auroc=round(float(d.auROC.median()), 4), median_auprc=round(float(d.auPRC.median()), 4))
     num["n_features"] = {m: rows["SRF"][m]["n_features"] for m in RF2F}
-    with open(os.path.join(RES, "Sup_Tables", "fig4_numbers.json"), "w") as fh:
+    with open(os.path.join(RES, "numbers_in_text_Figure_4.json"), "w") as fh:
         json.dump(num, fh, indent=1)
     for sp, title in (("H", "human test set"), ("M", "mouse test set (chr1/8/19)")):
         print("\n%s: median delta vs best monoPWM / TFs above 0 / one-sided Wilcoxon P" % title)

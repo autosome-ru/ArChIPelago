@@ -5,15 +5,14 @@
 # the top-4 monoPWMs and the top-2 diPWMs by RF feature importance, drawn as
 # information-content logos (ggseqlogo, bits), TF name and dauROC / dauPRC at the left.
 #
-# Input : Figure_S7_source_data.csv (built by build_source_data.py) + the probability
-#         matrices it points to (matrices/<TF>_<feature>.txt, 4 x L, rows A C G T).
+# Input : ../analysis/motif_subtypes/Figure_S7_source_data.csv (built by build_Figure_S7_source_data.py) + the
+#         probability matrices it points to (matrices/<TF>_<feature>.txt, 4 x L, rows A C G T).
 #         diPWMs are shown as the mononucleotide marginal of the dinucleotide model
-#         (see build_source_data.py); logos on the '-' strand relative to the top
+#         (see build_Figure_S7_source_data.py); logos on the '-' strand relative to the top
 #         monoPWM of the TF are reverse-complemented for display ("rc" in the title).
-# Output: ../../Figures/panels/Figure_S7_motif_subtypes.pdf (cairo_pdf, Arial), ../../Figures/previews/
-#         Figure_S7_motif_subtypes.png, preview/<TF>.png (150 dpi, one row per TF) for inspection.
+# Output: ../Figures/panels/Figure_S7_motif_subtypes.pdf (cairo_pdf, Arial)
 # Usage : Rscript Figure_S7_motif_subtypes.R [TF ...]   (edit TFS below, or list TFs on the command line)
-# Style : as scripts/Figure_S6_cross_species.R (Arial, theme_minimal,
+# Style : as Figure_S6_cross_species.R (Arial, theme_minimal,
 #         cairo_pdf); logo letters use ggseqlogo's built-in glyphs.
 # =============================================================================
 
@@ -21,7 +20,6 @@ suppressPackageStartupMessages({library(ggplot2); library(ggseqlogo); library(pa
 
 # ---- choose the TFs to draw (row order of the figure); NULL = all candidates -------------
 TFS <- c("E2F4", "RXRA", "TAL1", "TFE2")   # the TFs whose top-ranked PWMs show distinct subtypes (tf_ranking.csv)
-PREVIEWS <- TRUE                  # also write preview/<TF>.png for every TF drawn
 cli <- commandArgs(trailingOnly = TRUE)      # Rscript Figure_S7_motif_subtypes.R TAL1 RXRA  overrides TFS
 if (length(cli)) TFS <- cli
 
@@ -29,7 +27,8 @@ script_dir <- local({
   f <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
 })
-src_path <- file.path(script_dir, "Figure_S7_source_data.csv")
+data_dir <- file.path(script_dir, "..", "analysis", "motif_subtypes")
+src_path <- file.path(data_dir, "Figure_S7_source_data.csv")
 if (!file.exists(src_path)) stop("Input not found: ", src_path)
 if (!interactive()) pdf(NULL)
 
@@ -39,7 +38,7 @@ N_MONO <- 4; N_DI <- 2; N_COL <- N_MONO + N_DI
 LOGO_FONT <- "helvetica_bold"
 
 d <- read.csv(src_path, stringsAsFactors = FALSE, check.names = FALSE)
-all_tfs <- unique(d$TF)                       # ranking order from build_source_data.py
+all_tfs <- unique(d$TF)                       # ranking order from build_Figure_S7_source_data.py
 if (is.null(TFS)) TFS <- all_tfs
 missing <- setdiff(TFS, all_tfs)
 if (length(missing)) stop("TF(s) not in the source data: ", paste(missing, collapse = ", "))
@@ -47,7 +46,7 @@ d <- d[d$TF %in% TFS, ]
 x_max <- max(d$motif_length)                  # common bp scale for all logos
 
 read_matrix <- function(f) {
-  m <- as.matrix(read.delim(file.path(script_dir, f), row.names = 1, check.names = FALSE))
+  m <- as.matrix(read.delim(file.path(data_dir, f), row.names = 1, check.names = FALSE))
   if (!identical(rownames(m), c("A", "C", "G", "T"))) stop("bad matrix rows in ", f)
   colnames(m) <- NULL
   m
@@ -97,15 +96,6 @@ assemble <- function(tfs) {
   wrap_plots(panels, ncol = N_COL + 1, widths = c(0.62, rep(1, N_COL)), byrow = TRUE)
 }
 
-# ---- per-TF previews --------------------------------------------------------
-if (PREVIEWS) {
-  dir.create(file.path(script_dir, "preview"), showWarnings = FALSE)
-  for (tf in TFS) {
-    ggsave(file.path(script_dir, "preview", paste0(tf, ".png")), assemble(tf),
-           width = 400, height = 34, units = "mm", dpi = 150, bg = "white")
-  }
-}
-
 # ---- the figure -------------------------------------------------------------
 fig <- assemble(TFS) +
   plot_annotation(
@@ -117,12 +107,9 @@ fig <- assemble(TFS) +
                   plot.subtitle = element_text(family = "Arial", size = 11, hjust = 0, colour = "grey25")))
 
 H <- 20 + 32 * length(TFS)
-pdf_out <- file.path(script_dir, "..", "..", "Figures", "panels", "Figure_S7_motif_subtypes.pdf")
-png_out <- file.path(script_dir, "..", "..", "Figures", "previews", "Figure_S7_motif_subtypes.png")
-dir.create(dirname(png_out), showWarnings = FALSE)
+pdf_out <- file.path(script_dir, "..", "Figures", "panels", "Figure_S7_motif_subtypes.pdf")
 ggsave(pdf_out, fig, device = grDevices::cairo_pdf, width = 400, height = H, units = "mm", limitsize = FALSE)
-ggsave(png_out, fig, width = 400, height = H, units = "mm", dpi = 150, bg = "white", limitsize = FALSE)
 
 cat("TFs:", paste(TFS, collapse = ", "), "\n")
 cat("Panels:", nrow(d), "| bp scale 1-", x_max, "\n")
-cat("Written:", pdf_out, "\n         ", png_out, "\n")
+cat("Written:", pdf_out, "\n")

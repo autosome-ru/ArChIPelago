@@ -1,11 +1,12 @@
 """
-assemble_results_table.py -- build HUMAN_MOUSE_total_100k_recomputed.csv (identical schema / row semantics to
-the notebook 4 table read by the R figure scripts) from the per-combination json rows written by
-run_results_table.py, plus best_pwm_names.csv and a per-TF comparison with the notebook 4 table.  Then
-validates against the notebook 4 table and prints the headline numbers.
+assemble_evaluation_table.py -- build evaluation_table.csv from the per-combination json rows written by
+evaluate_models.py, plus best_single_PWMs.csv (the selected single PWMs of every TF), and print the headline
+numbers.  The table has the schema, row order and row semantics of the notebook 4 results table
+(inputs/notebook4_results_table.csv, read for its columns, row order and TF index); make_results_table.py
+merges the two.
 
-usage: python assemble_results_table.py --rows-dir rows \
-         --published ../inputs/HUMAN_MOUSE_total_100k_notebook4.csv --out-dir .
+usage: python assemble_evaluation_table.py --rows-dir rows \
+         --notebook4-table ../inputs/notebook4_results_table.csv --out-dir .
 Never overwrites: refuses to run if an output file already exists.
 """
 import os, sys, json, glob, argparse
@@ -25,7 +26,7 @@ def load_rows(rows_dir):
             j = json.load(f)
         if p.endswith("__baseline.json"):
             base[j["tf"]] = j
-        elif p.endswith("__col0.json"):      # first mono / di PWM (published 'Single best di PWM' convention)
+        elif p.endswith("__col0.json"):      # first mono / di PWM of the TF
             col0[j["tf"]] = j
         else:
             rows[(j["tf"], j["model"], j["mode"])] = j
@@ -40,7 +41,7 @@ def base_vals(b, kind):
 
 
 def fill_stats(row, roc, pr):
-    """model/point values + the published mean/median/std columns (mean = median = value, std = 0)."""
+    """model/point values + the mean/median/std columns of the notebook 4 schema (mean = median = value, std = 0)."""
     for blk, val in zip(METRIC_BLOCKS, [roc["test_M"], roc["test_H"], roc["train_H"], pr["test_M"], pr["test_H"], pr["train_H"]]):
         row[("roc_" + blk) if not blk.startswith("pr_") else blk] = val
         row["mean_" + blk] = val
@@ -49,7 +50,7 @@ def fill_stats(row, roc, pr):
 
 
 def make_rows(tf, b, rows, tf_index):
-    """25 rows for one TF in the published block order:
+    """25 rows for one TF in the block order of the notebook 4 table:
     for each model: [Single best mono PWM, model mono, Single best di PWM, model di, model mono+di]."""
     bm_roc, bm_pr = base_vals(b, "mono")
     bd_roc, bd_pr = base_vals(b, "di")
@@ -75,12 +76,12 @@ def make_rows(tf, b, rows, tf_index):
     def model_row(model, mode):
         j = rows[(tf, model, mode)]
         pwm = MODE2PWM[mode]
-        # published quirk: Count of the mono+di rows = number of mono PWMs (features_c counted mono files)
+        # notebook 4 convention: Count of the mono+di rows = number of mono PWMs (features_c counted mono files)
         row = dict(common, Count={"mono": n_mono, "di": n_di, "mono_di": n_mono}[mode], Model=model, PWM=pwm)
         if mode == "mono":
             roc, pr = bm_roc, bm_pr
             for k in ("train_H", "test_H", "test_M"):
-                for kind in ("mono", "di"):          # published quirk: *_PWM_di columns repeat the mono values
+                for kind in ("mono", "di"):          # notebook 4 convention: *_PWM_di columns repeat the mono values
                     row["roc_auc_%s_PWM_%s" % (k, kind)] = roc[k]
                     row["pr_auc_%s_PWM_%s" % (k, kind)] = pr[k]
         elif mode == "di":
@@ -112,7 +113,7 @@ def make_rows(tf, b, rows, tf_index):
 def headline(df, label):
     """Paper-style numbers from a table: RF mono+di vs single best mono PWM (test_H, test_M)."""
     rf = df[(df.Model == "RandomForestClassifier") & (df.PWM == "mono+di")].set_index("TF_name").sort_index()
-    bm = df[df.Model == "Single best mono PWM"].groupby("TF_name").first().sort_index()   # 5 identical rows per TF (published: not identical for test_M)
+    bm = df[df.Model == "Single best mono PWM"].groupby("TF_name").first().sort_index()   # 5 identical rows per TF
     bm_all = df[df.Model == "Single best mono PWM"]
     print("\n== %s: RF (mono+di) vs single best mono PWM ('Single best mono PWM' rows; median of 36 TFs)" % label)
     res = {}
@@ -138,20 +139,19 @@ def headline(df, label):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--rows-dir", required=True)
-    ap.add_argument("--published", required=True)
+    ap.add_argument("--notebook4-table", required=True)
     ap.add_argument("--out-dir", required=True)
     a = ap.parse_args()
-    out_csv = os.path.join(a.out_dir, "HUMAN_MOUSE_total_100k_recomputed.csv")
-    out_names = os.path.join(a.out_dir, "best_pwm_names.csv")
-    out_cmp = os.path.join(a.out_dir, "per_tf_notebook4_vs_recomputed.csv")
-    for p in (out_csv, out_names, out_cmp):
+    out_csv = os.path.join(a.out_dir, "evaluation_table.csv")
+    out_names = os.path.join(a.out_dir, "best_single_PWMs.csv")
+    for p in (out_csv, out_names):
         if os.path.exists(p):
             sys.exit("refusing to overwrite existing %s" % p)
 
-    pub = pd.read_csv(a.published, sep="\t")
-    cols = list(pub.columns)
-    tf_index = pub.groupby("TF_name")["Unnamed: 0"].first().to_dict()
-    tfs = sorted(pub["TF_name"].unique())
+    nb4 = pd.read_csv(a.notebook4_table, sep="\t")
+    cols = list(nb4.columns)
+    tf_index = nb4.groupby("TF_name")["Unnamed: 0"].first().to_dict()
+    tfs = sorted(nb4["TF_name"].unique())
     base, rows, col0 = load_rows(a.rows_dir)
     missing = [(tf, m, mo) for tf in tfs for m in MODELS for mo in MODE2PWM if (tf, m, mo) not in rows]
     missing_b = [tf for tf in tfs if tf not in base]
@@ -163,14 +163,12 @@ def main():
         recs += make_rows(tf, base[tf], rows, int(tf_index[tf]))
     df = pd.DataFrame(recs)[cols]
     assert list(df.columns) == cols, "column mismatch"
-    assert len(df) == len(pub) == 900, (len(df), len(pub))
+    assert len(df) == len(nb4) == 900, (len(df), len(nb4))
     key = lambda d: sorted(zip(d.TF_name, d.Model, d.PWM))
-    assert key(df) == key(pub), "key set / multiplicity differs from the published table"
+    assert key(df) == key(nb4), "key set / multiplicity differs from the notebook 4 table"
     assert (df.groupby("TF_name")["Seq_count"].first().sort_index().values ==
-            pub.groupby("TF_name")["Seq_count"].first().sort_index().values).all(), "Seq_count differs"
-    assert list(zip(df.TF_name, df.Model, df.PWM)) == list(zip(pub.TF_name, pub.Model, pub.PWM)), "row order differs"
-    cnt_f = df.groupby(["TF_name", "PWM"])["Count"].first(); cnt_p = pub.groupby(["TF_name", "PWM"])["Count"].first()
-    print("Count columns identical to published: %s" % (cnt_f == cnt_p.loc[cnt_f.index]).all())
+            nb4.groupby("TF_name")["Seq_count"].first().sort_index().values).all(), "Seq_count differs"
+    assert list(zip(df.TF_name, df.Model, df.PWM)) == list(zip(nb4.TF_name, nb4.Model, nb4.PWM)), "row order differs"
     df.to_csv(out_csv, sep="\t", index=False)
     print("wrote %s (%d rows x %d cols)" % (out_csv, *df.shape))
 
@@ -186,7 +184,7 @@ def main():
                 r["best_%s_by_%s" % (kind, key_)] = x["name"]
                 for k in ("train_H", "test_H", "test_M"):
                     r["best_%s_by_%s_%s_%s" % (kind, key_, k, "auroc" if mi == 0 else "auprc")] = x[k][mi]
-        if tf in col0:      # published convention for the di baseline: column 0 of the di matrix (first di PWM)
+        if tf in col0:      # the first mono / di PWM of the TF (column 0 of each matrix)
             for kind in ("mono", "di"):
                 x = col0[tf][kind + "_0"]
                 r["first_%s" % kind] = x["name"]
@@ -198,32 +196,7 @@ def main():
     print("wrote %s" % out_names)
 
     # headline numbers
-    rf_p, bm_p = headline(pub, "PUBLISHED")
-    rf_f, bm_f = headline(df, "FIXED")
-
-    # per-TF comparison (RF mono+di minus single best mono PWM), published vs fixed
-    cmp = pd.DataFrame({"TF_name": tfs})
-    cmp = cmp.set_index("TF_name")
-    for sp in ("H", "M"):
-        for met, col in (("auROC", "roc_auc_test_%s" % sp), ("auPRC", "pr_auc_test_%s" % sp)):
-            cmp["RF_%s_%s_pub" % (sp, met)] = rf_p.loc[tfs, col].values
-            cmp["RF_%s_%s_fix" % (sp, met)] = rf_f.loc[tfs, col].values
-            # published mono baseline for the mouse differs between the 5 model blocks (scrambled); use the RF block (first row)
-            cmp["PWM_%s_%s_pub" % (sp, met)] = bm_p.loc[tfs, col].values
-            cmp["PWM_%s_%s_fix" % (sp, met)] = bm_f.loc[tfs, col].values
-            cmp["delta_%s_%s_pub" % (sp, met)] = cmp["RF_%s_%s_pub" % (sp, met)] - cmp["PWM_%s_%s_pub" % (sp, met)]
-            cmp["delta_%s_%s_fix" % (sp, met)] = cmp["RF_%s_%s_fix" % (sp, met)] - cmp["PWM_%s_%s_fix" % (sp, met)]
-    cmp.reset_index().to_csv(out_cmp, sep="\t", index=False, float_format="%.4f")
-    print("wrote %s" % out_cmp)
-    pd.set_option("display.width", 250)
-    print("\nper-TF mouse deltas (RF mono+di minus best mono PWM), published vs fixed:")
-    print(cmp[["delta_M_auROC_pub", "delta_M_auROC_fix", "delta_M_auPRC_pub", "delta_M_auPRC_fix"]].round(4).to_string())
-    print("\nhuman: |RF_fix - RF_pub| median/max auROC %.4f/%.4f, auPRC %.4f/%.4f" % (
-        (cmp.RF_H_auROC_fix - cmp.RF_H_auROC_pub).abs().median(), (cmp.RF_H_auROC_fix - cmp.RF_H_auROC_pub).abs().max(),
-        (cmp.RF_H_auPRC_fix - cmp.RF_H_auPRC_pub).abs().median(), (cmp.RF_H_auPRC_fix - cmp.RF_H_auPRC_pub).abs().max()))
-    print("human baseline identical to published (by TF): auROC max|diff| %.2e, auPRC max|diff| %.2e" % (
-        (cmp.PWM_H_auROC_fix - cmp.PWM_H_auROC_pub).abs().max(), (cmp.PWM_H_auPRC_fix - cmp.PWM_H_auPRC_pub).abs().max()))
-
+    headline(df, "evaluation table")
 
 if __name__ == "__main__":
     main()

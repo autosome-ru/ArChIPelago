@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Similarity of the baseline human monoPWM of every TF to the mouse monoPWMs of the same TF (Fig. S6C, Sup. Table 5).
 
-Baseline human monoPWM = the best monoPWM by training auROC (column HM_broc_col of ../hm_mm/hm_mm_results.csv),
-mapped to its HOCOMOCO name through ../inputs/per_pwm_with_names.csv (feature index -> PWM file header).
+Baseline human monoPWM = the best monoPWM by training auROC (column HM_broc_col of ../mouse_transfer/mouse_transfer_results.csv),
+mapped to its HOCOMOCO name through ../inputs/single_PWM_features.csv (feature index -> PWM file header).
 Similarity of two PWMs = maximum over strands and offsets (overlap >= 5 columns) of the mean per-column Pearson
 correlation of the log-odds matrices. For every TF:
   topH_PWM                  name of the baseline human monoPWM
@@ -12,7 +12,7 @@ correlation of the log-odds matrices. For every TF:
   n_monoPWM_H_found, n_monoPWM_M_found   number of PWM files read
 
 PWM files: $ARCHI_ZENODO_DIR/PWMs_mono_HUMAN/<TF>/*.pwm and PWMs_mono_MOUSE.tar.gz of the Zenodo archive.
-Output: motif_similarity.csv in this folder (read by crossspecies_analysis.py).
+Output: motif_similarity.csv in this folder (read by cross_species_table.py).
 """
 import glob
 import os
@@ -60,8 +60,8 @@ def load_dir(d):
     return {open(f).readline().strip().lstrip(">"): zrows(read_pwm(f)) for f in files}
 
 
-hm = pd.read_csv(os.path.join(BASIS, "hm_mm", "hm_mm_results.csv")).set_index("TF").sort_index()
-names = pd.read_csv(os.path.join(INPUTS, "per_pwm_with_names.csv")).set_index(["TF", "feature"]).pwm_name
+hm = pd.read_csv(os.path.join(BASIS, "mouse_transfer", "mouse_transfer_results.csv")).set_index("TF").sort_index()
+names = pd.read_csv(os.path.join(INPUTS, "single_PWM_features.csv")).set_index(["TF", "feature"]).pwm_name
 TFS = list(hm.index)
 assert len(TFS) == 36
 

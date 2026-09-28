@@ -1,15 +1,15 @@
 # =============================================================================
-# Figure_S1_H_M.R -- Fig. S1: auROC (A) and auPRC (B) of the five algorithms on the monoPWM, diPWM
-# and monoPWM+diPWM feature sets, mouse test set (chr1, 8, 19), with the best single monoPWM and the best
+# Figure_2_human_test.R -- Fig. 2: auROC (A) and auPRC (B) of the five algorithms on the monoPWM, diPWM
+# and monoPWM+diPWM feature sets, human test set (chr1, 8, 21), with the best single monoPWM and the best
 # single diPWM (selected on the human training set) as reference series (one dot per TF) and as
 # horizontal lines (median over TFs).
 #
-# Input : ../HUMAN_MOUSE_total_100k.csv (make_results_table.py) and ../analysis/inputs/df_Names_seq_list.csv
-# Usage : Rscript Figure_S1_H_M.R [input_table] [output_dir]     (default output: ../Figures/panels)
-# Writes: Figure_S1_panels_mouse_test.pdf and Figure_2_and_S1_legend.pdf (the same legend as Fig. 2)
+# Input : ../results_table.csv (make_results_table.py) and ../analysis/inputs/training_positives_per_TF.csv
+# Usage : Rscript Figure_2_human_test.R [input_table] [output_dir]     (default output: ../Figures/panels)
+# Writes: Figure_2_human_test.pdf and Figure_2_and_S1_legend.pdf
 # =============================================================================
 
-NAMES_INPUT <- "df_Names_seq_list.csv"
+NAMES_INPUT <- "training_positives_per_TF.csv"
 OUT_SUFFIX  <- ""
 
 # ---- locate project dir / parse optional CLI overrides ----------------------
@@ -20,7 +20,7 @@ script_dir <- local({
 PROJECT_DIR <- normalizePath(file.path(script_dir, ".."))   # Manuscript_analysis/
 
 args <- commandArgs(trailingOnly = TRUE)
-input_path <- if (length(args) >= 1) args[1] else file.path(PROJECT_DIR, "HUMAN_MOUSE_total_100k.csv")
+input_path <- if (length(args) >= 1) args[1] else file.path(PROJECT_DIR, "results_table.csv")
 names_path <- file.path(PROJECT_DIR, "analysis", "inputs", NAMES_INPUT)
 out_dir    <- if (length(args) >= 2) args[2] else file.path(PROJECT_DIR, "Figures", "panels")
 if (!file.exists(input_path)) stop("Input table not found: ", input_path)
@@ -89,27 +89,27 @@ df_total$PWM <- recode_factor(df_total$PWM,
 )
 
 # Calculate medians for horizontal lines - ROC
-median_mono_roc <- median(df_total$roc_auc_test_M[df_total$Model == "Single best monoPWM"], na.rm = TRUE)
-median_di_roc <- median(df_total$roc_auc_test_M[df_total$Model == "Single best diPWM"], na.rm = TRUE)
+median_mono_roc <- median(df_total$roc_auc_test_H[df_total$Model == "Single best monoPWM"], na.rm = TRUE)
+median_di_roc <- median(df_total$roc_auc_test_H[df_total$Model == "Single best diPWM"], na.rm = TRUE)
 
 # Calculate medians for horizontal lines - PRC
-median_mono_prc <- median(df_total$pr_auc_test_M[df_total$Model == "Single best monoPWM"], na.rm = TRUE)
-median_di_prc <- median(df_total$pr_auc_test_M[df_total$Model == "Single best diPWM"], na.rm = TRUE)
+median_mono_prc <- median(df_total$pr_auc_test_H[df_total$Model == "Single best monoPWM"], na.rm = TRUE)
+median_di_prc <- median(df_total$pr_auc_test_H[df_total$Model == "Single best diPWM"], na.rm = TRUE)
 
 # ---- stdout diagnostics ------------------------------------------------------
-cat("\n==== KEY MEDIANS (mouse test set, Seq_count.y > 100 filter) ====\n")
+cat("\n==== KEY MEDIANS (human test set, Seq_count.y > 100 filter) ====\n")
 cat(sprintf("median_mono_roc = %.4f   median_di_roc = %.4f\n", median_mono_roc, median_di_roc))
 cat(sprintf("median_mono_prc = %.4f   median_di_prc = %.4f\n", median_mono_prc, median_di_prc))
 cat("Per Model x PWM medians (n = TFs):\n")
 print(as.data.frame(df_total %>%
   group_by(Model, PWM) %>%
   summarise(n = n(),
-            median_auROC = median(roc_auc_test_M, na.rm = TRUE),
-            median_auPRC = median(pr_auc_test_M, na.rm = TRUE), .groups = "drop")), digits = 4)
+            median_auROC = median(roc_auc_test_H, na.rm = TRUE),
+            median_auPRC = median(pr_auc_test_H, na.rm = TRUE), .groups = "drop")), digits = 4)
 cat("=================================================================\n\n")
 
 # Panel A - auROC (keep all three: monoPWMs, diPWMs, monoPWMs+diPWMs)
-p_roc <- ggplot(df_total, aes(x = PWM, y = roc_auc_test_M, color = Model)) +
+p_roc <- ggplot(df_total, aes(x = PWM, y = roc_auc_test_H, color = Model)) +
   geom_jitter(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.8),
               size = 3, alpha = 0.6) +
   geom_boxplot(aes(group = interaction(PWM, Model)), 
@@ -134,7 +134,7 @@ p_roc <- ggplot(df_total, aes(x = PWM, y = roc_auc_test_M, color = Model)) +
   )
 
 # Panel B - auPRC
-p_prc <- ggplot(df_total, aes(x = PWM, y = pr_auc_test_M, color = Model)) +
+p_prc <- ggplot(df_total, aes(x = PWM, y = pr_auc_test_H, color = Model)) +
   geom_jitter(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.8),
               size = 3, alpha = 0.6) +
   geom_boxplot(aes(group = interaction(PWM, Model)), 
@@ -160,7 +160,7 @@ p_prc <- ggplot(df_total, aes(x = PWM, y = pr_auc_test_M, color = Model)) +
 combined_plot <- p_roc / p_prc
 
 # Save the combined plot with dpi=600
-ggsave(out_file("Figure_S1_panels_mouse_test.pdf"), 
+ggsave(out_file("Figure_2_human_test.pdf"), 
        plot = combined_plot, width = 10, height = 10, dpi = 600, device = cairo_pdf)
 
 # Display the plot
@@ -170,7 +170,7 @@ print(combined_plot)
 library(cowplot)
 
 # Create a temporary plot WITH legend to extract it
-p_with_legend <- ggplot(df_total, aes(x = PWM, y = roc_auc_test_M, color = Model)) +
+p_with_legend <- ggplot(df_total, aes(x = PWM, y = roc_auc_test_H, color = Model)) +
   geom_jitter(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.8),
               size = 3, alpha = 0.6) +
   scale_color_brewer(palette = "Set2") +
@@ -188,5 +188,5 @@ ggsave(out_file("Figure_2_and_S1_legend.pdf"),
        plot = legend, width = 5, height = 4, dpi = 600, device = cairo_pdf)
 
 print("Legend and combined plot saved!")
-cat("Written:", out_file("Figure_S1_panels_mouse_test.pdf"), "\n")
+cat("Written:", out_file("Figure_2_human_test.pdf"), "\n")
 cat("Written:", out_file("Figure_2_and_S1_legend.pdf"), "\n")
