@@ -3,15 +3,10 @@
 mouse test = chr1, 8, 19), for the 36 TFs, on exactly the rows that pipeline_data.select_rows() returns
 (up to 10,000 positives and 1,000,000 negatives per TF and set, random_state=0).
 
-Two sequence versions are read (same row order as out_tab_<SP>_10000_<train|control>.tab; the loader maps the logical split to the
-file name, see ../common/pipeline_data.py):
-  genomic     $ARCHI_RELEASE_DIR/all_mfa_file_<SP>_10000_<train|control>.fasta  -- 300-bp genome extracts,
-              soft-masked (lowercase = RepeatMasker repeats), a few N; GC = (G+C)/(A+C+G+T), case-insensitive,
-              N excluded.  These are the values reported in Sup. Table 2.
-  modelinput  $ARCHI_RELEASE_DIR/all_mfa_file_<SP>_10000_<train|control>_no_NF_no_N.fasta -- the file scanned by
-              the PWMs: identical to the genomic file except that every lowercase base and every N is 'A'
-              (HUMAN: 10 % of all bases; MOUSE genome is not soft-masked, only N -> A).  GC of these sequences
-              is reported for the record (columns *_modelinput_GC_pct), not in the table.
+Sequences: $ARCHI_RELEASE_DIR/all_mfa_file_<SP>_10000_<train|control>.fasta (same row order as
+out_tab_<SP>_10000_<train|control>.tab; the loader maps the logical split to the file name, see ../common/pipeline_data.py):
+300-bp genome extracts, soft-masked (lowercase = RepeatMasker repeats), a few N; these are the sequences the PWMs
+were scanned on. GC = (G+C)/(A+C+G+T), case-insensitive, N excluded.
 Output: gc_content.csv (one row per TF).  Read-only on $ARCHI_RELEASE_DIR; one thread, ~2 min."""
 import os, sys
 import numpy as np, pandas as pd
@@ -41,18 +36,16 @@ for sp, lab in (("HUMAN", "human"), ("MOUSE", "mouse")):
         gt = ad.global_table(sp, split)
         assert set(gt["chrom"].unique()) == (set(ad.TEST_CHROMS[sp]) if split == "control" else set(gt["chrom"].unique()) - set(ad.TEST_CHROMS[sp]))
         sel = {tf: ad.select_rows(gt, tf, sp, split) for tf in TFS}
-        for version, suffix, allow_n in (("genomic", "", True), ("modelinput", "_no_NF_no_N", False)):
-            fasta = os.path.join(ad.REL, "all_mfa_file_%s_10000_%s%s.fasta" % (sp, fsplit, suffix))
-            names, gc = gc_array(fasta, allow_n)
-            assert len(gt) == len(gc) and (gt["name"].values == names).all(), fasta
-            print(sp, slab, version, fasta, len(gc), "chroms:", sorted(gt["chrom"].unique(), key=lambda c: int(c[3:])), flush=True)
-            for tf in TFS:
-                rows, y = sel[tf]
-                g = gc[rows]; r = res[tf]
-                r["%s_%s_n_pos" % (lab, slab)] = int((y == 1).sum()); r["%s_%s_n_neg" % (lab, slab)] = int((y == 0).sum())
-                tag = "" if version == "genomic" else "_modelinput"
-                r["%s_%s_pos%s_GC_pct" % (lab, slab, tag)] = 100 * g[y == 1].mean()
-                r["%s_%s_neg%s_GC_pct" % (lab, slab, tag)] = 100 * g[y == 0].mean()
+        fasta = os.path.join(ad.REL, "all_mfa_file_%s_10000_%s.fasta" % (sp, fsplit))
+        names, gc = gc_array(fasta, True)
+        assert len(gt) == len(gc) and (gt["name"].values == names).all(), fasta
+        print(sp, slab, fasta, len(gc), "chroms:", sorted(gt["chrom"].unique(), key=lambda c: int(c[3:])), flush=True)
+        for tf in TFS:
+            rows, y = sel[tf]
+            g = gc[rows]; r = res[tf]
+            r["%s_%s_n_pos" % (lab, slab)] = int((y == 1).sum()); r["%s_%s_n_neg" % (lab, slab)] = int((y == 0).sum())
+            r["%s_%s_pos_GC_pct" % (lab, slab)] = 100 * g[y == 1].mean()
+            r["%s_%s_neg_GC_pct" % (lab, slab)] = 100 * g[y == 0].mean()
 out = pd.DataFrame([res[tf] for tf in TFS])
 out.to_csv(os.path.join(HERE, "gc_content.csv"), index=False, float_format="%.4f")
 print(out.round(3).to_string())

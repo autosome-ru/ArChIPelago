@@ -200,7 +200,7 @@ tools:
 | `hocomoco11.tar.gz` | HOCOMOCO v11 models, benchmark data and curation tables | Notebook 0 |
 | `macs.tar.gz` | GTRD MACS peak intervals | Notebook 0 |
 | `Archipelago_intermediate_files.tar.gz` | Global sequence tables and FASTA files of the training and test sets, result tables of notebook 2 | Skip notebook 0 |
-| `Models.tar.gz` | Pre-trained Random Forest models on all PWMs of each TF, alone and with Slim / diChIPMunk features (sklearn 1.3) | Inference |
+| `Models.tar.gz` | Pre-trained Random Forest models of the 36 TFs on all their human PWMs (monoPWMs, diPWMs, both; scikit-learn 1.3), each with a `.json` feature specification (PWM order, training mean and standard deviation) | ArChIPelago-TFBS-finder |
 | `Slim.tar.gz` | Slim jar files and bundled JDK 8 | Notebook 2 (Slim training) |
 | `Slim_models.tar.gz` | Pre-trained Slim models | Notebook 2 (comparison) |
 | `Manuscript_analysis.tar.gz` | `Manuscript_analysis/` of this repository (results table, Sup. Tables 1-6, figure panels and source data, scripts, per-TF analysis outputs) and the supplementary figures PDF | Tables and figures of the manuscript |
