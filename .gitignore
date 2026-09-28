@@ -32,3 +32,14 @@ hocomoco11/
 # Temporary/output files
 *.tmp
 ~$*
+
+# Local copies of tables now kept in Manuscript_analysis/
+/Table_*.xlsx
+/Table_*.xlsx.zip
+
+# Staging folder of the Zenodo archives (uploaded to Zenodo, not tracked)
+Zenodo_new_version/
+
+# Previews written by the Manuscript_analysis scripts
+Manuscript_analysis/Figures/previews/
+Manuscript_analysis/analysis/subtypes/preview/
