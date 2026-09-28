@@ -43,3 +43,4 @@ Zenodo_new_version/
 # Previews written by the Manuscript_analysis scripts
 Manuscript_analysis/Figures/previews/
 Manuscript_analysis/analysis/subtypes/preview/
+Manuscript_analysis/analysis/saturation/fig_saturation.*
