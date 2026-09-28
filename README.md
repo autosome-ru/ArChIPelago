@@ -102,7 +102,7 @@ git clone --recurse-submodules https://github.com/autosome-ru/ArChIPelago.git
 cd ArChIPelago
 
 # 2. Set up environment
-conda env create -f ArChIPelago_code/environment_rpy_2.yml
+conda env create -n ArChIPelago -f ArChIPelago_code/environment_rpy_2.yml
 conda activate ArChIPelago
 
 # 3. Download CTCF data from Zenodo (DOI: 10.5281/zenodo.14927303)
@@ -144,7 +144,7 @@ git clone --recurse-submodules https://github.com/autosome-ru/ArChIPelago.git
 cd ArChIPelago
 
 # Create and activate the conda environment
-conda env create -f ArChIPelago_code/environment_rpy_2.yml
+conda env create -n ArChIPelago -f ArChIPelago_code/environment_rpy_2.yml
 conda activate ArChIPelago
 
 # Verify Java
@@ -164,17 +164,22 @@ Edit `ArChIPelago_code/config.yml` to set paths for your system:
 
 ```yaml
 paths:
-  genome_human: "/path/to/hg38.fa"       # UCSC hg38 reference genome
-  genome_mouse: "/path/to/mm10.fa"       # UCSC mm10 reference genome
-  repeatmasker: "/path/to/track_out.bed" # RepeatMasker BED
-  macs_peaks:   "/path/to/macs/"         # GTRD MACS peak interval files
-  output_dir:   "Release/TF-ML"          # Output directory
+  genome_human: "/path/to/hg38.fa"                  # UCSC hg38 reference genome
+  genome_mouse: "/path/to/mm10.fa"                  # UCSC mm10 reference genome
+  repeatmasker: "/path/to/repeatmasker/track_out.bed"
+  macs_peaks:   "/path/to/macs/"                    # GTRD MACS peak interval files
+  output_dir:   "Release/TF-ML"                     # output directory of notebooks 0-2
+  hocomoco11_wlogauc_mono: "/path/to/hocomoco11/wlogauc/mono"   # notebook 1, PWM selection
+  hocomoco11_wlogauc_di:   "/path/to/hocomoco11/wlogauc/di"
+  pcms_mono: "/path/to/pcms_for_logo_mono"          # notebook 1, logos
+  pcms_di:   "/path/to/pcms_for_logo_di"
 
 tools:
-  sarus_jar:      "../sarus/releases/sarus-2.2.3.jar"
-  java_bin:       "java"
-  slim_apply_jar: "../Slim/TrainAndApplySlim.jar"   # Slim model training
-  slim_java_bin:  "../Slim/jdk8u232-b09/bin/java"   # JDK 8 for Slim jars
+  sarus_jar:       "../sarus/releases/sarus-2.2.3.jar"
+  java_bin:        "java"
+  slim_dimont_jar: "../Slim/SlimDimont.jar"         # diChIPMunk
+  slim_apply_jar:  "../Slim/TrainAndApplySlim.jar"  # Slim model training
+  slim_java_bin:   "../Slim/jdk8u232-b09/bin/java"  # JDK 8 for the Slim jars
 ```
 
 ---
@@ -242,11 +247,11 @@ The numbers, supplementary tables and figure panels of the manuscript are comput
 
 **Model parameters (Random Forest):** `max_depth=6, max_samples=0.8, n_estimators=100` (selected via GridSearchCV). Features were scale-transformed with `sklearn.preprocessing.StandardScaler`.
 
-**Slim models (Notebook 2):** ArChIPelago was benchmarked against sparse local inhomogeneous mixture (Slim) models (Grau et al. 2013), trained side-by-side from extended 1001 bp genomic regions around the same peak summits. Slim models were trained using `TrainAndApplySlim.jar` with the bundled JDK 8 (`Slim/jdk8u232-b09/bin/java`). Three Slim model orders were compared: `markov_order=0` (equivalent to monoPWM), `markov_order=1` (equivalent to diPWM), and LSlim with `markov_order=-5` (limited Slim; Keilwagen and Grau 2015). Peak signal annotations were derived from the `-10*log10(pvalue)` MACS output field. Slim predictions used `max_score` for performance assessment. Additionally, diPWMs were constructed *de novo* from the positive sequences using diChIPMunk (`run_dichiphorde8.rb`). The Random Forest on the best monoPWM and the best diPWM (RF2f) was augmented with Slim and diChIPMunk features to test whether combining diverse model types improves prediction (Fig. 4, `Manuscript_analysis/analysis/fig4_refit/`).
+**Slim models (Notebook 2):** ArChIPelago was benchmarked against sparse local inhomogeneous mixture (Slim) models (Grau et al. 2013), trained side-by-side from extended 1001 bp genomic regions around the same peak summits. Slim models were trained using `TrainAndApplySlim.jar` with the bundled JDK 8 (`Slim/jdk8u232-b09/bin/java`). Three Slim model orders were compared: `markov_order=0` (equivalent to monoPWM), `markov_order=1` (equivalent to diPWM), and LSlim with `markov_order=-5` (limited Slim; Keilwagen and Grau 2015). Peak signal annotations were derived from the `-10*log10(pvalue)` MACS output field. Slim predictions used `max_score` for performance assessment. Additionally, diPWMs were constructed *de novo* from the positive sequences using diChIPMunk (`run_dichiphorde8.rb`). The Random Forest on the best monoPWM and the best diPWM (RF2f) was augmented with Slim and diChIPMunk features to test whether combining diverse model types improves prediction (Fig. 4, `Manuscript_analysis/analysis/fig4/`).
 
 **Supported TFs (36):** ANDR, AP2A, CEBPB, COE1, CTCF, E2F4, ERG, ESR1, FLI1, GATA1, GATA2, GATA3, GCR, HNF4A, IRF1, IRF4, JUND, MAFK, MAX, MYC, P53, PPARG, PRGR, REST, RUNX1, RXRA, SOX2, SPI1, SRF, STA5A, STAT1, STAT3, TAL1, TF65, TFE2, USF2.
 
-> **Compute requirements:** Full training across all 36 TFs was performed on 100 AMD EPYC 7662 cores (~8 hours). With the Java virtual machine limited to one core, SPRY-SARUS needs 0.15 s per monoPWM per megabase of sequence; training the Random Forest on a full human training matrix (200,000-230,000 sequences) takes 28-104 s on one core, and prediction for 10⁶ sequences 7-20 s (Sup. Table 6).
+> **Compute requirements (Sup. Table 6):** with the Java virtual machine limited to one core of a 2.6 GHz Intel Xeon E5-4607 v2, SPRY-SARUS needs 0.15 s per monoPWM (0.19 s per diPWM) per megabase of sequence; training the Random Forest on a full human training matrix (200,000-230,000 sequences) takes 28-104 s on one core with at most 1.9 GB RAM, and prediction for 10⁶ sequences 7-20 s.
 
 ---
 
@@ -317,7 +322,7 @@ Every figure panel and supplementary table is produced by a script in `Manuscrip
 |------|--------|------|
 | Fig. 2 / S1 | `scripts/Figure_2_H_H.R`, `scripts/Figure_S1_H_M.R` | `HUMAN_MOUSE_total_100k.csv` |
 | Fig. 3A-C / S3 | `scripts/Figure_3_H_H.R`, `scripts/Figure_S3_H_M.R` | `HUMAN_MOUSE_total_100k.csv` |
-| Fig. 4 / S4 | `scripts/Figure_4_and_S4.R` | `analysis/fig4_refit/` |
+| Fig. 4 / S4 | `scripts/Figure_4_and_S4.R` | `analysis/fig4/` |
 | Fig. S2 | `scripts/make_figures_S2_S5_S6.py` | `HUMAN_MOUSE_total_100k.csv` |
 | Fig. S5 | `scripts/Figure_S5_saturation.R` | `analysis/saturation/` |
 | Fig. S6 | `scripts/Figure_S6_cross_species.R` | Sup. Table 5 |
@@ -333,8 +338,8 @@ Supplementary Tables: 1, ChIP-Seq experiments; 2, PWMs and datasets per TF; 3, A
 
 Developed and tested on:
 - **Ubuntu 20.04.6 LTS** (GNU/Linux 5.15.0-113-generic x86_64)
-- **Python 3.8.18**, scikit-learn 1.3.2, numpy 1.24.4, pandas 2.0.3
-- **R 4.3.1** with PRROC, ggplot2, patchwork
+- **Python 3.8.18**, scikit-learn 1.3.0, numpy 1.24.3, pandas 2.0.3, xgboost 1.7.3 (pinned in `ArChIPelago_code/environment_rpy_2.yml`)
+- **R 4.3.1** with PRROC, rpy2 3.5.11
 - **Java 8** (OpenJDK 8u232-b09, bundled)
 
 The tables and figure panels of `Manuscript_analysis/` were built with Python 3.9 (pandas 2.3, numpy 1.26) and R 4.4.3.
