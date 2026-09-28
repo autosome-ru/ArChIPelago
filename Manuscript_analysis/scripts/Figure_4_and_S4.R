@@ -6,7 +6,7 @@
 # results table); every row holds all 36 TFs (a missing value stops the script).
 #
 # Input : Figures/source_data/Figure_4_source_data.csv, Figure_S4_source_data.csv
-#         (written by analysis/fig4_refit/assemble_fig4.py)
+#         (written by analysis/fig4/assemble_fig4.py)
 # Usage : Rscript Figure_4_and_S4.R [source_data_dir] [output_dir]
 #         (defaults: ../Figures/source_data and ../Figures/panels)
 # =============================================================================

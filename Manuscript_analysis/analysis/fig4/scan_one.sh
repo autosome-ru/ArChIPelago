@@ -1,5 +1,5 @@
 #!/bin/bash
-# Slim scan of one sequence set with one Slim model of a TF (inputs of run_fig4_refit.py).
+# Slim scan of one sequence set with one Slim model of a TF (inputs of run_fig4.py).
 # usage: scan_one.sh <TF> <m> <set> [model_xml]
 #   <m>   Slim model order as in the pipeline folder name (0, 1, 5 for LSlim m=-5)
 #   <set> global sequence set: HUMAN_10000_train, HUMAN_10000_control, or the mouse test set

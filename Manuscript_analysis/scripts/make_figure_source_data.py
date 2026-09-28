@@ -40,5 +40,5 @@ for sp, name in (("H", "Figure_3"), ("M", "Figure_S3")):
     out["test_set"] = "human" if sp == "H" else "mouse"
     out.sort_values(["TF", "PWM_set"]).to_csv(os.path.join(SRC, f"{name}_source_data.csv"), index=False)
 
-# ---- Fig. 4 / S4: written by analysis/fig4_refit/assemble_fig4.py, not here.
+# ---- Fig. 4 / S4: written by analysis/fig4/assemble_fig4.py, not here.
 print("source data written to", SRC)

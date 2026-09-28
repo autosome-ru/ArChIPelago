@@ -15,7 +15,7 @@ Sources
                                                   accession, GEM peak count.  Parsed positionally (unquoted commas inside
                                                   fields shift the columns; every row has 32 fields).
   Sup. Table 2 (per TF)
-    fig4_refit/rows/<TF>.json (n_mono, n_di)      human monoPWMs / diPWMs = feature matrix of the models
+    fig4/rows/<TF>.json (n_mono, n_di)      human monoPWMs / diPWMs = feature matrix of the models
     hm_mm/hm_mm_results.csv                       P_mono_H/P_di_H (cross-check), P_mono_M/P_di_M = mouse PWMs;
                                                   n_train_pos_H, n_test_pos_H, n_train_pos_M, n_test_pos_M = positives
     gc/peaks_raw_check.csv, gc/peaks_raw_check_mouse_allmodels.csv
@@ -145,9 +145,9 @@ old2 = old2[old2.TF_name.notna()].set_index("TF_name").loc[TFS]
 t2 = pd.DataFrame(index=TFS)
 t2.index.name = "TF"
 for tf in TFS:
-    j = json.load(open(os.path.join(BASIS, "fig4_refit", "rows", tf + ".json")))
+    j = json.load(open(os.path.join(BASIS, "fig4", "rows", tf + ".json")))
     if (j["n_mono"], j["n_di"]) != (int(hm.loc[tf, "P_mono_H"]), int(hm.loc[tf, "P_di_H"])):
-        raise SystemExit("%s: human PWM counts differ between fig4_refit rows and hm_mm_results" % tf)
+        raise SystemExit("%s: human PWM counts differ between fig4 rows and hm_mm_results" % tf)
     t2.loc[tf, "Human monoPWMs"] = j["n_mono"]
     t2.loc[tf, "Human diPWMs"] = j["n_di"]
 t2["Human PWMs (mono + di)"] = t2["Human monoPWMs"] + t2["Human diPWMs"]

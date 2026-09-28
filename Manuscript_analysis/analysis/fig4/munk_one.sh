@@ -1,6 +1,6 @@
 #!/bin/bash
 # SARUS scan of the mouse test set with the diChIPMunk diPWM of a TF (built by notebook 2 from the human
-# training positives); input of run_fig4_refit.py.
+# training positives); input of run_fig4.py.
 # usage: munk_one.sh <TF> [mouse_test_set]
 #   mouse_test_set: MOUSE_10000_control (default; MOUSE_10000_train in a pipeline directory with ARCHI_MOUSE_FILES_SWAPPED=1)
 # -> $ARCHI_FIG4_SCANS_DIR/munk/<TF>_full_train_M_1_ChIPMunk_no_repeats_0.tab

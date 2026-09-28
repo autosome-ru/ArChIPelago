@@ -25,7 +25,7 @@ prediction of transcription factor binding sites*).
 | path | content |
 |---|---|
 | `HUMAN_MOUSE_total_100k.csv` | the results table, tab-separated, 900 rows x 47 columns: 36 TFs x 5 algorithms x 3 PWM sets plus the single-PWM rows; `roc_auc_*` / `pr_auc_*` on the human training set (`train_H`) and the human (`test_H`) and mouse (`test_M`) test sets; `*_PWM` = best single monoPWM (the baseline), `*_PWM_mono` / `*_PWM_di` = best single monoPWM / diPWM |
-| `Sup_Tables/` | Supplementary Tables 1-6 (xlsx, and csv per sheet); `headline_numbers.json` and `fig4_refit_numbers.json` hold the numbers quoted in the text |
+| `Sup_Tables/` | Supplementary Tables 1-6 (xlsx, and csv per sheet); `headline_numbers.json` and `fig4_numbers.json` hold the numbers quoted in the text |
 | `Figures/panels/` | the figure panels as drawn by the scripts (the figures of the manuscript were laid out from them in Adobe Illustrator) |
 | `Figures/source_data/` | one csv per figure with exactly the plotted values |
 | `scripts/` | the generators of the results table, the supplementary tables, the source data and the panels; `run_local.sh` runs them in order |
@@ -39,12 +39,12 @@ prediction of transcription factor binding sites*).
 | Fig. S1 | `Figure_S1_panels_mouse_test.pdf` | `scripts/Figure_S1_H_M.R` | `HUMAN_MOUSE_total_100k.csv` |
 | Fig. 3A-C | `Figure_3_panels_ABC_human_test.pdf` | `scripts/Figure_3_H_H.R` | `HUMAN_MOUSE_total_100k.csv` |
 | Fig. S3 | `Figure_S3_panels_ABC_mouse_test.pdf` | `scripts/Figure_S3_H_M.R` | `HUMAN_MOUSE_total_100k.csv` |
-| Fig. 4 / S4 | `Figure_4_human_test.pdf`, `Figure_S4_mouse_test.pdf` | `scripts/Figure_4_and_S4.R` | `analysis/fig4_refit/` via `assemble_fig4.py` |
+| Fig. 4 / S4 | `Figure_4_human_test.pdf`, `Figure_S4_mouse_test.pdf` | `scripts/Figure_4_and_S4.R` | `analysis/fig4/` via `assemble_fig4.py` |
 | Fig. S2 | `Figure_S2.pdf` | `scripts/make_figures_S2_S5_S6.py` | `HUMAN_MOUSE_total_100k.csv` |
 | Fig. S5 | `Figure_S5_saturation.pdf` | `scripts/Figure_S5_saturation.R` | `analysis/saturation/` |
 | Fig. S6 | `Figure_S6_cross_species.pdf` | `scripts/Figure_S6_cross_species.R` | Sup. Table 5 |
 | Fig. S7 | `Figure_S7_motif_subtypes.pdf` | `analysis/subtypes/Figure_S7_motif_subtypes.R` | `analysis/subtypes/build_source_data.py` |
-| Sup. Tables 1, 2 | | `scripts/make_sup_tables_1_2.py` | `analysis/inputs/`, `analysis/gc/`, `analysis/hm_mm/`, `analysis/fig4_refit/rows/` |
+| Sup. Tables 1, 2 | | `scripts/make_sup_tables_1_2.py` | `analysis/inputs/`, `analysis/gc/`, `analysis/hm_mm/`, `analysis/fig4/rows/` |
 | Sup. Tables 3-6 | | `scripts/make_sup_tables.py` | results table, `analysis/operational/`, `analysis/hm_mm/`, `analysis/crossspecies/`, `analysis/saturation/`, `analysis/runtime/` |
 
 Fig. 1 (scheme) and the logo panel of Fig. 3D were drawn in Adobe Illustrator.
@@ -58,12 +58,12 @@ Fig. 1 (scheme) and the logo panel of Fig. 3D were drawn in Adobe Illustrator.
 | `results_table/` | all models and baselines evaluated on both test sets | `run_results_table.py`, `assemble_results_table.py` | `HUMAN_MOUSE_total_100k_recomputed.csv`, `best_pwm_names.csv` |
 | `hm_mm/` | human-trained models on the mouse test set and mouse-trained control models (Random Forest, seeds 0 and 1) | `run_hm_mm.py` | `hm_mm_results.csv` (+ per-TF score vectors, not tracked) |
 | `operational/` | false positives and precision at fixed recall, true sites in the top of the ranking (Sup. Table 4) | `operational_metrics.py` | `operational_metrics.csv` |
-| `saturation/` | Random Forest on random and top-k subsets of k = 1, 2, 4, ..., 128 PWMs (Fig. S5) | `run_saturation.py`, `analyze_saturation.py` | `saturation_results.csv`, `per_tf/`, summaries |
-| `fig4_refit/` | the RF2f family of Fig. 4 / S4 (best monoPWM + best diPWM, alone and with Slim / diChIPMunk features) and the single Slim and diChIPMunk models on the mouse test set | `scan_one.sh`, `munk_one.sh`, `train_slim_ANDR_m1.sh`, `run_fig4_refit.py`, `assemble_fig4.py` | `rows/<TF>.json`, `fig4_refit_table.csv`, `slim_ANDR_m1/SlimDimont_1.xml` |
+| `saturation/` | Random Forest on random and top-k subsets of k = 1, 2, 4, ..., 128 PWMs (Fig. S5) | `run_saturation.py`, `analyze_saturation.py` | `saturation_results.csv`, `per_tf/`, `saturation_summary_by_k.csv`, `saturation_per_tf.csv` |
+| `fig4/` | the RF2f family of Fig. 4 / S4 (best monoPWM + best diPWM, alone and with Slim / diChIPMunk features) and the single Slim and diChIPMunk models on the mouse test set | `scan_one.sh`, `munk_one.sh`, `train_slim_ANDR_m1.sh`, `run_fig4.py`, `assemble_fig4.py` | `rows/<TF>.json`, `fig4_table.csv`, `slim_ANDR_m1/SlimDimont_1.xml` |
 | `crossspecies/` | per-TF cross-species table and the similarity of the baseline human monoPWM to the mouse monoPWMs (Fig. S6, Sup. Table 5) | `motif_similarity.py`, `crossspecies_analysis.py` | `motif_similarity.csv`, `crossspecies_table.csv` |
 | `gc/` | GC content of every positive and negative set, pooled peak counts (Sup. Table 2) | `gc_content.py`, `peaks_raw_check.py`, `peaks_raw_check_mouse_allmodels.py` | `gc_content.csv`, `peaks_raw_check*.csv` |
 | `runtime/` | raw timings of SPRY-SARUS scanning and Random Forest training (Sup. Table 6) | | `sarus_timings.tsv`, `rf_process_timings.tsv` |
-| `subtypes/` | Random Forest feature importances and probability matrices of the top-ranked PWMs (Fig. S7) | `build_source_data.py` | `Figure_S7_source_data.csv`, `matrices/`, `importances/`, `tf_ranking.csv` |
+| `subtypes/` | Random Forest feature importances and probability matrices of the top-ranked PWMs (Fig. S7) | `build_source_data.py`, `Figure_S7_motif_subtypes.R` | `Figure_S7_source_data.csv`, `matrices/`, `importances/`, `tf_ranking.csv` |
 
 ## Rebuilding the tables and figures
 
@@ -108,13 +108,13 @@ python operational/operational_metrics.py hm_mm/scores operational/operational_m
 python saturation/run_saturation.py --workers 2 --rf-jobs 4
 
 # Fig. 4 / S4: Slim (m = 0, 1, -5) and diChIPMunk scans of the mouse test set, then the RF2f family
-for tf in $TFS; do for m in 0 1 5; do fig4_refit/scan_one.sh $tf $m MOUSE_10000_control; done; fig4_refit/munk_one.sh $tf; done
-python fig4_refit/run_fig4_refit.py --tfs $TFS --rows-dir fig4_refit/rows
+for tf in $TFS; do for m in 0 1 5; do fig4/scan_one.sh $tf $m MOUSE_10000_control; done; fig4/munk_one.sh $tf; done
+python fig4/run_fig4.py --tfs $TFS --rows-dir fig4/rows
 
 # GC content of every set (Sup. Table 2)
 python gc/gc_content.py
 ```
 
-`train_slim_ANDR_m1.sh` trains the Slim m=1 model of ANDR (`fig4_refit/slim_ANDR_m1/SlimDimont_1.xml`), which is
-then scanned with `scan_one.sh ANDR 1 <set> fig4_refit/slim_ANDR_m1/SlimDimont_1.xml` for the three sequence sets.
+`train_slim_ANDR_m1.sh` trains the Slim m=1 model of ANDR (`fig4/slim_ANDR_m1/SlimDimont_1.xml`), which is
+then scanned with `scan_one.sh ANDR 1 <set> fig4/slim_ANDR_m1/SlimDimont_1.xml` for the three sequence sets.
 The scripts never overwrite existing outputs; a TF whose output exists is skipped, so runs can be resumed.

@@ -1,5 +1,0 @@
-TF,n_features_all,n_features_subset_run,n_common,spearman_rho_common,top6_all_features,top6_subset_run,top6_overlap
-ANDR,303,188,188,0.856,di_103 di_75 di_65 mono_84 mono_102 di_57,di_57 di_34 di_75 mono_84 di_103 mono_101,4
-IRF4,18,9,9,0.983,di_1 di_4 di_2 di_0 mono_8 mono_9,di_1 di_2 di_4 di_0 di_5 di_3,4
-RXRA,13,8,8,0.929,mono_3 di_0 di_3 mono_4 mono_2 di_2,mono_3 di_0 di_3 di_2 di_1 mono_2,5
-SRF,25,19,19,0.911,di_2 di_0 di_7 di_8 mono_3 di_4,di_2 di_0 di_8 mono_4 di_7 di_4,5

@@ -9,7 +9,7 @@ Inputs:
   * the motif similarity of the baseline human monoPWM to the nearest mouse monoPWM: motif_similarity.csv
     (motif_similarity.py; the baseline PWM name is asserted to be the one whose similarity was computed);
   * TF metadata: ../inputs/Table_1_GTRD_experiments.xlsx, Table_2_TF_metadata.xlsx, metadata_new_23_02_17_with_control.csv.
-Outputs: crossspecies_table.csv, crossspecies_table.md in this folder, run.log (stdout).
+Output: crossspecies_table.csv in this folder.
 Run with the system python3 (3.9); reads only; never overwrites an existing crossspecies_table.csv.
 """
 import os, re, sys, collections
@@ -329,47 +329,6 @@ if fb.any():
 mw_md = (f"| Mann-Whitney ({int(fb.sum())} below vs {int((~fb).sum())} others) | median (below) | median (others) | p |\n|---|---|---|---|\n"
          + "\n".join(mw)) if mw else "no TF below the baseline on the mouse test set"
 
-# --------------------------------------------------------------------------
-# 7. Markdown table (compact)
-# --------------------------------------------------------------------------
-def md_table(df, cols, fmt):
-    hdr = "| " + " | ".join(cols) + " |\n|" + "---|" * len(cols) + "\n"
-    rows = []
-    for tf, r in df.iterrows():
-        rows.append("| " + " | ".join(fmt.get(c, lambda v: str(v))(r[c]) if c != "TF" else tf for c in cols) + " |")
-    return hdr + "\n".join(rows)
-
-f3 = lambda v: f"{v:.3f}"
-fd = lambda v: f"{v:+.3f}"
-fi = lambda v: f"{int(v)}"
-Tm = T.copy()
-Tm["TF"] = Tm.index
-Tm["flag"] = np.where(Tm.below_baseline_M, "**below**", "")
-Tm["cells_H_s"] = Tm.cells_H.str.replace(r"\(x\d+\)", "", regex=True)
-Tm["cells_M_s"] = Tm.cells_M.str.replace(r"\(x\d+\)", "", regex=True)
-Tm["exp"] = Tm.n_exp_H.astype(str) + "/" + Tm.n_exp_M.astype(str)
-Tm["pwm"] = Tm.n_monoPWM_H.astype(str) + "+" + Tm.n_diPWM_H.astype(str)
-Tm["trainpos"] = Tm.n_train_pos.astype(str) + "/" + Tm.n_train_pos_M.astype(str)
-Tm["ovl"] = Tm.celltype_overlap
-Tm = Tm.sort_values(["below_baseline_M", "dROC_M"], ascending=[False, True])
-main_cols = ["TF", "flag", "family", "pwm", "trainpos", "exp", "ovl", "PWM_auROC_M", "PWM_auPRC_M", "ARCH_auROC_M", "ARCH_auPRC_M",
-             "dROC_M", "dPRC_M", "dROC_H", "dPRC_H", "topH_vs_nearestM_pcc"]
-main_hdr = ["TF", "below", "family", "#PWM H (mono+di)", "#train pos H/M", "#exp H/M", "cell-type overlap", "PWM auROC M", "PWM auPRC M",
-            "ArCh auROC M", "ArCh auPRC M", "dauROC M", "dauPRC M", "dauROC H", "dauPRC H", "motif sim H->M"]
-fmt = {"PWM_auROC_M": f3, "PWM_auPRC_M": f3, "ARCH_auROC_M": f3, "ARCH_auPRC_M": f3, "dROC_M": fd, "dPRC_M": fd,
-       "dROC_H": fd, "dPRC_H": fd, "topH_vs_nearestM_pcc": f3}
-tbl_main = md_table(Tm.rename(columns=dict(zip(main_cols, main_hdr))), main_hdr, {main_hdr[main_cols.index(k)]: v for k, v in fmt.items()})
-cells_cols = ["TF", "flag", "cells_H_s", "cells_M_s", "celltype_overlap_note"]
-cells_hdr = ["TF", "below", "human cell types", "mouse cell types", "overlap note"]
-tbl_cells = md_table(Tm.rename(columns=dict(zip(cells_cols, cells_hdr))), cells_hdr, {})
-
-with open(os.path.join(OUT, "crossspecies_table.md"), "w") as fh:
-    fh.write("# Cross-species (human -> mouse) per-TF diagnostic table (mouse test set = chr1/8/19)\n\n")
-    fh.write("Performance columns: human values from the notebook 4 results table (RandomForestClassifier, PWM=mono+di rows); mouse values "
-             "from hm_mm_results.csv (RF seed 0; best human monoPWM selected on the human training set, by auROC for the "
-             "auROC columns and by auPRC for the auPRC columns). `below` marks the TFs below the best monoPWM on the mouse test set on >= 1 metric.\n\n")
-    fh.write("## Main table\n\n" + tbl_main + "\n\n## Cell types (Sup. Table 1 experiments, cell line from metadata file)\n\n" + tbl_cells +
-             "\n\n## Statistics\n\n" + stats_md + "\n\n" + mw_md + "\n")
 print("below the baseline on the mouse test set (chr1/8/19):", worse_now)
 print(stats_md); print(mw_md)
 print(T[["dROC_M", "dPRC_M", "n_train_pos_M", "topH_vs_nearestM_pcc", "median_H_vs_nearestM_pcc"]].round(3).to_string())

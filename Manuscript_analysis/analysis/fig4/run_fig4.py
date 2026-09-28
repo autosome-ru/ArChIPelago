@@ -1,5 +1,5 @@
 """
-run_fig4_refit.py -- the models of Fig. 4 / S4 that contain the two single-PWM features (RF2f family).
+run_fig4.py -- the models of Fig. 4 / S4 that contain the two single-PWM features (RF2f family).
 
 Loader = ../common/archi_data.py; mouse test set = chr1/8/19 (logical ("MOUSE", "control")).
   * Slim test_M scores = scans of the mouse test-set fasta with the Slim models of the TF
@@ -16,19 +16,19 @@ selected by training auROC among its class. The Slim and diChIPMunk single-model
 What is fitted per TF (paper RF: max_depth 6, max_samples 0.8, 100 trees, random_state 0,
 each matrix standardised on itself as in the release code):
   RF2f            best monoPWM + best diPWM (both selected by TRAIN auROC among their class)
-  RF2f_munk       + diChIPMunk (de novo diPWM of the training positives, published scan files)
+  RF2f_munk       + diChIPMunk (de novo diPWM of the training positives, notebook 2 scan files)
   RF2f_slim1      + Slim m=1
   RF2f_lslim5     + LSlim m=-5
   RF2f_all5       + Slim m=1 + LSlim m=-5 + diChIPMunk   (the five-feature model of the text)
 Also written: single-model metrics of Slim m=0, m=1, m=-5, m=-7 and diChIPMunk on test_H/test_M
-(to validate the reconstruction against the published Slim table), and the metrics of the two
+(test_H values check the scans against the notebook 2 Slim table), and the metrics of the two
 selected PWMs.  Slim scores are read from the saved Slim predictions on the global sequence sets
 (<TF>_SlimModel_<m>/*_predictions/model1_predictions.txt, column 4 = maxscore, one row per line of
 out_tab_<SP>_10000_<split>.tab; the newest complete file per set is used), diChIPMunk scores from
 HUMAN_seq_HUMAN_pwm_mono/full_{train_H,control_H}_1_ChIPMunk_no_repeats_0.tab and
 MOUSE_seq_HUMAN_pwm_mono/full_control_M_1_ChIPMunk_no_repeats_0.tab (global order).
 
-usage: python run_fig4_refit.py --tfs A B ... --rows-dir rows     (never overwrites)
+usage: python run_fig4.py --tfs A B ... --rows-dir rows     (never overwrites)
 """
 import os, sys, json, time, glob, argparse
 os.environ.setdefault("OMP_NUM_THREADS", "1")

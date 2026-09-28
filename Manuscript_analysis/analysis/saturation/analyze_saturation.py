@@ -3,8 +3,7 @@
 Reads saturation_results.csv of this folder and writes into the same folder
   saturation_summary_by_k.csv   median delta (RF - best single mono PWM) per k, design, metric
   saturation_per_tf.csv         per-TF full gain, saturation k, max-over-k, "hurts" flag
-  saturation_stats.md           markdown tables + headline numbers
-  fig_saturation.{pdf,png}      2x2 panel figure (diagnostic preview; the shipped Fig. S5 is drawn in R)
+Prints the headline numbers as markdown tables (Fig. S5 is drawn by scripts/Figure_S5_saturation.R).
 Budget convention: a TF with P < k is used at k_eff = min(k, P) (all of its PWMs), so every
 median is over all 36 TFs ("what do you get with a budget of k PWMs").
 usage: python3 analyze_saturation.py   (no arguments)
@@ -14,16 +13,12 @@ import sys
 import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 D = os.path.dirname(os.path.abspath(__file__))
 K_GRID = [1, 2, 4, 8, 16, 32, 64, 128]
 METRICS = [("auroc_H", "auROC, human test"), ("auprc_H", "auPRC, human test"),
            ("auroc_M", "auROC, mouse test"), ("auprc_M", "auPRC, mouse test")]
 HURT_TOL = 0.005
-BLUE, ORANGE, GREY = "#2a78d6", "#eb6834", "#b8b8b8"
 
 RES = "saturation_results.csv"
 print("results file:", os.path.join(D, RES))
@@ -181,44 +176,4 @@ n_fits = len(df)
 L.append("Fits: %d rows (%d random-subset, %d top-k, %d full); total RF fit+predict time %.1f CPU-worker hours.\n" % (
     n_fits, ((df.design == "random") & (df.k < df.P)).sum(), (df.design == "topk").sum(),
     ((df.design == "random") & (df.k == df.P)).sum(), df.fit_sec.sum() / 3600))
-open(os.path.join(D, "saturation_stats.md"), "w").write("\n".join(L))
 print("\n".join(L))
-
-# ---- figure
-plt.rcParams.update({"font.size": 9, "axes.spines.top": False, "axes.spines.right": False,
-                     "pdf.fonttype": 42, "ps.fonttype": 42})
-fig, axes = plt.subplots(2, 2, figsize=(7.2, 6.0), sharex=True)
-XP = 512  # x position of the "all P" point for the median curves
-for ax, (m, lbl) in zip(axes.ravel(), METRICS):
-    ax.axhline(0, color="#777777", lw=0.8, ls=":", zorder=1)
-    for tf in tfs:
-        P = Pmap[tf]
-        c = curves["random"][tf]["d_" + m]
-        xs = [k for k in K_GRID if k < P] + [P]
-        ys = [c[k] for k in K_GRID if k < P] + [c["P"]]
-        ax.plot(xs, ys, color=GREY, lw=0.7, alpha=0.9, zorder=2)
-    for des, col, ls, lab in (("random", BLUE, "-", "median, random k-subsets"),
-                              ("topk", ORANGE, "--", "median, top-k by train auROC")):
-        y = med[des]["d_" + m]
-        ax.plot(K_GRID + [XP], [y[k] for k in K_GRID] + [y["P"]], color=col, lw=2.2, ls=ls, zorder=4, label=lab)
-        ax.plot([XP], [y["P"]], marker="o", color=col, ms=5, zorder=5)
-    ax.set_xscale("log", base=2)
-    ax.set_xticks(K_GRID + [XP])
-    ax.set_xticklabels([str(k) for k in K_GRID] + ["all\n(P)"])
-    ax.tick_params(axis="x", which="minor", bottom=False)
-    ax.set_title(lbl, fontsize=9.5, loc="left")
-    ax.grid(axis="y", color="#e5e5e5", lw=0.6)
-for ax in axes[1]:
-    ax.set_xlabel("number of PWMs used (k)")
-for ax, (m, _) in zip(axes.ravel(), METRICS):
-    ax.set_ylabel("$\\Delta$%s vs best single mono-PWM" % ("auROC" if m.startswith("auroc") else "auPRC"))
-h, l = axes[0, 0].get_legend_handles_labels()
-h.append(plt.Line2D([], [], color=GREY, lw=0.7))
-l.append("single TF (mean of replicates), ends at its P")
-fig.legend(h, l, loc="lower center", ncol=3, frameon=False, fontsize=8, bbox_to_anchor=(0.5, -0.01))
-fig.suptitle("RF gain over the best single mono-PWM vs number of PWMs used\n(%d TFs, human-trained; P = %d-%d PWMs per TF, median %d)"
-             % (len(tfs), Pmap.min(), Pmap.max(), int(Pmap.median())), fontsize=9.5, y=0.995)
-fig.tight_layout(rect=(0, 0.04, 1, 0.95))
-fig.savefig(os.path.join(D, "fig_saturation.pdf"))
-fig.savefig(os.path.join(D, "fig_saturation.png"), dpi=200)
-print("figure written")

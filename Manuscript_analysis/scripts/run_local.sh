@@ -21,7 +21,7 @@ $PY $S/make_sup_tables_1_2.py                      # -> ../Sup_Tables/Sup_Table_
 $PY $S/make_sup_tables.py                          # -> ../Sup_Tables/Sup_Table_3..6*, headline_numbers.json
 $PY $S/make_figures_S2_S5_S6.py                    # -> Figure_S2.pdf, source data of S2, S5, S6
 $PY $S/make_figure_source_data.py                  # -> source data of Fig. 2, S1, 3, S3
-$PY $A/fig4_refit/assemble_fig4.py                 # -> source data of Fig. 4, S4, fig4_refit_numbers.json
+$PY $A/fig4/assemble_fig4.py                 # -> source data of Fig. 4, S4, fig4_numbers.json
 $PY $A/subtypes/build_source_data.py               # -> analysis/subtypes/ (Fig. S7 source data, matrices)
 $PY -c "import pandas as pd; d = pd.read_csv('$A/subtypes/Figure_S7_source_data.csv'); \
 d[d.TF.isin(['E2F4', 'RXRA', 'TAL1', 'TFE2'])].to_csv('$S/../Figures/source_data/Figure_S7_source_data.csv', index=False)"

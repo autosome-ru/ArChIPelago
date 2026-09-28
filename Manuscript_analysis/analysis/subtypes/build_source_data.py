@@ -7,9 +7,7 @@
 2. RF feature importances of the all-feature models
    `outputdir/<TF>/finalized_model_<TF>_HUMAN_RandomForestClassifier_mono_di_full_MODEL_all_features.sav`
    (`feature_importances_` in the column order of `code_H_base_1_RandomForestClassifier_mono_di.sh`), saved
-   as importances/sav_model_importances_raw.tsv. The `<TF>_HUMAN_forest_importances_sorted.csv` files that
-   notebook 2 wrote for ANDR, IRF4, RXRA and SRF (a model on a subset of the monoPWMs) are used as a
-   cross-check (rank correlation, top-feature overlap).
+   as importances/sav_model_importances_raw.tsv.
 3. Feature -> PWM file: feature `mono_<k>` / `di_<k>` -> PWMs_{mono,di}_HUMAN/<TF>/<k>.{pwm,dpwm}; the
    header name of the file (dots) must equal the dataset name in the feature file name (underscores).
 4. Log-odds -> probabilities per position: p_i(x) = 0.25*exp(w_i(x)) / sum (mono; uniform background);
@@ -21,9 +19,8 @@
    letters sum to >= 0.8, else N (lower case = 0.6 > p >= 0.4 single letter).
 
 Outputs (all in this folder): tf_ranking.csv, importances/<TF>_HUMAN_forest_importances_all_features.csv,
-Figure_S7_source_data.csv, matrices/<TF>_<feature>.txt (probability matrices, 4 x L, for R),
-mapping_check.txt, importance_crosscheck.csv, similarity_to_top_monoPWM.csv
-(each panel vs panel 1 = the top monoPWM: max over offsets/strands of the mean per-column Pearson r of the
+Figure_S7_source_data.csv, matrices/<TF>_<feature>.txt (probability matrices, 4 x L, for R).
+r_max_vs_panel1 of the source data = similarity of each panel to panel 1 = the top monoPWM (max over offsets/strands of the mean per-column Pearson r of the
 per-position z-scored probability matrices, min overlap 5, as in ../crossspecies/motif_similarity.py; panels on the '-'
 strand are reverse-complemented for display so that all logos of a TF are on the strand of panel 1).  Never writes outside this folder.
 """
@@ -93,34 +90,6 @@ def all_feature_importances():
             os.path.join(HERE, "importances", "%s_HUMAN_forest_importances_all_features.csv" % tf), index=False)
         out[tf] = g
     return out
-
-
-def subset_run_importances(tf):
-    """The 4 *_forest_importances_sorted.csv written by notebook 2 (importances/)."""
-    p = os.path.join(HERE, "importances", "%s_HUMAN_forest_importances_sorted.csv" % tf)
-    if not os.path.exists(p):
-        return None
-    d = pd.read_csv(p, names=["name", "importance"], skiprows=1)
-    d["feature"] = d.name.str.split("_").str[:2].str.join("_")
-    return d
-
-
-def crosscheck(imp):
-    rows, lines = [], []
-    for tf in sorted(imp):
-        s = subset_run_importances(tf)
-        if s is None:
-            continue
-        a = imp[tf].set_index("feature").importance
-        common = [f for f in s.feature if f in a.index]
-        rho = pd.Series(a[common].to_numpy()).rank().corr(pd.Series(s.set_index("feature").importance[common].to_numpy()).rank())
-        top_all = list(imp[tf].feature[:6]); top_sub = list(s.feature[:6])
-        rows.append(dict(TF=tf, n_features_all=len(a), n_features_subset_run=len(s),
-                         n_common=len(common), spearman_rho_common=round(rho, 3),
-                         top6_all_features=" ".join(top_all), top6_subset_run=" ".join(top_sub),
-                         top6_overlap=len(set(top_all) & set(top_sub))))
-    pd.DataFrame(rows).to_csv(os.path.join(HERE, "importance_crosscheck.csv"), index=False)
-    return rows
 
 
 # ---------------------------------------------------------------- 3./4. matrices
@@ -198,12 +167,11 @@ def main():
     missing = [tf for tf in cand if tf not in imp]
     if missing:
         raise SystemExit("no .sav importances for %s" % missing)
-    xc = crosscheck(imp)
     meta = meta_lookup()
     sup5 = pd.read_csv(SUP5).set_index("TF")
     os.makedirs(os.path.join(HERE, "matrices"), exist_ok=True)
 
-    src, sim, check = [], [], []
+    src, check = [], []
     for tf in cand:
         g = imp[tf]
         # mapping check for EVERY feature of the TF, not only the plotted ones
@@ -238,9 +206,6 @@ def main():
             r_max, strand, offset, overlap = pcc_max(ref, zrows(p))
             if strand == "-":
                 p = p[::-1, ::-1]                    # reverse complement for display (same strand as panel 1)
-            sim.append(dict(TF=tf, panel=j, feature=r.feature, r_max_vs_panel1=round(r_max, 3),
-                            strand_vs_panel1=strand, offset_vs_panel1=offset, overlap_columns=overlap,
-                            length=len(p), length_panel1=len(probs[0][2])))
             mfile = os.path.join("matrices", "%s_%s.txt" % (tf, r.feature))
             pd.DataFrame(p.T, index=list(ACGT), columns=["pos%d" % (i + 1) for i in range(len(p))]).to_csv(
                 os.path.join(HERE, mfile), sep="\t")
@@ -264,14 +229,9 @@ def main():
                "strand_for_display", "r_max_vs_panel1", "consensus", "total_IC_bits", "delta_auROC", "delta_auPRC", "rank_dauROC", "rank_dauPRC",
                "matrix_file", "source_matrix"]]
     src.to_csv(os.path.join(HERE, "Figure_S7_source_data.csv"), index=False)
-    pd.DataFrame(sim).to_csv(os.path.join(HERE, "similarity_to_top_monoPWM.csv"), index=False)
-    with open(os.path.join(HERE, "mapping_check.txt"), "w") as fh:
-        fh.write("\n".join(check) + "\n")
     pd.set_option("display.width", 250)
     print(src[["TF", "panel", "feature", "pwm_name", "importance", "motif_length", "strand_for_display", "r_max_vs_panel1", "consensus"]]
           .to_string(index=False))
-    print("\ncross-check vs the 4 published subset-run importance files:")
-    print(pd.DataFrame(xc).to_string(index=False))
     print("\n".join(check))
 
 
