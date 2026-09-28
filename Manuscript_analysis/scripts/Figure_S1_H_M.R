@@ -6,7 +6,7 @@
 #
 # Input : ../HUMAN_MOUSE_total_100k.csv (make_results_table.py) and ../analysis/inputs/df_Names_seq_list.csv
 # Usage : Rscript Figure_S1_H_M.R [input_table] [output_dir]     (default output: ../Figures/panels)
-# Writes: Figure_S1_panels_mouse_test.pdf
+# Writes: Figure_S1_panels_mouse_test.pdf and Figure_2_and_S1_legend.pdf (the same legend as Fig. 2)
 # =============================================================================
 
 NAMES_INPUT <- "df_Names_seq_list.csv"
@@ -184,9 +184,9 @@ p_with_legend <- ggplot(df_total, aes(x = PWM, y = roc_auc_test_M, color = Model
 legend <- get_legend(p_with_legend)
 
 # Save the legend as a separate PDF with dpi=600
-ggsave(out_file("Models_comparison_legend_21012026.pdf"), 
+ggsave(out_file("Figure_2_and_S1_legend.pdf"), 
        plot = legend, width = 5, height = 4, dpi = 600, device = cairo_pdf)
 
 print("Legend and combined plot saved!")
 cat("Written:", out_file("Figure_S1_panels_mouse_test.pdf"), "\n")
-cat("Written:", out_file("Models_comparison_legend_21012026.pdf"), "\n")
+cat("Written:", out_file("Figure_2_and_S1_legend.pdf"), "\n")
