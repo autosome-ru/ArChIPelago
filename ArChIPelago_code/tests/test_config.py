@@ -6,10 +6,6 @@ from unittest.mock import patch
 from archipielago.config import load_config, get_path
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
 def _yaml_available():
     try:
         import yaml  # noqa: F401
@@ -17,10 +13,6 @@ def _yaml_available():
     except ImportError:
         return False
 
-
-# ---------------------------------------------------------------------------
-# load_config
-# ---------------------------------------------------------------------------
 
 def test_load_config_valid(tmp_path):
     pytest.importorskip("yaml", reason="PyYAML not installed")
@@ -45,7 +37,7 @@ def test_load_config_missing_file(tmp_path):
 def test_load_config_missing_required_key(tmp_path):
     pytest.importorskip("yaml", reason="PyYAML not installed")
     cfg_file = tmp_path / "config.yml"
-    # Only 'paths' present — 'tools' is missing
+    # 'tools' section missing
     cfg_file.write_text("paths:\n  data: /data/myproject\n")
     with pytest.raises(KeyError):
         load_config(cfg_file)
@@ -58,10 +50,6 @@ def test_load_config_missing_both_sections(tmp_path):
     with pytest.raises(KeyError):
         load_config(cfg_file)
 
-
-# ---------------------------------------------------------------------------
-# get_path
-# ---------------------------------------------------------------------------
 
 def test_get_path_valid(tmp_path):
     cfg = {

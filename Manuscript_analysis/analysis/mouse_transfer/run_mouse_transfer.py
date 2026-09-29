@@ -1,5 +1,5 @@
 """
-run_mouse_transfer.py -- H->M (human-trained) and M->M (mouse-trained) RF vs correct single-mono-PWM baselines
+run_mouse_transfer.py - H->M (human-trained) and M->M (mouse-trained) RF vs the best single monoPWM baselines
 for the 36 ArChIPelago TFs (mouse test set = chr1/8/19).  Writes ONLY into --rows-dir, --scores-dir and --out-csv.
 
 usage: python run_mouse_transfer.py --tfs SRF P53 ... --workers 3 --rf-jobs 4 --out-csv <path> --rows-dir <dir> --scores-dir <dir>
@@ -113,7 +113,7 @@ def run_tf(args):
     t_start = time.time()
     row = {"TF": tf}
     npz = {}
-    # ---------------- A. human-trained, human PWMs (H->H and H->M)
+    # A. human-trained, human PWMs (H->H and H->M)
     t0 = time.time()
     d = ad.load_tf(tf, "HUMAN", "HUMAN", pwm_set="mono_di", scale="per_matrix")
     row["HM_load_sec"] = round(time.time() - t0, 1)
@@ -139,7 +139,7 @@ def run_tf(args):
     npz["pwmH_byprc_col"] = d["feature_names"][chosen["prc"]]
     yM_H = d["y_test_M"].copy(); namesM_H = npz["names_test_M"].copy()
     del d, sc
-    # ---------------- B. mouse-trained, mouse PWMs (M->M; test_H of this loader = human seqs x mouse PWMs = M->H)
+    # B. mouse-trained, mouse PWMs (M->M; test_H of this loader = human seqs x mouse PWMs = M->H)
     row["MM_available"] = mm_available(tf)
     if row["MM_available"]:
         t0 = time.time()
@@ -164,7 +164,7 @@ def run_tf(args):
         npz["pwmM_byprc_col"] = dm["feature_names"][chosen["prc"]]
         del dm, sc
     row["total_sec"] = round(time.time() - t_start, 1)
-    # ---------------- C. write (never overwrite)
+    # C. write (never overwrite)
     npz_path = os.path.join(scores_dir, tf + ".npz")
     json_path = os.path.join(rows_dir, tf + ".json")
     for p in (npz_path, json_path):

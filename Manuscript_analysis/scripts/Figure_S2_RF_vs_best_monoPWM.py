@@ -28,9 +28,7 @@ TABLE = pd.read_csv(os.path.join(RES, "results_table.csv"), sep="\t")
 RF = TABLE[TABLE.Model == "RandomForestClassifier"]
 
 
-# ==============================================================================================
 # Figure S2
-# ==============================================================================================
 def panel_scatter(ax, d, xcol, ycol, xlab, ylab, by_pwm=True, label_tfs=None):
     if by_pwm:
         for pwm in ["mono", "di", "mono+di"]:

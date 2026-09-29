@@ -5,10 +5,6 @@ import pytest
 from archipielago.io import fasta_iter, load_fasta, save_fasta, make_train_test_beds
 
 
-# ---------------------------------------------------------------------------
-# fasta_iter
-# ---------------------------------------------------------------------------
-
 def test_fasta_iter_basic(simple_fasta_handle):
     records = list(fasta_iter(simple_fasta_handle))
     assert len(records) == 3
@@ -20,7 +16,6 @@ def test_fasta_iter_basic(simple_fasta_handle):
 def test_fasta_iter_multiline_seq(multiline_fasta_handle):
     records = list(fasta_iter(multiline_fasta_handle))
     assert len(records) == 2
-    # Multi-line sequences should be joined into one string
     assert records[0] == ("seq1", "ACGTACGT")
     assert records[1] == ("seq2", "TTTTAAAA")
 
@@ -36,10 +31,6 @@ def test_fasta_iter_strips_whitespace():
     assert records[0][0] == "header with spaces"
     assert records[0][1] == "ACGTTTTT"
 
-
-# ---------------------------------------------------------------------------
-# load_fasta / save_fasta round-trip
-# ---------------------------------------------------------------------------
 
 def test_load_fasta(tmp_fasta):
     records = load_fasta(tmp_fasta)
@@ -60,10 +51,6 @@ def test_save_fasta_roundtrip(tmp_path):
     assert loaded == original
 
 
-# ---------------------------------------------------------------------------
-# make_train_test_beds
-# ---------------------------------------------------------------------------
-
 def test_make_train_test_beds_basic(peaks_df):
     train_chr = ["chr1", "chr2", "chr3"]
     test_chr = ["chr8", "chr21"]
@@ -71,7 +58,7 @@ def test_make_train_test_beds_basic(peaks_df):
 
     assert set(train["chrom"].unique()).issubset(set(train_chr))
     assert set(test["chrom"].unique()).issubset(set(test_chr))
-    # chr8 has 2 peaks, chr21 has 1 → 3 test rows
+    # chr8 has 2 peaks, chr21 has 1 -> 3 test rows
     assert len(test) == 3
 
 
@@ -83,7 +70,7 @@ def test_make_train_test_beds_excludes_unlisted_chroms(peaks_df):
 
 
 def test_make_train_test_beds_cap(peaks_df):
-    """Downsampling: n_max smaller than available rows."""
+    """n_max smaller than the number of rows."""
     train, test = make_train_test_beds(
         peaks_df,
         train_chr=["chr1", "chr2", "chr3"],

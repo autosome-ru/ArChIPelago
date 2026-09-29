@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Sup. Table 1 (ChIP-Seq experiments) and Sup. Table 2 (PWMs, datasets, peaks, set sizes, GC content) of the
-manuscript, built from verified sources and written in the style of Sup. Tables 3-6
+manuscript, written in the format of Sup. Tables 3-6
 (pandas to_excel, bold header row, descriptive column names, one sheet per logical block, no unlabelled rows).
 
 Basis: mouse test set = mouse chromosomes 1, 8 and 19; mouse training set = chromosomes 2-7, 9, 10 and 13-18;
@@ -52,7 +52,7 @@ def note(msg):
     print(msg)
 
 
-# ------------------------------------------------------------------------------------------ GTRD metadata
+# GTRD metadata
 def read_metadata():
     """PEAKS id -> fields.  Row layout (32 fields, commas inside fields shift the later ones): exp, species, TFClass, ...,
     PEAKS id, TF name, [control EXP id, control antibody], external refs (GEO:/PUBMED:), UniProt accession, UniProt entry
@@ -88,7 +88,7 @@ def read_metadata():
 meta = read_metadata()
 note("GTRD metadata: %d peak sets parsed from %s" % (len(meta), os.path.basename(META)))
 
-# ------------------------------------------------------------------------------------------ Sup. Table 1
+# Sup. Table 1
 T1_COLS = ["TF", "GTRD peak set ID", "GTRD experiment ID", "Species", "TFClass ID", "GTRD control experiment ID",
            "UniProt entry name", "UniProt accession", "GEM peaks (GTRD peak calls)", "UniProt short name"]
 t1 = {}
@@ -129,7 +129,7 @@ with pd.ExcelWriter(os.path.join(OUT, "Sup_Table_1_ChIP-Seq_experiments.xlsx")) 
 t1["human"].to_csv(os.path.join(OUT, "Sup_Table_1_ChIP-Seq_experiments_human.csv"), index=False)
 t1["mouse"].to_csv(os.path.join(OUT, "Sup_Table_1_ChIP-Seq_experiments_mouse.csv"), index=False)
 
-# ------------------------------------------------------------------------------------------ Sup. Table 2 sources
+# Sup. Table 2 sources
 hm = pd.read_csv(os.path.join(BASIS, "mouse_transfer", "mouse_transfer_results.csv")).set_index("TF")
 if sorted(hm.index) != TFS:
     raise SystemExit("mouse_transfer_results.csv does not hold the 36 TFs of Sup. Table 1")
@@ -175,7 +175,7 @@ for col, key in (("Human training positives (%s)" % HUMAN_TRAIN, "human_train_n_
         raise SystemExit("positives of %s differ between mouse_transfer_results and gc_content" % col)
 note("Sup. Table 2: positives of mouse_transfer_results.csv == rows counted by gc_content.py for all four sets: yes")
 
-# ------------------------------------------------------------------------------------------ summary sheet
+# summary sheet
 summ = []
 for stat, fn in (("Total over 36 TFs", lambda s: int(s.sum())), ("Median per TF", lambda s: float(s.median())), ("Mean per TF", lambda s: float(s.mean()))):
     row = {"Statistic": stat}

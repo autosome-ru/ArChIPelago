@@ -1,5 +1,5 @@
 """
-evaluate_models.py -- compute the rows of the evaluation table (schema of the results table) from the
+evaluate_models.py - compute the rows of the evaluation table (schema of the results table) from the
 per-TF feature files, with aligned human/mouse feature columns and the single-best-PWM baseline selected on
 the human training set by PWM identity; mouse test set = chr1/8/19.
 

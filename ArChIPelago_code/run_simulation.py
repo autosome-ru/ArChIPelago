@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 """
-End-to-end ArChIPelago pipeline simulation.
-
-Uses real CTCF FASTA data from the legacy directory and synthetic PWMs
-to test every step of the pipeline without Zenodo downloads.
+End-to-end check of the archipielago package on CTCF sequences and synthetic PWMs
+(no Zenodo data needed).
 
 Usage:
     python run_simulation.py
@@ -23,7 +21,7 @@ def create_synthetic_pwms(work_dir, rng):
     PWM_MONO = work_dir / "pwm_mono"; PWM_MONO.mkdir()
     PWM_DI = work_dir / "pwm_di"; PWM_DI.mkdir()
 
-    # CTCF consensus-like: CCGCGNGGNGGCAG
+    # close to the CTCF consensus CCGCGNGGNGGCAG
     ctcf_pwm = np.array([
         [0.05,0.80,0.10,0.05],[0.05,0.80,0.10,0.05],[0.05,0.05,0.80,0.10],
         [0.05,0.80,0.05,0.10],[0.05,0.05,0.80,0.10],[0.25,0.25,0.25,0.25],
@@ -66,7 +64,6 @@ def main():
     rng = np.random.default_rng(42)
     N, N_test = 200, 100
 
-    # --- Step 1: Load FASTA ---
     print("STEP 1: Loading CTCF FASTA sequences")
     train_pos = io.load_fasta(CTCF_DIR / "train_pos_id_HUMAN.fasta")
     test_pos  = io.load_fasta(CTCF_DIR / "test_pos_id_HUMAN.fasta")
@@ -80,14 +77,12 @@ def main():
     test_neg_sub = [test_neg[i] for i in rng.choice(len(test_neg), N_test, replace=False)]
     print(f"  Train: {N} pos + {N} neg, Test: {N_test} pos + {N_test} neg")
 
-    # --- Step 2: Create PWMs ---
     print("\nSTEP 2: Creating synthetic PWMs")
     WORK_DIR = Path(tempfile.mkdtemp(prefix="archip_sim_"))
     PWM_MONO, PWM_DI = create_synthetic_pwms(WORK_DIR, rng)
     print(f"  3 mono + 2 di PWMs")
 
     try:
-        # --- Step 3: SARUS scanning ---
         print("\nSTEP 3: SARUS scanning")
         train_records = train_pos_sub + train_neg_sub
         train_labels = np.array([1]*N + [0]*N)
@@ -114,31 +109,26 @@ def main():
             s = scanning.load_sarus_scores(SCAN_TRAIN/"di"/f"{pwm_file.stem}.txt")
             print(f"  di   {pwm_file.stem}: {len(s)} scores, mean={s.mean():.3f}")
 
-        # --- Step 4: Feature matrix ---
         print("\nSTEP 4: Building feature matrix")
         X_train = scanning.build_feature_matrix(SCAN_TRAIN, mode="mono_di")
         X_test = scanning.build_feature_matrix(SCAN_TEST, mode="mono_di")
         print(f"  Train: {X_train.shape}, Test: {X_test.shape}")
 
-        # --- Step 5: Train RF ---
         print("\nSTEP 5: Training RandomForest")
         model = training.train_rf(X_train, train_labels, n_estimators=50, max_depth=6, n_jobs=4, random_state=42)
         imp = pd.Series(model.feature_importances_, index=X_train.columns).nlargest(3)
         print(f"  {model.n_estimators} trees, top feature: {imp.index[0]} ({imp.iloc[0]:.4f})")
 
-        # --- Step 6: Evaluate ---
         print("\nSTEP 6: Evaluation")
         results = training.evaluate_model(model, X_test, test_labels)
         print(f"  ROC-AUC: {results['roc_auc']:.4f}")
         print(f"  PR-AUC:  {results['pr_auc']:.4f}")
 
-        # --- Step 7: Predictions ---
         print("\nSTEP 7: Predictions")
         y_proba = model.predict_proba(X_test)[:, 1]
         n_correct = ((y_proba > 0.5) == test_labels).sum()
         print(f"  Accuracy: {n_correct}/{len(test_labels)} ({100*n_correct/len(test_labels):.1f}%)")
 
-        # --- Step 8: Cross-validation ---
         print("\nSTEP 8: 3-fold cross-validation")
         from sklearn.ensemble import RandomForestClassifier
         cv = training.cross_validate_model(
@@ -148,7 +138,7 @@ def main():
         print(f"  PR-AUC:  {cv['pr_auc_mean']:.4f} +/- {cv['pr_auc_std']:.4f}")
 
         print("\n" + "=" * 50)
-        print("ALL 8 STEPS PASSED SUCCESSFULLY")
+        print("All 8 steps completed")
         print("=" * 50)
 
     finally:

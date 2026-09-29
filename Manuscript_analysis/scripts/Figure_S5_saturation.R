@@ -1,5 +1,4 @@
-# =============================================================================
-# Figure_S5_saturation.R  --  Fig. S5: performance vs the
+# Figure_S5_saturation.R - Fig. S5: performance vs the
 # number of PWMs used, drawn in R in the style of the main and supplementary
 # figures of the paper (Arial, theme_minimal(base_size = 21, base_family = "Arial"), Set2 palette,
 # dotted zero lines, cairo_pdf output).
@@ -10,7 +9,6 @@
 # Usage : Rscript Figure_S5_saturation.R [source_data_dir] [output_dir]
 #         (defaults: ../Figures/source_data and ../Figures/panels)
 # Mouse test set = mouse chr1/8/19; reference = best single monoPWM.
-# =============================================================================
 
 suppressPackageStartupMessages({library(dplyr); library(tidyr); library(ggplot2); library(patchwork)})
 
@@ -29,7 +27,7 @@ dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 cat("Source data :", src_dir, "\nOutput dir  :", out_dir, "\n")
 if (!interactive()) pdf(NULL)
 
-# ---- house style ------------------------------------------------------------
+# style
 theme_set(theme_get() + theme(text = element_text(family = "Arial")))
 SET2_GREEN  <- "#66c2a5"   # Set2[1], as in Figure 2 (monoPWM reference line)
 SET2_ORANGE <- "#fc8d62"   # Set2[2], as in Figure 2 (diPWM reference line)
@@ -48,7 +46,7 @@ METRICS <- list(c("delta_auroc_H", "auROC, human test set (vs best monoPWM)", "�
                 c("delta_auroc_M", "auROC, mouse test set (vs best monoPWM)", "ΔauROC"),
                 c("delta_auprc_M", "auPRC, mouse test set (vs best monoPWM)", "ΔauPRC"))
 
-# ---- data -------------------------------------------------------------------
+# data
 per_tf <- read.csv(per_tf_path, stringsAsFactors = FALSE) %>%
   filter(design == "random") %>%
   filter(k_requested == "P" | suppressWarnings(as.numeric(k_requested)) < P) %>%
@@ -106,7 +104,7 @@ pdf_out <- file.path(out_dir, "Figure_S5_saturation.pdf")
 ggsave(pdf_out, combined, device = grDevices::cairo_pdf,
        width = 320, height = 260, units = "mm", dpi = 600)
 
-# ---- stdout diagnostics -----------------------------------------------------
+# stdout diagnostics
 cat("\n==== Fig. S5: median delta vs k (random subsets) ====\n")
 print(as.data.frame(med %>% filter(design == "random") %>%
         select(k, delta_auroc_H, delta_auprc_H, delta_auroc_M, delta_auprc_M)), digits = 3, row.names = FALSE)

@@ -1,16 +1,8 @@
-"""FASTA/BED I/O helpers for ArChIPelago pipelines.
-
-These functions are extracted from notebooks 0, 1, and 2 where fasta_iter
-and related helpers were duplicated across multiple cells.
-"""
+"""FASTA and BED input/output of the ArChIPelago notebooks 0-2."""
 
 from itertools import groupby
 from pathlib import Path
 
-
-# ---------------------------------------------------------------------------
-# FASTA helpers
-# ---------------------------------------------------------------------------
 
 def fasta_iter(f):
     """Parse an open FASTA file handle into (header, sequence) tuples.
@@ -64,10 +56,6 @@ def save_fasta(records, path):
             out.write(f">{header}\n{seq}\n")
 
 
-# ---------------------------------------------------------------------------
-# BED / peak helpers
-# ---------------------------------------------------------------------------
-
 def make_train_test_beds(peaks_df, train_chr, test_chr, n_max=10000, random_state=1):
     """Split a peaks DataFrame into train and test by chromosome.
 
@@ -105,7 +93,7 @@ def make_train_test_beds(peaks_df, train_chr, test_chr, n_max=10000, random_stat
 def extract_sequences(bed_df, genome_fasta, output_fasta):
     """Extract sequences from a genome FASTA using a BED DataFrame.
 
-    Wraps pybedtools.BedTool.sequence() for use in the pipeline.
+    Uses pybedtools.BedTool.sequence().
 
     Parameters
     ----------

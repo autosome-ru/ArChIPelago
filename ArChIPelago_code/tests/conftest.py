@@ -1,4 +1,4 @@
-"""Shared pytest fixtures for archipielago tests."""
+"""Pytest fixtures of the archipielago tests."""
 
 import io
 import textwrap
@@ -7,10 +7,6 @@ import pandas as pd
 import pytest
 from pathlib import Path
 
-
-# ---------------------------------------------------------------------------
-# FASTA fixtures
-# ---------------------------------------------------------------------------
 
 SIMPLE_FASTA = textwrap.dedent("""\
     >seq1
@@ -51,13 +47,9 @@ def tmp_fasta(tmp_path):
     return p
 
 
-# ---------------------------------------------------------------------------
-# Feature matrix fixtures
-# ---------------------------------------------------------------------------
-
 @pytest.fixture
 def small_feature_matrix():
-    """6 sequences × 10 features."""
+    """6 sequences x 10 features."""
     np.random.seed(0)
     X = pd.DataFrame(
         np.random.rand(6, 10),
@@ -75,22 +67,18 @@ def mock_sarus_scan_dir(tmp_path):
     mono_dir.mkdir()
     di_dir.mkdir()
 
-    # 4 sequences × 3 mono PWMs
+    # 4 sequences x 3 mono PWMs
     for i in range(3):
         scores = "\n".join(str(v) for v in [0.1 * (i + 1), 0.2, 0.3, 0.4])
         (mono_dir / f"pwm_{i}.txt").write_text(scores + "\n")
 
-    # 4 sequences × 2 di PWMs
+    # 4 sequences x 2 di PWMs
     for i in range(2):
         scores = "\n".join(str(v) for v in [0.5, 0.6, 0.7 * (i + 1), 0.8])
         (di_dir / f"dpwm_{i}.txt").write_text(scores + "\n")
 
     return tmp_path
 
-
-# ---------------------------------------------------------------------------
-# Peaks / BED fixture
-# ---------------------------------------------------------------------------
 
 @pytest.fixture
 def peaks_df():

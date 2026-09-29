@@ -12,14 +12,10 @@ from archipielago.scoring import (
 )
 
 
-# ---------------------------------------------------------------------------
-# ConstantScorer
-# ---------------------------------------------------------------------------
-
 def test_constant_scorer_returns_constant():
     scorer = ConstantScorer("const", 0.75)
     assert scorer.score() == pytest.approx(0.75)
-    # Should ignore any positional/keyword arguments
+    # arguments are ignored
     assert scorer.score([1, 2, 3], [0, 1, 0]) == pytest.approx(0.75)
 
 
@@ -29,10 +25,6 @@ def test_constant_scorer_name():
     assert scorer.const == pytest.approx(0.5)
 
 
-# ---------------------------------------------------------------------------
-# SklearnROCAUC
-# ---------------------------------------------------------------------------
-
 def test_sklearn_rocauc_perfect():
     scorer = SklearnROCAUC("roc")
     y_score = [0.9, 0.8, 0.7, 0.2, 0.1, 0.0]
@@ -41,7 +33,7 @@ def test_sklearn_rocauc_perfect():
 
 
 def test_sklearn_rocauc_random():
-    """Random predictions should give ~0.5 AUC (may vary; just check range)."""
+    """Random predictions give an AUC within [0, 1]."""
     rng = np.random.default_rng(42)
     y_score = rng.random(200).tolist()
     y_real  = [1] * 100 + [0] * 100
@@ -57,10 +49,6 @@ def test_sklearn_rocauc_worst():
     y_real  = [1,   1,   1,   0,   0,   0  ]
     assert scorer.score(y_score, y_real) == pytest.approx(0.0)
 
-
-# ---------------------------------------------------------------------------
-# SklearnPRAUC
-# ---------------------------------------------------------------------------
 
 def test_sklearn_prauc_perfect():
     scorer = SklearnPRAUC("pr")
@@ -78,12 +66,8 @@ def test_sklearn_prauc_in_range():
     assert 0.0 <= result <= 1.0
 
 
-# ---------------------------------------------------------------------------
-# PRROC_ROCAUC — dataclass instantiation only (rpy2 not required)
-# ---------------------------------------------------------------------------
-
 def test_prroc_rocauc_is_dataclass_instantiable():
-    """BUGFIX H10: PRROC_ROCAUC was missing @dataclass — raised TypeError on instantiation."""
+    """PRROC_ROCAUC is a dataclass and takes the name as its argument."""
     scorer = PRROC_ROCAUC("rocauc")
     assert scorer.name == "rocauc"
 
@@ -94,12 +78,8 @@ def test_prroc_prauc_instantiable():
     assert scorer.type == "integral"
 
 
-# ---------------------------------------------------------------------------
-# ScorerInfo factory
-# ---------------------------------------------------------------------------
-
 def test_scorer_info_alias_defaults_to_name():
-    """BUGFIX H9: __post_init__ was __attrs_post_init__ (never called for @dataclass)."""
+    """The alias defaults to the name (__post_init__)."""
     info = ScorerInfo(name="scikit_rocauc")
     assert info.alias == "scikit_rocauc"
 
@@ -135,12 +115,8 @@ def test_scorer_info_to_dict_roundtrip():
     assert info2.params == info.params
 
 
-# ---------------------------------------------------------------------------
-# PRROC tests — skipped if rpy2 unavailable
-# ---------------------------------------------------------------------------
-
 def test_prroc_rocauc_score():
-    pytest.importorskip("rpy2", reason="rpy2 not installed — skipping PRROC tests")
+    pytest.importorskip("rpy2", reason="rpy2 not installed")
     scorer = PRROC_ROCAUC("prroc_roc")
     y_score = [0.9, 0.8, 0.7, 0.2, 0.1, 0.0]
     y_real  = [1,   1,   1,   0,   0,   0  ]
@@ -149,7 +125,7 @@ def test_prroc_rocauc_score():
 
 
 def test_prroc_prauc_integral_score():
-    pytest.importorskip("rpy2", reason="rpy2 not installed — skipping PRROC tests")
+    pytest.importorskip("rpy2", reason="rpy2 not installed")
     scorer = PRROC_PRAUC("prroc_pr", "integral")
     y_score = [0.9, 0.8, 0.1, 0.0]
     y_real  = [1,   1,   0,   0  ]

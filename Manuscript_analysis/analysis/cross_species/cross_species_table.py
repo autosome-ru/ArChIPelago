@@ -25,9 +25,7 @@ if os.path.exists(os.path.join(OUT, "cross_species_table.csv")):
     raise SystemExit("refusing to overwrite %s" % os.path.join(OUT, "cross_species_table.csv"))
 SIM = pd.read_csv(os.path.join(OUT, "motif_similarity.csv")).set_index("TF").sort_index()
 
-# --------------------------------------------------------------------------
 # 1. Results: human side from the notebook 4 table, mouse side from the mouse_transfer results
-# --------------------------------------------------------------------------
 csv = pd.read_csv(os.path.join(INPUTS, "notebook4_results_table.csv"), sep="\t")
 rf = (csv[(csv.Model == "RandomForestClassifier") & (csv.PWM == "mono+di")]
       .set_index("TF_name").sort_index())
@@ -61,9 +59,7 @@ A["n_train_pos_M"] = hm.n_train_pos_M
 A["n_test_pos_M"] = hm.n_test_pos_M
 below_M = sorted(A.index[(A.dROC_M < 0) | (A.dPRC_M < 0)])
 
-# --------------------------------------------------------------------------
 # 2. Dataset and PWM counts (pipeline TF table, Sup. Table 1 experiments) and cell types from metadata
-# --------------------------------------------------------------------------
 t2 = pd.read_excel(os.path.join(INPUTS, "TF_table.xlsx")).dropna(subset=["TF_name"]).set_index("TF_name").sort_index()
 assert list(t2.index) == TFS
 t1h = pd.read_excel(os.path.join(INPUTS, "GTRD_experiments.xlsx"), sheet_name="Sheet1").assign(sp="H")
@@ -243,13 +239,11 @@ OVERLAP = {
 D["celltype_overlap"] = [OVERLAP[t][0] for t in TFS]
 D["celltype_overlap_note"] = [OVERLAP[t][1] for t in TFS]
 
-# --------------------------------------------------------------------------
 # 3. Family labelling
-# --------------------------------------------------------------------------
 tfclass = t1.groupby("TF").TFclass.first()
 assert (t1.groupby("TF").TFclass.nunique() == 1).all()
 # family label; n_paralogs = approx. number of human genes in the TFClass subfamily/genus
-# that bind an essentially identical core motif (knowledge-based; see REPORT for the rule).
+# that bind an essentially identical core motif (knowledge-based).
 FAM = {
  "ANDR": ("NR3C steroid receptor", 4), "GCR": ("NR3C steroid receptor", 4), "PRGR": ("NR3C steroid receptor", 4),
  "ESR1": ("NR3A estrogen receptor", 2), "HNF4A": ("NR2A HNF4", 2), "RXRA": ("NR2B RXR", 3), "PPARG": ("NR1C PPAR", 3),
@@ -264,10 +258,8 @@ D["TFclass_id"] = tfclass.reindex(TFS)
 D["family"] = [FAM[t][0] for t in TFS]
 D["n_paralogs_approx"] = [FAM[t][1] for t in TFS]
 
-# --------------------------------------------------------------------------
 # 4. Motif similarity human vs mouse monoPWMs (motif_similarity.py);
-#    the baseline monoPWM of the new basis must be the PWM whose similarity was computed
-# --------------------------------------------------------------------------
+#    the baseline monoPWM must be the PWM whose similarity was computed
 names = pd.read_csv(os.path.join(INPUTS, "single_PWM_features.csv"))
 names = names.set_index(["TF", "feature"]).pwm_name
 E = pd.DataFrame(index=TFS)
@@ -279,9 +271,7 @@ for c in ["n_monoPWM_H_found", "n_monoPWM_M_found", "topH_PWM", "topH_vs_nearest
     E[c] = SIM[c]
 assert (E.n_monoPWM_M_found == D.n_monoPWM_M).all() and (E.n_monoPWM_H_found == hm.P_mono_H).all()
 
-# --------------------------------------------------------------------------
 # 5. Assemble table
-# --------------------------------------------------------------------------
 T = pd.concat([A, D, E], axis=1)
 T.index.name = "TF"
 T["below_baseline_M"] = T.index.isin(below_M)
@@ -294,9 +284,7 @@ order = ["below_baseline_M", "family", "TFclass_id", "n_paralogs_approx", "n_mon
 T = T[order]
 T.to_csv(os.path.join(OUT, "cross_species_table.csv"), float_format="%.4f")
 
-# --------------------------------------------------------------------------
 # 6. Statistics
-# --------------------------------------------------------------------------
 lines = ["| Spearman (n=36) | rho | p |", "|---|---|---|"]
 def sp(x, y, label):
     r, p = stats.spearmanr(x, y)

@@ -10,7 +10,7 @@ This repository contains the analysis pipeline, the code and outputs behind ever
 
 > Kravchenko P., Vorontsov I.E., Grosse I., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). *Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.*
 
-> **Want to scan your own sequences?** See the companion tool [ArChIPelago-TFBS-finder](https://github.com/autosome-ru/ArChIPelago-TFBS-finder), a command-line tool that applies the pre-trained models to any FASTA file.
+The companion command-line tool [ArChIPelago-TFBS-finder](https://github.com/autosome-ru/ArChIPelago-TFBS-finder) applies the pre-trained models to a FASTA file.
 
 ---
 
@@ -20,7 +20,7 @@ This repository contains the analysis pipeline, the code and outputs behind ever
 <tr>
 <td width="55%">
 
-**Pipeline at a glance:**
+Pipeline:
 
 1. Extract ChIP-Seq peaks from GTRD, split by chromosome into training and test sets
 2. Scan the peak regions with HOCOMOCO v11 PWMs (mono- and dinucleotide) using SPRY-SARUS
@@ -32,10 +32,10 @@ This repository contains the analysis pipeline, the code and outputs behind ever
 </td>
 <td width="45%">
 
-**Key results (Random Forest on monoPWMs + diPWMs, 36 TFs):**
+Results (Random Forest on monoPWMs + diPWMs, 36 TFs):
 
 - Median 34.5 human PWMs per TF (up to 303)
-- Human test set: median auROC **0.891** vs 0.861 for the best single monoPWM; auPRC **0.298** vs 0.255
+- Human test set: median auROC 0.891 vs 0.861 for the best single monoPWM; auPRC 0.298 vs 0.255
 - Median per-TF gain +0.024 auROC, +0.041 auPRC; all 36 TFs improved on both metrics
 - 24 % fewer false positives at 50 % recall (median over TFs)
 - Mouse test set (human-trained models): auROC 0.874 vs 0.861, auPRC 0.248 vs 0.183
@@ -46,28 +46,28 @@ This repository contains the analysis pipeline, the code and outputs behind ever
 
 ---
 
-## Repository Structure
+## Repository structure
 
 ```
 ArChIPelago/
 │
 ├── ArChIPelago_code/                # Pipeline: data preparation, scanning, training
-│   ├── config.yml                   # ← EDIT THIS: set paths to your data
-│   ├── archipielago/                # Python package (used by all notebooks)
-│   │   ├── config.py                # Config loading & path validation
+│   ├── config.yml                   # paths to the data
+│   ├── archipielago/                # Python package of the pipeline functions
+│   │   ├── config.py                # config loading and path checks
 │   │   ├── io.py                    # FASTA/BED I/O, train/test splitting
 │   │   ├── scanning.py              # SPRY-SARUS wrapper, feature matrix construction
 │   │   ├── training.py              # RF training, evaluation, cross-validation
 │   │   └── scoring.py               # Scorer classes (sklearn + PRROC)
 │   ├── tests/                       # Unit tests (pytest)
-│   ├── 5_CTCF_demo_pipeline.ipynb   # ← START HERE: end-to-end CTCF demo
+│   ├── 5_CTCF_demo_pipeline.ipynb   # CTCF demo, end to end
 │   ├── 0_Data_preparation and_test_train_split.ipynb
 │   ├── 1_Scanning_with_CHIPMUNK_feature_generation_MONO_DI.ipynb
 │   ├── 2_ArChIPelago_and_Slim_training.ipynb
 │   ├── 3_Biasaway_QC.ipynb
 │   ├── 4_Plot_generation_and_analysis.ipynb
 │   ├── run_simulation.py            # End-to-end pipeline check on simulated data
-│   ├── scorer_module.py             # Backward-compatible import of archipielago.scoring
+│   ├── scorer_module.py             # imports archipielago.scoring
 │   └── environment_rpy_2.yml        # Conda environment specification
 │
 ├── Manuscript_analysis/             # Numbers, tables and figures of the manuscript
@@ -93,16 +93,16 @@ ArChIPelago/
 
 ---
 
-## Quick Start: CTCF Demo
+## CTCF demo
 
-Run the full pipeline on CTCF without any external data preprocessing:
+The demo runs the pipeline on CTCF from the Zenodo files:
 
 ```bash
 # 1. Clone
 git clone --recurse-submodules https://github.com/autosome-ru/ArChIPelago.git
 cd ArChIPelago
 
-# 2. Set up environment
+# 2. Environment
 conda env create -n ArChIPelago -f ArChIPelago_code/environment_rpy_2.yml
 conda activate ArChIPelago
 
@@ -115,7 +115,7 @@ cd ArChIPelago_code
 jupyter lab 5_CTCF_demo_pipeline.ipynb
 ```
 
-The demo notebook walks through every step:
+Steps of the demo notebook:
 
 | Step | What it does |
 |------|-------------|
@@ -125,7 +125,7 @@ The demo notebook walks through every step:
 | Train model | `RandomForestClassifier(n_estimators=100, max_depth=6)` |
 | Evaluate | auROC, auPRC on held-out test chromosomes |
 | Predict | Per-sequence binding probabilities |
-| Visualize | ROC and PR curves |
+| Plot | ROC and PR curves |
 
 ---
 
@@ -133,11 +133,11 @@ The demo notebook walks through every step:
 
 ### Prerequisites
 
-- **Conda** (Miniconda or Anaconda)
-- **Java 8+** (for SPRY-SARUS PWM scanning; OpenJDK 8 is bundled in `Slim/jdk8u232-b09/`)
-- **Git** with submodule support
+- Conda (Miniconda or Anaconda)
+- Java 8 or later (for SPRY-SARUS; OpenJDK 8 is bundled in `Slim/jdk8u232-b09/`)
+- Git with submodule support
 
-### Step-by-step
+### Steps
 
 ```bash
 # Clone with all submodules (sarus, seqtk, ArChIPelago-TFBS-finder)
@@ -148,16 +148,15 @@ cd ArChIPelago
 conda env create -n ArChIPelago -f ArChIPelago_code/environment_rpy_2.yml
 conda activate ArChIPelago
 
-# Verify Java
-java -version   # should print 1.8 or higher
-# or use the bundled JDK:
+# Java version (1.8 or later), or the bundled JDK
+java -version
 Slim/jdk8u232-b09/bin/java -version
 
-# Edit configuration
+# paths to the data
 nano ArChIPelago_code/config.yml
 ```
 
-> **Note on R:** The environment includes R 4.3.1 and rpy2 3.5.11 for PRROC-based auROC/auPRC computation (Grau et al. 2015), as used in the manuscript. If R is not needed, the sklearn-based scorers in `archipielago/scoring.py` provide equivalent functionality.
+The environment includes R 4.3.1 and rpy2 3.5.11 for the PRROC auROC and auPRC (Grau et al. 2015) used in the manuscript. Without R, `archipielago/scoring.py` provides scikit-learn scorers.
 
 ### Configuration
 
@@ -185,11 +184,11 @@ tools:
 
 ---
 
-## Data Download
+## Data
 
 ### Zenodo archive (required)
 
-**DOI: [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303)** (resolves to the latest version of the archive)
+DOI [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves to the latest version of the record)
 
 | Archive | Contents | Required for |
 |---------|----------|-------------|
@@ -203,8 +202,6 @@ tools:
 | `Models.tar.gz` | Pre-trained Random Forest models of the 36 TFs on all their human PWMs (monoPWMs, diPWMs, both; scikit-learn 1.3), each with a `.json` feature specification (PWM order, training mean and standard deviation) | ArChIPelago-TFBS-finder |
 | `Slim.tar.gz` | Slim jar files and bundled JDK 8 | Notebook 2 (Slim training) |
 | `Slim_models.tar.gz` | Pre-trained Slim models of the 36 TFs (`<TF>_SlimModel_<m>/Motif_<n>/SlimDimont_<n>.xml`, m = 0, 1, 5 for LSlim m=-5, 7 for m=-7); ANDR m=1 is the model trained by `Manuscript_analysis/analysis/slim_dichipmunk/train_slim_ANDR_m1.sh` | Notebook 2 (comparison), Fig. 4 / S4 |
-| `Manuscript_analysis.tar.gz` | `Manuscript_analysis/` of this repository (results table, Sup. Tables 1-6, figure panels and source data, scripts, per-TF analysis outputs) and the supplementary figures PDF | Tables and figures of the manuscript |
-| `ArChIPelago_code_<commit>.tar.gz` | Snapshot of this repository at the commit named in the file name (without the submodules) | Code |
 
 In every archive, files named `train` hold the training chromosomes and files named `test` or `control` hold the test chromosomes (see the split below).
 
@@ -224,7 +221,7 @@ Download `track_out.bed` from the [UCSC Table Browser](https://genome.ucsc.edu/c
 
 ---
 
-## Full Reproduction: Notebooks 0-4 and `Manuscript_analysis/`
+## Full reproduction: notebooks 0-4 and `Manuscript_analysis/`
 
 Run the notebooks sequentially. Each reads `config.yml` for external paths.
 
@@ -238,7 +235,7 @@ Run the notebooks sequentially. Each reads `config.yml` for external paths.
 
 The numbers, supplementary tables and figure panels of the manuscript are computed from the outputs of notebooks 0-2 by the scripts in [`Manuscript_analysis/`](Manuscript_analysis/README.md): the evaluation of every model and baseline on both test sets, the mouse-trained control, the operational metrics, the dependence on the number of PWMs, the Fig. 4 models on the best monoPWM and diPWM, the cross-species table and the motif-subtype figure. `bash Manuscript_analysis/scripts/rebuild_tables_and_figures.sh` rebuilds all tables and panels from the per-TF outputs in `Manuscript_analysis/analysis/`.
 
-**Data preparation (Notebook 0):** ChIP-Seq peaks from GTRD were called with MACS (Zhang et al. 2008). Peak lists were filtered by `tags >= 10` and sorted by `-log10(P value)`. Putative binding regions [-150;+150] were extracted centred at the peak summit. Repeat-overlapping peaks were removed using RepeatMasker (Smit et al. 2013-2015) via pybedtools `subtract(f=0.7, N=True)`.
+**Data preparation (notebook 0):** ChIP-Seq peaks from GTRD were called with MACS (Zhang et al. 2008). Peak lists were filtered by `tags >= 10` and sorted by `-log10(P value)`. Putative binding regions [-150;+150] were extracted centred at the peak summit. Repeat-overlapping peaks were removed using RepeatMasker (Smit et al. 2013-2015) via pybedtools `subtract(f=0.7, N=True)`.
 
 **Training and test sets:** following Zhou and Troyanskaya (2015), chromosomes 1, 8 and 21 (human) and 1, 8 and 19 (mouse) are the test sets; the training sets are chromosomes 2-7, 9, 10 and 13-20 (human) and 2-7, 9, 10 and 13-18 (mouse). Chromosomes 11, 12 and the sex chromosomes are used in neither set. Up to 10,000 positives per TF; negatives (1:100 class balance) sampled from peaks of unrelated TF families (TFClass; Wingender et al. 2018), GC-matched using BiasAway (Khan et al. 2021).
 
@@ -248,17 +245,17 @@ The numbers, supplementary tables and figure panels of the manuscript are comput
 
 **Model parameters (Random Forest):** `max_depth=6, max_samples=0.8, n_estimators=100` (selected via GridSearchCV). Features were scale-transformed with `sklearn.preprocessing.StandardScaler`.
 
-**Slim models (Notebook 2):** ArChIPelago was benchmarked against sparse local inhomogeneous mixture (Slim) models (Grau et al. 2013), trained side-by-side from extended 1001 bp genomic regions around the same peak summits. Slim models were trained using `TrainAndApplySlim.jar` with the bundled JDK 8 (`Slim/jdk8u232-b09/bin/java`). Three Slim model orders were compared: `markov_order=0` (equivalent to monoPWM), `markov_order=1` (equivalent to diPWM), and LSlim with `markov_order=-5` (limited Slim; Keilwagen and Grau 2015). Peak signal annotations were derived from the `-10*log10(pvalue)` MACS output field. Slim predictions used `max_score` for performance assessment. Additionally, diPWMs were constructed *de novo* from the positive sequences using diChIPMunk (`run_dichiphorde8.rb`). The Random Forest on the best monoPWM and the best diPWM (RF2f) was augmented with Slim and diChIPMunk features to test whether combining diverse model types improves prediction (Fig. 4, `Manuscript_analysis/analysis/slim_dichipmunk/`).
+**Slim models (notebook 2):** ArChIPelago was benchmarked against sparse local inhomogeneous mixture (Slim) models (Grau et al. 2013), trained side-by-side from extended 1001 bp genomic regions around the same peak summits. Slim models were trained using `TrainAndApplySlim.jar` with the bundled JDK 8 (`Slim/jdk8u232-b09/bin/java`). Three Slim model orders were compared: `markov_order=0` (equivalent to monoPWM), `markov_order=1` (equivalent to diPWM), and LSlim with `markov_order=-5` (limited Slim; Keilwagen and Grau 2015). Peak signal annotations were derived from the `-10*log10(pvalue)` MACS output field. Slim predictions used `max_score` for performance assessment. diPWMs were also constructed *de novo* from the positive sequences using diChIPMunk (`run_dichiphorde8.rb`). The Random Forest on the best monoPWM and the best diPWM (RF2f) was augmented with Slim and diChIPMunk features (Fig. 4, `Manuscript_analysis/analysis/slim_dichipmunk/`).
 
 **Supported TFs (36):** ANDR, AP2A, CEBPB, COE1, CTCF, E2F4, ERG, ESR1, FLI1, GATA1, GATA2, GATA3, GCR, HNF4A, IRF1, IRF4, JUND, MAFK, MAX, MYC, P53, PPARG, PRGR, REST, RUNX1, RXRA, SOX2, SPI1, SRF, STA5A, STAT1, STAT3, TAL1, TF65, TFE2, USF2.
 
-> **Compute requirements (Sup. Table 6):** with the Java virtual machine limited to one core of a 2.6 GHz Intel Xeon E5-4607 v2, SPRY-SARUS needs 0.15 s per monoPWM (0.19 s per diPWM) per megabase of sequence; training the Random Forest on a full human training matrix (200,000-230,000 sequences) takes 28-104 s on one core with at most 1.9 GB RAM, and prediction for 10⁶ sequences 7-20 s.
+Compute requirements (Sup. Table 6): with the Java virtual machine limited to one core of a 2.6 GHz Intel Xeon E5-4607 v2, SPRY-SARUS needs 0.15 s per monoPWM (0.19 s per diPWM) per megabase of sequence; training the Random Forest on a full human training matrix (200,000-230,000 sequences) takes 28-104 s on one core with at most 1.9 GB RAM, and prediction for 10⁶ sequences 7-20 s.
 
 ---
 
-## `archipielago` Python Package
+## `archipielago` Python package
 
-All reusable pipeline functions are consolidated in `ArChIPelago_code/archipielago/`:
+The pipeline functions are in `ArChIPelago_code/archipielago/`:
 
 ```python
 # Configuration
@@ -303,7 +300,7 @@ print(f"auROC: {results['roc_auc']:.4f}, auPRC: {results['pr_auc']:.4f}")
 
 ---
 
-## Running Tests
+## Tests
 
 ```bash
 conda activate ArChIPelago
@@ -311,11 +308,11 @@ cd ArChIPelago_code
 pytest tests/ -v
 ```
 
-The test suite covers all package modules (59 tests). Tests run without Zenodo data, external tools, or reference genomes. PRROC scorer tests are skipped automatically when R/rpy2 is unavailable.
+59 tests cover all modules of the package. They run without the Zenodo data, external tools or reference genomes; the PRROC scorer tests are skipped when R or rpy2 is not installed.
 
 ---
 
-## Manuscript Figures and Tables
+## Manuscript figures and tables
 
 Every figure panel and supplementary table is produced by a script in `Manuscript_analysis/`; the figure PDFs are in `Manuscript_analysis/Figures/panels/`, the plotted values in `Manuscript_analysis/Figures/source_data/`.
 
@@ -338,10 +335,10 @@ Supplementary Tables: 1, ChIP-Seq experiments; 2, PWMs and datasets per TF; 3, A
 ## Platform
 
 Developed and tested on:
-- **Ubuntu 20.04.6 LTS** (GNU/Linux 5.15.0-113-generic x86_64)
-- **Python 3.8.18**, scikit-learn 1.3.0, numpy 1.24.3, pandas 2.0.3, xgboost 1.7.3 (pinned in `ArChIPelago_code/environment_rpy_2.yml`)
-- **R 4.3.1** with PRROC, rpy2 3.5.11
-- **Java 8** (OpenJDK 8u232-b09, bundled)
+- Ubuntu 20.04.6 LTS (GNU/Linux 5.15.0-113-generic x86_64)
+- Python 3.8.18, scikit-learn 1.3.0, numpy 1.24.3, pandas 2.0.3, xgboost 1.7.3 (pinned in `ArChIPelago_code/environment_rpy_2.yml`)
+- R 4.3.1 with PRROC, rpy2 3.5.11
+- Java 8 (OpenJDK 8u232-b09, bundled)
 
 The tables and figure panels of `Manuscript_analysis/` were built with Python 3.9 (pandas 2.3, numpy 1.26) and R 4.4.3.
 

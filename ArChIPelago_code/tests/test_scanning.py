@@ -11,20 +11,16 @@ from archipielago.scanning import (
 )
 
 
-# ---------------------------------------------------------------------------
-# build_feature_matrix
-# ---------------------------------------------------------------------------
-
 def test_build_feature_matrix_mono(mock_sarus_scan_dir):
     X = build_feature_matrix(mock_sarus_scan_dir, mode="mono")
-    # 3 mono PWMs → 3 columns; 4 sequences → 4 rows
+    # 3 mono PWMs -> 3 columns; 4 sequences -> 4 rows
     assert X.shape == (4, 3)
     assert all(col.startswith("mono_") for col in X.columns)
 
 
 def test_build_feature_matrix_di(mock_sarus_scan_dir):
     X = build_feature_matrix(mock_sarus_scan_dir, mode="di")
-    # 2 di PWMs → 2 columns
+    # 2 di PWMs -> 2 columns
     assert X.shape == (4, 2)
     assert all(col.startswith("di_") for col in X.columns)
 
@@ -45,7 +41,7 @@ def test_build_feature_matrix_no_nan(mock_sarus_scan_dir):
 
 
 def test_build_feature_matrix_values(mock_sarus_scan_dir):
-    """Check that scores from conftest fixtures land in the right column."""
+    """Scores of pwm_0.txt land in column mono_pwm_0."""
     X = build_feature_matrix(mock_sarus_scan_dir, mode="mono")
     # pwm_0.txt has scores [0.1, 0.2, 0.3, 0.4]
     col = "mono_pwm_0"
@@ -64,10 +60,6 @@ def test_build_feature_matrix_empty_dir(tmp_path):
         build_feature_matrix(tmp_path, mode="mono")
 
 
-# ---------------------------------------------------------------------------
-# select_top_features
-# ---------------------------------------------------------------------------
-
 def test_select_top_features_returns_column_names(small_feature_matrix):
     X, y = small_feature_matrix
     selected = select_top_features(X, y, n=3)
@@ -77,7 +69,7 @@ def test_select_top_features_returns_column_names(small_feature_matrix):
 
 def test_select_top_features_respects_n(small_feature_matrix):
     X, y = small_feature_matrix
-    # Request more features than available — should cap at X.shape[1]
+    # n larger than the number of features: capped at X.shape[1]
     selected = select_top_features(X, y, n=1000)
     assert len(selected) == X.shape[1]
 
@@ -87,10 +79,6 @@ def test_select_top_features_no_duplicates(small_feature_matrix):
     selected = select_top_features(X, y, n=5)
     assert len(selected) == len(set(selected))
 
-
-# ---------------------------------------------------------------------------
-# load_sarus_scores
-# ---------------------------------------------------------------------------
 
 def test_load_sarus_scores_basic(tmp_path):
     score_file = tmp_path / "scores.txt"
@@ -113,10 +101,6 @@ def test_load_sarus_scores_missing_file(tmp_path):
     assert isinstance(s, pd.Series)
     assert len(s) == 0
 
-
-# ---------------------------------------------------------------------------
-# run_sarus — validation-only (no Java invoked)
-# ---------------------------------------------------------------------------
 
 def test_run_sarus_missing_fasta(tmp_path):
     pwm_file = tmp_path / "motif.pwm"

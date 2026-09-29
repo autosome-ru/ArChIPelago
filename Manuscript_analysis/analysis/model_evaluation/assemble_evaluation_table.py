@@ -1,5 +1,5 @@
 """
-assemble_evaluation_table.py -- build evaluation_table.csv from the per-combination json rows written by
+assemble_evaluation_table.py - build evaluation_table.csv from the per-combination json rows written by
 evaluate_models.py, plus best_single_PWMs.csv (the selected single PWMs of every TF), and print the headline
 numbers.  The table has the schema, row order and row semantics of the notebook 4 results table
 (inputs/notebook4_results_table.csv, read for its columns, row order and TF index); make_results_table.py

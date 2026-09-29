@@ -1,5 +1,5 @@
 """
-fit_RF2f_models.py -- the models of Fig. 4 / S4 that contain the two single-PWM features (RF2f family).
+fit_RF2f_models.py - the models of Fig. 4 / S4 that contain the two single-PWM features (RF2f family).
 
 Loader = ../common/pipeline_data.py; mouse test set = chr1/8/19 (logical ("MOUSE", "control")).
   * Slim test_M scores = scans of the mouse test-set fasta with the Slim models of the TF
@@ -89,7 +89,7 @@ def slim_scores(tf, m, mouse_names):
             raise ValueError("%s Slim m=%d: %s does not look like %s %s (%s)" % (tf, m, f, sp, split, first))
         v = pd.read_csv(f, sep="\t", header=None, usecols=[3])[3].to_numpy(dtype=np.float64)
         out[key] = (v, f)
-    # mouse test set: the new scan of the chr1/8/19 fasta, checked by row count and sequence-name order
+    # mouse test set: the scan of the chr1/8/19 fasta, checked by row count and sequence-name order
     f = os.path.join(SWAP, "slim_scans", tf, "m%d_%s" % (m, MOUSE_SET), "model1_predictions.txt")
     if not os.path.isfile(f):
         raise FileNotFoundError("%s Slim m=%d: %s missing" % (tf, m, f))
@@ -149,7 +149,7 @@ def main():
             if not np.array_equal(rows[k][1], d["y_" + k]):
                 raise ValueError("%s: row selection differs from load_tf for %s" % (tf, k))
         ys = {k: d["y_" + k] for k in ("train", "test_H", "test_M")}
-        # ---- best mono / di by TRAIN auROC (and, for the record, by train auPRC)
+        # best mono / di by TRAIN auROC (and, for the record, by train auPRC)
         tr = np.array([metrics(ys["train"], d["X_train"][:, j]) for j in range(d["X_train"].shape[1])])
         mono = np.flatnonzero(d["is_mono"]); di = np.flatnonzero(~d["is_mono"])
         j_mono = int(mono[np.argmax(tr[mono, 0])]); j_di = int(di[np.argmax(tr[di, 0])])
@@ -159,7 +159,7 @@ def main():
         for k in ("test_H", "test_M"):
             row["best_mono_%s" % k] = metrics(ys[k], d["X_" + k][:, j_mono])
             row["best_di_%s" % k] = metrics(ys[k], d["X_" + k][:, j_di])
-        # ---- Slim and diChIPMunk feature vectors on the selected rows
+        # Slim and diChIPMunk feature vectors on the selected rows
         feats = {}
         for name, m in SLIM.items():
             sc = slim_scores(tf, m, mouse_names)          # raises if any of the three sets is missing
@@ -170,7 +170,7 @@ def main():
         for name in list(feats):
             for k in ("test_H", "test_M"):
                 row["single_%s_%s" % (name, k)] = metrics(ys[k], feats[name][k])
-        # ---- RF models
+        # RF models
         pwm2 = {k: np.column_stack([d["X_" + k][:, j_mono], d["X_" + k][:, j_di]]) for k in rows}
         models = {"RF2f": [], "RF2f_munk": ["munk"], "RF2f_slim1": ["slim1"], "RF2f_lslim5": ["lslim5"],
                   "RF2f_all5": ["slim1", "lslim5", "munk"]}

@@ -36,11 +36,11 @@ assert (nb4[KEY].values == ev[KEY].values).all(), "row order must be identical"
 
 out = nb4.copy()
 
-# ---------------------------------------------------------------- 1. all mouse columns
+# 1. all mouse columns
 for c in [c for c in nb4.columns if "test_M" in c]:
     out[c] = ev[c].values
 
-# ---------------------------------------------------------------- 2. diPWM baseline (human side)
+# 2. diPWM baseline (human side)
 for c in [c for c in nb4.columns if c.endswith("_PWM_di") and "test_M" not in c]:
     out[c] = ev[c].values
 is_di_row = out.Model == "Single best di PWM"
@@ -51,7 +51,7 @@ for c in [c for c in nb4.columns if c.startswith(("mean_", "median_", "std_"))]:
 # the mean_/median_/std_ columns are not read by any figure script; on the mouse side they carry the
 # point value of the mouse basis
 
-# ---------------------------------------------------------------- 3. baselines, one convention for
+# 3. baselines, one convention for
 # every row: *_PWM_mono = best single monoPWM of the TF, *_PWM_di = best single diPWM of the TF,
 # *_PWM (the column the figures compare against) = best single monoPWM, as the figure legends state.
 mono_rows = out[(out.Model == "Single best mono PWM") & (out.PWM == "mono")].drop_duplicates("TF_name").set_index("TF_name")
@@ -63,7 +63,7 @@ for met in ["roc_auc", "pr_auc"]:
     for sp in ["test_H", "test_M"]:
         out[f"{met}_{sp}_PWM"] = out.TF_name.map(mono_rows[f"{met}_{sp}_PWM_mono"]).values
 
-# ---------------------------------------------------------------- checks of the merge
+# checks of the merge
 rf_nb4 = nb4[(nb4.Model == "RandomForestClassifier") & (nb4.PWM == "mono+di")].set_index("TF_name")
 rf_out = out[(out.Model == "RandomForestClassifier") & (out.PWM == "mono+di")].set_index("TF_name")
 assert np.allclose(rf_out.roc_auc_test_H, rf_nb4.roc_auc_test_H), "human model values come from notebook 4"
@@ -79,7 +79,7 @@ os.makedirs(RES, exist_ok=True)
 out.to_csv(OUT, sep="\t", index=False)
 print("written:", OUT)
 
-# ---------------------------------------------------------------- headline medians
+# headline medians
 rf_out = out[(out.Model == "RandomForestClassifier") & (out.PWM == "mono+di")].set_index("TF_name").sort_index()
 print("\nheadline medians (36 TFs, Random Forest on monoPWMs+diPWMs, baseline = best single monoPWM)")
 for sp, lab in (("H", "human test set"), ("M", "mouse test set, chr1/8/19")):

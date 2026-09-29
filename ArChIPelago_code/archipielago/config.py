@@ -22,7 +22,7 @@ def load_config(path=None):
     Returns
     -------
     dict
-        Parsed configuration with 'paths' and 'tools' sections.
+        Configuration with the sections 'paths' and 'tools'.
 
     Raises
     ------
@@ -63,7 +63,7 @@ def load_config(path=None):
 
 
 def get_path(cfg, key):
-    """Return a path from config, raising a clear error if it is a placeholder.
+    """Return a path from the config; raise an error if it is missing or a placeholder.
 
     Parameters
     ----------
@@ -80,11 +80,11 @@ def get_path(cfg, key):
     if value is None:
         raise KeyError(
             f"config.yml is missing paths.{key}. "
-            "Please edit config.yml and fill in this path."
+            "Set this path in config.yml."
         )
     if "/path/to/" in str(value):
         raise ValueError(
             f"config.yml paths.{key} is still a placeholder: {value!r}. "
-            "Please replace it with the actual path on your machine."
+            "Set the path on your machine."
         )
     return Path(value)

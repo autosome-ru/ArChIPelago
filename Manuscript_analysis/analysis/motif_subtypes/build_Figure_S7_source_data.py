@@ -13,7 +13,7 @@
 4. Log-odds -> probabilities per position: p_i(x) = 0.25*exp(w_i(x)) / sum (mono; uniform background);
    diPWM: P_i(xy) = exp(w_i(xy))/16 / sum over the 16 dinucleotides, then the mononucleotide marginal:
    position i (i = 1..L) = first-nucleotide marginal of row i, position L+1 = second-nucleotide marginal
-   of row L (an L-row diPWM scores L+1 nt) -- the same projection HOCOMOCO uses to draw the mono-style
+   of row L (an L-row diPWM scores L+1 nt) - the same projection HOCOMOCO uses to draw the mono-style
    logo of a dinucleotide PCM (summing the dinucleotide counts), here applied to the uniform-background
    probabilities. Consensus per position: the letter if p >= 0.6, the two-letter IUPAC code if the top two
    letters sum to >= 0.8, else N (lower case = 0.6 > p >= 0.4 single letter).
@@ -49,7 +49,7 @@ ACGT = "ACGT"
 DINUC = [a + b for a in ACGT for b in ACGT]   # row order of HOCOMOCO dinucleotide matrices: AA AC AG AT CA ...
 
 
-# ---------------------------------------------------------------- 1. ranking
+# 1. ranking
 def ranking():
     d = pd.read_csv(SRC)
     d = d[(d.PWM_set == "mono+di") & (d.test_set == "human")].copy()
@@ -65,7 +65,7 @@ def ranking():
     return d
 
 
-# ---------------------------------------------------------------- 2. importances
+# 2. importances
 def pwm_path(tf, feat):
     kind, k = feat.split("_")
     return os.path.join(PWM_ROOT, "PWMs_%s_HUMAN" % kind, tf, "%s.%s" % (k, "pwm" if kind == "mono" else "dpwm"))
@@ -92,7 +92,7 @@ def all_feature_importances():
     return out
 
 
-# ---------------------------------------------------------------- 3./4. matrices
+# 3./4. matrices
 def to_prob(kind, w):
     if kind == "mono":
         if w.shape[1] != 4:
@@ -221,7 +221,7 @@ def main():
                             delta_auROC=float(row.delta_auROC), delta_auPRC=float(row.delta_auPRC),
                             rank_dauROC=int(row.rank_dauROC), rank_dauPRC=int(row.rank_dauPRC),
                             matrix_file=mfile,
-                            source_matrix=os.path.relpath(pwm_path(tf, r.feature), os.path.expanduser("~"))))
+                            source_matrix=os.path.relpath(pwm_path(tf, r.feature), PWM_ROOT)))
     src = pd.DataFrame(src)
     src["rank_within_class"] = src.groupby(["TF", "pwm_class"]).cumcount() + 1
     src = src[["TF", "panel", "pwm_class", "rank_within_class", "rank_overall", "feature", "pwm_name", "importance",

@@ -1,4 +1,4 @@
-"""Backward-compatibility shim — all scorer classes now live in archipielago.scoring."""
+"""Scorer classes of archipielago.scoring under the module name used by the notebooks."""
 from archipielago.scoring import (  # noqa: F401
     Scorer, ConstantScorer, BinaryScorer, SklearnScorer,
     SklearnROCAUC, SklearnPRAUC, PRROCScorer,

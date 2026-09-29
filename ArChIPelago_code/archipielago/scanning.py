@@ -1,7 +1,7 @@
 """SARUS PWM scanning and feature matrix construction.
 
-Wraps the SARUS Java tool (command line unchanged) and builds feature
-matrices from its output for use in model training and prediction.
+Runs the SARUS Java tool with the command line of the notebooks and builds
+feature matrices from its output.
 """
 
 import os
@@ -12,17 +12,12 @@ import numpy as np
 import pandas as pd
 
 
-# ---------------------------------------------------------------------------
-# SARUS scanning
-# ---------------------------------------------------------------------------
-
 def run_sarus(fasta_path, pwm_path, sarus_jar, output_path, java_bin="java",
               pwm_type="mono", xmx="2G"):
     """Run SARUS PWM scanner on a FASTA file.
 
-    The shell command is kept exactly as used in the original notebooks.
-    For mono PWMs uses `ru.autosome.SARUS`; for di-nucleotide PWMs uses
-    `ru.autosome.di.SARUS`.
+    The shell command is the one of the notebooks: `ru.autosome.SARUS` for
+    monoPWMs, `ru.autosome.di.SARUS` for diPWMs.
 
     Parameters
     ----------
@@ -63,9 +58,9 @@ def run_sarus(fasta_path, pwm_path, sarus_jar, output_path, java_bin="java",
 
     sarus_class = "ru.autosome.SARUS" if pwm_type == "mono" else "ru.autosome.di.SARUS"
 
-    # Command matches notebooks and manuscript (Kravchenko et al.):
+    # Same command as in the notebooks and the manuscript:
     # --skipn: skip N-containing positions
-    # --show-non-matching: output score even if no match found
+    # --show-non-matching: report the best score also for sequences without a hit
     # grep -v '>': strip FASTA headers from output (one score per line)
     cmd = (
         f"{java_bin} -Xmx{xmx} -cp {sarus_jar} {sarus_class} "
@@ -109,10 +104,6 @@ def load_sarus_scores(score_file):
     return scores.reset_index(drop=True)
 
 
-# ---------------------------------------------------------------------------
-# Feature matrix construction
-# ---------------------------------------------------------------------------
-
 def build_feature_matrix(scan_dir, mode="mono_di"):
     """Build a feature matrix from a directory of SARUS score files.
 
@@ -123,7 +114,7 @@ def build_feature_matrix(scan_dir, mode="mono_di"):
     Parameters
     ----------
     scan_dir : str or Path
-        Directory produced by scanning.  Must contain ``mono/`` and/or ``di/``
+        Scan output directory. Must contain ``mono/`` and/or ``di/``
         subdirectories.
     mode : str
         One of 'mono', 'di', 'mono_di'.

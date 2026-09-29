@@ -100,7 +100,7 @@ for tf in tfs:
 pt = pd.DataFrame(pt)
 pt.to_csv(os.path.join(D, "saturation_per_tf.csv"), index=False)
 
-# ---- markdown summary
+# markdown summary
 L = []
 L.append("### Median delta (RF - best single mono PWM, human-train-selected) vs number of PWMs k\n")
 L.append("Budget convention: TFs with P < k enter at k_eff = P; all %d TFs at every k. " % len(tfs) +

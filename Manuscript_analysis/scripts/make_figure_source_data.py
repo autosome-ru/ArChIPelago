@@ -21,7 +21,7 @@ os.makedirs(SRC, exist_ok=True)
 
 F = pd.read_csv(os.path.join(RES, "results_table.csv"), sep="\t")
 
-# ---- Fig. 2 (human test) and Fig. S1 (mouse test): all models x PWM sets, plus the baseline lines
+# Fig. 2 (human test) and Fig. S1 (mouse test): all models x PWM sets, plus the baseline lines
 for sp, name in (("H", "Figure_2"), ("M", "Figure_S1")):
     d = F[F.Seq_count > 100][["TF_name", "Model", "PWM", f"roc_auc_test_{sp}", f"pr_auc_test_{sp}", "Count", "Seq_count"]].copy()
     d = d.rename(columns={f"roc_auc_test_{sp}": "auROC", f"pr_auc_test_{sp}": "auPRC", "PWM": "PWM_set",
@@ -33,7 +33,7 @@ for sp, name in (("H", "Figure_2"), ("M", "Figure_S1")):
     ref = d[d.Model.isin(["Single best mono PWM", "Single best di PWM"])].groupby("Model")[["auROC", "auPRC"]].median()
     ref.to_csv(os.path.join(SRC, f"{name}_reference_lines.csv"))
 
-# ---- Fig. 3 (human) and Fig. S3 (mouse): RF per PWM set vs its baseline + the delta panel
+# Fig. 3 (human) and Fig. S3 (mouse): RF per PWM set vs its baseline + the delta panel
 for sp, name in (("H", "Figure_3"), ("M", "Figure_S3")):
     r = F[F.Model == "RandomForestClassifier"].copy()
     n_pwm = F[F.Model == "RandomForestClassifier"].groupby("TF_name").Count.apply(lambda s: sum(set(s)))
@@ -45,7 +45,7 @@ for sp, name in (("H", "Figure_3"), ("M", "Figure_S3")):
     out["test_set"] = "human" if sp == "H" else "mouse"
     out.sort_values(["TF", "PWM_set"]).to_csv(os.path.join(SRC, f"{name}_source_data.csv"), index=False)
 
-# ---- Fig. S5: RF gain over the best single monoPWM vs the number of PWMs used
+# Fig. S5: RF gain over the best single monoPWM vs the number of PWMs used
 K_GRID = [1, 2, 4, 8, 16, 32, 64, 128]
 METRICS = ["auroc_H", "auprc_H", "auroc_M", "auprc_M"]
 df = pd.read_csv(os.path.join(BASIS, "saturation", "saturation_results.csv"))
@@ -85,13 +85,13 @@ pd.DataFrame(rows).to_csv(os.path.join(SRC, "Figure_S5_source_data.csv"), index=
 med_out = pd.concat({des: med[des] for des in ("random", "topk")}, names=["design", "k"])
 med_out.to_csv(os.path.join(SRC, "Figure_S5_median_curves.csv"))
 
-# ---- Fig. S6: cross-species transfer and the mouse-trained control (extract of Sup. Table 5)
+# Fig. S6: cross-species transfer and the mouse-trained control (extract of Sup. Table 5)
 t5 = pd.read_csv(os.path.join(RES, "Sup_Tables", "Sup_Table_5_cross_species_and_mouse_trained.csv")).set_index("TF")
 t5[["H>H: dauROC (reference)", "H>H: dauPRC (reference)", "H>M: dauROC", "H>M: dauPRC", "M>M: dauROC", "M>M: dauPRC",
     "Similarity of the baseline human monoPWM to the nearest mouse monoPWM (Pearson r of aligned columns)",
     "H>M: below baseline on >=1 metric"]].to_csv(os.path.join(SRC, "Figure_S6_source_data.csv"))
 
-# ---- Fig. S7: the four TFs of the figure
+# Fig. S7: the four TFs of the figure
 s7 = pd.read_csv(os.path.join(BASIS, "motif_subtypes", "Figure_S7_source_data.csv"))
 s7[s7.TF.isin(["E2F4", "RXRA", "TAL1", "TFE2"])].to_csv(os.path.join(SRC, "Figure_S7_source_data.csv"), index=False)
 

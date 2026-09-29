@@ -1,5 +1,4 @@
-# =============================================================================
-# Figure_S3ABC_mouse_test.R -- Fig. S3, panels A-C: Random Forest on monoPWMs, diPWMs and monoPWMs+diPWMs against
+# Figure_S3ABC_mouse_test.R - Fig. S3, panels A-C: Random Forest on monoPWMs, diPWMs and monoPWMs+diPWMs against
 # the best single monoPWM (selected on the human training set), mouse test set (chr1, 8, 19); C = gain of the
 # monoPWM+diPWM model per TF (colour: number of PWMs, size: training positives).
 #
@@ -8,11 +7,10 @@
 # Writes: Figure_S3ABC_mouse_test.pdf
 # Optional packages (hrbrthemes, gapminder, extrafont, viridis, ggpubr) are used when installed;
 # otherwise ggplot2 / cowplot fallbacks are used.
-# =============================================================================
 
 OUT_SUFFIX  <- ""
 
-# ---- optional CLI overrides -------------------------------------------------
+# optional CLI overrides
 script_dir <- local({
   f <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
@@ -27,7 +25,6 @@ cat("Input table :", input_path, "\n")
 cat("Output dir  :", out_dir, "\n")
 if (!interactive()) pdf(NULL)   # Rscript: swallow implicit print()s so no stray Rplots.pdf is written
 
-# Libraries
 library(ggplot2)
 library(dplyr)
 if (requireNamespace("hrbrthemes", quietly = TRUE)) library(hrbrthemes)   # not used by the plots
@@ -267,7 +264,7 @@ median_gain <- data4 %>%
   )
 median_summary <- bind_cols(median_comparison, median_gain)
 
-# ---- stdout diagnostics ------------------------------------------------------
+# stdout diagnostics
 cat("\n==== KEY MEDIANS: RandomForestClassifier, mono+di, mouse test set (n TFs =", nrow(data4), ") ====\n")
 print(as.data.frame(median_summary), digits = 4)
 cat("Per PWM-type medians (RandomForestClassifier, mouse test set):\n")

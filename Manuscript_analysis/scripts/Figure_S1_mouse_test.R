@@ -1,5 +1,4 @@
-# =============================================================================
-# Figure_S1_mouse_test.R -- Fig. S1: auROC (A) and auPRC (B) of the five algorithms on the monoPWM, diPWM
+# Figure_S1_mouse_test.R - Fig. S1: auROC (A) and auPRC (B) of the five algorithms on the monoPWM, diPWM
 # and monoPWM+diPWM feature sets, mouse test set (chr1, 8, 19), with the best single monoPWM and the best
 # single diPWM (selected on the human training set) as reference series (one dot per TF) and as
 # horizontal lines (median over TFs).
@@ -7,12 +6,11 @@
 # Input : ../results_table.csv (make_results_table.py) and ../analysis/inputs/training_positives_per_TF.csv
 # Usage : Rscript Figure_S1_mouse_test.R [input_table] [output_dir]     (default output: ../Figures/panels)
 # Writes: Figure_S1_mouse_test.pdf and Figure_2_and_S1_legend.pdf (the same legend as Fig. 2)
-# =============================================================================
 
 NAMES_INPUT <- "training_positives_per_TF.csv"
 OUT_SUFFIX  <- ""
 
-# ---- locate project dir / parse optional CLI overrides ----------------------
+# locate project dir / parse optional CLI overrides
 script_dir <- local({
   f <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
@@ -32,7 +30,7 @@ cat("Names table :", names_path, "\n")
 cat("Output dir  :", out_dir, "\n")
 if (!interactive()) pdf(NULL)   # Rscript: swallow implicit print()s so no stray Rplots.pdf is written
 
-# ---- packages (guarded so Rscript works without the full tidyverse) ---------
+# packages (guarded so Rscript works without the full tidyverse)
 if (requireNamespace("tidyverse", quietly = TRUE)) {
   suppressPackageStartupMessages(library(tidyverse))
 } else {
@@ -41,13 +39,10 @@ if (requireNamespace("tidyverse", quietly = TRUE)) {
 library(ggplot2)
 library(patchwork)
 
-# Read the main dataframe
 df_total <- read.delim(input_path, sep="\t")
 
-# Read the second dataframe
 ddf <- read.delim(names_path, sep='\t')
 
-# Merge dataframes
 df_total <- df_total %>%
   left_join(ddf, by = c("TF_name" = "Names"))
 
@@ -60,13 +55,11 @@ df_total <- df_total %>%
 df_total <- df_total %>%
   distinct(TF_name, Model, PWM, .keep_all = TRUE)
 
-# Define hue order for consistent plotting
 hue_order <- c("Single best mono PWM", "Single best di PWM", 
                "LogisticRegression", "RandomForestClassifier", 
                "XGBClassifier", "BaggingClassifier_XGBClassifier", 
                "BaggingClassifier_LogisticRegression")
 
-# Convert Model to factor with specified levels
 df_total$Model <- factor(df_total$Model, levels = hue_order)
 df_total$PWM <- factor(df_total$PWM, levels = c("mono", "di", "mono+di"))
 
@@ -96,7 +89,7 @@ median_di_roc <- median(df_total$roc_auc_test_M[df_total$Model == "Single best d
 median_mono_prc <- median(df_total$pr_auc_test_M[df_total$Model == "Single best monoPWM"], na.rm = TRUE)
 median_di_prc <- median(df_total$pr_auc_test_M[df_total$Model == "Single best diPWM"], na.rm = TRUE)
 
-# ---- stdout diagnostics ------------------------------------------------------
+# stdout diagnostics
 cat("\n==== KEY MEDIANS (mouse test set, Seq_count.y > 100 filter) ====\n")
 cat(sprintf("median_mono_roc = %.4f   median_di_roc = %.4f\n", median_mono_roc, median_di_roc))
 cat(sprintf("median_mono_prc = %.4f   median_di_prc = %.4f\n", median_mono_prc, median_di_prc))
@@ -156,14 +149,11 @@ p_prc <- ggplot(df_total, aes(x = PWM, y = pr_auc_test_M, color = Model)) +
     plot.title = element_text(face = "bold", hjust = 0, size = 24)
   )
 
-# Combine panels
 combined_plot <- p_roc / p_prc
 
-# Save the combined plot with dpi=600
 ggsave(out_file("Figure_S1_mouse_test.pdf"), 
        plot = combined_plot, width = 10, height = 10, dpi = 600, device = cairo_pdf)
 
-# Display the plot
 print(combined_plot)
 
 # Extract and save the legend separately
@@ -180,10 +170,8 @@ p_with_legend <- ggplot(df_total, aes(x = PWM, y = roc_auc_test_M, color = Model
     legend.text = element_text(size = 16)
   )
 
-# Extract the legend
 legend <- get_legend(p_with_legend)
 
-# Save the legend as a separate PDF with dpi=600
 ggsave(out_file("Figure_2_and_S1_legend.pdf"), 
        plot = legend, width = 5, height = 4, dpi = 600, device = cairo_pdf)
 

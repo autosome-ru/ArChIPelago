@@ -74,7 +74,7 @@ class PRROC_PRAUC(PRROCScorer):
                 raise Exception()
             return auroc
 
-@dataclass  # BUGFIX H10: was missing @dataclass — PRROC_ROCAUC(alias) raised TypeError
+@dataclass
 class PRROC_ROCAUC(PRROCScorer):
     def score(self, y_score: List[float], y_real: List[int]) -> float:
         from rpy2.rinterface_lib import openrlib
@@ -97,7 +97,7 @@ class ScorerInfo:
     def from_dict(cls, dt: dict):
         return cls(**dt)
 
-    def __post_init__(self):  # BUGFIX H9: was __attrs_post_init__ (attrs hook, never called for @dataclass)
+    def __post_init__(self):
         if not self.alias:
             self.alias = self.name
     

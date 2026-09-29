@@ -1,5 +1,4 @@
-# =============================================================================
-# Figure_S7_motif_subtypes.R -- Fig. S7:
+# Figure_S7_motif_subtypes.R - Fig. S7:
 # for the TFs with the largest ArChIPelago gains over the best monoPWM (human test
 # set, mono+di RF), the PWMs the Random Forest relies on most. One row per TF:
 # the top-4 monoPWMs and the top-2 diPWMs by RF feature importance, drawn as
@@ -14,11 +13,10 @@
 # Usage : Rscript Figure_S7_motif_subtypes.R [TF ...]   (edit TFS below, or list TFs on the command line)
 # Style : as Figure_S6_cross_species.R (Arial, theme_minimal,
 #         cairo_pdf); logo letters use ggseqlogo's built-in glyphs.
-# =============================================================================
 
 suppressPackageStartupMessages({library(ggplot2); library(ggseqlogo); library(patchwork)})
 
-# ---- choose the TFs to draw (row order of the figure); NULL = all candidates -------------
+# choose the TFs to draw (row order of the figure); NULL = all candidates
 TFS <- c("E2F4", "RXRA", "TAL1", "TFE2")   # the TFs whose top-ranked PWMs show distinct subtypes (tf_ranking.csv)
 cli <- commandArgs(trailingOnly = TRUE)      # Rscript Figure_S7_motif_subtypes.R TAL1 RXRA  overrides TFS
 if (length(cli)) TFS <- cli
@@ -32,7 +30,7 @@ src_path <- file.path(data_dir, "Figure_S7_source_data.csv")
 if (!file.exists(src_path)) stop("Input not found: ", src_path)
 if (!interactive()) pdf(NULL)
 
-# ---- house style ------------------------------------------------------------
+# style
 theme_set(theme_get() + theme(text = element_text(family = "Arial")))
 N_MONO <- 4; N_DI <- 2; N_COL <- N_MONO + N_DI
 LOGO_FONT <- "helvetica_bold"
@@ -96,7 +94,7 @@ assemble <- function(tfs) {
   wrap_plots(panels, ncol = N_COL + 1, widths = c(0.62, rep(1, N_COL)), byrow = TRUE)
 }
 
-# ---- the figure -------------------------------------------------------------
+# the figure
 fig <- assemble(TFS) +
   plot_annotation(
     title = "PWMs with the highest Random Forest feature importance (mono+di ArChIPelago, human test set)",

@@ -1,7 +1,7 @@
 """ArChIPelago Python package.
 
-Provides reusable functions for the ArChIPelago transcription factor binding
-site prediction pipeline. Import individual submodules as needed:
+Functions of the ArChIPelago transcription factor binding site prediction
+pipeline:
 
     from archipielago import io, scanning, training, scoring
     from archipielago.config import load_config

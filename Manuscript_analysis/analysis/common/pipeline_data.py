@@ -1,9 +1,9 @@
 """
-pipeline_data.py -- reusable loader for the ArChIPelago per-TF feature matrices.
+pipeline_data.py - reusable loader for the ArChIPelago per-TF feature matrices.
 
 Reads ONLY from the pipeline output directory $ARCHI_RELEASE_DIR (default ~/Release/TF-ML: the files written by
 notebooks 0-2); never writes there.
-Python 3.8 / sklearn 1.3.0 / pandas.  Re-implements the matrix assembly of notebook 2
+Python 3.8 / sklearn 1.3.0 / pandas.  Performs the matrix assembly of notebook 2
 (functions group_selection_GC / Scale_transform / model_building / rocauc_plotting) without the shell
 `paste` step.
 
@@ -27,7 +27,7 @@ Assembly (exactly as in the notebook):
   positives  = rows with column 3 == "<TF>_<SEQ>", .sample(n=10000, random_state=0) if more;
   negatives  = rows whose id is in the neg-id file,  .sample(n=1_000_000, random_state=0) if more;
   X = PWM columns, y = 1/0;  StandardScaler().fit_transform() applied to EACH matrix separately
-  (train, test_H, test_M are each standardised with their own mean/sd -- this is what the
+  (train, test_H, test_M are each standardised with their own mean/sd - this is what the
   release code does; use scale="train" for the conventional train-fitted scaler, or None).
   mono_di feature order in the release run: mono PWMs (random.shuffle'd, unseeded), then di PWMs
   sorted by index; here mono and di are both sorted by index (order is irrelevant for the
@@ -61,7 +61,7 @@ def _file_split(seq_species, split):
 RF_PARAMS = {"max_depth": 6, "max_samples": 0.8, "n_estimators": 100}   # release notebook
 
 
-# ----------------------------------------------------------------------------- raw readers
+# raw readers
 def global_table(seq_species, split):
     """out_tab_<SP>_10000_<train|control>.tab -> DataFrame(idx, name, family, tf); name w/o '$...'."""
     path = os.path.join(REL, "out_tab_%s_10000_%s.tab" % (seq_species, _file_split(seq_species, split)))
@@ -156,7 +156,7 @@ def _scale(X, how, scaler=None):
     raise ValueError(how)
 
 
-# ----------------------------------------------------------------------------- public API
+# public API
 def load_matrix(tf, seq_species, pwm_species, split, feature_names):
     """One (X, y, meta) block: sequences of `seq_species` on `split` chromosomes scanned with
     `pwm_species` PWMs.  X is unscaled float32.  meta = global-table rows (name, chrom, tf)."""
@@ -248,7 +248,7 @@ def best_pwm_baseline(X_train, y_train, X_tests, mask=None):
 
 
 def fit_paper_rf(X, y, n_jobs=4, random_state=None):
-    """RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100) -- the release
+    """RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100) - the release
     notebook sets no random_state, so its numbers are not bit-reproducible."""
     m = RandomForestClassifier(n_jobs=n_jobs, random_state=random_state, **RF_PARAMS)
     m.fit(X, y)

@@ -1,5 +1,4 @@
-# =============================================================================
-# Figure_4_and_S4.R -- Fig. 4 (human test set) and Fig. S4 (mouse test set, mouse chr1/8/19).
+# Figure_4_and_S4.R - Fig. 4 (human test set) and Fig. S4 (mouse test set, mouse chr1/8/19).
 #
 # Quasirandom points + boxplots per model, dashed zero line, one-sided Wilcoxon stars,
 # theme_classic; the reference is the best single monoPWM (the *_PWM columns of the
@@ -9,7 +8,6 @@
 #         (written by analysis/slim_dichipmunk/assemble_Figure_4_S4.py)
 # Usage : Rscript Figure_4_and_S4.R [source_data_dir] [output_dir]
 #         (defaults: ../Figures/source_data and ../Figures/panels)
-# =============================================================================
 suppressPackageStartupMessages({library(dplyr); library(ggplot2); library(ggbeeswarm); library(patchwork)})
 
 script_dir <- local({

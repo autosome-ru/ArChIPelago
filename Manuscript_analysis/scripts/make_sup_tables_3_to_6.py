@@ -4,7 +4,7 @@
 Basis: human values of every ArChIPelago model = notebook 4; mouse test set = mouse chromosomes 1, 8
 and 19 (mouse training set = mouse chromosomes 2-7, 9, 10 and 13-18); baseline everywhere = the best single monoPWM
 selected on the training set (human training set for the human-trained models, mouse training set for the
-mouse-trained control). No other reference PWM is reported.
+mouse-trained control).
 
 Inputs (under Manuscript_analysis/analysis/, see archi_paths.py):
   ../results_table.csv                        results table (make_results_table.py)
@@ -13,11 +13,11 @@ Inputs (under Manuscript_analysis/analysis/, see archi_paths.py):
   cross_species/cross_species_table.csv       TF metadata + motif similarity (cross_species_table.py)
   saturation/saturation_summary_by_k.csv, saturation_per_tf.csv, saturation_results.csv   (analyze_saturation.py)
 
-Sup. Table 3  -- the performance table (sheets summary, performance)
-Sup. Table 4  -- operational metrics (summary, per_TF)
-Sup. Table 5  -- cross-species transfer + mouse-trained control (summary, correlations, per_TF)
-Sup. Table 6  -- runtime / memory benchmark (values measured with the raw timings in analysis/runtime/)
-numbers_in_text.json -- every number quoted in the text of the manuscript (written to Manuscript_analysis/)
+Sup. Table 3 - the performance table (sheets summary, performance)
+Sup. Table 4 - operational metrics (summary, per_TF)
+Sup. Table 5 - cross-species transfer + mouse-trained control (summary, correlations, per_TF)
+Sup. Table 6 - runtime / memory benchmark (values measured with the raw timings in analysis/runtime/)
+numbers_in_text.json - every number quoted in the text of the manuscript (written to Manuscript_analysis/)
 """
 import json
 import os
@@ -55,9 +55,7 @@ def desc(d):
     return list(d.sort_values(ascending=False).index)
 
 
-# ----------------------------------------------------------------------------------------------
 # Sup. Table 3
-# ----------------------------------------------------------------------------------------------
 t3 = T.drop(columns=["Unnamed: 0", "Names"] + [c for c in T.columns if c.startswith(("mean_", "median_", "std_"))])
 t3 = t3.rename(columns={"Count": "Number of PWMs", "PWM": "PWM type"})
 sum3 = []
@@ -110,9 +108,7 @@ for pwm in ["mono", "di", "mono+di"]:
 allm = T[(T.PWM == "mono+di") & (~T.Model.str.startswith("Single"))]
 headline["models_monodi_medians_H"] = allm.groupby("Model")[["roc_auc_test_H", "pr_auc_test_H"]].median().round(4).to_dict()
 
-# ----------------------------------------------------------------------------------------------
-# Sup. Table 4 -- operational metrics (baseline: best single monoPWM, selected by training auPRC)
-# ----------------------------------------------------------------------------------------------
+# Sup. Table 4 - operational metrics (baseline: best single monoPWM, selected by training auPRC)
 op = pd.read_csv(os.path.join(BASIS, "operational", "operational_metrics.csv"))
 assert op.shape[0] == 72 and sorted(op.tf.unique()) == TFS
 assert not any((c.endswith(("_di", "_pwm")) and c != "baseline_pwm") or c.startswith(("baseline_class", "train_auprc_best")) for c in op.columns), \
@@ -189,9 +185,7 @@ with pd.ExcelWriter(os.path.join(OUT, "Sup_Table_4_operational_metrics.xlsx")) a
 t4.to_csv(os.path.join(OUT, "Sup_Table_4_operational_metrics.csv"), index=False)
 sum4.to_csv(os.path.join(OUT, "Sup_Table_4_operational_metrics_summary.csv"), index=False)
 
-# ----------------------------------------------------------------------------------------------
-# Sup. Table 5 -- cross-species + mouse-trained control (baseline: best single monoPWM)
-# ----------------------------------------------------------------------------------------------
+# Sup. Table 5 - cross-species + mouse-trained control (baseline: best single monoPWM)
 hm = pd.read_csv(os.path.join(BASIS, "mouse_transfer", "mouse_transfer_results.csv")).set_index("TF").sort_index()
 cs = pd.read_csv(os.path.join(BASIS, "cross_species", "cross_species_table.csv")).set_index("TF").sort_index()
 assert list(hm.index) == TFS == list(cs.index) == list(rf.index) and hm.MM_available.all()
@@ -323,9 +317,7 @@ with pd.ExcelWriter(os.path.join(OUT, "Sup_Table_5_cross_species_and_mouse_train
 t5.reset_index().to_csv(os.path.join(OUT, "Sup_Table_5_cross_species_and_mouse_trained.csv"), index=False)
 sum5.to_csv(os.path.join(OUT, "Sup_Table_5_summary.csv"), index=False)
 
-# ----------------------------------------------------------------------------------------------
-# Sup. Table 6 -- runtime / memory (values measured with the raw timings in analysis/runtime/)
-# ----------------------------------------------------------------------------------------------
+# Sup. Table 6 - runtime / memory (values measured with the raw timings in analysis/runtime/)
 hw = pd.DataFrame({"Item": ["CPU", "RAM", "OS", "Java / SARUS", "Python", "Timing", "Benchmark input", "Training matrices", "Thread policy"],
                    "Value": ["Intel Xeon E5-4607 v2 @ 2.60 GHz (4 sockets x 6 cores, 2 threads per core; shared server, load 3-8 of 48 threads during the measurements)",
                              "503 GB total", "Ubuntu 20.04.6 LTS, kernel 5.4.0",
@@ -394,10 +386,8 @@ train.to_csv(os.path.join(OUT, "Sup_Table_6_runtime_RF_training.csv"), index=Fal
 infer.to_csv(os.path.join(OUT, "Sup_Table_6_runtime_RF_inference.csv"), index=False)
 
 
-# ----------------------------------------------------------------------------------------------
-# saturation (Fig. S5) headline numbers -- against the best single monoPWM
+# saturation (Fig. S5) headline numbers - against the best single monoPWM
 # ($ARCHI_BASIS_DIR/saturation/, summaries written by analyze_saturation.py)
-# ----------------------------------------------------------------------------------------------
 SAT = os.path.join(BASIS, "saturation")
 sat = pd.read_csv(os.path.join(SAT, "saturation_summary_by_k.csv"))
 satk = {}

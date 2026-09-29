@@ -1,5 +1,4 @@
-# =============================================================================
-# Figure_S6_cross_species.R  --  Fig. S6: cross-species
+# Figure_S6_cross_species.R - Fig. S6: cross-species
 # transfer and the mouse-trained control, drawn in R in the style of the main
 # and supplementary figures of the paper (Arial, theme_minimal(base_size = 21, base_family = "Arial"),
 # Set2 palette, dotted zero lines, ggrepel labels, cairo_pdf output).
@@ -10,7 +9,6 @@
 #         (defaults: ../Figures/source_data and ../Figures/panels)
 # Mouse test set = mouse chr1/8/19; baseline = best single monoPWM. The TFs
 # below the baseline after transfer are drawn last and labelled; jitter in panel D is seeded.
-# =============================================================================
 
 suppressPackageStartupMessages({library(dplyr); library(tidyr); library(ggplot2)
                                 library(ggrepel); library(patchwork)})
@@ -29,7 +27,7 @@ dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 cat("Source data :", src_path, "\nOutput dir  :", out_dir, "\n")
 if (!interactive()) pdf(NULL)
 
-# ---- house style ------------------------------------------------------------
+# style
 theme_set(theme_get() + theme(text = element_text(family = "Arial")))
 SET2_GREEN  <- "#66c2a5"   # Set2[1]
 SET2_ORANGE <- "#fc8d62"   # Set2[2]
@@ -49,7 +47,7 @@ base_theme <- function() {
           legend.text = element_text(size = 16))
 }
 
-# ---- data -------------------------------------------------------------------
+# data
 d <- read.csv(src_path, stringsAsFactors = FALSE, check.names = FALSE)
 col <- function(nm) d[[nm]]
 d$class <- factor(ifelse(as.character(col("H>M: below baseline on >=1 metric")) %in% c("True", "TRUE"),
@@ -57,7 +55,7 @@ d$class <- factor(ifelse(as.character(col("H>M: below baseline on >=1 metric")) 
 fail_tfs <- d$TF[d$class == LAB_FAIL]
 SIM_COL <- "Similarity of the baseline human monoPWM to the nearest mouse monoPWM (Pearson r of aligned columns)"
 
-# ---- panels A / B: human-trained vs mouse-trained gain on the mouse test set -
+# panels A / B: human-trained vs mouse-trained gain on the mouse test set
 panel_ab <- function(metric, letter) {
   x <- col(paste0("H>M: dau", metric)); y <- col(paste0("M>M: dau", metric))
   lim <- c(min(x, y) - 0.015, max(x, y) + 0.015)
@@ -85,7 +83,7 @@ panel_ab <- function(metric, letter) {
     base_theme()
 }
 
-# ---- panel C: motif similarity vs cross-species gain -------------------------
+# panel C: motif similarity vs cross-species gain
 sim <- col(SIM_COL); gain <- col("H>M: dauROC")
 ct <- suppressWarnings(cor.test(sim, gain, method = "spearman"))
 dd_c <- data.frame(TF = d$TF, x = sim, y = gain, class = d$class)
@@ -109,7 +107,7 @@ panel_c <- ggplot(dd_c, aes(x = x, y = y)) +
        y = "ΔauROC, human-trained") +
   base_theme()
 
-# ---- panel D: the gain in the three settings --------------------------------
+# panel D: the gain in the three settings
 settings <- c("human-trained,\nhuman test", "human-trained,\nmouse test", "mouse-trained,\nmouse test")
 dd_d <- bind_rows(
   data.frame(setting = settings[1], `ΔauROC` = col("H>H: dauROC (reference)"),
@@ -141,7 +139,7 @@ pdf_out <- file.path(out_dir, "Figure_S6_cross_species.pdf")
 ggsave(pdf_out, combined, device = grDevices::cairo_pdf,
        width = 320, height = 280, units = "mm", dpi = 600)
 
-# ---- stdout diagnostics -----------------------------------------------------
+# stdout diagnostics
 cat("\n==== Fig. S6 ====\n")
 cat("TFs:", nrow(d), "| below the baseline after transfer:", paste(fail_tfs, collapse = ", "), "\n")
 cat(sprintf("Spearman (motif similarity vs H>M dauROC): rho = %.3f, P = %.3f\n",
