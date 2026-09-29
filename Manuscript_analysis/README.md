@@ -111,6 +111,10 @@ default `<repository>/14927304`, with `PWMs_mono_HUMAN/`, `PWMs_di_HUMAN/` and `
 to rebuild it. With pandas 2.3, numpy 1.26 and R 4.4.3 the run reproduces every csv and json file of this
 folder byte for byte and every panel except the random horizontal jitter of the dots in Fig. 2 and S1.
 
+`pytest Manuscript_analysis/tests` (from the repository root; run by GitHub Actions on every push) checks the
+headline numbers of `numbers_in_text.json` against `results_table.csv` and re-runs the Python table builders on a
+copy of this folder (all steps except the two that read PWM files), which must reproduce every csv and json file.
+
 ## Running the per-TF analyses
 
 These steps read the pipeline output directory written by notebooks 0-2 (`ARCHI_RELEASE_DIR`, default
