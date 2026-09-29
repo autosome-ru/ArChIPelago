@@ -11,7 +11,7 @@ prediction of transcription factor binding sites*).
 | test set | chromosomes 1, 8, 21 | chromosomes 1, 8, 19 |
 | training set | chromosomes 2-7, 9, 10, 13-20 | chromosomes 2-7, 9, 10, 13-18 |
 
-* Chromosomes 11, 12 and the sex chromosomes are used in neither set.
+* Chromosomes 11 and 12, human chromosome 22 and the sex chromosomes are used in neither set.
 * The ArChIPelago models are trained on the human training set (five algorithms: Random Forest, Logistic
   Regression, XGBoost, Bagging with XGBoost, Bagging with Logistic Regression; three PWM sets: monoPWMs,
   diPWMs, monoPWMs + diPWMs) and evaluated on the human and on the mouse test set.
