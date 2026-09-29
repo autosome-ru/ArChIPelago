@@ -203,7 +203,7 @@ DOI [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves
 | `PWMs_mono_MOUSE.tar.gz`, `PWMs_di_MOUSE.tar.gz` | Mouse monoPWMs (1,192) and diPWMs (624) of the 36 TFs | Notebooks 1, 2; mouse-trained control |
 | `hocomoco11.tar.gz` | HOCOMOCO v11 models, benchmark data and curation tables | Notebook 0 |
 | `macs.tar.gz` | GTRD MACS peak intervals | Notebook 0 |
-| `Archipelago_intermediate_files.tar.gz` | Global sequence tables and FASTA files of the training and test sets, result tables of notebook 2 | Skip notebook 0 |
+| `Archipelago_intermediate_files_tables.tar.gz`, `Archipelago_intermediate_files_fasta_<HUMAN\|HUMAN_SLIM\|MOUSE\|MOUSE_SLIM>.tar.gz` | Global sequence tables and FASTA files of the training and test sets, result tables of notebook 2; the five archives unpack into one folder, `Archipelago_intermediate_files/` | Skip notebook 0 |
 | `Models.tar.gz` | Pre-trained Random Forest models of the 36 TFs on all their human PWMs (monoPWMs, diPWMs, both; scikit-learn 1.3), each with a `.json` feature specification (PWM order, training mean and standard deviation) | ArChIPelago-TFBS-finder |
 | `Slim.tar.gz` | Slim jar files and bundled JDK 8 | Notebook 2 (Slim training) |
 | `Slim_models.tar.gz` | Pre-trained Slim models of the 36 TFs (`<TF>_SlimModel_<m>/Motif_<n>/SlimDimont_<n>.xml`, m = 0, 1, 5 for LSlim m=-5, 7 for m=-7); ANDR m=1 is the model trained by `Manuscript_analysis/analysis/slim_dichipmunk/train_slim_ANDR_m1.sh` | Notebook 2 (comparison), Fig. 4 / S4 |
