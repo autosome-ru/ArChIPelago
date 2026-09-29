@@ -9,7 +9,7 @@
 # macOS
 .DS_Store
 
-# Zenodo download (large data — not tracked)
+# Zenodo download (large data, not tracked)
 14927304/
 
 # Figures: keep R code, ignore generated images and design files
