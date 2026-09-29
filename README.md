@@ -315,7 +315,7 @@ cd ..
 pytest Manuscript_analysis/tests  # tables and numbers of the manuscript
 ```
 
-59 tests cover all modules of the package. They run without the Zenodo data, external tools or reference genomes; the PRROC scorer tests are skipped when R or rpy2 is not installed. `Manuscript_analysis/tests` recomputes the headline numbers of the text from `results_table.csv` and re-runs the table builders on a copy of the folder, which must reproduce every tracked csv and json file (pandas 2.3.0, numpy 1.26.4, scipy 1.13.1). GitHub Actions runs both on every push (`.github/workflows/tests.yml`).
+59 tests cover all modules of the package. They run without the Zenodo data, external tools or reference genomes; the PRROC scorer tests are skipped when R or rpy2 is not installed. `Manuscript_analysis/tests` recomputes the headline numbers of the text from `results_table.csv` and re-runs the table builders on a copy of the folder, which must reproduce every tracked csv and json file (pandas 2.3.0, numpy 1.26.4, scipy 1.13.1; identical text, numbers equal to a relative 1e-12, since macOS and Linux differ in the last digit of some doubles). GitHub Actions runs both on every push (`.github/workflows/tests.yml`).
 
 ---
 
