@@ -1,12 +1,13 @@
 """Tests of Manuscript_analysis/: the headline numbers recomputed from results_table.csv, and the table builders
-re-run on a copy of the folder, which must reproduce every tracked csv and json file byte for byte.
+re-run on a copy of the folder, which must reproduce every tracked csv and json file: identical text, and numbers
+equal to a relative 1e-12 (the math libraries of macOS and Linux differ in the last digit of some doubles).
 
 Run from the repository root: pytest Manuscript_analysis/tests
 """
 import difflib
-import filecmp
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -16,6 +17,7 @@ import pandas as pd
 import pytest
 from scipy.stats import wilcoxon
 
+NUMBER = re.compile(r"-?\d+\.\d+(?:[eE][-+]?\d+)?")
 RES = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # builders of rebuild_tables_and_figures.sh that need neither the Zenodo PWM files nor R
@@ -71,6 +73,17 @@ def test_headline_numbers(results, numbers, species):
     assert np.allclose(p, n["wilcoxon_p"], rtol=1e-6)
 
 
+def same_up_to_last_digits(path_a, path_b):
+    with open(path_a) as a, open(path_b) as b:
+        ta, tb = a.read(), b.read()
+    if ta == tb:
+        return True
+    if NUMBER.split(ta) != NUMBER.split(tb):
+        return False
+    na, nb = NUMBER.findall(ta), NUMBER.findall(tb)
+    return np.allclose(np.array(na, float), np.array(nb, float), rtol=1e-12, atol=0)
+
+
 def test_rebuild_reproduces_tracked_outputs(tmp_path):
     copy = str(tmp_path / "Manuscript_analysis")
     shutil.copytree(RES, copy, ignore=shutil.ignore_patterns("__pycache__", ".pytest_cache", "tests"))
@@ -86,7 +99,7 @@ def test_rebuild_reproduces_tracked_outputs(tmp_path):
             if f.endswith((".csv", ".json")):
                 rel = os.path.relpath(os.path.join(root, f), RES)
                 compared += 1
-                if not filecmp.cmp(os.path.join(RES, rel), os.path.join(copy, rel), shallow=False):
+                if not same_up_to_last_digits(os.path.join(RES, rel), os.path.join(copy, rel)):
                     changed.append(rel)
     assert compared > 100
     detail = []

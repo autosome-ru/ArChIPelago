@@ -113,7 +113,8 @@ folder byte for byte and every panel except the random horizontal jitter of the 
 
 `pytest Manuscript_analysis/tests` (from the repository root; run by GitHub Actions on every push) checks the
 headline numbers of `numbers_in_text.json` against `results_table.csv` and re-runs the Python table builders on a
-copy of this folder (all steps except the two that read PWM files), which must reproduce every csv and json file.
+copy of this folder (all steps except the two that read PWM files), which must reproduce every csv and json file
+(identical text; numbers equal to a relative 1e-12, since macOS and Linux differ in the last digit of some doubles).
 
 ## Running the per-TF analyses
 
