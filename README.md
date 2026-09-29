@@ -202,7 +202,7 @@ tools:
 | `Archipelago_intermediate_files.tar.gz` | Global sequence tables and FASTA files of the training and test sets, result tables of notebook 2 | Skip notebook 0 |
 | `Models.tar.gz` | Pre-trained Random Forest models of the 36 TFs on all their human PWMs (monoPWMs, diPWMs, both; scikit-learn 1.3), each with a `.json` feature specification (PWM order, training mean and standard deviation) | ArChIPelago-TFBS-finder |
 | `Slim.tar.gz` | Slim jar files and bundled JDK 8 | Notebook 2 (Slim training) |
-| `Slim_models.tar.gz` | Pre-trained Slim models | Notebook 2 (comparison) |
+| `Slim_models.tar.gz` | Pre-trained Slim models of the 36 TFs (`<TF>_SlimModel_<m>/Motif_<n>/SlimDimont_<n>.xml`, m = 0, 1, 5 for LSlim m=-5, 7 for m=-7); ANDR m=1 is the model trained by `Manuscript_analysis/analysis/slim_dichipmunk/train_slim_ANDR_m1.sh` | Notebook 2 (comparison), Fig. 4 / S4 |
 | `Manuscript_analysis.tar.gz` | `Manuscript_analysis/` of this repository (results table, Sup. Tables 1-6, figure panels and source data, scripts, per-TF analysis outputs) and the supplementary figures PDF | Tables and figures of the manuscript |
 | `ArChIPelago_code_<commit>.tar.gz` | Snapshot of this repository at the commit named in the file name (without the submodules) | Code |
 
