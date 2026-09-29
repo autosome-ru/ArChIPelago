@@ -193,7 +193,7 @@ tools:
 
 ### Zenodo archive (required)
 
-DOI [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves to the latest version of the record)
+DOI [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves to the latest version of the record); the version of release v1.0.0 is [10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475)
 
 | Archive | Contents | Required for |
 |---------|----------|-------------|
@@ -361,4 +361,4 @@ ArChIPelago is distributed under [WTFPL](http://www.wtfpl.net/). If you prefer a
 
 Kravchenko P., Vorontsov I.E., Grosse I., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.
 
-Zenodo data archive: [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303)
+Zenodo data archive: [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (all versions); release v1.0.0: [10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475)
