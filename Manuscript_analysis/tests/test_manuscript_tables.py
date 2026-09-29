@@ -3,6 +3,7 @@ re-run on a copy of the folder, which must reproduce every tracked csv and json 
 
 Run from the repository root: pytest Manuscript_analysis/tests
 """
+import difflib
 import filecmp
 import json
 import os
@@ -88,4 +89,9 @@ def test_rebuild_reproduces_tracked_outputs(tmp_path):
                 if not filecmp.cmp(os.path.join(RES, rel), os.path.join(copy, rel), shallow=False):
                     changed.append(rel)
     assert compared > 100
-    assert not changed, "outputs differ from the tracked files: %s" % changed
+    detail = []
+    for rel in changed:
+        with open(os.path.join(RES, rel)) as a, open(os.path.join(copy, rel)) as b:
+            diff = difflib.unified_diff(a.read().splitlines(), b.read().splitlines(), rel, "rebuilt", n=0, lineterm="")
+            detail.append("\n".join(list(diff)[:12]))
+    assert not changed, "outputs differ from the tracked files: %s\n%s" % (changed, "\n".join(detail))
