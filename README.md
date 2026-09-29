@@ -1,5 +1,10 @@
 # ArChIPelago <img src='./Archipelago.png' width='55'>
 
+[![tests](https://github.com/autosome-ru/ArChIPelago/actions/workflows/tests.yml/badge.svg)](https://github.com/autosome-ru/ArChIPelago/actions/workflows/tests.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14927303.svg)](https://doi.org/10.5281/zenodo.14927303)
+[![release](https://img.shields.io/github/v/tag/autosome-ru/ArChIPelago?label=release)](https://github.com/autosome-ru/ArChIPelago/tree/v1.0.0)
+[![License: WTFPL](https://img.shields.io/badge/license-WTFPL-lightgrey.svg)](http://www.wtfpl.net/)
+
 **Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites**
 
 ArChIPelago is a computational framework that combines multiple position weight matrices (PWMs) into a joint model using classic machine learning techniques, from linear regression to ensembles of decision trees, to improve prediction of transcription factor binding sites in genomic sequences.
@@ -305,10 +310,12 @@ print(f"auROC: {results['roc_auc']:.4f}, auPRC: {results['pr_auc']:.4f}")
 ```bash
 conda activate ArChIPelago
 cd ArChIPelago_code
-pytest tests/ -v
+pytest tests/ -v                 # archipielago package
+cd ..
+pytest Manuscript_analysis/tests  # tables and numbers of the manuscript
 ```
 
-59 tests cover all modules of the package. They run without the Zenodo data, external tools or reference genomes; the PRROC scorer tests are skipped when R or rpy2 is not installed.
+59 tests cover all modules of the package. They run without the Zenodo data, external tools or reference genomes; the PRROC scorer tests are skipped when R or rpy2 is not installed. `Manuscript_analysis/tests` recomputes the headline numbers of the text from `results_table.csv` and re-runs the table builders on a copy of the folder, which must reproduce every tracked csv and json file (pandas 2.3.0, numpy 1.26.4, scipy 1.13.1). GitHub Actions runs both on every push (`.github/workflows/tests.yml`).
 
 ---
 

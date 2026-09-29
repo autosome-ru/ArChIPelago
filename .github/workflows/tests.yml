@@ -1,0 +1,34 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  archipielago:
+    name: archipielago package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.10"
+      - name: Install
+        run: pip install numpy pandas scikit-learn pyyaml pytest
+      - name: Unit tests
+        working-directory: ArChIPelago_code
+        run: pytest tests -v
+
+  manuscript-analysis:
+    name: Manuscript_analysis tables and numbers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.10"
+      - name: Install (versions the tracked tables were built with)
+        run: pip install pandas==2.3.0 numpy==1.26.4 scipy==1.13.1 matplotlib==3.5.2 openpyxl==3.1.5 pytest
+      - name: Rebuild the tables and check the numbers of the text
+        run: pytest Manuscript_analysis/tests -v
