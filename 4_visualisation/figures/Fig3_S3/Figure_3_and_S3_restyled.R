@@ -1,7 +1,8 @@
 # Figure_3_and_S3_restyled.R - Fig. 3 A-C (human test set) and Fig. S3 A-C (mouse test set), restyled.
 # Based on the released Figure_3ABC_human_test.R / Figure_S3ABC_mouse_test.R; data handling unchanged. Presentation only:
-#   * A, B (with marginal histograms drawn as outlines, so that overlapping sets stay visible): Random Forest on monoPWMs / diPWMs / monoPWMs + diPWMs against the best single monoPWM; the feature sets are three
-#     lightness steps of the Random Forest green (../archi_style.R: PWMSET_COL), opaque circles with black outline, with a legend
+#   * A, B (with marginal histograms drawn as outlines, so that overlapping sets stay visible): Random Forest on monoPWMs / diPWMs / monoPWMs + diPWMs against the best single monoPWM; the feature sets are
+#     red / orange / green as best monoPWM / best diPWM / Random Forest in Fig. 2 (../archi_style.R: MODEL_COL), opaque circles
+#     with black outline, with a legend; A (auROC) starts at the lowest value minus 0.05, rounded down to 0.1
 #   * C: bubbles opaque (no alpha), viridis option D instead of plasma (plasma uses the red/orange of the PWM reference series)
 #   * panels assembled with cowplot so that a complete figure PDF/PNG exists (previously assembled in Illustrator; panel D = logos,
 #     not drawn here)
@@ -58,31 +59,35 @@ draw <- function(sp, fig_name, label) {
         med_prc = median(prc), med_base_prc = median(base_prc), .groups = "drop")), digits = 4)
   cat(sprintf("panel C medians: dROC %.4f dPRC %.4f (n = %d TFs)\n", median(dC$dROC), median(dC$dPRC), nrow(dC)))
 
-  sc <- function(x, y, xl, yl) {
+  set_col <- setNames(unname(MODEL_COL[c("Single best monoPWM", "Single best diPWM", "Random Forest (RF)")]), PWMSET_LABELS)
+  sc <- function(x, y, xl, yl, lo = 0) {
+    brk <- if (lo > 0) seq(lo, 1, 0.1) else c(0, 0.5, 1)
     p <- ggplot(dA %>% arrange(desc(Seq_count)), aes(x = .data[[x]], y = .data[[y]], fill = PWMset, colour = PWMset)) +
       geom_abline(intercept = 0, linetype = "dotted", linewidth = 0.8) +
       geom_point(shape = 21, size = 3.6, stroke = 0.5, colour = "black") +
-      scale_fill_manual(values = PWMSET_COL, name = NULL) + scale_colour_manual(values = PWMSET_COL, name = NULL) +
-      annotate("text", x = 1, y = 0.02, hjust = 1, vjust = 0, label = test_lab, size = if (sp == "H") 5.2 else 4.4, lineheight = 0.85, family = "Arial", colour = "black") +
-      scale_x_continuous(breaks = c(0, 0.5, 1)) + scale_y_continuous(breaks = c(0, 0.5, 1)) +
-      coord_cartesian(xlim = c(0, 1), ylim = c(0, 1)) +
+      scale_fill_manual(values = set_col, name = NULL) + scale_colour_manual(values = set_col, name = NULL) +
+      annotate("text", x = 1, y = lo + 0.02 * (1 - lo), hjust = 1, vjust = 0, label = test_lab, size = if (sp == "H") 5.2 else 4.4, lineheight = 0.85, family = "Arial", colour = "black") +
+      scale_x_continuous(breaks = brk) + scale_y_continuous(breaks = brk) +
+      coord_cartesian(xlim = c(lo, 1), ylim = c(lo, 1)) +
       labs(x = xl, y = yl) +
       theme_archi(18) + theme(legend.position = "none", plot.margin = margin(8, 8, 8, 30))
     hx <- ggplot(dA, aes(x = .data[[x]], colour = PWMset)) + geom_histogram(aes(y = after_stat(count)), bins = 25, fill = NA,
             position = "identity", linewidth = 0.7, boundary = 0) +
-      scale_colour_manual(values = c("#7FBFA6", "#009E73", "#00503B")) + coord_cartesian(xlim = c(0, 1)) + theme_void() +
+      scale_colour_manual(values = set_col) + coord_cartesian(xlim = c(lo, 1)) + theme_void() +
       theme(legend.position = "none")
     hy <- ggplot(dA, aes(x = .data[[y]], colour = PWMset)) + geom_histogram(bins = 25, fill = NA, position = "identity",
             linewidth = 0.7, boundary = 0) +
-      scale_colour_manual(values = c("#7FBFA6", "#009E73", "#00503B")) + coord_flip(xlim = c(0, 1)) + theme_void() +
+      scale_colour_manual(values = set_col) + coord_flip(xlim = c(lo, 1)) + theme_void() +
       theme(legend.position = "none")
     ggdraw(insert_yaxis_grob(insert_xaxis_grob(p, hx, grid::unit(1.6, "cm"), position = "top"), hy, grid::unit(1.6, "cm"),
                              position = "right"))
   }
-  a <- sc("base_roc", "roc", "auROC best monoPWM", "auROC")
+  # panel A starts below the lowest auROC (minus 0.05, rounded down to 0.1), so the points are not squeezed into the top corner
+  lo_roc <- floor((min(dA$base_roc, dA$roc) - 0.05) * 10) / 10
+  a <- sc("base_roc", "roc", "auROC best monoPWM", "auROC", lo = lo_roc)
   b <- sc("base_prc", "prc", "auPRC best monoPWM", "auPRC")
   leg <- cowplot::get_legend(ggplot(dA, aes(roc, prc, fill = PWMset)) + geom_point(shape = 21, colour = "black", size = 4) +
-    scale_fill_manual(values = PWMSET_COL, name = "Random Forest on") + theme_archi(18) +
+    scale_fill_manual(values = set_col, name = "Random Forest on") + theme_archi(18) +
     theme(legend.position = "bottom", legend.key.width = unit(1.2, "cm"), legend.key.spacing.x = unit(1.0, "cm"), legend.title = element_text(size = 15), legend.text = element_text(size = 15)) +
     guides(fill = guide_legend(nrow = 1)))
   lab_df <- subset(dC, dROC < 0 | dROC > 0.05 | dPRC < 0 | dPRC > 0.2 | TF_name == "MAFK")

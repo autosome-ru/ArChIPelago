@@ -1,6 +1,6 @@
 script: subtype_vs_named_v11.py
-date: 2026-11-11T14:20:22
-git: e6ec80886
+date: 2026-11-11T15:23:41
+git: 8d44ee704
 min_overlap: 5
 ref_tfs: ETV2,ETV7,BATF,FLI1
 gap: r_ref - r_own (both rounded to 3 decimals first)

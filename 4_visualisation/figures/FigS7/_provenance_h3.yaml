@@ -52,3 +52,57 @@
     - {file: "4_visualisation/figures/FigS7/Figure_S7_source_data.csv", md5: "eafc7e9dbf3dd343333c1569f374cc9f"}
     - {file: "4_visualisation/figures/FigS7/tf_ranking_h3.csv", md5: "e17b6e0b31a955e981404c4c2affc72d"}
     - {file: "4_visualisation/figures/FigS7/subtype_verdicts_v11_h3.csv", md5: "86707722dd61a23c78c7ecc7b1aa6a77"}
+- script: "4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py"
+  run: "2026-11-11 15:23:33"
+  git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
+  git_changed_tracked_files: 14
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{N_TOP: 8, N_MONO: 4, N_DI: 3, candidates: union of top N_TOP by dauROC and dauPRC, figure: STAT1 subtypes TAL1 subtypes IRF4 cofactor TFE2 cofactor, cofactor_gap: 0.20, tie: 0.01, v11_min_overlap: 5}"
+  inputs:
+    - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
+    - {file: "3_analysis/package/analysis/inputs/GTRD_metadata.csv", md5: "69cdd0943af25031eacac848e755b72e"}
+    - {file: "results/datasets/hocomoco11/HOCOMOCOv11_full_pcms_HUMAN_mono.txt", md5: "ace4698cb56d1c50431465a45d6f02f6"}
+    - {file: "results/server/human/B4_importance/gini/ANDR_gini.csv", md5: "57c7a941d8132a8bd6973f17924d3c0e"}
+    - {file: "results/server/human/B4_importance/gini/AP2A_gini.csv", md5: "31ec335b37e8d3f9ca4f87ec70835ec3"}
+    - {file: "results/server/human/B4_importance/gini/CEBPB_gini.csv", md5: "6768dfe57c39b61131cb68cf292475f9"}
+    - {file: "results/server/human/B4_importance/gini/COE1_gini.csv", md5: "88f7e7ca9ef505df3081504b1d0096fb"}
+    - {file: "results/server/human/B4_importance/gini/CTCF_gini.csv", md5: "790c84c57f4e0d48514ada84df3b7d52"}
+    - {file: "results/server/human/B4_importance/gini/E2F4_gini.csv", md5: "b473034b026c29c12eeee2ac24855031"}
+    - {file: "results/server/human/B4_importance/gini/ERG_gini.csv", md5: "b4d92a23d478f5197c86c5af1984d0d5"}
+    - {file: "results/server/human/B4_importance/gini/ESR1_gini.csv", md5: "25ee498067d0b732d75eea17686b54b9"}
+    - {file: "results/server/human/B4_importance/gini/FLI1_gini.csv", md5: "93ff8c778f812c24940eea62fb01c104"}
+    - {file: "results/server/human/B4_importance/gini/GATA1_gini.csv", md5: "a7592b8267fd8f08a35e6b40bd348900"}
+    - {file: "results/server/human/B4_importance/gini/GATA2_gini.csv", md5: "b31a0b4c1a7bdb013d2fe7da5f4bec28"}
+    - {file: "results/server/human/B4_importance/gini/GATA3_gini.csv", md5: "13a1e8b6672acfd724e44446f079de62"}
+    - {file: "results/server/human/B4_importance/gini/GCR_gini.csv", md5: "b4b7dd71631ac9c6ed753271d6c4185d"}
+    - {file: "results/server/human/B4_importance/gini/HNF4A_gini.csv", md5: "9576f8ce7e7c6f6f97a361013b027b04"}
+    - {file: "results/server/human/B4_importance/gini/IRF1_gini.csv", md5: "0df124757396a13c427e34f028f82d82"}
+    - {file: "results/server/human/B4_importance/gini/IRF4_gini.csv", md5: "75768e059c7d095e3c275b8e4bb83872"}
+    - {file: "results/server/human/B4_importance/gini/JUND_gini.csv", md5: "99c1d8fd274480760d8ad4d217fcdd3d"}
+    - {file: "results/server/human/B4_importance/gini/MAFK_gini.csv", md5: "3a473b6d48b86663ed2e298e9d573670"}
+    - {file: "results/server/human/B4_importance/gini/MAX_gini.csv", md5: "8d808cc4f608225268ee74cb128e4287"}
+    - {file: "results/server/human/B4_importance/gini/MYC_gini.csv", md5: "26744ee8bf3bcea850469a7ea0bbac43"}
+    - {file: "results/server/human/B4_importance/gini/PPARG_gini.csv", md5: "f2dd392ce765b68f082fc7f745f07019"}
+    - {file: "results/server/human/B4_importance/gini/PRGR_gini.csv", md5: "55974eb0e608d9653244d4eceee8ee22"}
+    - {file: "results/server/human/B4_importance/gini/REST_gini.csv", md5: "f7c065887839cac8f4b4665b17555779"}
+    - {file: "results/server/human/B4_importance/gini/RUNX1_gini.csv", md5: "0d8ca9ce2cfa3a3d57acd27fd61b260f"}
+    - {file: "results/server/human/B4_importance/gini/RXRA_gini.csv", md5: "55845cf8aeeb5907ddc2a2a192c81cde"}
+    - {file: "results/server/human/B4_importance/gini/SOX2_gini.csv", md5: "56e19dd22c99fef16666e94ff529b1dd"}
+    - {file: "results/server/human/B4_importance/gini/SPI1_gini.csv", md5: "e3fabf87252157f37a2732f7daf3cbd6"}
+    - {file: "results/server/human/B4_importance/gini/SRF_gini.csv", md5: "809d6a4fb80d49b7541d7aa96411c022"}
+    - {file: "results/server/human/B4_importance/gini/STA5A_gini.csv", md5: "ea1ef0bd9f2d463f6bda708337dfd3bb"}
+    - {file: "results/server/human/B4_importance/gini/STAT1_gini.csv", md5: "b68a4ee3fcf033fd7c4b27a0c17c9580"}
+    - {file: "results/server/human/B4_importance/gini/STAT3_gini.csv", md5: "784954bc409bb11c95838036e70594f8"}
+    - {file: "results/server/human/B4_importance/gini/TAL1_gini.csv", md5: "7e8f8dd0e52be846d409536fb9ab7e96"}
+    - {file: "results/server/human/B4_importance/gini/TF65_gini.csv", md5: "be7ae91cb8a8c1adfb5bd1cfff934a39"}
+    - {file: "results/server/human/B4_importance/gini/TFE2_gini.csv", md5: "eddf0eadc95eab7f53284aec0c1cc852"}
+    - {file: "results/server/human/B4_importance/gini/USF2_gini.csv", md5: "4330e35a0a1ee6c4bd3d952673d78ee4"}
+  outputs:
+    - {file: "4_visualisation/figures/FigS7/Figure_S7_source_data.csv", md5: "eafc7e9dbf3dd343333c1569f374cc9f"}
+    - {file: "4_visualisation/figures/FigS7/tf_ranking_h3.csv", md5: "e17b6e0b31a955e981404c4c2affc72d"}
+    - {file: "4_visualisation/figures/FigS7/subtype_verdicts_v11_h3.csv", md5: "86707722dd61a23c78c7ecc7b1aa6a77"}
