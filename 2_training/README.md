@@ -36,6 +36,6 @@ Run order for the Fig. 4 scans and the runtime benchmark is in `../3_analysis/se
 
 ## Not in the repository
 
-- Slim: `TrainAndApplySlim.jar` with JDK 8u232 (`~/Slim`); diChIPMunk: `chipmunk.jar` (v8), `ytilib/` and `dpmflogo3.rb`, kept in a tools folder under `~/archi_work/human_sym_slim` on server. `server/chipmunk/run_dichiphorde8.rb` is the unchanged wrapper and expects `chipmunk.jar` and `ytilib/` next to it.
+- diChIPMunk: `chipmunk.jar` (v8) and `dpmflogo3.rb` from the ChIPMunk v8 supporting scripts (https://autosome.org/ChIPMunk/). `server/chipmunk/run_dichiphorde8.rb` expects `chipmunk.jar` and `ytilib/` next to it. The Slim jar `TrainAndApplySlim.jar`, the JDK 8u232 and `ytilib/` are in `../Slim/` of this repository; on the servers they were kept in `~/Slim` and in a tools folder under `~/archi_work/human_sym_slim` on server.
 - `notebook4_results_table.csv` (schema of the published results table), the data of `../1_data_preparation`, and the published release folder `~/archi_release/TF-ML`.
 - The relay scripts write their logs to `2_training/slim_chipmunk/logs` (next to the `relay` folder), which is not tracked.

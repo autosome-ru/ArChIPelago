@@ -158,3 +158,73 @@
     - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
   outputs:
     - {file: "outputs/numbers/NUMBERS_R2_35TF.csv", md5: "f3ca3432ab7f3dd10931694746d18288"}
+- script: "3_analysis/integration/make_numbers_w2.py"
+  run: "2026-11-11 14:49:13"
+  git_commit: "f77e22a7f440724ab767ea2f2cae4ad7a4bf8ba9"
+  git_changed_tracked_files: 3
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "outputs/numbers/NUMBERS_human_35TF.csv", md5: "4de3e344a06fb539fb527f6042be6e42"}
+    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "8e24aa3689aaf8cde3d372734d96335b"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
+    - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "ee360c646b2226184f43ba3a08733d10"}
+    - {file: "outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx", md5: "e86478ca7eec609724fedd7e02b385e5"}
+    - {file: "outputs/supplementary_tables/Sup_Table_5_cross_species_and_mouse_trained.xlsx", md5: "911949ffb8421cc91a4af8c86778eb8b"}
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+    - {file: "results/server/human/neg_v3/checks_neg_v3/gc_check_v3.csv", md5: "26ad2620bf2400d457a876d6d35b8023"}
+    - {file: "results/server/mouse_data/counts_per_tf.csv", md5: "80a38fec67b9a71ab8dfb4ee57fad6d7"}
+    - {file: "results/server/human_data/counts_per_tf.csv", md5: "e69d534470ece53964b5250dd189f13d"}
+    - {file: "results/datasets/split_leakage/b8w1g2_summary.csv", md5: "a70d9a43235929d7313bc462f0022b35"}
+    - {file: "3_analysis/integration/top1000_check_h3.csv", md5: "5031b67d5ee4664140f2488405f6eadf"}
+    - {file: "results/datasets/round1_fig_s4/Figure_S4_numbers.csv", md5: "703b69e4482ffba615f25728067939b0"}
+    - {file: "4_visualisation/figures/output/Fig4/Figure_S4_stats.csv", md5: "203a80c19c333288cca95dfd93842c21"}
+    - {file: "4_visualisation/figures/output/Fig4/text_tokens_h3b.csv", md5: "9e39d5878322f7d06cc90a95326f8ccb"}
+    - {file: "results/server/human/neg_v3/checks_neg_v3/neg_v3_stats_all.csv", md5: "3e2bb41dfe926f9ac1bd614284e8d26c"}
+    - {file: "results/server/human/neg_v3/checks_neg_v3/neg_v3_checks.csv", md5: "593089251af32cce3b464fd9d2adfabe"}
+    - {file: "1_data_preparation/h5_splits.py", md5: "f41869ebf5cfe274b5593f7a3c75ce7b"}
+    - {file: "3_analysis/feature_importance/tables/B4_ablation_summary.csv", md5: "e603a3a37bfeac76a881fa2d6f58dca7"}
+    - {file: "outputs/supplementary_tables/Sup_Table_10_transfer_drivers_and_headroom.xlsx", md5: "dcd6f7c38af017f9448b5aedb7254dc2"}
+    - {file: "results/datasets/mouse_rebuild/mouse_rebuild_cpu_time.csv", md5: "bf2e00c6d8b4dacd52797bedad4e4c82"}
+    - {file: "3_analysis/top_peaks/b3_peak_widths_summary.csv", md5: "c2d89cb0136b9c5159298c25f39afdc6"}
+    - {file: "3_analysis/top_peaks/b3_topN_summary.csv", md5: "22aa13c33acbf388c9faebc1c1d366a1"}
+    - {file: "3_analysis/top_peaks/b3_gain_vs_npos_spearman.csv", md5: "79de1fd20c4eb75a2aa27937faa20d32"}
+    - {file: "3_analysis/low_fpr_metrics/B2_summary.csv", md5: "ba50fd6f731abee35492f0d554e7f6f0"}
+    - {file: "3_analysis/low_fpr_metrics/B2_per_chromosome_summary.csv", md5: "6d8de89a8912855cdebc4ddc66f80b94"}
+    - {file: "3_analysis/transfer_drivers/B5_A_spearman_drivers.csv", md5: "8aecb0635c6ceec0793200689189faa9"}
+    - {file: "3_analysis/transfer_drivers/B5_B_ceiling_spearman.csv", md5: "4d635b2de6f0ecb0c2c7f1df058e5e0c"}
+    - {file: "3_analysis/transfer_drivers/B5_B_cloud_members.txt", md5: "813c2a8eb7658a9e4d7f132ab2744c07"}
+    - {file: "3_analysis/package/analysis/cross_species/cross_species_table.csv", md5: "25200b27174e538c12d3c783a62e3599"}
+    - {file: "3_analysis/integration/table1_rows.csv", md5: "5c0a596e2017345f6c7a9811e8067a12"}
+    - {file: "3_analysis/integration/figure1_values.csv", md5: "53a253792207d2fded6de106b15fc892"}
+    - {file: "3_analysis/package/analysis/saturation/saturation_summary_by_k.csv", md5: "34511382c5d1d8ae7a75612f145f3b81"}
+    - {file: "results/datasets/repeat_mask/repeat_mask_counts.csv", md5: "0fc06a7a065f7071b8a0bca824839066"}
+    - {file: "4_visualisation/figures/FigS7/tf_ranking_h3.csv", md5: "e17b6e0b31a955e981404c4c2affc72d"}
+    - {file: "4_visualisation/figures/FigS7/subtype_verdicts_v11_h3.csv", md5: "86707722dd61a23c78c7ecc7b1aa6a77"}
+    - {file: "4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_hocomoco11.csv", md5: "a6e7e35acd01c4f879e35108ef7b277c"}
+    - {file: "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11.csv", md5: "00cc8dd9cd35493f8e9fdff7fd4e987b"}
+    - {file: "4_visualisation/figures/FigS7/Figure_S7_source_data.csv", md5: "eafc7e9dbf3dd343333c1569f374cc9f"}
+    - {file: "4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_named_v11.csv", md5: "a4a66ab4a2cfcee9e77236063c72572c"}
+    - {file: "4_visualisation/figures/output/Fig4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
+    - {file: "3_analysis/low_fpr_metrics/B2_gate_h3_summary.csv", md5: "8c747c5a5f4e06eac29b668fe445809e"}
+    - {file: "3_analysis/integration/pwm_origin_h3.csv", md5: "8854c75b37bbdb97c137178708eb4522"}
+    - {file: "3_analysis/integration/mono_vs_monodi_h3.csv", md5: "fe6efa47f5c37fe4a57d7fe6506d7628"}
+    - {file: "3_analysis/integration/gc_per_tf_h3.csv", md5: "f85a33335ac409cc883b3f0eff289daa"}
+    - {file: "3_analysis/integration/gc_vs_gain_h3.csv", md5: "8c87fdbb502b029c18aaa1c156c0c9bd"}
+    - {file: "3_analysis/integration/positive_count_ties_h3.csv", md5: "a2c46adef9a0675458f53d545521bc3c"}
+    - {file: "3_analysis/feature_importance/tables/B4_ablation_all_fits.csv", md5: "6da56da7c8e881fac0d732d6efb4cf37"}
+    - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
+    - {file: "3_analysis/low_fpr_metrics/B2_metrics_wide.csv", md5: "32039269ce1d15ecf868708b298b22cf"}
+    - {file: "3_analysis/integration/sup6_methods_values_h3.csv", md5: "f4bdcab9746185075ea4b97b4a4ae28f"}
+    - {file: "outputs/supplementary_tables/Sup_Table_6_runtime_memory.xlsx", md5: "26948a684f4d689c22d76d21d4ad3ed5"}
+    - {file: "3_analysis/transfer_drivers/B5_B_headroom_per_TF.csv", md5: "abb783541f123cf9091e2ea84943e325"}
+    - {file: "3_analysis/feature_importance/tables/B4_importance_concentration.csv", md5: "6e470b1dacee129c11f6a4465e350f98"}
+    - {file: "4_visualisation/figures/output/S1/Figure_S1_plotdata.csv", md5: "c1119e2bb139bab168796e117722c104"}
+    - {file: "4_visualisation/figures/Fig3_S3/Figure_3_C_plotdata.csv", md5: "9461f10b2299fd9249153c170c1c959a"}
+    - {file: "3_analysis/transfer_drivers/B5_per_TF_table.csv", md5: "9c26edce4db82e4385cdf938a1c3a08d"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
+  outputs:
+    - {file: "outputs/numbers/NUMBERS_R2_35TF.csv", md5: "4f82dea1fc4c1425c16ba56a22bf1fe8"}

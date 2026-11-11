@@ -1,4 +1,4 @@
-"""B3: summary tables and the multi-panel figure. Local, miniconda python3 (Mac). Run in 3_analysis/top_peaks.
+"""B3: summary tables and the multi-panel figure. Runs locally in 3_analysis/top_peaks.
 Reads the server outputs (b3_topN_results.csv, b3_peak_widths_per_dataset.csv, b3_join_test_*.csv) and b3_gain_vs_npos_*.csv.
 Human (H) rows exclude p53drop.EXCLUDE_TFS (35 TFs); peak widths are restricted to the used peak sets
 (human 361, mouse 276); mouse (M) top-N and join rows are the first-submission mouse data, marked stale.

@@ -15,7 +15,7 @@ Set `PY=~/miniconda3/envs/rpy2_env/bin/python`.
 3. Runtime benchmark (about 10 min, run when nothing else of ours runs on the node): `bash 3_analysis/server/runtime/make_h5_runtime_v2.sh` copies the benchmark code of an earlier run of the benchmark (`~/archi_work/human_sym/.../runtime/code`, not in the repository) into `runtime_v2/code`, changes the loader import and the output root with two `sed` edits, and then runs `build_h3a_matrices.py data STAT3 HNF4A CTCF`, `run_runtime_h3a.sh` and `assemble_sup_table6_h3a.py`. The files in `runtime/` are the versions that this driver produced. The driver exits when `runtime_v2` exists, and `setup_server_layout.sh` creates it, so run the driver only on a layout set up without the server mode or remove `runtime_v2` first. To rerun without the copy step, work in `~/archi_work/H5_alltrain/human_sym/runtime_v2` (created by `setup_server_layout.sh`, with `code` linked to `runtime/`; add the folders `scratch` and `data`) and run the three steps by hand: `$PY code/build_h3a_matrices.py data STAT3 HNF4A CTCF`, `bash code/run_runtime_h3a.sh`, `$PY code/assemble_sup_table6_h3a.py $PWD ~/archi_work/runtime`.
 4. `ARCHI_GIT_HASH=<hash> $PY 3_analysis/server/h5_provenance.py` writes `_provenance.yaml` (chromosome lists, md5 of scripts, inputs and outputs).
 5. Checks: `$PY tests/server_checks/h5_post.py` (equality and difference checks against the earlier build, headline numbers) and `$PY tests/server_checks/h5_post_v2.py <table1_rows.csv>` (Table 1 definitions).
-6. Mac: `results/server/mirror_h5_to_mac_v2.sh` copies 822 result files and writes `MIRROR_MANIFEST_md5.txt` (one ssh connection to server; refuses to run when the mirror folders exist).
+6. Mac: `results/server/mirror_h5_to_mac_v2.sh` copies 822 result files and writes `MIRROR_MANIFEST_md5.txt` (all 822; the 395 files the local stages read are tracked in `results/server/`) (one ssh connection to server; refuses to run when the mirror folders exist).
 
 ## Software
 
@@ -23,7 +23,7 @@ Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1, job
 
 ## Not in the repository
 
-- The trained Slim and diChIPMunk models (`slim/models_server/<TF>`), the RF results and score files of `../../2_training` (`hm_mm_results.csv`, `scores/*.npz`), and the data of `../../1_data_preparation`.
+- The trained Slim and diChIPMunk models (`slim/models_server/<TF>`; on Zenodo, `Slim_diChIPMunk_models_v2.tar.gz`) and the data of `../../1_data_preparation` (on Zenodo). The RF results and score files of `../../2_training` (`hm_mm_results.csv`, `scores/*.npz`) are mirrored in `../../results/server/human/`.
 - Reference tables of the earlier build, read by `h5_fig4_server_v2.sh`, `h5_post.py` and `h5_post_v2.py` (default paths on server; `H5POST_G`, `H5POST_G4` and `H5POST_RED` set the roots and the red control).
 - The earlier benchmark folder used by `make_h5_runtime_v2.sh` and the benchmark input `~/archi_work/runtime/data/bench_50k_300bp.fa`.
 - The published release folder `~/archi_release/TF-ML` and `notebook4_results_table.csv`.

@@ -102,7 +102,7 @@ for sp in ("Human", "Mouse"):
     add("median PWMs per TF, " + sp.lower(), old[3], "%g" % t2["%s PWMs (mono + di)" % sp].median(), rel("t2"), "M06, M15, F01, R04")
 add("minimum monoPWMs / diPWMs per TF, both species", ">= 3 monoPWMs and >= 3 diPWMs", "%d / %d" % (f1["min monoPWMs per TF (both species)"], f1["min diPWMs per TF (both species)"]), rel("t2"), "F01, R04")
 # ---- pooled peaks
-add("median pooled peak set per TF and species", "14,099", "removed; Methods describes the pooling without a count", "-", "M07, F01, R08", "count removed from Methods, Fig. 1, letter R1-L6 and Sup. Table 2 (Pavel)")
+add("median pooled peak set per TF and species", "14,099", "removed; Methods describes the pooling without a count", "-", "M07, F01, R08", "count removed from Methods, Fig. 1, letter R1-L6 and Sup. Table 2 (authors' decision)")
 add("median pooled peak set per TF, human", "9,641 (Sup. Table 2)", "removed; Methods describes the pooling without a count", "-", "M07, T03",
     "Sup. Table 2 column and summary rows removed")
 add("median pooled peak set per TF, mouse", "18,654", "removed; Methods describes the pooling without a count", "-", "M07, T03", "Sup. Table 2 column and summary rows removed")
@@ -454,7 +454,7 @@ if _npc.nunique().max() != 1:
 _drw = _ss[_ss.TF.isin(_shown)]
 add("Fig. S7 legend counts: monoPWMs / diPWMs per TF; candidate TFs; TFs drawn; tiles drawn; co-factor tiles", "4 / 2; -; 4; 24; 3",
     "%d / %d; %d; %d; %d; %d" % (_npc["mono"].iloc[0], _npc["di"].iloc[0], _ss.TF.nunique(), len(_shown), len(_drw), int(_drw.cofactor.sum())),
-    rel("subsrc"), "V1-S7, Fig. S7 legend", "Pavel: the top three diPWMs of every TF, one rule for all TFs")
+    rel("subsrc"), "V1-S7, Fig. S7 legend", "authors' decision: the top three diPWMs of every TF, one rule for all TFs")
 add("Fig. S7 subtype match: method (V1-S7)", "-", "pcc_max: max over offsets and strands of mean column Pearson r of z-scored PWMs, overlap >= 5; "
     "HOCOMOCO v11 HUMAN mono, full collection", "4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_hocomoco11.py", "V1-S7, Methods 2.10")
 _cv0 = pd.read_csv(SRC["cv11"])
@@ -615,7 +615,7 @@ add("training auROC of the best monoPWM vs training positives of the TF, human (
     "the training auROC of the best monoPWM rises with the number of training positives; no scaler involved")
 # ---- operational / process numbers
 add("mouse rebuild CPU time (SARUS + negatives + positives)", "-", pd.read_csv(SRC["plan"], dtype=str).set_index("quantity")["value"]["mouse_rebuild_cpu_h"], rel("plan") + " (steps 3-5)", "operational")
-add("Zenodo deposit", "10.5281/zenodo.23036475 (old mouse data)", "FLAGGED: new deposit needed for the rebuilt mouse data", "TODO_20261106_release.md G2", "M33", "flagged for Pavel / Ivan")
+add("Zenodo deposit", "10.5281/zenodo.23036475 (old mouse data)", "10.5281/zenodo.14927303 (concept DOI; version DOI of v2.0.0 added on upload)", "Zenodo record", "M33", "data of this version deposited as Zenodo version v2.0.0")
 add("P53 sentence of Results 3.3 and the Vyas et al. 2017 reference", "present", "delete (P53 removed)", "-", "M23", "delete sentence and reference")
 add("Sup. Table 3 performance rows", "900", str(len(t3p)), rel("t3"), "L03, T04")
 
@@ -698,7 +698,7 @@ b12["statement_note"] = ""
 for k in ("Sup. Table 2 total, Human pooled peak set", "Sup. Table 2 median per TF, Human pooled peak set"):
     m = b12.item.str.contains(k, regex=False)
     b12.loc[m, "new value"] = "removed; Methods describes the pooling without a count"
-    b12.loc[m, "statement_note"] = "pooled peak count removed (Pavel's decision)"
+    b12.loc[m, "statement_note"] = "pooled peak count removed (authors' decision)"
 pend = b12["new value"].astype(str).str.startswith("pending")
 # Fig. 4 rows filled; a median whose sign differs from the first submission is noted
 for i_ in b12.index[b12.item.str.startswith("Fig. 4") & b12.item.str.endswith("median delta")]:
@@ -731,7 +731,7 @@ _m = out.item.isin(NOT_IN_TEXT)
 if _m.sum() != len(NOT_IN_TEXT):
     raise SystemExit("CHECK FAILED not-in-text items missing: %s" % sorted(set(NOT_IN_TEXT) - set(out.item)))
 out.loc[_m, "statement_note"] = ("not in text; " + out.loc[_m, "statement_note"].fillna("").astype(str)).str.rstrip("; ")
-# 'new value' = the final run; the value of the same item in the earlier table (frozen copy at H3A_REF) goes next to it so that the text agent sees
+# 'new value' = the final run; the value of the same item in the earlier table (frozen copy at H3A_REF) goes next to it to show
 # which values moved. Items that occur twice (human and mouse rows) are matched by item and occurrence.
 import io, subprocess   # noqa: E401,E402
 _h3 = pd.read_csv(os.path.join(O.ROOT, H3A_REF, "NUMBERS_R2_35TF.csv"))

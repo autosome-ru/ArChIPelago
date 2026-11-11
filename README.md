@@ -41,8 +41,8 @@ tag [v1.0.0](https://github.com/autosome-ru/ArChIPelago/tree/v1.0.0).
 | mouse, mouse-trained models, auPRC | 0.248 | 0.356 | 35 of 35 |
 
 At 50 % recall on the human test set, ArChIPelago gives 30 % fewer false positives than the best single monoPWM (median
-over TFs; 33 of 35 TFs). The baseline is the best single monoPWM of each TF selected on the human training set. Mouse rows
-are the mean of two random seeds (Table 1). Every value is in `outputs/numbers/NUMBERS_R2_35TF.csv` with its source table.
+over TFs; 33 of 35 TFs). The baseline is the best single monoPWM of each TF, selected on the human training set by the
+metric of the row. Human rows are random seed 0, mouse rows the mean of seeds 0 and 1 (Table 1). Every value is in `outputs/numbers/NUMBERS_R2_35TF.csv` with its source table.
 
 ---
 
@@ -69,7 +69,7 @@ ArChIPelago/
 ├── ArChIPelago_code/       archipielago Python package, its tests and the CTCF demo notebook
 ├── ArChIPelago-TFBS-finder/  scanning tool (git submodule)
 ├── sarus/  seqtk/          SPRY-SARUS and seqtk (git submodules)
-└── Slim/                   Slim and diChIPMunk jars with a bundled JDK 8
+└── Slim/                   Slim jars (SlimDimont, TrainAndApplySlim), the ytilib Ruby library of diChIPMunk, JDK 8
 ```
 
 Each numbered folder, `results/`, `outputs/` and `tests/` has its own README with the run commands, inputs and outputs.
@@ -98,7 +98,9 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
    It checks every input against the md5 manifest of the server mirror first and stops at the first failing command
    (about 3 min on a laptop). Requirements: Python 3.9 or later with pandas 2.3, numpy 1.26, scipy 1.13, matplotlib 3.5,
    scikit-learn, openpyxl, pyyaml, pypdf; R 4.4 with dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis,
-   tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext) and rsvg-convert.
+   tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext) and rsvg-convert. Stage `fig1` sets the
+   resolution of Fig. 1 with the macOS tool `sips`; on Linux that command fails and the run stops there (run the other
+   stages by name, see `3_analysis/README.md`).
 
 **Training and test chromosomes.** Human: training chr2-7, 9-20 and 22, test chr1, 8 and 21. Mouse: training chr2-7 and
 9-18, test chr1, 8 and 19. Each autosome is in exactly one set; the sex chromosomes are in neither.
@@ -126,7 +128,10 @@ v1.0.0 is [10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475)). V
 sets (`train.tar.gz`, `test.tar.gz`), the PWMs (`PWMs_{mono,di}_{HUMAN,MOUSE}.tar.gz`), the global sequence tables and
 FASTA files, the negatives, the 210 Random Forest models (`Models.tar.gz`: 35 TFs, human-trained and mouse-trained, on
 monoPWMs, diPWMs or both, each with a `.json` of feature order and training mean and standard deviation), the Slim and
-diChIPMunk models, the RepeatMasker masks and the metadata. Its `README_v2.md` describes every archive.
+diChIPMunk models, the RepeatMasker masks and the metadata. Its `README_v2.md` describes every archive. In the Zenodo
+files, `train` always marks the training chromosomes. The loader `1_data_preparation/archi_data_v5.py` reads the build
+folders, where the mouse files named `train` hold the test chromosomes; on the Zenodo files its `_file_split()` must
+return the split unchanged for MOUSE (see `1_data_preparation/README.md`).
 
 ---
 
@@ -134,9 +139,11 @@ diChIPMunk models, the RepeatMasker masks and the metadata. Its `README_v2.md` d
 
 `ArChIPelago_code/archipielago/` holds general functions for training on PWM scores (configuration, FASTA and BED input,
 SPRY-SARUS scanning and feature matrices, Random Forest training and evaluation, scikit-learn and PRROC scorers), with unit
-tests in `ArChIPelago_code/tests/`. `ArChIPelago_code/5_CTCF_demo_pipeline.ipynb` runs scanning, training and evaluation
-end to end for CTCF from the Zenodo training and test sets (paths in `ArChIPelago_code/config.yml`, conda environment
-`ArChIPelago_code/environment_rpy_2.yml`).
+tests in `ArChIPelago_code/tests/`. `ArChIPelago_code/5_CTCF_demo_pipeline.ipynb` is the demo of v1.0.0: scanning,
+training and evaluation for CTCF. Besides the positives of `train.tar.gz` and `test.tar.gz` it needs negative FASTA files
+(`train/CTCF_negative_train.fasta`, `test/CTCF_negative_test.fasta`), which are built from the negative ID lists of
+`Archipelago_intermediate_files_negatives_v3.tar.gz` and the sequences of the `Archipelago_intermediate_files_fasta_*`
+archives (paths in `ArChIPelago_code/config.yml`, conda environment `ArChIPelago_code/environment_rpy_2.yml`).
 
 ```bash
 git clone --recurse-submodules https://github.com/autosome-ru/ArChIPelago.git

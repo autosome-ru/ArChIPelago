@@ -1,8 +1,8 @@
 """
 run_hm_mm_h5.py - human-trained (H->M) and mouse-trained (M->M) RF vs single-mono-PWM baselines
-for the 36 ArChIPelago TFs.  Writes ONLY into ~/archi_work/H5_alltrain/human_sym (models, scores, rows) and the results csv.
+for the TFs given by --tfs (35 in this study).  Writes ONLY into ~/archi_work/H5_alltrain/human_sym (models, scores, rows) and the results csv.
 
-usage: python run_hm_mm_h5.py --tfs SRF P53 ... --workers 4 --rf-jobs 4 --out-csv <path> --rows-dir <dir> --scores-dir <dir>
+usage: python run_hm_mm_h5.py --tfs SRF ANDR ... --workers 4 --rf-jobs 4 --out-csv <path> --rows-dir <dir> --scores-dir <dir>
 Existing per-TF row json / npz are never overwritten: a TF whose row json exists is skipped.
 """
 import os, sys, json, time, argparse, traceback
