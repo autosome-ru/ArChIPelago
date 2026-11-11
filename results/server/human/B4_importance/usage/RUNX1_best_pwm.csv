@@ -1,0 +1,7 @@
+TF,thr,cls,n,n_with_strong_hit,frac_best_nonprimary_strong,frac_best_nonprimary,frac_best_subtype2,frac_features_nonprimary,n_subtypes
+RUNX1,0.7,pos,1357,574,0.0,0.0,0.0,0.0,1
+RUNX1,0.7,neg,43198,1552,0.0,0.0,0.0,0.0,1
+RUNX1,0.8,pos,1357,574,0.0,0.0,0.0,0.0,1
+RUNX1,0.8,neg,43198,1552,0.0,0.0,0.0,0.0,1
+RUNX1,0.9,pos,1357,574,0.0,0.0,0.0,0.0,1
+RUNX1,0.9,neg,43198,1552,0.0,0.0,0.0,0.0,1

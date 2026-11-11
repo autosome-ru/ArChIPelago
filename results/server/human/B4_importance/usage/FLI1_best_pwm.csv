@@ -1,0 +1,7 @@
+TF,thr,cls,n,n_with_strong_hit,frac_best_nonprimary_strong,frac_best_nonprimary,frac_best_subtype2,frac_features_nonprimary,n_subtypes
+FLI1,0.7,pos,128,45,0.0,0.0,0.0,0.0,1
+FLI1,0.7,neg,12796,813,0.0,0.0,0.0,0.0,1
+FLI1,0.8,pos,128,45,0.0,0.0,0.0,0.0,1
+FLI1,0.8,neg,12796,813,0.0,0.0,0.0,0.0,1
+FLI1,0.9,pos,128,45,0.37777777777777777,0.421875,0.375,0.4230769230769231,3
+FLI1,0.9,neg,12796,813,0.4280442804428044,0.4955454829634261,0.3921537980618943,0.4230769230769231,3

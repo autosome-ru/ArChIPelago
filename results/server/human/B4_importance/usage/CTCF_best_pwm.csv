@@ -1,0 +1,7 @@
+TF,thr,cls,n,n_with_strong_hit,frac_best_nonprimary_strong,frac_best_nonprimary,frac_best_subtype2,frac_features_nonprimary,n_subtypes
+CTCF,0.7,pos,8104,7505,0.0,0.0,0.0,0.0,1
+CTCF,0.7,neg,36714,2124,0.0,0.0,0.0,0.0,1
+CTCF,0.8,pos,8104,7505,0.0,0.0,0.0,0.0,1
+CTCF,0.8,neg,36714,2124,0.0,0.0,0.0,0.0,1
+CTCF,0.9,pos,8104,7505,0.0,0.0,0.0,0.0,1
+CTCF,0.9,neg,36714,2124,0.0,0.0,0.0,0.0,1

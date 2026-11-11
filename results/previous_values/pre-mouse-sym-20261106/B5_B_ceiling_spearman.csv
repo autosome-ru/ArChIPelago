@@ -1,0 +1,15 @@
+quantity,rho,p,n,q_BH
+"dauROC vs baseline auROC (manuscript: -0.65, P=2e-5)",-0.65148,1.68155e-05,36,4.70835e-05
+"dauPRC vs baseline auPRC (manuscript: +0.52, P=0.001)",0.524324,0.00102899,36,0.00240097
+dauROC/(1-auROC_base) vs baseline auROC,0.0700129,0.684926,36,0.684926
+dauPRC/(1-auPRC_base) vs baseline auPRC,0.774517,2.97537e-08,36,4.16551e-07
+dauPRC/auPRC_base (relative) vs baseline auPRC,-0.378893,0.0226766,36,0.0396841
+dauROC/auROC_base (relative) vs baseline auROC,-0.697555,2.26714e-06,36,7.935e-06
+dauPRC vs baseline auROC,0.133848,0.436417,36,0.469987
+dauROC vs baseline auPRC,-0.256885,0.130425,36,0.152163
+baseline auROC vs baseline auPRC,0.706306,1.48519e-06,36,6.93089e-06
+dauROC vs dauPRC,0.36242,0.0298385,36,0.0464154
+"dauPRC vs baseline auPRC, excluding P53, MAFK, ANDR",0.521725,0.00184661,33,0.00369321
+dauPRC vs prevalence of positives (human test),0.264865,0.118492,36,0.150809
+baseline auPRC vs prevalence of positives (human test),0.743372,2.06208e-07,36,1.44346e-06
+auPRC gain / baseline auPRC vs prevalence,-0.33462,0.0460661,36,0.0644925

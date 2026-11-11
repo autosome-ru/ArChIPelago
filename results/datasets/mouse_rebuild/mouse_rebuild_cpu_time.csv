@@ -1,0 +1,2 @@
+quantity,value,description
+mouse_rebuild_cpu_h,18.3 CPU-h,CPU time of the mouse data rebuild (SARUS scans + negatives + positives)

@@ -1,0 +1,20 @@
+token,value,numbers,round1_text,statement_holds,note
+Abstract_Slim_claim,"ArChIPelago RF (all PWMs) above Slim m=0, Slim m=1, LSlim m=-5 in 35, 33, 35 of 35 TFs by auROC and 31, 25, 29 by auPRC (paired, human test set)",35;33;35;31;25;29,(no number),True,claim: ArChIPelago outperforms Slim / LSlim models
+Fig4_RF2f_dauROC,+0.010,0.0103664,+0.009,True,"median delta, human test set (Fig. 4)"
+Fig4_RF2f_dauPRC,+0.015,0.014787,+0.004,True,"median delta, human test set (Fig. 4)"
+Fig4_RF2f_diChIPMunk_dauROC,+0.017,0.0165508,+0.015,True,"median delta, human test set (Fig. 4)"
+Fig4_RF2f_Slim1_dauROC,+0.019,0.0189919,+0.020,True,"median delta, human test set (Fig. 4)"
+Fig4_RF2f_LSlim_dauROC,+0.021,0.0214602,+0.018,True,"median delta, human test set (Fig. 4)"
+Fig4_5f_dauROC,+0.025,0.0248632,+0.023,True,"median delta, human test set (Fig. 4)"
+Fig4_5f_dauPRC,+0.050,0.0504675,+0.030,True,"median delta, human test set (Fig. 4)"
+Fig4_RFall_dauROC,+0.024,0.0243471,+0.024,True,"median delta, human test set (Fig. 4)"
+Fig4_RFall_dauPRC,+0.059,0.0594696,+0.041,True,"median delta, human test set (Fig. 4)"
+Fig4_5f_P_auROC,5.8e-11,5.82077e-11,1×10⁻¹¹,True,"two-sided Wilcoxon signed-rank P, as printed in Fig. 4 (one-sided P 2.9e-11)"
+Fig4_5f_P_auPRC,1.9e-09,1.92085e-09,2×10⁻⁹,True,"two-sided Wilcoxon signed-rank P, as printed in Fig. 4 (one-sided P 9.6e-10)"
+FigS4_5f_dauROC,+0.022,0.0217874,+0.021,True,"median delta, mouse test set (Fig. S4)"
+FigS4_RFall_dauROC,+0.017,0.0168347,+0.015,True,"median delta, mouse test set (Fig. S4)"
+FigS4_order_5f_vs_RFall,five-feature,0.0217874;0.0168347;0.053636;0.0421281,five-feature,True,"medians auROC and auPRC, mouse test set: five-feature model vs RF (all PWMs)"
+Fig4_single_models_sign,"(median ΔauROC -0.012 to -0.003, ΔauPRC -0.011 to +0.009)",-0.0121165;-0.00310963;-0.0108926;0.00851405,(no number),False,"Slim m=0, Slim m=1, LSlim m=-5, diChIPMunk, human test set; 'predominantly negative': all auROC medians and at least three auPRC medians below 0"
+Fig4_all_RF_models_P,≤ 2×10⁻⁴,0.000163745,< 0.05,True,"largest two-sided Wilcoxon P over the 6 ArChIPelago models and both metrics, human test set"
+Fig4_Slim_sign,(median ΔauROC / ΔauPRC: Slim m=0 -0.009 / -0.0001; Slim m=1 -0.003 / +0.009; LSlim m=-5 -0.003 / +0.008),-0.00857535;-8.82705e-05;-0.00310963;0.00851405;-0.00342121;0.00765255,(no number),True,'negative or near-zero': every Slim median at most +0.005 auROC and +0.01 auPRC
+Fig4_diChIPMunk_sign,"(median ΔauROC -0.012, ΔauPRC -0.011; 7 and 14 of 35 TFs above 0)",-0.0121165;-0.0108926;7;14,(no number),True,failed to outperform the best monoPWM

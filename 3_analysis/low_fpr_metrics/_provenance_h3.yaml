@@ -1,0 +1,71 @@
+- script: "3_analysis/integration/make_b2_h3.py"
+  run: "2026-11-11 13:26:49"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{pauc_pending: False}"
+  note: "H3: B2 tables from the H3a mirror (b2_v2)"
+  inputs:
+    - {file: "results/server/human/b2_v2/B2_metrics_wide.csv", md5: "0ed4bcf0f21de1cea87ee259667a126d"}
+    - {file: "results/server/human/b2_v2/B2_per_chromosome.csv", md5: "8866eacd3c34e7d7afd77fb4bf98bcbb"}
+  outputs:
+    - {file: "3_analysis/low_fpr_metrics/B2_metrics_wide.csv", md5: "32039269ce1d15ecf868708b298b22cf"}
+    - {file: "3_analysis/low_fpr_metrics/B2_per_chromosome.csv", md5: "9c666ea14e56ec8d9dc915eec67041b2"}
+- script: "3_analysis/low_fpr_metrics/b2_gate_h3.py"
+  run: "2026-11-11 13:27:14"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{TOL_ID: 1e-09, TOL_RF: 0.001, scores: '/private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/results/server/human/scores', scores_origin: 'server:~/archi_work/H5_alltrain/human_sym/scores'}"
+  inputs:
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+    - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
+    - {file: "results/server/human/b2_v2/B2_metrics_wide.csv", md5: "0ed4bcf0f21de1cea87ee259667a126d"}
+    - {file: "results/server/human/b2_v2/b2_lib.py", md5: "7896bee55c874cf4e04b421a2cdcf633"}
+    - {file: "results/datasets/round1_b2_gate/B2_gate_summary.csv", md5: "ec0f0b618be0ff7568cc89a6f189ba6d"}
+    - {file: "results/server/human/scores/ANDR.npz", md5: "a82d9167f027861051f33b01bb545bc0"}
+    - {file: "results/server/human/scores/AP2A.npz", md5: "f59a3373bc0f30dcff7929e92d640417"}
+    - {file: "results/server/human/scores/CEBPB.npz", md5: "0730403ac1d7cae1ce1c81384b0b400b"}
+    - {file: "results/server/human/scores/COE1.npz", md5: "ec3afa34ff44193406d04d10b5ab8381"}
+    - {file: "results/server/human/scores/CTCF.npz", md5: "8cad9b17a4dbe8ea0725fb8d1d6fe7e9"}
+    - {file: "results/server/human/scores/E2F4.npz", md5: "191f7a9e695c58828ce790c2d08f9710"}
+    - {file: "results/server/human/scores/ERG.npz", md5: "d90d7f332461cc9432d3f07ce73fd7b3"}
+    - {file: "results/server/human/scores/ESR1.npz", md5: "08da2f7ab84404fddc18df3677e6557e"}
+    - {file: "results/server/human/scores/FLI1.npz", md5: "540f9700cdb9ae0db45cd349a96e7e42"}
+    - {file: "results/server/human/scores/GATA1.npz", md5: "25203a5d31d0e13ee9b25c23568866e5"}
+    - {file: "results/server/human/scores/GATA2.npz", md5: "d2f5823957d1368bff95cb711b793d6f"}
+    - {file: "results/server/human/scores/GATA3.npz", md5: "d5a04eece085df4bcd1a5e3a3a556a10"}
+    - {file: "results/server/human/scores/GCR.npz", md5: "65a8465ccecbf9f03b69f133b17f834d"}
+    - {file: "results/server/human/scores/HNF4A.npz", md5: "d984ac7db708f70bfbb659de5efa5e5a"}
+    - {file: "results/server/human/scores/IRF1.npz", md5: "0435e39a44a73664b1d5cc74d868b8d0"}
+    - {file: "results/server/human/scores/IRF4.npz", md5: "25d3d798858947271e53eed7d6278196"}
+    - {file: "results/server/human/scores/JUND.npz", md5: "9e8b2e8c5f57bf3d00047e56b97ab7ad"}
+    - {file: "results/server/human/scores/MAFK.npz", md5: "a97ac1132371d789ab1c7725213b2ff8"}
+    - {file: "results/server/human/scores/MAX.npz", md5: "13f6a8eed656a187a42fb4692d2b8135"}
+    - {file: "results/server/human/scores/MYC.npz", md5: "d116642b19e59b93732caaade5fee0ba"}
+    - {file: "results/server/human/scores/PPARG.npz", md5: "5d8471313178d9580e646712456690b6"}
+    - {file: "results/server/human/scores/PRGR.npz", md5: "87632c7004d89e73d65478adf5ecbc0f"}
+    - {file: "results/server/human/scores/REST.npz", md5: "5dbdcc70aab8b13fe72c2a383582c720"}
+    - {file: "results/server/human/scores/RUNX1.npz", md5: "9c65100b9f0477d9db91a9a6af9ced1f"}
+    - {file: "results/server/human/scores/RXRA.npz", md5: "a60765aede0fc0516045591bce38ecd0"}
+    - {file: "results/server/human/scores/SOX2.npz", md5: "697507c2ef9a8cc0cd4d095c022b9284"}
+    - {file: "results/server/human/scores/SPI1.npz", md5: "15d6c2f9b5929b5b49129897a62d1b3e"}
+    - {file: "results/server/human/scores/SRF.npz", md5: "4a2a5f077139e1b7c9fe399de2f6ea11"}
+    - {file: "results/server/human/scores/STA5A.npz", md5: "88eb957af72581a5111fae6fe170ea4a"}
+    - {file: "results/server/human/scores/STAT1.npz", md5: "cea2ca4479db06d2e895dc64c16d99e4"}
+    - {file: "results/server/human/scores/STAT3.npz", md5: "a71139cbdc876ee2167e81f2ede4af7e"}
+    - {file: "results/server/human/scores/TAL1.npz", md5: "e23b7334148b88562b156eade0612bd5"}
+    - {file: "results/server/human/scores/TF65.npz", md5: "dc0099b524062762dee158786e2c1e8c"}
+    - {file: "results/server/human/scores/TFE2.npz", md5: "84758c9cfb57f5883b4f9c21fd103aa7"}
+    - {file: "results/server/human/scores/USF2.npz", md5: "85d63bde1b3f2501e6d049e88c27ef30"}
+  outputs:
+    - {file: "3_analysis/low_fpr_metrics/B2_gate_h3_per_tf.csv", md5: "51fefa1df17f8606c0a6c9d54ee7a534"}
+    - {file: "3_analysis/low_fpr_metrics/B2_gate_h3_summary.csv", md5: "8c747c5a5f4e06eac29b668fe445809e"}

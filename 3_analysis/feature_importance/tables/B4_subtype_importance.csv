@@ -1,0 +1,378 @@
+TF,sim_threshold,subtype,n_features,n_mono,n_di,gini_share,n_datasets,n_cell_lines,cell_lines
+ANDR,0.7,1,300,192,108,0.99943,110,18,C4-2B;LNCAP;LNCaP;LNCaP (androgen-dependent prostate cancer derived cell line);LNCaP androgen-dependent prostate cancer cell line;LNCaP cell line;LNCaP-1F5;LNCaP-1F5 cells;LNCaP-ARhi;LNCaP-ARmo;LNCaP-pcDNA3.1;LnCaP;VCS2;VCaP;VCaP cell line;metastatic prostate cancer tissue;not in metadata;prostate cancer;prostate cancer cell line DU145
+ANDR,0.7,2,1,1,0,0.00024055,1,0,not in metadata
+ANDR,0.7,3,1,1,0,0.00019291,1,0,not in metadata
+ANDR,0.7,4,1,1,0,0.00013855,1,0,not in metadata
+ANDR,0.8,1,294,189,105,0.99832,109,17,C4-2B;LNCAP;LNCaP;LNCaP (androgen-dependent prostate cancer derived cell line);LNCaP androgen-dependent prostate cancer cell line;LNCaP cell line;LNCaP-1F5;LNCaP-1F5 cells;LNCaP-ARhi;LNCaP-ARmo;LNCaP-pcDNA3.1;VCS2;VCaP;VCaP cell line;metastatic prostate cancer tissue;not in metadata;prostate cancer;prostate cancer cell line DU145
+ANDR,0.8,2,4,3,1,0.00071682,3,1,LnCaP;not in metadata
+ANDR,0.8,3,1,1,0,0.00024055,1,0,not in metadata
+ANDR,0.8,4,1,0,1,0.00023034,1,0,not in metadata
+ANDR,0.8,5,1,1,0,0.00019291,1,0,not in metadata
+ANDR,0.8,6,1,0,1,0.00016074,1,1,LnCaP
+ANDR,0.8,7,1,1,0,0.00013855,1,0,not in metadata
+ANDR,0.9,1,39,22,17,0.30221,28,4,LNCaP;LNCaP-1F5 cells;VCaP;VCaP cell line;not in metadata
+ANDR,0.9,2,40,20,20,0.26437,23,5,LNCAP;LNCaP (androgen-dependent prostate cancer derived cell line);LNCaP androgen-dependent prostate cancer cell line;LNCaP-pcDNA3.1;VCaP;not in metadata
+ANDR,0.9,3,29,17,12,0.18122,22,6,C4-2B;LNCaP;LNCaP cell line;LNCaP-1F5;LNCaP-1F5 cells;VCaP;not in metadata
+ANDR,0.9,4,54,39,15,0.088514,41,6,LNCAP;LNCaP;LNCaP cell line;LNCaP-1F5;LNCaP-1F5 cells;not in metadata;prostate cancer
+ANDR,0.9,5,13,4,9,0.046606,10,3,LNCAP;LNCaP cell line;not in metadata;prostate cancer
+ANDR,0.9,6,46,44,2,0.022927,41,7,LNCaP;LNCaP-1F5;LNCaP-1F5 cells;VCS2;VCaP;VCaP cell line;not in metadata;prostate cancer cell line DU145
+ANDR,0.9,7,4,2,2,0.02161,3,1,LNCaP-1F5 cells;not in metadata
+ANDR,0.9,8,1,0,1,0.018948,1,0,not in metadata
+ANDR,0.9,9,4,3,1,0.015951,3,0,not in metadata
+ANDR,0.9,10,8,5,3,0.0058147,6,1,LNCAP;not in metadata
+ANDR,0.9,11,1,0,1,0.0046052,1,0,not in metadata
+ANDR,0.9,12,4,2,2,0.0039844,3,1,LNCaP-ARhi;not in metadata
+ANDR,0.9,13,6,4,2,0.0027184,3,0,not in metadata
+ANDR,0.9,14,2,1,1,0.0024073,1,0,not in metadata
+ANDR,0.9,15,4,3,1,0.0022335,3,1,LNCaP;not in metadata
+ANDR,0.9,16,2,0,2,0.0019874,2,0,not in metadata
+ANDR,0.9,17,11,9,2,0.0019155,6,3,LNCaP-ARmo;VCaP;metastatic prostate cancer tissue;not in metadata
+ANDR,0.9,18,5,3,2,0.0018397,3,1,not in metadata;prostate cancer cell line DU145
+ANDR,0.9,19,1,0,1,0.0016867,1,1,VCaP cell line
+ANDR,0.9,20,2,1,1,0.0016687,2,1,LNCaP;not in metadata
+ANDR,0.9,21,1,1,0,0.0012282,1,0,not in metadata
+ANDR,0.9,22,3,1,2,0.00076825,3,0,not in metadata
+ANDR,0.9,23,2,1,1,0.00066886,1,0,not in metadata
+ANDR,0.9,24,3,1,2,0.00063825,2,2,VCS2;VCaP cell line
+ANDR,0.9,25,1,0,1,0.00046121,1,0,not in metadata
+ANDR,0.9,26,1,1,0,0.00034897,1,0,not in metadata
+ANDR,0.9,27,1,1,0,0.00029483,1,1,LnCaP
+ANDR,0.9,28,1,0,1,0.00026428,1,0,not in metadata
+ANDR,0.9,29,1,1,0,0.00025008,1,0,not in metadata
+ANDR,0.9,30,2,1,1,0.00024104,1,0,not in metadata
+ANDR,0.9,31,1,1,0,0.00024055,1,0,not in metadata
+ANDR,0.9,32,1,0,1,0.00023034,1,0,not in metadata
+ANDR,0.9,33,1,1,0,0.00019763,1,0,not in metadata
+ANDR,0.9,34,1,1,0,0.00019291,1,0,not in metadata
+ANDR,0.9,35,2,1,1,0.00017191,1,0,not in metadata
+ANDR,0.9,36,1,0,1,0.00016074,1,1,LnCaP
+ANDR,0.9,37,1,1,0,0.00013855,1,0,not in metadata
+ANDR,0.9,38,1,1,0,0.00013028,1,1,C4-2B
+ANDR,0.9,39,1,1,0,8.4267e-05,1,0,not in metadata
+ANDR,0.9,40,1,1,0,7.6773e-05,1,0,not in metadata
+AP2A,0.7,1,9,6,3,1,3,3,HeLa-S3;LoVo;breast carcinoma cell line MCF-7
+AP2A,0.8,1,9,6,3,1,3,3,HeLa-S3;LoVo;breast carcinoma cell line MCF-7
+AP2A,0.9,1,9,6,3,1,3,3,HeLa-S3;LoVo;breast carcinoma cell line MCF-7
+CEBPB,0.7,1,30,20,10,1,10,6,A549;Blood monocytes;ECC-1;HCT-116;HepG2;LoVo;not in metadata
+CEBPB,0.8,1,30,20,10,1,10,6,A549;Blood monocytes;ECC-1;HCT-116;HepG2;LoVo;not in metadata
+CEBPB,0.9,1,30,20,10,1,10,6,A549;Blood monocytes;ECC-1;HCT-116;HepG2;LoVo;not in metadata
+COE1,0.7,1,15,10,5,1,5,2,Adipose stromal cell (ASC) adipocyte;GM12878;not in metadata
+COE1,0.8,1,15,10,5,1,5,2,Adipose stromal cell (ASC) adipocyte;GM12878;not in metadata
+COE1,0.9,1,10,5,5,0.92982,5,2,Adipose stromal cell (ASC) adipocyte;GM12878;not in metadata
+COE1,0.9,2,5,5,0,0.07018,5,2,Adipose stromal cell (ASC) adipocyte;GM12878;not in metadata
+CTCF,0.7,1,297,198,99,1,99,57,A549;AG09309;BJAB;BL41;Blood monocytes;CD20+;CD34;CD36;CD4+ T cells;ECC-1;FB0167P;GM10266;GM12801;GM12866;GM12867;GM12868;GM12869;GM12870;GM12871;GM12878;GM13977;GM20000;HCFaa;HCT-116;HCT116 colorectal cancer cells;HFF;HL-60;HMEC;HMF;HSMMtube;HUVEC;HVMF;HeLa cells;HeLa-S3;Jurkat cells;K562;LNCaP;Lung_OC;MCF-7;MM1.S;Monocyte-derived macrophage;Monocytes-CD14+_RO01746;NB4;NH-A;NHEK;NHLF;Osteobl;Pancreas_OC;Pancreatic islets;PrEC;SK-N-SH_RA;T-47D;THP-1;WI-38;blood lymphocyte;fetal lung fibroblast;lymphoblastoid cells;not in metadata
+CTCF,0.8,1,297,198,99,1,99,57,A549;AG09309;BJAB;BL41;Blood monocytes;CD20+;CD34;CD36;CD4+ T cells;ECC-1;FB0167P;GM10266;GM12801;GM12866;GM12867;GM12868;GM12869;GM12870;GM12871;GM12878;GM13977;GM20000;HCFaa;HCT-116;HCT116 colorectal cancer cells;HFF;HL-60;HMEC;HMF;HSMMtube;HUVEC;HVMF;HeLa cells;HeLa-S3;Jurkat cells;K562;LNCaP;Lung_OC;MCF-7;MM1.S;Monocyte-derived macrophage;Monocytes-CD14+_RO01746;NB4;NH-A;NHEK;NHLF;Osteobl;Pancreas_OC;Pancreatic islets;PrEC;SK-N-SH_RA;T-47D;THP-1;WI-38;blood lymphocyte;fetal lung fibroblast;lymphoblastoid cells;not in metadata
+CTCF,0.9,1,297,198,99,1,99,57,A549;AG09309;BJAB;BL41;Blood monocytes;CD20+;CD34;CD36;CD4+ T cells;ECC-1;FB0167P;GM10266;GM12801;GM12866;GM12867;GM12868;GM12869;GM12870;GM12871;GM12878;GM13977;GM20000;HCFaa;HCT-116;HCT116 colorectal cancer cells;HFF;HL-60;HMEC;HMF;HSMMtube;HUVEC;HVMF;HeLa cells;HeLa-S3;Jurkat cells;K562;LNCaP;Lung_OC;MCF-7;MM1.S;Monocyte-derived macrophage;Monocytes-CD14+_RO01746;NB4;NH-A;NHEK;NHLF;Osteobl;Pancreas_OC;Pancreatic islets;PrEC;SK-N-SH_RA;T-47D;THP-1;WI-38;blood lymphocyte;fetal lung fibroblast;lymphoblastoid cells;not in metadata
+E2F4,0.7,1,11,7,4,1,4,4,GM06990;HeLa-S3;K562;Mesenchymal stem cells-derived adipocytes
+E2F4,0.8,1,4,2,2,0.6458,2,2,GM06990;Mesenchymal stem cells-derived adipocytes
+E2F4,0.8,2,7,5,2,0.3542,3,3,HeLa-S3;K562;Mesenchymal stem cells-derived adipocytes
+E2F4,0.9,1,3,1,2,0.43202,2,2,GM06990;Mesenchymal stem cells-derived adipocytes
+E2F4,0.9,2,6,4,2,0.32777,2,2,HeLa-S3;K562
+E2F4,0.9,3,1,1,0,0.21378,1,1,GM06990
+E2F4,0.9,4,1,1,0,0.026435,1,1,Mesenchymal stem cells-derived adipocytes
+ERG,0.7,1,54,37,17,1,20,7,K562 (leukemic);MCF7 (cancer);ME-1;RWPE - ERG overexpression stable cell line;RWPE1;SKNO-1 (leukemic);VCaP;not in metadata
+ERG,0.8,1,54,37,17,1,20,7,K562 (leukemic);MCF7 (cancer);ME-1;RWPE - ERG overexpression stable cell line;RWPE1;SKNO-1 (leukemic);VCaP;not in metadata
+ERG,0.9,1,42,28,14,0.81183,14,6,K562 (leukemic);ME-1;RWPE - ERG overexpression stable cell line;RWPE1;SKNO-1 (leukemic);VCaP;not in metadata
+ERG,0.9,2,6,4,2,0.122,2,1,VCaP
+ERG,0.9,3,3,2,1,0.039439,1,0,not in metadata
+ERG,0.9,4,2,2,0,0.01404,2,1,MCF7 (cancer);not in metadata
+ERG,0.9,5,1,1,0,0.012686,1,1,VCaP
+ESR1,0.7,1,287,188,99,0.99918,99,12,ECC-1;ECC1 breast cancer cells;H3396;H3396 cells;Ishikawa breast cancer cells;MCF-7;MCF-7 breast cancer cells;MCF-7 cells;MCF7;T-47D;T47D breast cancer cells;not in metadata;primary breast tumor
+ESR1,0.7,2,3,2,1,0.00081735,1,1,MCF7
+ESR1,0.8,1,264,175,89,0.98622,92,12,ECC-1;ECC1 breast cancer cells;H3396;H3396 cells;Ishikawa breast cancer cells;MCF-7;MCF-7 breast cancer cells;MCF-7 cells;MCF7;T-47D;T47D breast cancer cells;not in metadata;primary breast tumor
+ESR1,0.8,2,10,5,5,0.0069916,5,1,MCF-7;not in metadata
+ESR1,0.8,3,3,2,1,0.0021848,1,0,not in metadata
+ESR1,0.8,4,4,2,2,0.0013756,2,0,not in metadata
+ESR1,0.8,5,2,1,1,0.0010588,2,1,ECC-1;not in metadata
+ESR1,0.8,6,3,2,1,0.00081735,1,1,MCF7
+ESR1,0.8,7,2,2,0,0.00046733,2,1,ECC-1;not in metadata
+ESR1,0.8,8,1,0,1,0.00045415,1,1,primary breast tumor
+ESR1,0.8,9,1,1,0,0.00043099,1,1,primary breast tumor
+ESR1,0.9,1,128,97,31,0.4757,74,10,ECC-1;ECC1 breast cancer cells;H3396;MCF-7;MCF-7 breast cancer cells;MCF-7 cells;MCF7;T-47D;T47D breast cancer cells;not in metadata;primary breast tumor
+ESR1,0.9,2,17,7,10,0.24973,12,5,H3396;MCF-7;MCF7;T47D breast cancer cells;not in metadata;primary breast tumor
+ESR1,0.9,3,59,32,27,0.18654,41,9,ECC-1;ECC1 breast cancer cells;H3396;MCF-7;MCF-7 breast cancer cells;MCF-7 cells;MCF7;T-47D;not in metadata;primary breast tumor
+ESR1,0.9,4,1,0,1,0.03888,1,1,T-47D
+ESR1,0.9,5,5,3,2,0.010838,3,1,T-47D;not in metadata
+ESR1,0.9,6,13,12,1,0.0061118,11,1,not in metadata;primary breast tumor
+ESR1,0.9,7,2,1,1,0.0039785,1,0,not in metadata
+ESR1,0.9,8,6,5,1,0.0037529,5,0,not in metadata
+ESR1,0.9,9,8,5,3,0.0033976,5,1,not in metadata;primary breast tumor
+ESR1,0.9,10,3,1,2,0.0022712,2,1,ECC-1;not in metadata
+ESR1,0.9,11,2,1,1,0.0013336,1,1,primary breast tumor
+ESR1,0.9,12,3,2,1,0.0010777,2,1,MCF-7;not in metadata
+ESR1,0.9,13,3,2,1,0.0010005,1,0,not in metadata
+ESR1,0.9,14,1,0,1,0.00090218,1,0,not in metadata
+ESR1,0.9,15,2,0,2,0.00084107,2,0,not in metadata
+ESR1,0.9,16,3,2,1,0.00083027,2,0,not in metadata
+ESR1,0.9,17,3,2,1,0.00081735,1,1,MCF7
+ESR1,0.9,18,2,1,1,0.00072839,1,0,not in metadata
+ESR1,0.9,19,2,1,1,0.00071168,1,1,Ishikawa breast cancer cells
+ESR1,0.9,20,1,0,1,0.00068593,1,0,not in metadata
+ESR1,0.9,21,1,1,0,0.00067494,1,0,not in metadata
+ESR1,0.9,22,1,0,1,0.00067231,1,0,not in metadata
+ESR1,0.9,23,1,0,1,0.00065333,1,1,H3396 cells
+ESR1,0.9,24,2,1,1,0.0006223,2,2,Ishikawa breast cancer cells;primary breast tumor
+ESR1,0.9,25,1,1,0,0.00060954,1,0,not in metadata
+ESR1,0.9,26,1,1,0,0.00060768,1,0,not in metadata
+ESR1,0.9,27,1,1,0,0.00056525,1,0,not in metadata
+ESR1,0.9,28,1,1,0,0.00055348,1,0,not in metadata
+ESR1,0.9,29,2,1,1,0.00050442,1,1,primary breast tumor
+ESR1,0.9,30,1,0,1,0.00049356,1,1,ECC-1
+ESR1,0.9,31,2,2,0,0.00047466,2,1,MCF-7 cells;not in metadata
+ESR1,0.9,32,1,0,1,0.00045415,1,1,primary breast tumor
+ESR1,0.9,33,1,1,0,0.00043099,1,1,primary breast tumor
+ESR1,0.9,34,2,1,1,0.00042781,1,0,not in metadata
+ESR1,0.9,35,1,1,0,0.000365,1,0,not in metadata
+ESR1,0.9,36,1,1,0,0.00036396,1,0,not in metadata
+ESR1,0.9,37,1,1,0,0.00034223,1,0,not in metadata
+ESR1,0.9,38,1,0,1,0.00028222,1,0,not in metadata
+ESR1,0.9,39,1,0,1,0.00024891,1,0,not in metadata
+ESR1,0.9,40,1,0,1,0.00024125,1,1,MCF-7 cells
+ESR1,0.9,41,1,1,0,0.00017786,1,1,H3396 cells
+ESR1,0.9,42,1,1,0,0.00010338,1,1,ECC-1
+FLI1,0.7,1,26,18,8,1,10,3,ME-1;SKNO-1 (leukemic);megakaryocytes cultured from cord blood CD34-positive cells;not in metadata
+FLI1,0.8,1,26,18,8,1,10,3,ME-1;SKNO-1 (leukemic);megakaryocytes cultured from cord blood CD34-positive cells;not in metadata
+FLI1,0.9,1,15,10,5,0.66959,5,2,ME-1;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata
+FLI1,0.9,2,10,7,3,0.27505,4,1,SKNO-1 (leukemic);not in metadata
+FLI1,0.9,3,1,1,0,0.055356,1,0,not in metadata
+GATA1,0.7,1,42,28,14,1,14,7,CD34+ HSPC-derived proerythroblasts;CD36;K562;PBDE;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata;primary human PBMC derived erythroblasts
+GATA1,0.8,1,42,28,14,1,14,7,CD34+ HSPC-derived proerythroblasts;CD36;K562;PBDE;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata;primary human PBMC derived erythroblasts
+GATA1,0.9,1,41,28,13,0.97446,14,7,CD34+ HSPC-derived proerythroblasts;CD36;K562;PBDE;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata;primary human PBMC derived erythroblasts
+GATA1,0.9,2,1,0,1,0.025542,1,1,K562
+GATA2,0.7,1,55,37,18,1,19,4,HUVEC;K562;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata;umbilical vein endothelial cells
+GATA2,0.8,1,55,37,18,1,19,4,HUVEC;K562;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata;umbilical vein endothelial cells
+GATA2,0.9,1,49,33,16,0.92422,17,3,HUVEC;K562;not in metadata;umbilical vein endothelial cells
+GATA2,0.9,2,3,2,1,0.043028,1,0,not in metadata
+GATA2,0.9,3,3,2,1,0.032754,1,1,megakaryocytes cultured from cord blood CD34-positive cells
+GATA3,0.7,1,61,42,19,0.96479,23,7,CCRF-CEM;Jurkat E6-1;MCF-7;MCF7;T47D;Th1;Th2;not in metadata
+GATA3,0.7,2,2,2,0,0.035206,2,0,not in metadata
+GATA3,0.8,1,61,42,19,0.96479,23,7,CCRF-CEM;Jurkat E6-1;MCF-7;MCF7;T47D;Th1;Th2;not in metadata
+GATA3,0.8,2,2,2,0,0.035206,2,0,not in metadata
+GATA3,0.9,1,58,39,19,0.9496,22,7,CCRF-CEM;Jurkat E6-1;MCF-7;MCF7;T47D;Th1;Th2;not in metadata
+GATA3,0.9,2,2,2,0,0.035206,2,0,not in metadata
+GATA3,0.9,3,3,3,0,0.015196,2,1,MCF-7
+GCR,0.7,1,71,46,25,0.99654,25,5,A549;ECC-1;HeLa B2;LNCaP-1F5;LNCaP-1F5 cells;not in metadata
+GCR,0.7,2,2,1,1,0.0034595,1,0,not in metadata
+GCR,0.8,1,71,46,25,0.99654,25,5,A549;ECC-1;HeLa B2;LNCaP-1F5;LNCaP-1F5 cells;not in metadata
+GCR,0.8,2,2,1,1,0.0034595,1,0,not in metadata
+GCR,0.9,1,29,18,11,0.66322,18,4,A549;HeLa B2;LNCaP-1F5;LNCaP-1F5 cells;not in metadata
+GCR,0.9,2,3,1,2,0.10042,3,1,HeLa B2;not in metadata
+GCR,0.9,3,6,3,3,0.086803,3,1,LNCaP-1F5 cells;not in metadata
+GCR,0.9,4,17,17,0,0.075834,17,5,A549;ECC-1;HeLa B2;LNCaP-1F5;LNCaP-1F5 cells;not in metadata
+GCR,0.9,5,2,0,2,0.020813,2,1,HeLa B2;not in metadata
+GCR,0.9,6,6,3,3,0.019307,4,2,A549;ECC-1
+GCR,0.9,7,3,1,2,0.014962,2,0,not in metadata
+GCR,0.9,8,1,0,1,0.0063422,1,1,A549
+GCR,0.9,9,2,1,1,0.0043386,1,1,ECC-1
+GCR,0.9,10,2,1,1,0.0034595,1,0,not in metadata
+GCR,0.9,11,1,1,0,0.002474,1,0,not in metadata
+GCR,0.9,12,1,1,0,0.0020218,1,0,not in metadata
+HNF4A,0.7,1,39,26,13,1,13,3,Caco-2;HepG2;LoVo;not in metadata
+HNF4A,0.8,1,39,26,13,1,13,3,Caco-2;HepG2;LoVo;not in metadata
+HNF4A,0.9,1,39,26,13,1,13,3,Caco-2;HepG2;LoVo;not in metadata
+IRF1,0.7,1,16,11,5,1,6,2,CD14+ monocytes;K562;not in metadata
+IRF1,0.8,1,13,8,5,0.95475,5,2,CD14+ monocytes;K562;not in metadata
+IRF1,0.8,2,2,2,0,0.030406,1,1,CD14+ monocytes
+IRF1,0.8,3,1,1,0,0.014845,1,0,not in metadata
+IRF1,0.9,1,13,8,5,0.95475,5,2,CD14+ monocytes;K562;not in metadata
+IRF1,0.9,2,2,2,0,0.030406,1,1,CD14+ monocytes
+IRF1,0.9,3,1,1,0,0.014845,1,0,not in metadata
+IRF4,0.7,1,17,12,5,0.85082,6,4,GM12878;H929;OCI-LY10;OCI-LY3
+IRF4,0.7,2,1,0,1,0.14918,1,1,GM12878
+IRF4,0.8,1,17,12,5,0.85082,6,4,GM12878;H929;OCI-LY10;OCI-LY3
+IRF4,0.8,2,1,0,1,0.14918,1,1,GM12878
+IRF4,0.9,1,16,11,5,0.83364,6,4,GM12878;H929;OCI-LY10;OCI-LY3
+IRF4,0.9,2,1,0,1,0.14918,1,1,GM12878
+IRF4,0.9,3,1,1,0,0.017179,1,1,GM12878
+JUND,0.7,1,48,32,16,0.98423,16,8,A549;GM12878;GP5d;HCT-116;HepG2;LoVo;MCF-7;SK-N-SH;not in metadata
+JUND,0.7,2,1,0,1,0.011798,1,1,T-47D
+JUND,0.7,3,1,1,0,0.0039675,1,1,T-47D
+JUND,0.8,1,40,27,13,0.88545,14,7,A549;GP5d;HCT-116;HepG2;LoVo;MCF-7;SK-N-SH;not in metadata
+JUND,0.8,2,6,4,2,0.083605,2,1,GM12878
+JUND,0.8,3,2,1,1,0.015181,1,1,A549
+JUND,0.8,4,1,0,1,0.011798,1,1,T-47D
+JUND,0.8,5,1,1,0,0.0039675,1,1,T-47D
+JUND,0.9,1,35,23,12,0.86424,13,7,A549;GP5d;HCT-116;HepG2;LoVo;MCF-7;SK-N-SH;not in metadata
+JUND,0.9,2,6,4,2,0.083605,2,1,GM12878
+JUND,0.9,3,2,1,1,0.015181,1,1,A549
+JUND,0.9,4,3,3,0,0.014739,3,2,A549;HepG2;not in metadata
+JUND,0.9,5,1,0,1,0.011798,1,1,T-47D
+JUND,0.9,6,1,1,0,0.0039675,1,1,T-47D
+JUND,0.9,7,1,1,0,0.0034486,1,1,HepG2
+JUND,0.9,8,1,0,1,0.0030247,1,0,not in metadata
+MAFK,0.7,1,9,6,3,1,3,3,K562;LoVo;OCI-Ly7 lymphoma cells
+MAFK,0.8,1,9,6,3,1,3,3,K562;LoVo;OCI-Ly7 lymphoma cells
+MAFK,0.9,1,6,4,2,0.85784,2,2,K562;OCI-Ly7 lymphoma cells
+MAFK,0.9,2,2,1,1,0.1307,1,1,LoVo
+MAFK,0.9,3,1,1,0,0.011463,1,1,LoVo
+MAX,0.7,1,63,42,21,1,21,15,ECC-1;GM12878;H1-hESC;H128;H2171;HCT-116;HUVEC;HeLa;HeLa-S3;HepG2;K562;MCF-7;NB4;P493-6;Plasma cell
+MAX,0.8,1,58,39,19,0.96153,20,14,ECC-1;GM12878;H1-hESC;H128;H2171;HCT-116;HeLa;HeLa-S3;HepG2;K562;MCF-7;NB4;P493-6;Plasma cell
+MAX,0.8,2,4,3,1,0.02365,3,3,GM12878;HUVEC;HeLa-S3
+MAX,0.8,3,1,0,1,0.014818,1,1,HUVEC
+MAX,0.9,1,9,6,3,0.16039,4,4,ECC-1;H2171;HepG2;MCF-7
+MAX,0.9,2,4,2,2,0.16008,2,1,H128
+MAX,0.9,3,3,2,1,0.15384,1,1,Plasma cell
+MAX,0.9,4,5,3,2,0.15197,2,1,P493-6
+MAX,0.9,5,12,9,3,0.093142,5,4,H128;HCT-116;HepG2;MCF-7
+MAX,0.9,6,4,3,1,0.085763,2,2,H128;P493-6
+MAX,0.9,7,6,5,1,0.065271,3,3,K562;NB4;P493-6
+MAX,0.9,8,2,1,1,0.044013,1,1,MCF-7
+MAX,0.9,9,2,2,0,0.020323,1,1,HUVEC
+MAX,0.9,10,6,4,2,0.019364,3,3,GM12878;H1-hESC;K562
+MAX,0.9,11,1,0,1,0.014818,1,1,HUVEC
+MAX,0.9,12,1,0,1,0.012808,1,1,HCT-116
+MAX,0.9,13,5,4,1,0.01276,3,3,H2171;HeLa;HeLa-S3
+MAX,0.9,14,2,1,1,0.0033267,2,2,GM12878;HeLa-S3
+MAX,0.9,15,1,0,1,0.0021334,1,1,HeLa-S3
+MYC,0.7,1,165,110,55,1,56,17,BJ;BL41;Blue1;CA46;FB8470;GM12878;H2171;HeLa;HeLa-S3;HelaS3;HepG2;K562;MCF-7;NHEK;P493-6;Plasma cell;Ramos;not in metadata
+MYC,0.8,1,165,110,55,1,56,17,BJ;BL41;Blue1;CA46;FB8470;GM12878;H2171;HeLa;HeLa-S3;HelaS3;HepG2;K562;MCF-7;NHEK;P493-6;Plasma cell;Ramos;not in metadata
+MYC,0.9,1,28,10,18,0.33163,21,9,Blue1;CA46;GM12878;H2171;HepG2;K562;P493-6;Plasma cell;Ramos;not in metadata
+MYC,0.9,2,41,35,6,0.31949,31,10,BJ;BL41;CA46;GM12878;HeLa;HeLa-S3;HepG2;K562;P493-6;Plasma cell;not in metadata
+MYC,0.9,3,10,5,5,0.13598,6,1,P493-6;not in metadata
+MYC,0.9,4,25,21,4,0.081247,19,7,Blue1;CA46;GM12878;HepG2;K562;NHEK;P493-6;not in metadata
+MYC,0.9,5,16,9,7,0.042564,11,8,BL41;GM12878;HeLa-S3;HelaS3;HepG2;K562;P493-6;Ramos;not in metadata
+MYC,0.9,6,4,2,2,0.03648,2,0,not in metadata
+MYC,0.9,7,5,5,0,0.013622,5,1,P493-6;not in metadata
+MYC,0.9,8,7,3,4,0.010784,5,2,FB8470;MCF-7;not in metadata
+MYC,0.9,9,4,2,2,0.0050266,3,1,K562;not in metadata
+MYC,0.9,10,3,1,2,0.0049569,3,2,HeLa;K562;not in metadata
+MYC,0.9,11,2,2,0,0.0029087,2,1,FB8470;not in metadata
+MYC,0.9,12,1,1,0,0.0022272,1,1,MCF-7
+MYC,0.9,13,2,2,0,0.0020726,2,0,not in metadata
+MYC,0.9,14,3,2,1,0.0020068,3,1,K562;not in metadata
+MYC,0.9,15,2,1,1,0.0016737,2,0,not in metadata
+MYC,0.9,16,2,1,1,0.0016522,2,1,BJ;not in metadata
+MYC,0.9,17,3,3,0,0.001569,2,1,H2171;not in metadata
+MYC,0.9,18,3,2,1,0.0014869,1,0,not in metadata
+MYC,0.9,19,2,1,1,0.0012956,1,0,not in metadata
+MYC,0.9,20,1,1,0,0.00082431,1,1,HeLa
+MYC,0.9,21,1,1,0,0.00049953,1,1,K562
+PPARG,0.7,1,28,17,11,1,11,3,Simpson Golabi Behmel Syndrome (SGBS) human adi- pocytes;THP-1;adipocyte;not in metadata
+PPARG,0.8,1,28,17,11,1,11,3,Simpson Golabi Behmel Syndrome (SGBS) human adi- pocytes;THP-1;adipocyte;not in metadata
+PPARG,0.9,1,23,13,10,0.96501,10,3,Simpson Golabi Behmel Syndrome (SGBS) human adi- pocytes;THP-1;adipocyte;not in metadata
+PPARG,0.9,2,3,2,1,0.025414,2,0,not in metadata
+PPARG,0.9,3,1,1,0,0.006347,1,0,not in metadata
+PPARG,0.9,4,1,1,0,0.0032287,1,0,not in metadata
+PRGR,0.7,1,28,19,9,1,10,3,AB32;Leiomyoma cells;T-47D;not in metadata
+PRGR,0.8,1,18,12,6,0.6852,6,1,Leiomyoma cells;not in metadata
+PRGR,0.8,2,9,6,3,0.30321,4,2,AB32;T-47D;not in metadata
+PRGR,0.8,3,1,1,0,0.01159,1,0,not in metadata
+PRGR,0.9,1,10,5,5,0.39578,5,1,Leiomyoma cells;not in metadata
+PRGR,0.9,2,4,3,1,0.17165,2,0,not in metadata
+PRGR,0.9,3,3,2,1,0.11835,1,1,T-47D
+PRGR,0.9,4,3,3,0,0.09932,3,1,Leiomyoma cells;not in metadata
+PRGR,0.9,5,2,2,0,0.097188,1,1,AB32
+PRGR,0.9,6,2,1,1,0.047151,1,0,not in metadata
+PRGR,0.9,7,1,0,1,0.025398,1,0,not in metadata
+PRGR,0.9,8,1,1,0,0.018449,1,0,not in metadata
+PRGR,0.9,9,1,1,0,0.015123,1,0,not in metadata
+PRGR,0.9,10,1,1,0,0.01159,1,0,not in metadata
+REST,0.7,1,105,70,35,0.99588,36,17,APL bone marrow blasts;ECC-1;GM12878;GP5d;H1-hESC;H295R/TR SF-1 cells;HCT-116;HL-60;HeLa-S3;HepG2;K562;LoVo;MCF-7;PANC-1;PFSK-1;SK-N-SH;U87;not in metadata
+REST,0.7,2,1,0,1,0.0041155,1,0,not in metadata
+REST,0.8,1,105,70,35,0.99588,36,17,APL bone marrow blasts;ECC-1;GM12878;GP5d;H1-hESC;H295R/TR SF-1 cells;HCT-116;HL-60;HeLa-S3;HepG2;K562;LoVo;MCF-7;PANC-1;PFSK-1;SK-N-SH;U87;not in metadata
+REST,0.8,2,1,0,1,0.0041155,1,0,not in metadata
+REST,0.9,1,105,70,35,0.99588,36,17,APL bone marrow blasts;ECC-1;GM12878;GP5d;H1-hESC;H295R/TR SF-1 cells;HCT-116;HL-60;HeLa-S3;HepG2;K562;LoVo;MCF-7;PANC-1;PFSK-1;SK-N-SH;U87;not in metadata
+REST,0.9,2,1,0,1,0.0041155,1,0,not in metadata
+RUNX1,0.7,1,59,39,20,1,20,6,CCRF-CEM;CMK;CUTLL1;Jurkat E6-1;Jurkat Trex (Invitrogen);K562;not in metadata
+RUNX1,0.8,1,59,39,20,1,20,6,CCRF-CEM;CMK;CUTLL1;Jurkat E6-1;Jurkat Trex (Invitrogen);K562;not in metadata
+RUNX1,0.9,1,59,39,20,1,20,6,CCRF-CEM;CMK;CUTLL1;Jurkat E6-1;Jurkat Trex (Invitrogen);K562;not in metadata
+RXRA,0.7,1,12,8,4,0.9774,5,2,HepG2;LS180 cells;not in metadata
+RXRA,0.7,2,1,1,0,0.022602,1,0,not in metadata
+RXRA,0.8,1,12,8,4,0.9774,5,2,HepG2;LS180 cells;not in metadata
+RXRA,0.8,2,1,1,0,0.022602,1,0,not in metadata
+RXRA,0.9,1,5,3,2,0.5765,2,1,LS180 cells;not in metadata
+RXRA,0.9,2,4,3,1,0.23938,2,1,HepG2
+RXRA,0.9,3,3,2,1,0.16152,2,1,HepG2;not in metadata
+RXRA,0.9,4,1,1,0,0.022602,1,0,not in metadata
+SOX2,0.7,1,46,30,16,1,16,6,H1 embryonic stem cells;H9;HCC95;KYSE70;ReN-VM;TT;not in metadata
+SOX2,0.8,1,35,24,11,0.68181,14,5,H9;HCC95;KYSE70;ReN-VM;TT;not in metadata
+SOX2,0.8,2,11,6,5,0.31819,5,1,H1 embryonic stem cells;not in metadata
+SOX2,0.9,1,29,19,10,0.58628,10,4,HCC95;KYSE70;ReN-VM;TT;not in metadata
+SOX2,0.9,2,10,5,5,0.31212,5,1,H1 embryonic stem cells;not in metadata
+SOX2,0.9,3,6,5,1,0.09553,4,1,H9;not in metadata
+SOX2,0.9,4,1,1,0,0.006066,1,0,not in metadata
+SPI1,0.7,1,63,42,21,1,21,8,CD133+ expanded umbilical cord blood (UCB) cells;GM12878;H929;K562;ME-1;OCI-LY10;OCI-LY3;THP-1;not in metadata
+SPI1,0.8,1,63,42,21,1,21,8,CD133+ expanded umbilical cord blood (UCB) cells;GM12878;H929;K562;ME-1;OCI-LY10;OCI-LY3;THP-1;not in metadata
+SPI1,0.9,1,51,34,17,0.9604,17,7,CD133+ expanded umbilical cord blood (UCB) cells;GM12878;H929;K562;OCI-LY10;OCI-LY3;THP-1;not in metadata
+SPI1,0.9,2,9,6,3,0.03611,3,1,ME-1;not in metadata
+SPI1,0.9,3,3,2,1,0.003488,1,0,not in metadata
+SRF,0.7,1,23,14,9,0.94019,11,7,ECC-1;GM12878;H1-hESC;HCT-116;HepG2;K562;MCF-7
+SRF,0.7,2,2,0,2,0.059809,2,2,HCT-116;K562
+SRF,0.8,1,23,14,9,0.94019,11,7,ECC-1;GM12878;H1-hESC;HCT-116;HepG2;K562;MCF-7
+SRF,0.8,2,1,0,1,0.041298,1,1,K562
+SRF,0.8,3,1,0,1,0.018511,1,1,HCT-116
+SRF,0.9,1,11,7,4,0.82888,4,4,ECC-1;H1-hESC;HCT-116;HepG2
+SRF,0.9,2,7,4,3,0.070661,4,3,GM12878;HCT-116;MCF-7
+SRF,0.9,3,1,0,1,0.041298,1,1,K562
+SRF,0.9,4,2,1,1,0.021901,1,1,GM12878
+SRF,0.9,5,1,0,1,0.018511,1,1,HCT-116
+SRF,0.9,6,2,1,1,0.015345,1,1,MCF-7
+SRF,0.9,7,1,1,0,0.0034025,1,1,K562
+STA5A,0.7,1,13,8,5,0.95362,6,4,CD4+CD25+CD45RA+ expanded naive regulatory T cells;CD4+CD25- expanded conventional T cells;K562;T cell;not in metadata
+STA5A,0.7,2,1,1,0,0.046381,1,1,CD4+CD25+CD45RA+ expanded naive regulatory T cells
+STA5A,0.8,1,7,4,3,0.724,3,2,CD4+CD25+CD45RA+ expanded naive regulatory T cells;T cell
+STA5A,0.8,2,3,1,2,0.14572,2,1,K562;not in metadata
+STA5A,0.8,3,3,3,0,0.083892,2,2,CD4+CD25- expanded conventional T cells;K562
+STA5A,0.8,4,1,1,0,0.046381,1,1,CD4+CD25+CD45RA+ expanded naive regulatory T cells
+STA5A,0.9,1,3,2,1,0.35129,2,2,CD4+CD25+CD45RA+ expanded naive regulatory T cells;T cell
+STA5A,0.9,2,2,1,1,0.27642,2,2,CD4+CD25+CD45RA+ expanded naive regulatory T cells;T cell
+STA5A,0.9,3,2,1,1,0.096292,1,1,CD4+CD25+CD45RA+ expanded naive regulatory T cells
+STA5A,0.9,4,1,0,1,0.068756,1,0,not in metadata
+STA5A,0.9,5,1,1,0,0.046381,1,1,CD4+CD25+CD45RA+ expanded naive regulatory T cells
+STA5A,0.9,6,1,1,0,0.042263,1,0,not in metadata
+STA5A,0.9,7,1,1,0,0.036162,1,1,K562
+STA5A,0.9,8,1,0,1,0.034704,1,1,K562
+STA5A,0.9,9,1,1,0,0.024027,1,1,CD4+CD25- expanded conventional T cells
+STA5A,0.9,10,1,1,0,0.023703,1,1,K562
+STAT1,0.7,1,15,10,5,0.90806,5,3,HeLa S3;HeLa-S3;K562
+STAT1,0.7,2,2,1,1,0.091936,1,1,K562
+STAT1,0.8,1,15,10,5,0.90806,5,3,HeLa S3;HeLa-S3;K562
+STAT1,0.8,2,2,1,1,0.091936,1,1,K562
+STAT1,0.9,1,13,9,4,0.84153,5,3,HeLa S3;HeLa-S3;K562
+STAT1,0.9,2,2,1,1,0.091936,1,1,K562
+STAT1,0.9,3,2,1,1,0.066539,2,2,HeLa S3;K562
+STAT3,0.7,1,9,5,4,0.95402,4,2,HeLa-S3;MCF10A-Er-Src;not in metadata
+STAT3,0.7,2,1,0,1,0.045985,1,0,not in metadata
+STAT3,0.8,1,9,5,4,0.95402,4,2,HeLa-S3;MCF10A-Er-Src;not in metadata
+STAT3,0.8,2,1,0,1,0.045985,1,0,not in metadata
+STAT3,0.9,1,4,3,1,0.53446,2,2,HeLa-S3;MCF10A-Er-Src
+STAT3,0.9,2,4,2,2,0.2915,2,0,not in metadata
+STAT3,0.9,3,1,0,1,0.12806,1,1,HeLa-S3
+STAT3,0.9,4,1,0,1,0.045985,1,0,not in metadata
+TAL1,0.7,1,27,13,14,0.9104,14,8,CCRF-CEM;CD34+ HSPC-derived proerythroblasts;CD36;Jurkat E6-1;K562;Leukemic T-cell;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata
+TAL1,0.7,2,3,3,0,0.089599,2,2,CCRF-CEM;Jurkat E6-1
+TAL1,0.8,1,22,11,11,0.88644,11,5,CD34+ HSPC-derived proerythroblasts;CD36;K562;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata
+TAL1,0.8,2,3,3,0,0.089599,2,2,CCRF-CEM;Jurkat E6-1
+TAL1,0.8,3,5,2,3,0.023958,3,3,CCRF-CEM;Jurkat E6-1;Leukemic T-cell
+TAL1,0.9,1,18,9,9,0.79718,9,5,CD34+ HSPC-derived proerythroblasts;CD36;K562;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata
+TAL1,0.9,2,4,2,2,0.089259,2,1,CD34+ HSPC-derived proerythroblasts
+TAL1,0.9,3,2,2,0,0.063559,1,1,Jurkat E6-1
+TAL1,0.9,4,1,1,0,0.02604,1,1,CCRF-CEM
+TAL1,0.9,5,4,1,3,0.0209,3,3,CCRF-CEM;Jurkat E6-1;Leukemic T-cell
+TAL1,0.9,6,1,1,0,0.0030584,1,1,CCRF-CEM
+TF65,0.7,1,107,71,36,0.99708,37,15,AC16;GM10847;GM12878;GM12891;GM12892;GM15510;GM18505;GM18526;GM18951;GM19099;GM19193;HeLa B2;Human umbilical vein endothelial cells;fetal lung fibroblast;not in metadata;primary HUVEC cells
+TF65,0.7,2,1,1,0,0.0029202,1,0,not in metadata
+TF65,0.8,1,107,71,36,0.99708,37,15,AC16;GM10847;GM12878;GM12891;GM12892;GM15510;GM18505;GM18526;GM18951;GM19099;GM19193;HeLa B2;Human umbilical vein endothelial cells;fetal lung fibroblast;not in metadata;primary HUVEC cells
+TF65,0.8,2,1,1,0,0.0029202,1,0,not in metadata
+TF65,0.9,1,67,44,23,0.74996,25,11,GM10847;GM12878;GM12891;GM12892;GM15510;GM18505;GM18526;GM18951;GM19099;GM19193;fetal lung fibroblast;not in metadata
+TF65,0.9,2,17,11,6,0.11226,9,3,HeLa B2;Human umbilical vein endothelial cells;fetal lung fibroblast;not in metadata
+TF65,0.9,3,6,2,4,0.052208,4,2,GM15510;not in metadata;primary HUVEC cells
+TF65,0.9,4,2,1,1,0.026185,1,1,AC16
+TF65,0.9,5,4,4,0,0.014099,4,2,AC16;HeLa B2;not in metadata
+TF65,0.9,6,2,0,2,0.012151,2,0,not in metadata
+TF65,0.9,7,3,3,0,0.0097739,3,1,GM15510;not in metadata
+TF65,0.9,8,3,3,0,0.0074014,3,2,Human umbilical vein endothelial cells;not in metadata;primary HUVEC cells
+TF65,0.9,9,1,1,0,0.0048379,1,0,not in metadata
+TF65,0.9,10,1,1,0,0.0047676,1,0,not in metadata
+TF65,0.9,11,1,1,0,0.0034314,1,0,not in metadata
+TF65,0.9,12,1,1,0,0.0029202,1,0,not in metadata
+TFE2,0.7,1,8,5,3,1,3,2,GM12878;RPMI-8402;not in metadata
+TFE2,0.8,1,6,4,2,0.65786,2,1,GM12878;not in metadata
+TFE2,0.8,2,2,1,1,0.34214,1,1,RPMI-8402
+TFE2,0.9,1,3,2,1,0.34892,1,0,not in metadata
+TFE2,0.9,2,2,1,1,0.34214,1,1,RPMI-8402
+TFE2,0.9,3,2,2,0,0.1783,1,1,GM12878
+TFE2,0.9,4,1,0,1,0.13064,1,1,GM12878
+USF2,0.7,1,18,12,6,1,6,5,GM12878;H1-hESC;HeLa-S3;HepG2;K562;not in metadata
+USF2,0.8,1,18,12,6,1,6,5,GM12878;H1-hESC;HeLa-S3;HepG2;K562;not in metadata
+USF2,0.9,1,18,12,6,1,6,5,GM12878;H1-hESC;HeLa-S3;HepG2;K562;not in metadata

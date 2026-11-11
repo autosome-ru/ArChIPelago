@@ -1,0 +1,5 @@
+outcome,n,k,R2,adj_R2,status
+dROC_HM,35,4,0.221518,0.11772,current
+loss_roc,35,4,0.0907651,-0.0304662,current
+dPRC_HM,35,4,0.172341,0.0619868,current
+loss_prc,35,4,0.22743,0.124421,current

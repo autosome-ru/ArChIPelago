@@ -1,0 +1,15 @@
+"Task (SPRY-SARUS, JVM limited to one active processor)",TF,PWM type,Number of PWMs,Scanned sequence (Mb),Wall-clock (s),User CPU (s),Peak memory (GB)
+"JVM start-up (10 sequences, 3 kb)",any,mono,1,0.003,0.18,0.18,0.06
+1 PWM,STAT3,mono,1,15.0,2.36,2.5,0.31
+1 PWM,HNF4A,mono,1,15.0,2.19,2.56,0.29
+1 PWM,CTCF,mono,1,15.0,2.25,2.87,0.3
+"1 PWM, pipeline JVM flags (no CPU cap)",CTCF,mono,1,15.0,2.34,3.4,0.23
+1 diPWM,STAT3,di,1,15.0,2.54,2.75,0.53
+1 diPWM,HNF4A,di,1,15.0,2.94,3.17,0.63
+1 diPWM,CTCF,di,1,15.0,2.95,3.25,0.64
+all monoPWMs of the TF (sequential loop),STAT3,mono,5,15.0,11.5,14.1,0.31
+all monoPWMs of the TF (sequential loop),HNF4A,mono,26,15.0,58.2,72.9,0.31
+all monoPWMs of the TF (sequential loop),CTCF,mono,198,15.0,478.4,614.7,0.35
+all diPWMs of the TF (sequential loop),STAT3,di,5,15.0,14.0,15.8,0.63
+all diPWMs of the TF (sequential loop),HNF4A,di,13,15.0,36.2,40.6,0.64
+all diPWMs of the TF (sequential loop),CTCF,di,99,15.0,306.3,354.1,0.64

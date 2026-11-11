@@ -1,0 +1,47 @@
+- script: "3_analysis/integration/make_b3_h3.py"
+  run: "2026-11-11 13:26:52"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "H3: B3 inputs from the H3a mirrors (both species)"
+  inputs:
+    - {file: "results/server/human/b3/b3_topN_results.csv", md5: "db0d089cf8fc44b26aa3822e1ff459d3"}
+    - {file: "results/server/human_data/per_tf_positive_counts.csv", md5: "14731be15a66b80d528763f3b7427e19"}
+    - {file: "results/server/mouse_data/per_tf_positive_counts.csv", md5: "ca483c23c47128caf982fca17e20d2ff"}
+    - {file: "results/server_h4_test_sets/human/b3/b3_join_test_per_sequence_human.csv", md5: "29444434084551da6190b39d6d11e64a"}
+    - {file: "results/server_h4_test_sets/human/b3/b3_join_test_per_tf_human.csv", md5: "721df1c33449cc14a00fd15887f1dbd8"}
+    - {file: "results/server_h4_test_sets/human/b3/b3_peak_widths_per_dataset_human.csv", md5: "b092f86dd33f6a710277a9a5ba1410b2"}
+    - {file: "results/server_h4_test_sets/mouse/b3/b3_join_test_per_sequence_mouse.csv", md5: "6bd885f31b9ea6f15a559681ddcbebbc"}
+    - {file: "results/server_h4_test_sets/mouse/b3/b3_join_test_per_tf_mouse.csv", md5: "60011e4b2bd4d95533229caa7408ed20"}
+    - {file: "results/server_h4_test_sets/mouse/b3/b3_peak_widths_per_dataset_mouse.csv", md5: "8895ac48da05313ed2dd441cd7b14aee"}
+  outputs:
+    - {file: "3_analysis/top_peaks/b3_topN_results.csv", md5: "0f54a7617a91b58dd9d1a347bc70024d"}
+    - {file: "3_analysis/top_peaks/b3_peak_widths_per_dataset.csv", md5: "c3421566ee0af4f831c6b691c1157702"}
+    - {file: "3_analysis/top_peaks/b3_join_test_per_tf.csv", md5: "5bafd4d0234ec46bc59e94b08f079284"}
+    - {file: "3_analysis/top_peaks/b3_join_test_per_sequence.csv", md5: "a3a3afd59e210a38afd8a69727bb8911"}
+- script: "3_analysis/top_peaks/b3_gain_vs_npos_h3.py"
+  run: "2026-11-11 13:26:53"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{gain: RF mono+di minus best monoPWM (train-selected); mouse test set: mean of RF seeds 0 and 1; Spearman; uncapped = human training positives < 10,000}"
+  inputs:
+    - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+    - {file: "results/server/human_data/per_tf_positive_counts.csv", md5: "14731be15a66b80d528763f3b7427e19"}
+    - {file: "results/server/mouse_data/per_tf_positive_counts.csv", md5: "ca483c23c47128caf982fca17e20d2ff"}
+    - {file: "results/server/human_data/counts_per_tf.csv", md5: "e69d534470ece53964b5250dd189f13d"}
+    - {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+    - {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  outputs:
+    - {file: "3_analysis/top_peaks/b3_gain_vs_npos_per_tf.csv", md5: "5766ac8b221956f1f196dc2d015acbd0"}
+    - {file: "3_analysis/top_peaks/b3_gain_vs_npos_spearman.csv", md5: "79de1fd20c4eb75a2aa27937faa20d32"}
+    - {file: "3_analysis/top_peaks/b3_gain_capped_vs_uncapped.csv", md5: "108df6acfa71b31a993a386104e11fa2"}

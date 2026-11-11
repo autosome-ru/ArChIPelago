@@ -1,0 +1,9 @@
+Test set,Baseline,Quantity,Median over 35 TFs,IQR,TFs with improvement (of 35),Median baseline value,Median ArChIPelago value,Median baseline precision,Median ArChIPelago precision
+"human test set (chr1, 8, 21)",best monoPWM (selected on the human training set by auPRC),FP reduction at 50 % recall (%),30.2,19.9 to 43.5,33,377.0,218.0,0.267,0.305
+"human test set (chr1, 8, 21)",best monoPWM (selected on the human training set by auPRC),FP reduction at 80 % recall (%),29.5,20.6 to 43.8,34,2162.0,1369.0,0.084,0.119
+"human test set (chr1, 8, 21)",best monoPWM (selected on the human training set by auPRC),"additional true sites in top 1,000",33.0,22.0 to 66.8,34,323.0,354.0,,
+"human test set (chr1, 8, 21)",best monoPWM (selected on the human training set by auPRC),"precision gain at 50 % recall (paired, per TF)",0.05,0.018 to 0.093,33,0.267,0.305,,
+"mouse test set (chr1, 8, 19)",best monoPWM (selected on the human training set by auPRC),FP reduction at 50 % recall (%),26.7,16.2 to 37.2,32,466.0,367.0,0.178,0.232
+"mouse test set (chr1, 8, 19)",best monoPWM (selected on the human training set by auPRC),FP reduction at 80 % recall (%),19.8,13.3 to 37.8,33,2059.0,1599.0,0.075,0.118
+"mouse test set (chr1, 8, 19)",best monoPWM (selected on the human training set by auPRC),"additional true sites in top 1,000",33.3,13.0 to 59.4,32,251.0,327.0,,
+"mouse test set (chr1, 8, 19)",best monoPWM (selected on the human training set by auPRC),"precision gain at 50 % recall (paired, per TF)",0.044,0.023 to 0.073,32,0.178,0.232,,

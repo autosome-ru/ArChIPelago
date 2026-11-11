@@ -1,0 +1,30 @@
+- script: "3_analysis/integration/make_pkg_copy.py"
+  run: "2026-11-11 13:25:30"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "H3: PKG copy with the final inputs (h3_inputs.py); patched producers (asserted replacements)"
+  inputs:
+    - {file: "results/server/human/eval_models/HM/evaluation_table.csv", md5: "37cf8399240fe93955134af300632ce2"}
+    - {file: "results/server/human/eval_models/HM/evaluation_table.csv", md5: "37cf8399240fe93955134af300632ce2"}
+    - {file: "results/server/human/eval_models/HM/best_single_PWMs.csv", md5: "0c55c5d94b507eaf3052b0d43d8bcfa3"}
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+    - {file: "results/server/human/operational/operational_metrics.csv", md5: "7f08cf55534fd39d6c3bc2a8027471dd"}
+    - {file: "results/server/human/saturation_HUMAN/saturation_results.csv", md5: "c03359e8b3000a30d40a44240acf522c"}
+    - {file: "results/server/human/fig4_refit_trainscale/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
+    - {file: "results/server/human/fig4_refit_trainscale/Figure_S4_source_data.csv", md5: "753e28dd1c53fc699903012b2bdc0021"}
+    - {file: "results/server/human_data/per_tf_positive_counts.csv", md5: "14731be15a66b80d528763f3b7427e19"}
+  outputs:
+    - {file: "3_analysis/package/analysis/inputs/notebook4_results_table.csv", md5: "37cf8399240fe93955134af300632ce2"}
+    - {file: "3_analysis/package/analysis/model_evaluation/evaluation_table.csv", md5: "37cf8399240fe93955134af300632ce2"}
+    - {file: "3_analysis/package/analysis/model_evaluation/best_single_PWMs.csv", md5: "0c55c5d94b507eaf3052b0d43d8bcfa3"}
+    - {file: "3_analysis/package/analysis/mouse_transfer/mouse_transfer_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+    - {file: "3_analysis/package/analysis/operational/operational_metrics.csv", md5: "7f08cf55534fd39d6c3bc2a8027471dd"}
+    - {file: "3_analysis/package/analysis/saturation/saturation_results.csv", md5: "c03359e8b3000a30d40a44240acf522c"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_S4_source_data.csv", md5: "753e28dd1c53fc699903012b2bdc0021"}
+    - {file: "3_analysis/package/analysis/inputs/training_positives_per_TF.csv", md5: "7769c28e7f1cfb84e018c4e3084b8663"}

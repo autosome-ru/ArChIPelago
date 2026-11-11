@@ -1,0 +1,8 @@
+script: subtype_vs_hocomoco11.py
+date: 2026-11-11T13:27:33
+git: 61c9d23
+min_overlap: 5
+inputs:
+  - {path: results/datasets/hocomoco11/HOCOMOCOv11_full_pcms_HUMAN_mono.txt, md5: ace4698cb56d1c50431465a45d6f02f6}
+  - {path: 4_visualisation/figures/FigS7/Figure_S7_source_data.csv, md5: eafc7e9dbf3dd343333c1569f374cc9f}
+source: server ~/hocomoco11/final_bundle/hocomoco11/full/HUMAN/mono/HOCOMOCOv11_full_pcms_HUMAN_mono.txt

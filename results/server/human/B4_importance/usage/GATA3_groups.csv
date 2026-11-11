@@ -1,0 +1,17 @@
+TF,defn,cls,group,n,frac,median_rf,frac_rf_above_neg99,n_sec_features,n_prim_features
+GATA3,any_nonprimary,pos,primary_only,404,0.34441602728047743,0.17796984314918518,0.4306930693069307,2,61
+GATA3,any_nonprimary,pos,secondary_only,0,0.0,,,2,61
+GATA3,any_nonprimary,pos,both,0,0.0,,,2,61
+GATA3,any_nonprimary,pos,none,769,0.6555839727195226,0.08064454048871994,0.018205461638491547,2,61
+GATA3,any_nonprimary,neg,primary_only,2528,0.06885844251355105,0.1276765912771225,0.12539556962025317,2,61
+GATA3,any_nonprimary,neg,secondary_only,0,0.0,,,2,61
+GATA3,any_nonprimary,neg,both,0,0.0,,,2,61
+GATA3,any_nonprimary,neg,none,34185,0.9311415574864489,0.013739529065787792,0.001170103846716396,2,61
+GATA3,subtype2,pos,primary_only,404,0.34441602728047743,0.17796984314918518,0.4306930693069307,2,61
+GATA3,subtype2,pos,secondary_only,0,0.0,,,2,61
+GATA3,subtype2,pos,both,0,0.0,,,2,61
+GATA3,subtype2,pos,none,769,0.6555839727195226,0.08064454048871994,0.018205461638491547,2,61
+GATA3,subtype2,neg,primary_only,2528,0.06885844251355105,0.1276765912771225,0.12539556962025317,2,61
+GATA3,subtype2,neg,secondary_only,0,0.0,,,2,61
+GATA3,subtype2,neg,both,0,0.0,,,2,61
+GATA3,subtype2,neg,none,34185,0.9311415574864489,0.013739529065787792,0.001170103846716396,2,61

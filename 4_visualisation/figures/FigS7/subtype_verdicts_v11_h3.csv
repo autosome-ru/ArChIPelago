@@ -1,0 +1,13 @@
+TF,rank_dauROC,n_v11_subtypes,own_subtypes_nearest,n_own_subtypes_without_tie,tie_panels,cofactor_panels,drawn,role,figure_row
+IRF4,1,1,"0: panels 1,2,3,4,5,6,7",1,,7 BATF_HUMAN.H11MO.0.A r 0.975 (own 0.529),True,own motif plus co-factor motif,3
+E2F4,2,2,"0: panels 3,4,7;1: panels 1,2,5,6",2,"3,4",,False,,0
+SRF,3,1,"0: panels 1,2,3,4,5,6,7",1,,,False,,0
+RXRA,4,2,"1: panels 1,2,3,4,5,6,7",1,,,False,,0
+ANDR,5,3,"0: panels 1,2,5,6,7;1: panels 3,4",1,"3,4,5",,False,,0
+TFE2,6,1,"0: panels 1,2,3,4,5,6,7",1,,"1 ETV7_HUMAN.H11MO.0.D r 0.976 (own 0.715),5 ETV7_HUMAN.H11MO.0.D r 0.979 (own 0.691)",True,own motif plus co-factor motif,4
+MAFK,7,2,"0: panels 1;1: panels 2,3,4,5,6,7",1,"1,4,5",,False,,0
+STAT1,8,2,"0: panels 1,2,4,5,6,7;1: panels 3",2,,,True,v11 subtype example,1
+TAL1,10,2,"0: panels 4,5,6,7;1: panels 1,2,3",2,,,True,v11 subtype example,2
+SPI1,17,1,"0: panels 1,2,3,4,5,6,7",1,,,False,,0
+MAX,18,1,"0: panels 1,2,3,4,5,6,7",1,,,False,,0
+CEBPB,32,1,"0: panels 1,2,3,4,5,6,7",1,,,False,,0

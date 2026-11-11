@@ -1,0 +1,2 @@
+TF,n_features,n_mono,n_di,median_pairwise_all,median_pairwise_mono,min_pairwise_all,median_sim_to_top_feature,top_feature,n_subtypes_70,n_subtypes_ge10pct_70,primary_share_70,n_features_primary_70,n_subtypes_80,n_subtypes_ge10pct_80,primary_share_80,n_features_primary_80,n_subtypes_90,n_subtypes_ge10pct_90,primary_share_90,n_features_primary_90
+HNF4A,39,26,13,0.9609867115787956,0.9618624883805471,0.8864443052547011,0.9631968101052644,di_12,1,1,0.9999999999999983,39,1,1,0.9999999999999983,39,1,1,0.9999999999999983,39

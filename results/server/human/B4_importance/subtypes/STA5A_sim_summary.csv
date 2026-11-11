@@ -1,0 +1,2 @@
+TF,n_features,n_mono,n_di,median_pairwise_all,median_pairwise_mono,min_pairwise_all,median_sim_to_top_feature,top_feature,n_subtypes_70,n_subtypes_ge10pct_70,primary_share_70,n_features_primary_70,n_subtypes_80,n_subtypes_ge10pct_80,primary_share_80,n_features_primary_80,n_subtypes_90,n_subtypes_ge10pct_90,primary_share_90,n_features_primary_90
+STA5A,14,9,5,0.8036707139224528,0.8123615371256987,0.5693755026938749,0.8443303583010547,di_3,2,1,0.9536188343243339,13,4,2,0.7240041350953589,7,10,2,0.35129265383752706,3

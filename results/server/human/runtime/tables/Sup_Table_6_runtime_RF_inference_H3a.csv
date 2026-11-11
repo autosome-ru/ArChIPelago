@@ -1,0 +1,13 @@
+"Variant (1,000,000 sequences)",TF,Features (monoPWMs),Threads (n_jobs),scaler.transform (s),predict_proba (s),Total in-process (s),Whole process wall-clock (s),Peak memory (GB),Sequences per second,mean p
+"chunked, 10 x 100,000 rows",STAT3,5,1,0.07,6.7,6.9,8.7,0.17,146k,0.0131
+"chunked, 10 x 100,000 rows",STAT3,5,4,0.12,2.1,2.4,4.3,0.19,415k,0.0131
+"chunked, 10 x 100,000 rows",HNF4A,26,1,0.27,6.6,7.2,9.3,0.25,139k,0.0424
+"chunked, 10 x 100,000 rows",HNF4A,26,4,0.36,2.3,3.1,5.3,0.27,318k,0.0424
+"chunked, 10 x 100,000 rows",CTCF,198,1,2.24,13.9,20.7,27.8,1.19,48k,0.0596
+"chunked, 10 x 100,000 rows",CTCF,198,4,2.25,6.1,13.1,20.1,1.19,77k,0.0596
+single call on the full 1e6 x k matrix,STAT3,5,1,0.07,7.43,,9.4,0.32,135k,0.0131
+single call on the full 1e6 x k matrix,STAT3,5,4,0.07,2.05,,4.1,0.41,488k,0.0131
+single call on the full 1e6 x k matrix,HNF4A,26,1,0.31,7.2,,10.2,0.77,139k,0.0424
+single call on the full 1e6 x k matrix,HNF4A,26,4,0.31,2.52,,5.4,0.9,397k,0.0424
+single call on the full 1e6 x k matrix,CTCF,198,1,2.22,13.26,,27.2,4.76,75k,0.0596
+single call on the full 1e6 x k matrix,CTCF,198,4,2.22,8.88,,22.8,4.87,113k,0.0596

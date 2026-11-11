@@ -1,0 +1,44 @@
+check,n_TF,max_abs_diff,median_abs_diff,tolerance,decision,round1_check,round1_max_abs_diff,round1_decision
+auROC sklearn vs own trapezoid (RF s0),35,2.220446049250313e-16,0.0,1e-09,pass,auROC sklearn vs own trapezoid (RF s0),2.220446049250313e-16,pass
+HH auROC RF s0 vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,auROC RF s0 vs hm_mm_results,1.1102230246251563e-16,pass
+HH auPRC(integral) RF s0 vs hm_mm_results (H3a),35,4.60964599824365e-13,9.495182418106651e-14,1e-09,pass,auPRC(integral) RF s0 vs hm_mm_results,5.56638068971438e-13,pass
+HH auROC RF s0 vs b2_v2 B2_metrics_wide,35,2.220446049250313e-16,1.1102230246251565e-16,1e-09,pass,-,,-
+HH auPRC(integral) RF s0 vs b2_v2 B2_metrics_wide,35,1.1102230246251565e-16,5.551115123125783e-17,1e-09,pass,-,,-
+HH auROC bROC vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,auROC bROC vs hm_mm_results,1.1102230246251563e-16,pass
+HH auPRC(integral) bROC vs hm_mm_results (H3a),35,1.302569163641465e-13,5.925815393936773e-15,1e-09,pass,auPRC(integral) bROC vs hm_mm_results,1.1762812945903536e-13,pass
+HH auROC bROC vs b2_v2 B2_metrics_wide,35,3.3306690738754696e-16,1.1102230246251565e-16,1e-09,pass,-,,-
+HH auPRC(integral) bROC vs b2_v2 B2_metrics_wide,35,8.326672684688674e-17,0.0,1e-09,pass,-,,-
+HH auROC bPRC vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,auROC bPRC vs hm_mm_results,1.1102230246251563e-16,pass
+HH auPRC(integral) bPRC vs hm_mm_results (H3a),35,1.856570452929418e-13,6.328271240363392e-15,1e-09,pass,auPRC(integral) bPRC vs hm_mm_results,1.1762812945903536e-13,pass
+HH auROC bPRC vs b2_v2 B2_metrics_wide,35,3.3306690738754696e-16,0.0,1e-09,pass,-,,-
+HH auPRC(integral) bPRC vs b2_v2 B2_metrics_wide,35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+HM auROC RF s0 vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+HM auPRC(integral) RF s0 vs hm_mm_results (H3a),35,5.09203790244328e-13,8.104628079763643e-14,1e-09,pass,-,,-
+HM auROC RF s0 vs b2_v2 B2_metrics_wide,35,3.3306690738754696e-16,0.0,1e-09,pass,-,,-
+HM auPRC(integral) RF s0 vs b2_v2 B2_metrics_wide,35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+HM auROC bROC vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+HM auPRC(integral) bROC vs hm_mm_results (H3a),35,1.8898771436681727e-13,2.942091015256665e-15,1e-09,pass,-,,-
+HM auROC bROC vs b2_v2 B2_metrics_wide,35,2.220446049250313e-16,0.0,1e-09,pass,-,,-
+HM auPRC(integral) bROC vs b2_v2 B2_metrics_wide,35,1.1102230246251565e-16,2.7755575615628914e-17,1e-09,pass,-,,-
+HM auROC bPRC vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+HM auPRC(integral) bPRC vs hm_mm_results (H3a),35,1.2187473252822656e-13,4.496403249731884e-15,1e-09,pass,-,,-
+HM auROC bPRC vs b2_v2 B2_metrics_wide,35,2.220446049250313e-16,0.0,1e-09,pass,-,,-
+HM auPRC(integral) bPRC vs b2_v2 B2_metrics_wide,35,1.1102230246251565e-16,2.7755575615628914e-17,1e-09,pass,-,,-
+MM auROC RF s0 vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+MM auPRC(integral) RF s0 vs hm_mm_results (H3a),35,3.932132397466148e-13,5.2735593669694936e-14,1e-09,pass,-,,-
+MM auROC RF s0 vs b2_v2 B2_metrics_wide,35,3.3306690738754696e-16,1.1102230246251565e-16,1e-09,pass,-,,-
+MM auPRC(integral) RF s0 vs b2_v2 B2_metrics_wide,35,8.326672684688674e-17,0.0,1e-09,pass,-,,-
+MM auROC bROC vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+MM auPRC(integral) bROC vs hm_mm_results (H3a),35,1.848798891757042e-13,3.3306690738754696e-15,1e-09,pass,-,,-
+MM auROC bROC vs b2_v2 B2_metrics_wide,35,2.220446049250313e-16,1.1102230246251565e-16,1e-09,pass,-,,-
+MM auPRC(integral) bROC vs b2_v2 B2_metrics_wide,35,8.326672684688674e-17,0.0,1e-09,pass,-,,-
+MM auROC bPRC vs hm_mm_results (H3a),35,1.1102230246251565e-16,0.0,1e-09,pass,-,,-
+MM auPRC(integral) bPRC vs hm_mm_results (H3a),35,2.9570790260891044e-13,4.3298697960381105e-15,1e-09,pass,-,,-
+MM auROC bPRC vs b2_v2 B2_metrics_wide,35,2.220446049250313e-16,1.1102230246251565e-16,1e-09,pass,-,,-
+MM auPRC(integral) bPRC vs b2_v2 B2_metrics_wide,35,1.1102230246251565e-16,2.7755575615628914e-17,1e-09,pass,-,,-
+HH auROC RF s0 vs results table RF (H3),35,2.0400412581444982e-08,0.0,0.001,pass,auROC RF s0 vs PUBLISHED RF,0.0065538902903493,FAIL
+HH auPRC(integral) RF s0 vs results table RF (H3),35,6.607732860874904e-09,9.581224702515101e-14,0.001,pass,auPRC(integral) RF s0 vs PUBLISHED RF,0.0408382201242809,FAIL
+HH auROC bROC vs results table best monoPWM (roc_auc_test_H_PWM),35,1.1102230246251565e-16,0.0,1e-09,pass,auROC bROC vs PUBLISHED single best mono (test_H_PWM),2.220446049250313e-16,pass
+HH auPRC(integral) bPRC vs results table best monoPWM (pr_auc_test_H_PWM),35,1.856570452929418e-13,6.328271240363392e-15,1e-09,pass,auPRC(integral) bPRC vs PUBLISHED single best mono (pr_auc_test_H_PWM),1.4249712521063884e-13,pass
+"HH auPRC integral vs sklearn AP, RF s0 (size only)",35,0.00298361087096774,0.00080503699629908,inf,size only,"auPRC integral vs sklearn AP, RF s0",0.0045482016583215,size only
+"HH auPRC integral vs sklearn AP, bPRC (size only)",35,0.0076659155687170966,0.0005923022806988698,inf,size only,"auPRC integral vs sklearn AP, bPRC",0.0066391007975832,size only

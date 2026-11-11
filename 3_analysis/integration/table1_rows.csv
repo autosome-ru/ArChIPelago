@@ -1,0 +1,7 @@
+row,baseline_median,archipelago_median,tfs_improved,wilcoxon_p,below,rf_column,baseline_column
+"Human, human-trained, auROC",0.874,0.902,35/35,6e-11,,roc_auc_test_H,roc_auc_test_H_PWM
+"Human, human-trained, auPRC",0.288,0.336,35/35,6e-11,,pr_auc_test_H,pr_auc_test_H_PWM
+"Mouse, human-trained, auROC",0.857,0.886,34/35,8e-10,TF65,HM_rf_test_M_auroc_mean,HM_broc_test_M_auroc
+"Mouse, human-trained, auPRC",0.23,0.307,34/35,1e-10,PRGR,HM_rf_test_M_auprc_mean,HM_bprc_test_M_auprc
+"Mouse, mouse-trained, auROC",0.873,0.897,35/35,6e-11,,MM_rf_test_M_auroc_mean,MM_broc_test_M_auroc
+"Mouse, mouse-trained, auPRC",0.248,0.356,35/35,6e-11,,MM_rf_test_M_auprc_mean,MM_bprc_test_M_auprc

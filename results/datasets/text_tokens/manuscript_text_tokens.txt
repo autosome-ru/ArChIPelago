@@ -1,0 +1,14 @@
+     "as well as sparse local inhomogeneous mixture models [PENDING_H3B:Abstract_Slim_claim]. The gain holds at a false positive rate of 0.01 (33 of 35 "
+# Fig. 4 / S4 numbers pending H3b (NUMBERS rows 'pending (H3b)'): every number is a [PENDING_H3B:<item>] token for the
+     "([PENDING_H3B:Fig4_RF2f_dauROC] auROC and [PENDING_H3B:Fig4_RF2f_dauPRC] auPRC over the best monoPWM)"),
+     "rose to [PENDING_H3B:Fig4_RF2f_diChIPMunk_dauROC] auROC with diChIPMunk, [PENDING_H3B:Fig4_RF2f_Slim1_dauROC] with "
+     "Slim m=1 and [PENDING_H3B:Fig4_RF2f_LSlim_dauROC] with LSlim m=-5, and the five-feature model reached "
+     "[PENDING_H3B:Fig4_5f_dauROC] auROC and [PENDING_H3B:Fig4_5f_dauPRC] auPRC (two-sided Wilcoxon signed-rank P = "
+     "[PENDING_H3B:Fig4_5f_P_auROC] and [PENDING_H3B:Fig4_5f_P_auPRC])"),
+     "(median ΔauROC [PENDING_H3B:Fig4_RFall_dauROC], ΔauPRC [PENDING_H3B:Fig4_RFall_dauPRC])"),
+     "the best monoPWM ([PENDING_H3B:FigS4_5f_dauROC] and [PENDING_H3B:FigS4_RFall_dauROC] auROC), with the "
+     "[PENDING_H3B:FigS4_order_5f_vs_RFall] model ahead."),
+     "in contrast to the variable and predominantly negative deltas [PENDING_H3B:Fig4_single_models_sign] of particular "
+     "(P [PENDING_H3B:Fig4_all_RF_models_P], Wilcoxon signed-rank test), which reflects the advantage of ensemble "
+     "values [PENDING_H3B:Fig4_Slim_sign],"),
+     "performance over the best monoPWMs [PENDING_H3B:Fig4_diChIPMunk_sign],"),

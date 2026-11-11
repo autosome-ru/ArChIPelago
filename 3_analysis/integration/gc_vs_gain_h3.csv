@@ -1,0 +1,5 @@
+species,test_set,model,metric,n_TF,spearman_rho,p
+human,human test,human-trained RF,auROC,35,-0.16806982290631056,0.33449871898285366
+human,human test,human-trained RF,auPRC,35,0.1404322977706318,0.4210303402718688
+mouse,mouse test,mouse-trained RF (mean of 2 seeds),auROC,35,-0.13483199261558904,0.43997010816476534
+mouse,mouse test,mouse-trained RF (mean of 2 seeds),auPRC,35,-0.11671394360786927,0.5043250940628984

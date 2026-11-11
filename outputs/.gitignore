@@ -1,0 +1,3 @@
+# backups the producers write before overwriting a table, and Python caches
+*_backup_*
+__pycache__/

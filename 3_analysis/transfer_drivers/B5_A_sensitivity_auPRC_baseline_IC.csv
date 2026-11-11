@@ -1,0 +1,7 @@
+driver,outcome,rho,p,status
+IC_total_auPRC,dPRC_HM,-0.077591,0.657742,current
+IC_total_auPRC,loss_prc,-0.135014,0.439347,current
+motif_len_auPRC,dPRC_HM,-0.0111325,0.949392,current
+motif_len_auPRC,loss_prc,0.0177556,0.919363,current
+IC_mean_per_pos_auPRC,dPRC_HM,-0.010084,0.954153,current
+IC_mean_per_pos_auPRC,loss_prc,-0.0957983,0.584084,current

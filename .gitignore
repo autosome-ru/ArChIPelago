@@ -33,10 +33,15 @@ hocomoco11/
 *.tmp
 ~$*
 
-# Local copies of tables now kept in Manuscript_analysis/
+# Local copies of tables
 /Table_*.xlsx
 /Table_*.xlsx.zip
 
 # Staging folder of the Zenodo archives (uploaded to Zenodo, not tracked)
 Zenodo_new_version/
+Zenodo_v1.0.0/
+Zenodo_v2.0.0/
+
+# Logs of the server relay scripts
+2_training/slim_chipmunk/logs/
 

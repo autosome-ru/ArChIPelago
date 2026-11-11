@@ -1,0 +1,49 @@
+driver,driver_label,outcome,outcome_label,n,rho,p,q_BH,status
+IC_total_auROC,Baseline monoPWM total IC (bits),dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.27535,0.109387,0.589271,current
+IC_total_auROC,Baseline monoPWM total IC (bits),dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,-0.169748,0.329625,0.608538,current
+IC_total_auROC,Baseline monoPWM total IC (bits),loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.0310924,0.859267,0.946896,current
+IC_total_auROC,Baseline monoPWM total IC (bits),loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.0408964,0.815562,0.946896,current
+motif_len_auROC,Baseline motif length (positions),dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.0473549,0.787058,0.946896,current
+motif_len_auROC,Baseline motif length (positions),dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,-0.0591936,0.735535,0.946896,current
+motif_len_auROC,Baseline motif length (positions),loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.126703,0.468274,0.725069,current
+motif_len_auROC,Baseline motif length (positions),loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.242976,0.159594,0.589271,current
+IC_mean_per_pos_auROC,Baseline mean IC per position (bits),dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.159384,0.360429,0.640763,current
+IC_mean_per_pos_auROC,Baseline mean IC per position (bits),dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,-0.0392157,0.823019,0.946896,current
+IC_mean_per_pos_auROC,Baseline mean IC per position (bits),loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,0.177871,0.306656,0.594744,current
+IC_mean_per_pos_auROC,Baseline mean IC per position (bits),loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,0.27563,0.109012,0.589271,current
+n_train_pos_H,Human training positives,dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,0.0968764,0.57984,0.795699,current
+n_train_pos_H,Human training positives,dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.229415,0.184937,0.594744,current
+n_train_pos_H,Human training positives,loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.184627,0.288345,0.594744,current
+n_train_pos_H,Human training positives,loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.245982,0.154333,0.589271,current
+n_PWMs_H,Number of PWMs (mono + di),dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.00980942,0.9554,0.9554,current
+n_PWMs_H,Number of PWMs (mono + di),dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,-0.0119114,0.945856,0.9554,current
+n_PWMs_H,Number of PWMs (mono + di),loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.0449832,0.797496,0.946896,current
+n_PWMs_H,Number of PWMs (mono + di),loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.029148,0.867988,0.946896,current
+n_datasets_H,Number of human datasets,dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,0.0977091,0.576571,0.795699,current
+n_datasets_H,Number of human datasets,dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.218194,0.207955,0.594744,current
+n_datasets_H,Number of human datasets,loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.20062,0.247855,0.594744,current
+n_datasets_H,Number of human datasets,loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.26023,0.131101,0.589271,current
+base_auROC_H,"Baseline auROC, human test",dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.351541,0.0383748,0.447283,current
+base_auROC_H,"Baseline auROC, human test",dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.0156863,0.928735,0.9554,current
+base_auROC_H,"Baseline auROC, human test",loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.198319,0.253433,0.594744,current
+base_auROC_H,"Baseline auROC, human test",loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.176751,0.309762,0.594744,current
+base_auPRC_H,"Baseline auPRC, human test",dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.0352941,0.840478,0.946896,current
+base_auPRC_H,"Baseline auPRC, human test",dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.184874,0.287688,0.594744,current
+base_auPRC_H,"Baseline auPRC, human test",loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.212325,0.220751,0.594744,current
+base_auPRC_H,"Baseline auPRC, human test",loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.280112,0.103145,0.589271,current
+base_auROC_M,"Baseline auROC, mouse test",dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.3493,0.0397127,0.447283,current
+base_auROC_M,"Baseline auROC, mouse test",dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.127731,0.464641,0.725069,current
+base_auROC_M,"Baseline auROC, mouse test",loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.254622,0.139914,0.589271,current
+base_auROC_M,"Baseline auROC, mouse test",loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.346499,0.0414378,0.447283,current
+base_auPRC_M,"Baseline auPRC, mouse test",dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.338655,0.046592,0.447283,current
+base_auPRC_M,"Baseline auPRC, mouse test",dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.205602,0.236059,0.594744,current
+base_auPRC_M,"Baseline auPRC, mouse test",loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,-0.130252,0.455799,0.725069,current
+base_auPRC_M,"Baseline auPRC, mouse test",loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.443137,0.00767456,0.368379,current
+motif_sim_H_M,Motif similarity human-mouse,dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.25436,0.140337,0.589271,current
+motif_sim_H_M,Motif similarity human-mouse,dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.139506,0.424133,0.725069,current
+motif_sim_H_M,Motif similarity human-mouse,loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,0.0661111,0.70593,0.941241,current
+motif_sim_H_M,Motif similarity human-mouse,loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.0967855,0.580197,0.795699,current
+celltype_overlap_ord,"Cell-type overlap (shared tissue or lineage: yes=1, no=0)",dROC_HM,"ΔauROC, human-trained on mouse test (mean of 2 seeds)",35,-0.107794,0.53766,0.795699,current
+celltype_overlap_ord,"Cell-type overlap (shared tissue or lineage: yes=1, no=0)",dPRC_HM,"ΔauPRC, human-trained on mouse test (mean of 2 seeds)",35,0.181902,0.295645,0.594744,current
+celltype_overlap_ord,"Cell-type overlap (shared tissue or lineage: yes=1, no=0)",loss_roc,Transfer loss auROC (M>M gain - H>M gain),35,0.0202113,0.908254,0.9554,current
+celltype_overlap_ord,"Cell-type overlap (shared tissue or lineage: yes=1, no=0)",loss_prc,Transfer loss auPRC (M>M gain - H>M gain),35,-0.195376,0.260689,0.594744,current

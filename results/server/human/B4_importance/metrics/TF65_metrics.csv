@@ -1,0 +1,2 @@
+TF,n_features,n_test,n_pos,n_neg,model_source,sav_md5,auroc_sav,auprc_sav,seconds
+TF65,108,33493,428,33065,h3a_human_sym_negv3_seed0,b0de9b380227e273534fcfb042094f69,0.852897895818347,0.23489489034218447,19.097657203674316

@@ -20,15 +20,19 @@ jobs:
         working-directory: ArChIPelago_code
         run: pytest tests -v
 
-  manuscript-analysis:
-    name: Manuscript_analysis tables and numbers
+  r2-analysis:
+    name: R2 tables, figures and numbers
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.10"
-      - name: Install (versions the tracked tables were built with)
-        run: pip install pandas==2.3.0 numpy==1.26.4 scipy==1.13.1 matplotlib==3.5.2 openpyxl==3.1.5 pytest
-      - name: Rebuild the tables and check the numbers of the text
-        run: pytest Manuscript_analysis/tests -v
+      - name: Install (versions the tracked outputs were built with)
+        run: |
+          sudo apt-get update && sudo apt-get install -y poppler-utils
+          pip install pandas==2.3.0 numpy==1.26.4 scipy==1.13.1 matplotlib==3.5.2 openpyxl==3.1.5 pyyaml==6.0 scikit-learn==1.1.2 pytest
+      - name: Recompute the tables and numbers from their sources
+        env:
+          ARCHI_STAGE: H5
+        run: pytest tests --ignore=tests/server_checks -v

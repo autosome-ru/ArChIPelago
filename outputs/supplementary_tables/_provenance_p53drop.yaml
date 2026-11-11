@@ -1,0 +1,15 @@
+- script: 3_analysis/supplementary_tables/make_sup_tables_1_3_R2.py (Sup. Table 1)
+  run: 2026-11-11 13:27
+  task: W1-L P53 drop (human 35 TFs)
+  python: 3.9.12
+  exclude_tfs: [P53]
+  reference_tf_list: {file: results/datasets/peak_ids/mouse_sym_peak_ids.csv, md5: 78c0e1f564c09edc1e7a9492947d16e2}
+  human_used_ids: {file: results/datasets/peak_ids/human_used_peak_ids.csv, md5: c0e9d46d3be010d1927f021a2288489c}
+  note: "human 361, mouse 276 used peak sets"
+  inputs:
+    - {file: results/round1_package/Resubmission/Sup_Tables/Sup_Table_1_ChIP-Seq_experiments.xlsx, md5: a2325741ddff0c1a66cec83a78d2396d}
+    - {file: results/server_h4_test_sets/human/b3/b3_peak_widths_per_dataset_human.csv, md5: b092f86dd33f6a710277a9a5ba1410b2}
+    - {file: results/server_h4_test_sets/mouse/b3/b3_peak_widths_per_dataset_mouse.csv, md5: 8895ac48da05313ed2dd441cd7b14aee}
+    - {file: results/datasets/top_peaks/b3_missing_datasets.csv, md5: 3540106522230efd1f03f336dfeb96af}
+  outputs:
+    - {file: outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx, md5: a0f3faabe17642f413a93a045a06de97}

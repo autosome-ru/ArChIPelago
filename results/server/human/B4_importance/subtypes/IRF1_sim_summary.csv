@@ -1,0 +1,2 @@
+TF,n_features,n_mono,n_di,median_pairwise_all,median_pairwise_mono,min_pairwise_all,median_sim_to_top_feature,top_feature,n_subtypes_70,n_subtypes_ge10pct_70,primary_share_70,n_features_primary_70,n_subtypes_80,n_subtypes_ge10pct_80,primary_share_80,n_features_primary_80,n_subtypes_90,n_subtypes_ge10pct_90,primary_share_90,n_features_primary_90
+IRF1,16,11,5,0.9483491219671425,0.9456460712116228,0.6021231449062618,0.9488588588577621,di_2,1,1,0.999999999999999,16,3,1,0.9547488148089672,13,3,1,0.9547488148089672,13

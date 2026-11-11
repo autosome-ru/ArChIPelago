@@ -1,0 +1,7 @@
+TF,Features (monoPWMs),Training rows (positives + negatives),Threads (n_jobs),"RandomForest fit (s, in-process)",StandardScaler (s),Whole process wall-clock incl. CSV reading (s),Whole process user CPU (s),Peak memory (GB),Model size on disk (MB),Training auROC (sanity)
+STAT3,5,"160,449 (2,114 + 158,335)",1,11.4,0.01,14.4,14.0,0.2,0.97,0.8403
+STAT3,5,"160,449",4,3.1,0.01,5.5,14.7,0.25,0.97,0.8403
+HNF4A,26,"141,837 (6,012 + 135,825)",1,18.9,0.07,22.1,21.7,0.29,1.01,0.9626
+HNF4A,26,"141,837",4,5.1,0.07,7.9,22.5,0.32,1.01,0.9626
+CTCF,198,"166,906 (10,000 + 156,906)",1,69.1,0.73,78.5,76.9,1.29,0.98,0.9834
+CTCF,198,"166,906",4,18.1,0.73,26.7,78.8,1.34,0.98,0.9834

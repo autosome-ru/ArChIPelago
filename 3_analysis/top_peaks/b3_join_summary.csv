@@ -1,0 +1,3 @@
+species,n_test_pos,n_matched,n_ambiguous_width,match_rate,n_tf_full_match,min_tf_match,median_tf_match,width_median_scored_positives,frac_scored_width_le300,frac_scored_width_le600,status
+H,51029,51029,899,1.0,35,1.0,1.0,922.0,0.03540793935767006,0.22501496110113706,"current: 35 TFs, P53 excluded"
+M,41720,41720,54,1.0,35,1.0,1.0,,,,"current: rebuilt mouse data, 35 TFs"

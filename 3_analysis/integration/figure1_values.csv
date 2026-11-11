@@ -1,0 +1,40 @@
+quantity,value
+human datasets,361
+mouse datasets,276
+datasets total,637
+TF pairs,35
+"min datasets per TF, human",1
+TFs at the human minimum,FLI1
+"min datasets per TF, mouse",2
+TFs at the mouse minimum,"MYC,SRF"
+human training positives,179479
+human test positives,51029
+mouse training positives,172437
+mouse test positives,41720
+"test share of positives, human (%)",22.13762645981918
+"test share of positives, mouse (%)",19.481034941654954
+"negatives per positive, human, min",4.53035538005923
+"negatives per positive, human, median",34.60620117137003
+"negatives per positive, human, max",99.96875
+"negatives per positive, mouse, min",4.2316267012313675
+"negatives per positive, mouse, median",38.55290107149858
+"negatives per positive, mouse, max",82.02631578947368
+human monoPWMs,1447
+human diPWMs,754
+human PWMs,2201
+mouse monoPWMs,1178
+mouse diPWMs,617
+mouse PWMs,1795
+"median PWMs per TF, human",30.0
+"median PWMs per TF, mouse",41.0
+min monoPWMs per TF (both species),5
+min diPWMs per TF (both species),3
+human best monoPWM median auROC,0.8737
+human RF median auROC,0.9021
+human best monoPWM median auPRC,0.2884
+human RF median auPRC,0.336
+human TFs improved auROC,35
+human TFs improved auPRC,35
+human FP reduction at 50 % recall (%),30.2
+scan s per monoPWM per Mb,0.13
+"inference s per 10^6 sequences, one core (range)",6.6-13.9

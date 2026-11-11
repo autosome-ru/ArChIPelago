@@ -1,0 +1,174 @@
+- script: "3_analysis/supplementary_tables/make_sup_tables_1_3_R2.py (Sup. Table 2)"
+  run: "2026-11-11 13:27:15"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{pooled peak set: not shown; human positives: B14 rebuild (pos_train, pos_test); GC: median of 300 bp windows, negatives v3}"
+  inputs:
+    - {file: "results/round1_package/Resubmission/Sup_Tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "1f93cb42faad41b5f721b230829705aa"}
+    - {file: "results/server/mouse_data/counts_per_tf.csv", md5: "80a38fec67b9a71ab8dfb4ee57fad6d7"}
+    - {file: "results/server/human_data/counts_per_tf.csv", md5: "e69d534470ece53964b5250dd189f13d"}
+    - {file: "results/server/human/neg_v3/checks_neg_v3/gc_check_v3.csv", md5: "26ad2620bf2400d457a876d6d35b8023"}
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "a0f3faabe17642f413a93a045a06de97"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_1_3_R2.py (Sup. Table 3)"
+  run: "2026-11-11 13:27:16"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{mono+di rows: Number of PWMs = monoPWMs + diPWMs; Fig. 4 / S4 / S5 sheets: source data as plotted}"
+  inputs:
+    - {file: "3_analysis/package/Sup_Tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "6fa8a3a7370f49d9f36368ad040a9394"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_S4_source_data.csv", md5: "753e28dd1c53fc699903012b2bdc0021"}
+    - {file: "4_visualisation/figures/output/Fig4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_S5_source_data.csv", md5: "37b32c1c00dde62e88b09b3bb2286239"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_S5_median_curves.csv", md5: "58e1821317c3ac12d21bda81f4ef7f3f"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "03a0ae4371b0706cfd52222c913240c8"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_1_3_R2.py (Sup. Table 4)"
+  run: "2026-11-11 13:27:16"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{precision gain decimals: 4; summary: TFs in the median (V188); exact two-sided Wilcoxon P on non-zero paired differences (G7-3)}"
+  inputs:
+    - {file: "3_analysis/package/Sup_Tables/Sup_Table_4_operational_metrics.xlsx", md5: "448ad40355ec324fe2cc751e78efb6e2"}
+    - {file: "results/server/human/operational/operational_metrics.csv", md5: "7f08cf55534fd39d6c3bc2a8027471dd"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx", md5: "73937a7d7bf543d68605fb51978a7d03"}
+- script: "3_analysis/integration/sup_table_6_h3.py (Sup. Table 6)"
+  run: "2026-11-11 13:27:16"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "V1-3: RF rows and single-PWM scans rerun on the H3a training matrices (server, 10 Nov 2026); k-PWM loops of 10 Sep 2026 kept"
+  inputs:
+    - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_RF_training_H3a.csv", md5: "aeb69265e63b5f231cee7a5ec02e96b2"}
+    - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_RF_inference_H3a.csv", md5: "6b1b8ede077f7fbee08f68b8b15420dd"}
+    - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_PWM_scanning_single_H3a_vs_round1.csv", md5: "189b5b0c173bbf634d7821740d5fa77e"}
+    - {file: "results/server/human/runtime/rf_timings.jsonl", md5: "8748de5bc4c3fc2d1e261d2f44cd6d9d"}
+    - {file: "results/server/human/runtime/load_during_run.log", md5: "c56f1e00a55b4a772f24519772982a07"}
+    - {file: "results/server/human/runtime/machine.txt", md5: "e282d8f9aaa3591d05949fbfc44a60c0"}
+    - {file: "results/round1_package/Manuscript_analysis/Sup_Tables/Sup_Table_6_runtime_memory.xlsx", md5: "ff05637dbe509fd13e8d6c5e93954708"}
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_6_runtime_memory.xlsx", md5: "8d0477a8caeb69f6f48ac003a6a57399"}
+    - {file: "3_analysis/integration/sup6_methods_values_h3.csv", md5: "f4bdcab9746185075ea4b97b4a4ae28f"}
+- script: "3_analysis/supplementary_tables/make_sup_table_5_R2.py"
+  run: "2026-11-11 13:27:17"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "pkg producer output (make_sup_tables_3_to_6.py) after checks; V006 H>M two-seed mean columns and summary row, V081 family header"
+  inputs:
+    - {file: "3_analysis/package/Sup_Tables/Sup_Table_5_cross_species_and_mouse_trained.xlsx", md5: "ea2588419309730db9371950722dac4a"}
+    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "a0f3faabe17642f413a93a045a06de97"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+    - {file: "3_analysis/package/Sup_Tables/Sup_Table_5_per_TF_unrounded.csv", md5: "b09e99b6c8549166fb7f41abcc0a3cd4"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_5_cross_species_and_mouse_trained.xlsx", md5: "738245a1921ecefd43d34a7e140c422b"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_7_10.py (Sup_Table_7_low_FPR_metrics)"
+  run: "2026-11-11 13:27:18"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "3_analysis/low_fpr_metrics/B2_summary.csv", md5: "ba50fd6f731abee35492f0d554e7f6f0"}
+    - {file: "3_analysis/low_fpr_metrics/B2_metrics_wide.csv", md5: "32039269ce1d15ecf868708b298b22cf"}
+    - {file: "3_analysis/low_fpr_metrics/B2_per_chromosome_summary.csv", md5: "6d8de89a8912855cdebc4ddc66f80b94"}
+    - {file: "3_analysis/low_fpr_metrics/B2_per_chromosome.csv", md5: "9c666ea14e56ec8d9dc915eec67041b2"}
+    - {file: "results/datasets/split_leakage/b8w1g2_leakage_per_TF_masked.csv", md5: "0c487dcf258c0d55e6329c7a9e252569"}
+    - {file: "3_analysis/integration/top1000_check_h3.csv", md5: "5031b67d5ee4664140f2488405f6eadf"}
+    - {file: "3_analysis/random_split/b9_random_split_per_fit.csv", md5: "8b747b29cb3a4fda38c24d0cd397f50f"}
+    - {file: "3_analysis/random_split/b9_summary.csv", md5: "1ee6bca9d64ef32492b380eab8df3dbc"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_7_low_FPR_metrics.xlsx", md5: "c0e53af82fa0516d0c7d6d7b09c7a4c5"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_7_10.py (Sup_Table_8_top_peaks_and_peak_widths)"
+  run: "2026-11-11 13:27:18"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "3_analysis/top_peaks/b3_topN_summary.csv", md5: "22aa13c33acbf388c9faebc1c1d366a1"}
+    - {file: "3_analysis/top_peaks/b3_topN_results.csv", md5: "0f54a7617a91b58dd9d1a347bc70024d"}
+    - {file: "3_analysis/top_peaks/b3_gain_vs_npos_per_tf.csv", md5: "5766ac8b221956f1f196dc2d015acbd0"}
+    - {file: "3_analysis/top_peaks/b3_gain_vs_npos_spearman.csv", md5: "79de1fd20c4eb75a2aa27937faa20d32"}
+    - {file: "3_analysis/top_peaks/b3_peak_widths_summary.csv", md5: "c2d89cb0136b9c5159298c25f39afdc6"}
+    - {file: "3_analysis/top_peaks/b3_peak_widths_per_dataset.csv", md5: "c3421566ee0af4f831c6b691c1157702"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_8_top_peaks_and_peak_widths.xlsx", md5: "c6259b0961db1fea3ebf2af341a1143b"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_7_10.py (Sup_Table_9_feature_importance)"
+  run: "2026-11-11 13:27:19"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "3_analysis/feature_importance/tables/B4_importance_concentration.csv", md5: "6e470b1dacee129c11f6a4465e350f98"}
+    - {file: "3_analysis/feature_importance/tables/B4_gini_all_features.csv", md5: "b5c715f67a3765a4510a3a32ba7a439d"}
+    - {file: "3_analysis/feature_importance/tables/B4_permutation_top20.csv", md5: "0b5953e60e805d4c8cd14621b44d4052"}
+    - {file: "3_analysis/feature_importance/tables/B4_subtype_summary_per_TF.csv", md5: "ff76d0f30d1cf4de49212a116fa80e4a"}
+    - {file: "3_analysis/feature_importance/tables/B4_subtype_importance.csv", md5: "72f5fa4f1d11bd1de9aa7cb54bd470bc"}
+    - {file: "3_analysis/feature_importance/tables/B4_activation_groups.csv", md5: "ef293f3ee439be1766c888b20c8b2736"}
+    - {file: "3_analysis/feature_importance/tables/B4_activation_best_pwm.csv", md5: "afe169a3ad97adc2c36eeeaae69ff6d9"}
+    - {file: "3_analysis/feature_importance/tables/B4_ablation_summary.csv", md5: "e603a3a37bfeac76a881fa2d6f58dca7"}
+    - {file: "3_analysis/feature_importance/tables/B4_pwm_origin_check.csv", md5: "f24df1a3098a9657edca9c081efc893b"}
+    - {file: "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11.csv", md5: "00cc8dd9cd35493f8e9fdff7fd4e987b"}
+    - {file: "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "0553b3dfabf88f6f09f7c4c1661a6488"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_9_feature_importance.xlsx", md5: "b5621faa7cd52cb66f3008e22d44d90c"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_7_10.py (Sup_Table_10_transfer_drivers_and_headroom)"
+  run: "2026-11-11 13:27:19"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "3_analysis/transfer_drivers/B5_per_TF_table.csv", md5: "9c26edce4db82e4385cdf938a1c3a08d"}
+    - {file: "3_analysis/transfer_drivers/B5_A_spearman_drivers.csv", md5: "8aecb0635c6ceec0793200689189faa9"}
+    - {file: "3_analysis/transfer_drivers/B5_A_multivariable_summary.csv", md5: "f3505c4d0b53d6a1e984bb5688e3d8f6"}
+    - {file: "3_analysis/transfer_drivers/B5_A_multivariable_rank_ols.csv", md5: "ca53a6e5ccec162dc7832cc8b3ce8cc8"}
+    - {file: "3_analysis/transfer_drivers/B5_B_ceiling_spearman.csv", md5: "4d635b2de6f0ecb0c2c7f1df058e5e0c"}
+    - {file: "3_analysis/transfer_drivers/B5_B_headroom_per_TF.csv", md5: "abb783541f123cf9091e2ea84943e325"}
+    - {file: "3_analysis/transfer_drivers/B5_B_cloud_separation.csv", md5: "8553b580faf7a02c44ef27812a4b6b5d"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_10_transfer_drivers_and_headroom.xlsx", md5: "cbbd48f807bdf5bc6526dc7bee7477fd"}

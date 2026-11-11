@@ -1,0 +1,5 @@
+quantity,value,description
+removed_human,"33,867","top-1,000 windows of the random-split check removed by the UCSC RepeatMasker mask (f = 0.7)"
+total_human,"357,120","top-1,000 windows of the random-split check"
+removed_mouse,"12,351","top-1,000 windows of the random-split check removed by the UCSC RepeatMasker mask (f = 0.7)"
+total_mouse,"272,968","top-1,000 windows of the random-split check"

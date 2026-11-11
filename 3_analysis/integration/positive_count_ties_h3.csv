@@ -1,0 +1,4 @@
+species,column,count,TFs,at_cap,pool_after_mask
+human,"Human training positives (chr2-7, 9-20, 22)",10000,"ANDR,CTCF,ESR1,MAX,MYC,REST",True,"ANDR 25425,CTCF 54289,ESR1 20964,MAX 18370,MYC 27408,REST 31805"
+mouse,"Mouse training positives (chr2-7, 9-18)",10000,"ANDR,CEBPB,CTCF,GATA1,SPI1",True,"ANDR 12274,CEBPB 16268,CTCF 50205,GATA1 17155,SPI1 17028"
+mouse,"Mouse test positives (chr1, 8, 19)",581,"IRF1,STAT3",False,"IRF1 3802,STAT3 3829"

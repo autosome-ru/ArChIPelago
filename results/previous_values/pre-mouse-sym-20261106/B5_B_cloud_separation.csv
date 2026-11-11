@@ -1,0 +1,51 @@
+split,n_group,n_rest,variable,median_group,median_rest,AUC_group_higher,p_MWU,q_BH
+cloud_ward2,7,29,IC_total_auROC,10.8264,11.5376,0.35468,0.252623,0.623835
+cloud_ward2,7,29,motif_len_auROC,16,12,0.628079,0.305894,0.623835
+cloud_ward2,7,29,IC_mean_per_pos_auROC,0.663506,0.944036,0.246305,0.0395341,0.220261
+cloud_ward2,7,29,n_train_pos_H,3918,7020,0.357143,0.245753,0.623835
+cloud_ward2,7,29,n_PWMs_H,12,28,0.376847,0.327223,0.623835
+cloud_ward2,7,29,n_datasets_H,6,8,0.485222,0.920125,0.969862
+cloud_ward2,7,29,base_auROC_H,0.772667,0.870497,0.231527,0.0285555,0.220261
+cloud_ward2,7,29,base_auPRC_H,0.268761,0.241977,0.507389,0.968841,0.994337
+cloud_ward2,7,29,base_auROC_M,0.813729,0.862822,0.344828,0.220696,0.623835
+cloud_ward2,7,29,base_auPRC_M,0.270713,0.167344,0.630542,0.30601,0.623835
+cloud_ward2,7,29,motif_sim_H_M,0.946,0.9702,0.236453,0.0341257,0.220261
+cloud_ward2,7,29,celltype_overlap_ord,1,1,0.519704,0.862958,0.934871
+cloud_ward2,7,29,prevalence_H_test,0.0145268,0.0252191,0.408867,0.480344,0.731445
+cloud_ward2,7,29,TFClass superclass 2 (n in group / in rest),2,10,,,
+cloud_ward2,7,29,TFClass superclass 3 (n in group / in rest),2,4,,,
+cloud_ward2,7,29,TFClass superclass 1 (n in group / in rest),1,8,,,
+cloud_ward2,7,29,TFClass superclass 6 (n in group / in rest),1,6,,,
+cloud_ward2,7,29,TFClass superclass 5 (n in group / in rest),1,0,,,
+cloud_roc_high,4,32,IC_total_auROC,9.66127,11.5588,0.226562,0.0824039,0.357083
+cloud_roc_high,4,32,motif_len_auROC,15,13,0.554688,0.742403,0.877383
+cloud_roc_high,4,32,IC_mean_per_pos_auROC,0.73041,0.942932,0.242188,0.103387,0.403209
+cloud_roc_high,4,32,n_train_pos_H,5439,6771,0.40625,0.555305,0.731445
+cloud_roc_high,4,32,n_PWMs_H,10.5,29,0.203125,0.0589619,0.287439
+cloud_roc_high,4,32,n_datasets_H,5,8.5,0.40625,0.561312,0.731445
+cloud_roc_high,4,32,base_auROC_H,0.754563,0.873369,0.0703125,0.00241066,0.0940158
+cloud_roc_high,4,32,base_auPRC_H,0.157477,0.269191,0.359375,0.393108,0.696872
+cloud_roc_high,4,32,base_auROC_M,0.795273,0.865543,0.171875,0.0330362,0.220261
+cloud_roc_high,4,32,base_auPRC_M,0.168665,0.203929,0.390625,0.511468,0.731445
+cloud_roc_high,4,32,motif_sim_H_M,0.9618,0.96975,0.40625,0.56265,0.731445
+cloud_roc_high,4,32,celltype_overlap_ord,0.75,1,0.402344,0.456101,0.731445
+cloud_roc_high,4,32,prevalence_H_test,0.018116,0.0247221,0.398438,0.543417,0.731445
+cloud_roc_high,4,32,TFClass superclass 3 (n in group / in rest),2,4,,,
+cloud_roc_high,4,32,TFClass superclass 2 (n in group / in rest),1,11,,,
+cloud_roc_high,4,32,TFClass superclass 5 (n in group / in rest),1,0,,,
+cloud_prc_high,3,33,IC_total_auROC,11.9431,11.4945,0.555556,0.787395,0.877383
+cloud_prc_high,3,33,motif_len_auROC,18,14,0.691919,0.287476,0.623835
+cloud_prc_high,3,33,IC_mean_per_pos_auROC,0.663506,0.86686,0.313131,0.318487,0.623835
+cloud_prc_high,3,33,n_train_pos_H,2458,6960,0.328283,0.335911,0.623835
+cloud_prc_high,3,33,n_PWMs_H,48,20,0.631313,0.474129,0.731445
+cloud_prc_high,3,33,n_datasets_H,11,6,0.590909,0.625402,0.762209
+cloud_prc_high,3,33,base_auROC_H,0.877952,0.859822,0.505051,1,1
+cloud_prc_high,3,33,base_auPRC_H,0.340962,0.207011,0.69697,0.291597,0.623835
+cloud_prc_high,3,33,base_auROC_M,0.908775,0.860802,0.606061,0.586555,0.737924
+cloud_prc_high,3,33,base_auPRC_M,0.539244,0.167344,0.909091,0.0148459,0.220261
+cloud_prc_high,3,33,motif_sim_H_M,0.9263,0.97,0.0808081,0.0189332,0.220261
+cloud_prc_high,3,33,celltype_overlap_ord,1,1,0.666667,0.25851,0.623835
+cloud_prc_high,3,33,prevalence_H_test,0.0117319,0.0239461,0.444444,0.787395,0.877383
+cloud_prc_high,3,33,TFClass superclass 2 (n in group / in rest),1,11,,,
+cloud_prc_high,3,33,TFClass superclass 1 (n in group / in rest),1,8,,,
+cloud_prc_high,3,33,TFClass superclass 6 (n in group / in rest),1,6,,,

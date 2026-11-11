@@ -1,0 +1,50 @@
+TF,sim_threshold,n_primary,n_secondary,gini_share_secondary,max_sim_secondary_to_primary,median_of_best_match,n_secondary_mono,n_secondary_di,secondary_datasets,secondary_cell_lines,primary_cell_lines,secondary_cell_lines_not_in_primary
+ANDR,0.8,294,4,0.0007168,0.9353,0.9156,3,1,PEAKS033389;PEAKS037211;PEAKS039284,LnCaP;not in metadata,C4-2B;LNCAP;LNCaP;LNCaP (androgen-dependent prostate cancer derived cell line);LNCaP androgen-dependent prostate cancer cell line;LNCaP cell line;LNCaP-1F5;LNCaP-1F5 cells;LNCaP-ARhi;LNCaP-ARmo;LNCaP-pcDNA3.1;VCS2;VCaP;VCaP cell line;metastatic prostate cancer tissue;not in metadata;prostate cancer;prostate cancer cell line DU145,LnCaP
+ANDR,0.9,39,40,0.2644,0.9845,0.9493,20,20,PEAKS033090;PEAKS034531;PEAKS034538;PEAKS034702;PEAKS034704;PEAKS034705;PEAKS034707;PEAKS035011;PEAKS035119;PEAKS035120;PEAKS035121;PEAKS035125;PEAKS035127;PEAKS035130;PEAKS035132;PEAKS035133;PEAKS037091;PEAKS037208;PEAKS037526;PEAKS037748;PEAKS038909;PEAKS038910;PEAKS039281,LNCAP;LNCaP (androgen-dependent prostate cancer derived cell line);LNCaP androgen-dependent prostate cancer cell line;LNCaP-pcDNA3.1;VCaP;not in metadata,LNCaP;LNCaP-1F5 cells;VCaP;VCaP cell line;not in metadata,LNCAP;LNCaP (androgen-dependent prostate cancer derived cell line);LNCaP androgen-dependent prostate cancer cell line;LNCaP-pcDNA3.1
+COE1,0.9,10,5,0.07018,0.8731,0.8632,5,0,PEAKS033488;PEAKS033671;PEAKS035144;PEAKS038643;PEAKS038644,Adipose stromal cell (ASC) adipocyte;GM12878;not in metadata,Adipose stromal cell (ASC) adipocyte;GM12878;not in metadata,
+E2F4,0.8,4,7,0.3542,0.9107,0.7824,5,2,PEAKS033317;PEAKS033667;PEAKS033810,HeLa-S3;K562;Mesenchymal stem cells-derived adipocytes,GM06990;Mesenchymal stem cells-derived adipocytes,HeLa-S3;K562
+E2F4,0.9,3,6,0.3278,0.9107,0.7278,4,2,PEAKS033667;PEAKS033810,HeLa-S3;K562,GM06990;Mesenchymal stem cells-derived adipocytes,HeLa-S3;K562
+ERG,0.9,42,6,0.122,0.9318,0.919,4,2,PEAKS035088;PEAKS035089,VCaP,K562 (leukemic);ME-1;RWPE - ERG overexpression stable cell line;RWPE1;SKNO-1 (leukemic);VCaP;not in metadata,
+ESR1,0.8,264,10,0.006992,0.9372,0.9137,5,5,PEAKS034566;PEAKS036912;PEAKS038026;PEAKS038029;PEAKS038445,MCF-7;not in metadata,ECC-1;ECC1 breast cancer cells;H3396;H3396 cells;Ishikawa breast cancer cells;MCF-7;MCF-7 breast cancer cells;MCF-7 cells;MCF7;T-47D;T47D breast cancer cells;not in metadata;primary breast tumor,
+ESR1,0.9,128,17,0.2497,0.9787,0.9599,7,10,PEAKS033121;PEAKS033122;PEAKS033129;PEAKS033403;PEAKS034512;PEAKS034975;PEAKS037333;PEAKS038025;PEAKS038027;PEAKS038431;PEAKS038547;PEAKS038659,H3396;MCF-7;MCF7;T47D breast cancer cells;not in metadata;primary breast tumor,ECC-1;ECC1 breast cancer cells;H3396;MCF-7;MCF-7 breast cancer cells;MCF-7 cells;MCF7;T-47D;T47D breast cancer cells;not in metadata;primary breast tumor,
+FLI1,0.9,15,10,0.2751,0.9765,0.9372,7,3,PEAKS034646;PEAKS034654;PEAKS037492;PEAKS037496,SKNO-1 (leukemic);not in metadata,ME-1;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata,SKNO-1 (leukemic)
+GATA1,0.9,41,1,0.02554,0.9898,0.9898,0,1,PEAKS033092,K562,CD34+ HSPC-derived proerythroblasts;CD36;K562;PBDE;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata;primary human PBMC derived erythroblasts,
+GATA2,0.9,49,3,0.04303,0.9535,0.9366,2,1,PEAKS037380,not in metadata,HUVEC;K562;not in metadata;umbilical vein endothelial cells,
+GATA3,0.8,61,2,0.03521,0.7586,0.7057,2,0,PEAKS037326;PEAKS037327,not in metadata,CCRF-CEM;Jurkat E6-1;MCF-7;MCF7;T47D;Th1;Th2;not in metadata,
+GATA3,0.9,58,2,0.03521,0.7061,0.6703,2,0,PEAKS037326;PEAKS037327,not in metadata,CCRF-CEM;Jurkat E6-1;MCF-7;MCF7;T47D;Th1;Th2;not in metadata,
+GCR,0.8,71,2,0.003459,0.908,0.8915,1,1,PEAKS037890,not in metadata,A549;ECC-1;HeLa B2;LNCaP-1F5;LNCaP-1F5 cells;not in metadata,
+GCR,0.9,29,3,0.1004,0.9196,0.919,1,2,PEAKS033219;PEAKS033342;PEAKS034954,HeLa B2;not in metadata,A549;HeLa B2;LNCaP-1F5;LNCaP-1F5 cells;not in metadata,
+IRF1,0.8,13,2,0.03041,0.8372,0.8222,2,0,PEAKS034604,CD14+ monocytes,CD14+ monocytes;K562;not in metadata,
+IRF1,0.9,13,2,0.03041,0.8372,0.8222,2,0,PEAKS034604,CD14+ monocytes,CD14+ monocytes;K562;not in metadata,
+IRF4,0.8,17,1,0.1492,0.8232,0.8232,0,1,PEAKS033632,GM12878,GM12878;H929;OCI-LY10;OCI-LY3,
+IRF4,0.9,16,1,0.1492,0.8232,0.8232,0,1,PEAKS033632,GM12878,GM12878;H929;OCI-LY10;OCI-LY3,
+JUND,0.8,40,6,0.0836,0.902,0.8496,4,2,PEAKS033233;PEAKS033513,GM12878,A549;GP5d;HCT-116;HepG2;LoVo;MCF-7;SK-N-SH;not in metadata,GM12878
+JUND,0.9,35,6,0.0836,0.902,0.8496,4,2,PEAKS033233;PEAKS033513,GM12878,A549;GP5d;HCT-116;HepG2;LoVo;MCF-7;SK-N-SH;not in metadata,GM12878
+MAFK,0.9,6,2,0.1307,0.847,0.8396,1,1,PEAKS034399,LoVo,K562;OCI-Ly7 lymphoma cells,LoVo
+MAX,0.8,58,4,0.02365,0.9465,0.9335,3,1,PEAKS033260;PEAKS033450;PEAKS033571,GM12878;HUVEC;HeLa-S3,ECC-1;GM12878;H1-hESC;H128;H2171;HCT-116;HeLa;HeLa-S3;HepG2;K562;MCF-7;NB4;P493-6;Plasma cell,HUVEC
+MAX,0.9,9,4,0.1601,0.9288,0.9218,2,2,PEAKS034745;PEAKS034845,H128,ECC-1;H2171;HepG2;MCF-7,H128
+MYC,0.9,28,41,0.3195,0.9518,0.9069,35,6,PEAKS033347;PEAKS033349;PEAKS033354;PEAKS033471;PEAKS033599;PEAKS033605;PEAKS033685;PEAKS033822;PEAKS033870;PEAKS033909;PEAKS034735;PEAKS034736;PEAKS034748;PEAKS034754;PEAKS034863;PEAKS034875;PEAKS035046;PEAKS037236;PEAKS037302;PEAKS037303;PEAKS037304;PEAKS037861;PEAKS038221;PEAKS038704;PEAKS038706;PEAKS038858;PEAKS038860;PEAKS038864;PEAKS038865;PEAKS039408;PEAKS039446,BJ;BL41;CA46;GM12878;HeLa;HeLa-S3;HepG2;K562;P493-6;Plasma cell;not in metadata,Blue1;CA46;GM12878;H2171;HepG2;K562;P493-6;Plasma cell;Ramos;not in metadata,BJ;BL41;HeLa;HeLa-S3
+PPARG,0.9,23,3,0.02541,0.9608,0.9526,2,1,PEAKS037723;PEAKS038840,not in metadata,Simpson Golabi Behmel Syndrome (SGBS) human adi- pocytes;THP-1;adipocyte;not in metadata,
+PRGR,0.8,18,9,0.3032,0.9051,0.871,6,3,PEAKS034471;PEAKS034472;PEAKS038043;PEAKS039086,AB32;T-47D;not in metadata,Leiomyoma cells;not in metadata,AB32;T-47D
+PRGR,0.9,10,4,0.1717,0.9617,0.9285,3,1,PEAKS037531;PEAKS038039,not in metadata,Leiomyoma cells;not in metadata,
+REST,0.8,105,1,0.004116,0.5813,0.5813,0,1,PEAKS038243,not in metadata,APL bone marrow blasts;ECC-1;GM12878;GP5d;H1-hESC;H295R/TR SF-1 cells;HCT-116;HL-60;HeLa-S3;HepG2;K562;LoVo;MCF-7;PANC-1;PFSK-1;SK-N-SH;U87;not in metadata,
+REST,0.9,105,1,0.004116,0.5813,0.5813,0,1,PEAKS038243,not in metadata,APL bone marrow blasts;ECC-1;GM12878;GP5d;H1-hESC;H295R/TR SF-1 cells;HCT-116;HL-60;HeLa-S3;HepG2;K562;LoVo;MCF-7;PANC-1;PFSK-1;SK-N-SH;U87;not in metadata,
+RXRA,0.8,12,1,0.0226,0.7667,0.7667,1,0,PEAKS033400,not in metadata,HepG2;LS180 cells;not in metadata,
+RXRA,0.9,5,4,0.2394,0.9286,0.9185,3,1,PEAKS033436;PEAKS033797,HepG2,LS180 cells;not in metadata,HepG2
+SOX2,0.8,35,11,0.3182,0.9725,0.9247,6,5,PEAKS033277;PEAKS034934;PEAKS037101;PEAKS038158;PEAKS039382,H1 embryonic stem cells;not in metadata,H9;HCC95;KYSE70;ReN-VM;TT;not in metadata,H1 embryonic stem cells
+SOX2,0.9,29,10,0.3121,0.8934,0.7655,5,5,PEAKS033277;PEAKS034934;PEAKS037101;PEAKS038158;PEAKS039382,H1 embryonic stem cells;not in metadata,HCC95;KYSE70;ReN-VM;TT;not in metadata,H1 embryonic stem cells
+SPI1,0.9,51,9,0.03611,0.9701,0.9623,6,3,PEAKS034928;PEAKS035070;PEAKS035071,ME-1;not in metadata,CD133+ expanded umbilical cord blood (UCB) cells;GM12878;H929;K562;OCI-LY10;OCI-LY3;THP-1;not in metadata,ME-1
+SRF,0.8,23,1,0.0413,0.7642,0.7642,0,1,PEAKS033726,K562,ECC-1;GM12878;H1-hESC;HCT-116;HepG2;K562;MCF-7,
+SRF,0.9,11,7,0.07066,0.952,0.9427,4,3,PEAKS033569;PEAKS033618;PEAKS033903;PEAKS034042,GM12878;HCT-116;MCF-7,ECC-1;H1-hESC;HCT-116;HepG2,GM12878;MCF-7
+STA5A,0.8,7,3,0.1457,0.8963,0.8908,1,2,PEAKS033614;PEAKS037770,K562;not in metadata,CD4+CD25+CD45RA+ expanded naive regulatory T cells;T cell,K562;not in metadata
+STA5A,0.9,3,2,0.2764,0.8893,0.8852,1,1,PEAKS033312;PEAKS035025,CD4+CD25+CD45RA+ expanded naive regulatory T cells;T cell,CD4+CD25+CD45RA+ expanded naive regulatory T cells;T cell,
+STAT1,0.8,15,2,0.09194,0.902,0.7842,1,1,PEAKS033461,K562,HeLa S3;HeLa-S3;K562,
+STAT1,0.9,13,2,0.09194,0.902,0.7842,1,1,PEAKS033461,K562,HeLa S3;HeLa-S3;K562,
+STAT3,0.8,9,1,0.04598,0.6003,0.6003,0,1,PEAKS034546,not in metadata,HeLa-S3;MCF10A-Er-Src;not in metadata,
+STAT3,0.9,4,4,0.2915,0.8632,0.8406,2,2,PEAKS034543;PEAKS034549,not in metadata,HeLa-S3;MCF10A-Er-Src,not in metadata
+TAL1,0.8,22,3,0.0896,0.8479,0.7823,3,0,PEAKS034468;PEAKS034713,CCRF-CEM;Jurkat E6-1,CD34+ HSPC-derived proerythroblasts;CD36;K562;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata,CCRF-CEM;Jurkat E6-1
+TAL1,0.9,18,4,0.08926,0.9618,0.9336,2,2,PEAKS034759;PEAKS034760,CD34+ HSPC-derived proerythroblasts,CD34+ HSPC-derived proerythroblasts;CD36;K562;Pro-erythroblasts;megakaryocytes cultured from cord blood CD34-positive cells;not in metadata,
+TF65,0.8,107,1,0.00292,0.7883,0.7883,1,0,PEAKS037681,not in metadata,AC16;GM10847;GM12878;GM12891;GM12892;GM15510;GM18505;GM18526;GM18951;GM19099;GM19193;HeLa B2;Human umbilical vein endothelial cells;fetal lung fibroblast;not in metadata;primary HUVEC cells,
+TF65,0.9,67,17,0.1123,0.9761,0.958,11,6,PEAKS033140;PEAKS033213;PEAKS033214;PEAKS034718;PEAKS034868;PEAKS039011;PEAKS039014;PEAKS039493;PEAKS039494,HeLa B2;Human umbilical vein endothelial cells;fetal lung fibroblast;not in metadata,GM10847;GM12878;GM12891;GM12892;GM15510;GM18505;GM18526;GM18951;GM19099;GM19193;fetal lung fibroblast;not in metadata,HeLa B2;Human umbilical vein endothelial cells
+TFE2,0.8,6,2,0.3421,0.8287,0.7826,1,1,PEAKS036817,RPMI-8402,GM12878;not in metadata,RPMI-8402
+TFE2,0.9,3,2,0.3421,0.8287,0.7788,1,1,PEAKS036817,RPMI-8402,not in metadata,RPMI-8402

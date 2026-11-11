@@ -1,0 +1,3 @@
+Test set,Baseline,ArChIPelago auROC (median),baseline auROC (median),median per-TF dauROC,TFs with dauROC > 0,Wilcoxon P (auROC),ArChIPelago auPRC (median),baseline auPRC (median),median per-TF dauPRC,TFs with dauPRC > 0,Wilcoxon P (auPRC),TFs below the baseline on >= 1 metric
+"human test set (chr1, 8, 21)",best single monoPWM (selected on the human training set),0.9021,0.8737,0.0243,35,5.8e-11,0.336,0.2884,0.0595,35,5.8e-11,none
+"mouse test set (chr1, 8, 19)",best single monoPWM (selected on the human training set),0.8862,0.8572,0.0168,35,5.8e-11,0.3054,0.2303,0.0421,34,1.2e-10,PRGR

@@ -1,0 +1,10 @@
+server
+CPU(s):                                  48
+Model name:                              Intel(R) Xeon(R) CPU E5-4607 v2 @ 2.60GHz
+Thread(s) per core:                      2
+Core(s) per socket:                      6
+Socket(s):                               4
+CPU(s) scaling MHz:                      48%
+               total        used        free      shared  buff/cache   available
+Mem:             503          10          87           0         411         493
+6.8.0-139-generic

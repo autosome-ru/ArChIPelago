@@ -1,0 +1,18 @@
+- script: "4_visualisation/figures/Fig3_S3/build_Figure_3D_source_data_h3.py"
+  run: "2026-11-11 13:27:43"
+  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
+  git_changed_tracked_files: 0
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{TFs: [RXRA, SRF, ANDR], n_mono: 2, n_di: 2}"
+  inputs:
+    - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
+    - {file: "results/server/human/B4_importance/gini/RXRA_gini.csv", md5: "55845cf8aeeb5907ddc2a2a192c81cde"}
+    - {file: "results/server/human/B4_importance/gini/SRF_gini.csv", md5: "809d6a4fb80d49b7541d7aa96411c022"}
+    - {file: "results/server/human/B4_importance/gini/ANDR_gini.csv", md5: "57c7a941d8132a8bd6973f17924d3c0e"}
+  outputs:
+    - {file: "4_visualisation/figures/Fig3_S3/Figure_3D_source_data.csv", md5: "8de8134bb5b6cfbc0548b45d3293d44b"}
