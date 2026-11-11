@@ -1,7 +1,7 @@
 - script: "3_analysis/integration/top1000_check_h3.py"
-  run: "2026-11-11 13:27:15"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:03"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 29
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
@@ -15,9 +15,9 @@
   outputs:
     - {file: "3_analysis/integration/top1000_check_h3.csv", md5: "5031b67d5ee4664140f2488405f6eadf"}
 - script: "3_analysis/integration/pwm_origin_h3.py"
-  run: "2026-11-11 13:27:49"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:38"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 49
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
@@ -29,14 +29,14 @@
     - {file: "results/datasets/zenodo_v1.0.0/PWMs_di_HUMAN.tar.gz", md5: "41dd3dc3c742500b4c6143fd0f80ba87"}
     - {file: "results/datasets/zenodo_v1.0.0/PWMs_mono_MOUSE.tar.gz", md5: "3721b4ff9a8ae7ae03f01bb8a2c23b9e"}
     - {file: "results/datasets/zenodo_v1.0.0/PWMs_di_MOUSE.tar.gz", md5: "bd56205186efac31aa37b28fdc893bc2"}
-    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "a0f3faabe17642f413a93a045a06de97"}
-    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
+    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "8e24aa3689aaf8cde3d372734d96335b"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
   outputs:
     - {file: "3_analysis/integration/pwm_origin_h3.csv", md5: "8854c75b37bbdb97c137178708eb4522"}
 - script: "3_analysis/integration/v1_tables_h3.py"
-  run: "2026-11-11 13:27:50"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:39"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 49
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
@@ -47,7 +47,7 @@
     - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
     - {file: "results/server/human/neg_v3/checks_neg_v3/gc_check_v3.csv", md5: "26ad2620bf2400d457a876d6d35b8023"}
     - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
-    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
     - {file: "results/server/human_data/per_tf_positive_counts.csv", md5: "14731be15a66b80d528763f3b7427e19"}
     - {file: "results/server/mouse_data/per_tf_positive_counts.csv", md5: "ca483c23c47128caf982fca17e20d2ff"}
   outputs:
@@ -56,27 +56,27 @@
     - {file: "3_analysis/integration/gc_vs_gain_h3.csv", md5: "8c87fdbb502b029c18aaa1c156c0c9bd"}
     - {file: "3_analysis/integration/positive_count_ties_h3.csv", md5: "a2c46adef9a0675458f53d545521bc3c"}
 - script: "3_analysis/integration/figure1_values.py"
-  run: "2026-11-11 13:27:50"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:40"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 49
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
   human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   inputs:
-    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "a0f3faabe17642f413a93a045a06de97"}
-    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
-    - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "03a0ae4371b0706cfd52222c913240c8"}
-    - {file: "outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx", md5: "73937a7d7bf543d68605fb51978a7d03"}
+    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "8e24aa3689aaf8cde3d372734d96335b"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
+    - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "ee360c646b2226184f43ba3a08733d10"}
+    - {file: "outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx", md5: "e86478ca7eec609724fedd7e02b385e5"}
     - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
     - {file: "3_analysis/integration/sup6_methods_values_h3.csv", md5: "f4bdcab9746185075ea4b97b4a4ae28f"}
   outputs:
     - {file: "3_analysis/integration/figure1_values.csv", md5: "53a253792207d2fded6de106b15fc892"}
 - script: "3_analysis/integration/table1_inputs.py"
-  run: "2026-11-11 13:27:51"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:41"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 49
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
@@ -89,9 +89,9 @@
   outputs:
     - {file: "3_analysis/integration/table1_rows.csv", md5: "5c0a596e2017345f6c7a9811e8067a12"}
 - script: "3_analysis/integration/make_numbers_w2.py"
-  run: "2026-11-11 13:27:54"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:44"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 51
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
@@ -99,11 +99,11 @@
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   inputs:
     - {file: "outputs/numbers/NUMBERS_human_35TF.csv", md5: "4de3e344a06fb539fb527f6042be6e42"}
-    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "a0f3faabe17642f413a93a045a06de97"}
-    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
-    - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "03a0ae4371b0706cfd52222c913240c8"}
-    - {file: "outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx", md5: "73937a7d7bf543d68605fb51978a7d03"}
-    - {file: "outputs/supplementary_tables/Sup_Table_5_cross_species_and_mouse_trained.xlsx", md5: "738245a1921ecefd43d34a7e140c422b"}
+    - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "8e24aa3689aaf8cde3d372734d96335b"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
+    - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "ee360c646b2226184f43ba3a08733d10"}
+    - {file: "outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx", md5: "e86478ca7eec609724fedd7e02b385e5"}
+    - {file: "outputs/supplementary_tables/Sup_Table_5_cross_species_and_mouse_trained.xlsx", md5: "911949ffb8421cc91a4af8c86778eb8b"}
     - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
     - {file: "results/server/human/neg_v3/checks_neg_v3/gc_check_v3.csv", md5: "26ad2620bf2400d457a876d6d35b8023"}
     - {file: "results/server/mouse_data/counts_per_tf.csv", md5: "80a38fec67b9a71ab8dfb4ee57fad6d7"}
@@ -117,7 +117,7 @@
     - {file: "results/server/human/neg_v3/checks_neg_v3/neg_v3_checks.csv", md5: "593089251af32cce3b464fd9d2adfabe"}
     - {file: "1_data_preparation/h5_splits.py", md5: "f41869ebf5cfe274b5593f7a3c75ce7b"}
     - {file: "3_analysis/feature_importance/tables/B4_ablation_summary.csv", md5: "e603a3a37bfeac76a881fa2d6f58dca7"}
-    - {file: "outputs/supplementary_tables/Sup_Table_10_transfer_drivers_and_headroom.xlsx", md5: "cbbd48f807bdf5bc6526dc7bee7477fd"}
+    - {file: "outputs/supplementary_tables/Sup_Table_10_transfer_drivers_and_headroom.xlsx", md5: "dcd6f7c38af017f9448b5aedb7254dc2"}
     - {file: "results/datasets/mouse_rebuild/mouse_rebuild_cpu_time.csv", md5: "bf2e00c6d8b4dacd52797bedad4e4c82"}
     - {file: "3_analysis/top_peaks/b3_peak_widths_summary.csv", md5: "c2d89cb0136b9c5159298c25f39afdc6"}
     - {file: "3_analysis/top_peaks/b3_topN_summary.csv", md5: "22aa13c33acbf388c9faebc1c1d366a1"}
@@ -149,7 +149,7 @@
     - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
     - {file: "3_analysis/low_fpr_metrics/B2_metrics_wide.csv", md5: "32039269ce1d15ecf868708b298b22cf"}
     - {file: "3_analysis/integration/sup6_methods_values_h3.csv", md5: "f4bdcab9746185075ea4b97b4a4ae28f"}
-    - {file: "outputs/supplementary_tables/Sup_Table_6_runtime_memory.xlsx", md5: "8d0477a8caeb69f6f48ac003a6a57399"}
+    - {file: "outputs/supplementary_tables/Sup_Table_6_runtime_memory.xlsx", md5: "26948a684f4d689c22d76d21d4ad3ed5"}
     - {file: "3_analysis/transfer_drivers/B5_B_headroom_per_TF.csv", md5: "abb783541f123cf9091e2ea84943e325"}
     - {file: "3_analysis/feature_importance/tables/B4_importance_concentration.csv", md5: "6e470b1dacee129c11f6a4465e350f98"}
     - {file: "4_visualisation/figures/output/S1/Figure_S1_plotdata.csv", md5: "c1119e2bb139bab168796e117722c104"}

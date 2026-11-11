@@ -1,7 +1,7 @@
 - script: "4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py"
-  run: "2026-11-11 13:27:26"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:14"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 42
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
@@ -10,7 +10,7 @@
   parameters: "{N_TOP: 8, N_MONO: 4, N_DI: 3, candidates: union of top N_TOP by dauROC and dauPRC, figure: STAT1 subtypes TAL1 subtypes IRF4 cofactor TFE2 cofactor, cofactor_gap: 0.20, tie: 0.01, v11_min_overlap: 5}"
   inputs:
     - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
-    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "afb589dbd65bc93900103459ff2aa41c"}
+    - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
     - {file: "3_analysis/package/analysis/inputs/GTRD_metadata.csv", md5: "69cdd0943af25031eacac848e755b72e"}
     - {file: "results/datasets/hocomoco11/HOCOMOCOv11_full_pcms_HUMAN_mono.txt", md5: "ace4698cb56d1c50431465a45d6f02f6"}
     - {file: "results/server/human/B4_importance/gini/ANDR_gini.csv", md5: "57c7a941d8132a8bd6973f17924d3c0e"}

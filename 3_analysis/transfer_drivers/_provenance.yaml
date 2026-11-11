@@ -1,6 +1,6 @@
 p53drop: {exclude_tfs: [P53], n_TF: 35, mouse_inputs: 'current'}
-script: /private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/3_analysis/transfer_drivers/B5_01_drivers_and_ceiling.py
-run: 2026-11-11T13:27:03
+script: 3_analysis/transfer_drivers/B5_01_drivers_and_ceiling.py
+run: 2026-11-11T14:19:50
 python: 3.9.12
 numpy: 1.26.4
 pandas: 2.3.0+4.g1dfc98e16a
@@ -8,14 +8,14 @@ scipy: 1.13.1
 random_seed: 1
 bootstrap_n: 2000
 background_per_base: 0.25
-ArChIPelago_repo_git_head: 61c9d23ea44e7696786ca80dd6d44e85e229e065
+ArChIPelago_repo_git_head: e6ec8088688c78d645c5b972471c0258b636aa51
 inputs:
-  crossspecies_table: {path: /private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/3_analysis/package/analysis/cross_species/cross_species_table.csv, md5: 25200b27174e538c12d3c783a62e3599}
-  results_table: {path: /private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/3_analysis/package/results_table.csv, md5: 624fd1a8482927165894a5c2183bc339}
-  mouse_transfer: {path: /private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/results/server/human/hm_mm_results.csv, md5: 3596e03d3ce8b2fc82de6fa072d1e4fd}
-  single_PWM_features: {path: /private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/3_analysis/transfer_drivers/../package/analysis/inputs/single_PWM_features.csv, md5: 660a2c184472c07bf241ea6079b8fee3}
-  human_used_peak_ids: {path: /private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/results/datasets/peak_ids/human_used_peak_ids.csv, md5: c0e9d46d3be010d1927f021a2288489c}
-  PWM_dir: {path: /private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/results/datasets/zenodo_v1.0.0/PWMs_mono_HUMAN, note: 'monoPWM files read for the 72 baseline PWMs (35 TFs x auROC/auPRC selection)'}
+  crossspecies_table: {path: 3_analysis/package/analysis/cross_species/cross_species_table.csv, md5: 25200b27174e538c12d3c783a62e3599}
+  results_table: {path: 3_analysis/package/results_table.csv, md5: 624fd1a8482927165894a5c2183bc339}
+  mouse_transfer: {path: results/server/human/hm_mm_results.csv, md5: 3596e03d3ce8b2fc82de6fa072d1e4fd}
+  single_PWM_features: {path: 3_analysis/transfer_drivers/../package/analysis/inputs/single_PWM_features.csv, md5: 660a2c184472c07bf241ea6079b8fee3}
+  human_used_peak_ids: {path: results/datasets/peak_ids/human_used_peak_ids.csv, md5: c0e9d46d3be010d1927f021a2288489c}
+  PWM_dir: {path: results/datasets/zenodo_v1.0.0/PWMs_mono_HUMAN, note: 'monoPWM files read for the 72 baseline PWMs (35 TFs x auROC/auPRC selection)'}
 outputs:
   - {file: B5_per_TF_table.csv, md5: 9c26edce4db82e4385cdf938a1c3a08d}
   - {file: B5_A_spearman_drivers.csv, md5: 8aecb0635c6ceec0793200689189faa9}

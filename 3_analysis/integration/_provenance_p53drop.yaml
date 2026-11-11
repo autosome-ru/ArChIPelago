@@ -1,5 +1,5 @@
 - script: 3_analysis/integration/make_numbers.py
-  run: 2026-11-11 13:27
+  run: 2026-11-11 14:20
   task: W1-L P53 drop (human 35 TFs)
   python: 3.9.12
   exclude_tfs: [P53]
@@ -11,13 +11,13 @@
     - {file: 3_analysis/integration/inputs/results_table.csv, md5: 624fd1a8482927165894a5c2183bc339}
     - {file: results/round1_package/Manuscript_analysis/Figures/source_data/Figure_4_source_data.csv, md5: e2e949b35649f8dc50914a57ed901bc8}
     - {file: results/round1_package/Resubmission/Sup_Tables/Sup_Table_4_operational_metrics.csv, md5: 860878ab35dcbc713282d7b2d76f5644}
-    - {file: outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx, md5: 73937a7d7bf543d68605fb51978a7d03}
+    - {file: outputs/supplementary_tables/Sup_Table_4_operational_metrics.xlsx, md5: e86478ca7eec609724fedd7e02b385e5}
     - {file: results/round1_package/Manuscript_analysis/Figures/source_data/Figure_S5_source_data.csv, md5: 095c47f5ef130e0333d35b1318c90a85}
     - {file: 3_analysis/package/Figures/source_data/Figure_S5_source_data.csv, md5: 37b32c1c00dde62e88b09b3bb2286239}
     - {file: results/round1_package/Resubmission/Sup_Tables/Sup_Table_2_PWMs_and_datasets.xlsx, md5: 1f93cb42faad41b5f721b230829705aa}
     - {file: results/round1_package/Resubmission/Sup_Tables/Sup_Table_1_ChIP-Seq_experiments.xlsx, md5: a2325741ddff0c1a66cec83a78d2396d}
     - {file: results/datasets/top_peaks/b3_missing_datasets.csv, md5: 3540106522230efd1f03f336dfeb96af}
-    - {file: outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx, md5: afb589dbd65bc93900103459ff2aa41c}
+    - {file: outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx, md5: 37a3460dcb58adabb37f6b2275b1aac9}
     - {file: 3_analysis/low_fpr_metrics/B2_summary.csv, md5: ba50fd6f731abee35492f0d554e7f6f0}
     - {file: 3_analysis/low_fpr_metrics/B2_per_chromosome_summary.csv, md5: 6d8de89a8912855cdebc4ddc66f80b94}
     - {file: 3_analysis/low_fpr_metrics/B2_metrics_wide.csv, md5: 32039269ce1d15ecf868708b298b22cf}

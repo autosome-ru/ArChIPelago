@@ -1,5 +1,5 @@
 - script: 3_analysis/feature_importance/scripts/b4_05_aggregate.py
-  run: 2026-11-11 13:26
+  run: 2026-11-11 14:19
   task: W1-L P53 drop (human 35 TFs)
   python: 3.9.12
   exclude_tfs: [P53]
@@ -335,7 +335,7 @@
     - {file: 3_analysis/feature_importance/tables/B4_subtype_importance.csv, md5: 72f5fa4f1d11bd1de9aa7cb54bd470bc}
     - {file: 3_analysis/feature_importance/tables/B4_subtype_summary_per_TF.csv, md5: ff76d0f30d1cf4de49212a116fa80e4a}
 - script: 3_analysis/feature_importance/scripts/b4_06_figure.py
-  run: 2026-11-11 13:26
+  run: 2026-11-11 14:19
   task: W1-L P53 drop (human 35 TFs)
   python: 3.9.12
   exclude_tfs: [P53]
@@ -351,5 +351,5 @@
     - {file: 3_analysis/feature_importance/tables/B4_activation_groups.csv, md5: ef293f3ee439be1766c888b20c8b2736}
     - {file: 3_analysis/feature_importance/tables/B4_ablation_all_fits.csv, md5: 6da56da7c8e881fac0d732d6efb4cf37}
   outputs:
-    - {file: 3_analysis/feature_importance/B4_importance_figure.pdf, md5: a9bb2642acfdac83e0babd4b975c0da7}
+    - {file: 3_analysis/feature_importance/B4_importance_figure.pdf, md5: e8fcffc7a16e4ff644f200d881ec7c49}
     - {file: 3_analysis/feature_importance/B4_importance_figure.png, md5: c61441caf4fc52d3a812753cce891559}

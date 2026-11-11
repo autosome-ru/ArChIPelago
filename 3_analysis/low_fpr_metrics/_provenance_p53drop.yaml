@@ -1,5 +1,5 @@
 - script: 3_analysis/low_fpr_metrics/b2_summary_w2.py (copy of B2_metrics/b2_summary.py)
-  run: 2026-11-11 13:26
+  run: 2026-11-11 14:19
   task: W1-L P53 drop (human 35 TFs)
   python: 3.9.12
   exclude_tfs: [P53]
@@ -13,7 +13,7 @@
     - {file: 3_analysis/low_fpr_metrics/B2_summary.csv, md5: ba50fd6f731abee35492f0d554e7f6f0}
     - {file: 3_analysis/low_fpr_metrics/B2_per_chromosome_summary.csv, md5: 6d8de89a8912855cdebc4ddc66f80b94}
 - script: 3_analysis/low_fpr_metrics/b2_figure_h3.py (copy of B2_metrics/b2_figure.py)
-  run: 2026-11-11 13:26
+  run: 2026-11-11 14:19
   task: W1-L P53 drop (human 35 TFs)
   python: 3.9.12
   exclude_tfs: [P53]
@@ -25,5 +25,5 @@
     - {file: 3_analysis/low_fpr_metrics/B2_summary.csv, md5: ba50fd6f731abee35492f0d554e7f6f0}
     - {file: 3_analysis/low_fpr_metrics/B2_per_chromosome.csv, md5: 9c666ea14e56ec8d9dc915eec67041b2}
   outputs:
-    - {file: 3_analysis/low_fpr_metrics/B2_low_FPR_metrics.pdf, md5: 332c0b12417f8721d7e14d2597dcd70e}
+    - {file: 3_analysis/low_fpr_metrics/B2_low_FPR_metrics.pdf, md5: bdf866c64114189eb0a1f05fcb7b9610}
     - {file: 3_analysis/low_fpr_metrics/B2_low_FPR_metrics.png, md5: 6299d2aa43f2689866b3a9d419fa4f54}

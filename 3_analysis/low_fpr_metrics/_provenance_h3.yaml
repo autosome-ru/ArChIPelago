@@ -1,7 +1,7 @@
 - script: "3_analysis/integration/make_b2_h3.py"
-  run: "2026-11-11 13:26:49"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:19:36"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 16
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
@@ -16,15 +16,15 @@
     - {file: "3_analysis/low_fpr_metrics/B2_metrics_wide.csv", md5: "32039269ce1d15ecf868708b298b22cf"}
     - {file: "3_analysis/low_fpr_metrics/B2_per_chromosome.csv", md5: "9c666ea14e56ec8d9dc915eec67041b2"}
 - script: "3_analysis/low_fpr_metrics/b2_gate_h3.py"
-  run: "2026-11-11 13:27:14"
-  git_commit: "61c9d23ea44e7696786ca80dd6d44e85e229e065"
-  git_changed_tracked_files: 0
+  run: "2026-11-11 14:20:02"
+  git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
+  git_changed_tracked_files: 29
   task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
   python: "3.9.12"
   exclude_tfs: ["P53"]
   human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
-  parameters: "{TOL_ID: 1e-09, TOL_RF: 0.001, scores: '/private/tmp/claude-503/-Users-pavel/524cf856-7f59-4597-a553-47658ad837b5/scratchpad/final/repo/results/server/human/scores', scores_origin: 'server:~/archi_work/H5_alltrain/human_sym/scores'}"
+  parameters: "{TOL_ID: 1e-09, TOL_RF: 0.001, scores: 'results/server/human/scores', scores_origin: 'server:~/archi_work/H5_alltrain/human_sym/scores'}"
   inputs:
     - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
     - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}
