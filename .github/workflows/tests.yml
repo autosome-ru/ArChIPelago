@@ -30,7 +30,8 @@ jobs:
           python-version: "3.10"
       - name: Install (versions the tracked outputs were built with)
         run: |
-          sudo apt-get update && sudo apt-get install -y poppler-utils
+          command -v pdftotext || for i in 1 2 3; do sudo apt-get update && sudo apt-get install -y poppler-utils && break; sleep 60; done
+          command -v pdftotext
           pip install pandas==2.3.0 numpy==1.26.4 scipy==1.13.1 matplotlib==3.5.2 openpyxl==3.1.5 pyyaml==6.0 scikit-learn==1.1.2 pytest
       - name: Recompute the tables and numbers from their sources
         env:
