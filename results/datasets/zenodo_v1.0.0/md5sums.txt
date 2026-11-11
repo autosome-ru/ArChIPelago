@@ -1,0 +1,16 @@
+49acabce488f6fb55234332ce71b775b  train.tar.gz
+68651885f0858b42a885f69018150baf  test.tar.gz
+d3f3f698560ff5c44f5819009a66ff99  PWMs_mono_HUMAN.tar.gz
+41dd3dc3c742500b4c6143fd0f80ba87  PWMs_di_HUMAN.tar.gz
+3721b4ff9a8ae7ae03f01bb8a2c23b9e  PWMs_mono_MOUSE.tar.gz
+bd56205186efac31aa37b28fdc893bc2  PWMs_di_MOUSE.tar.gz
+d1c96bb570ce9033344fa9f91ce1123c  Archipelago_intermediate_files_tables.tar.gz
+adff46642a86fa626fc41f9d01442031  Archipelago_intermediate_files_fasta_HUMAN.tar.gz
+cee1d6c7d956cd516d6afe996bf76a0c  Archipelago_intermediate_files_fasta_HUMAN_SLIM.tar.gz
+bdbea8be3fb7a478f9769f4752e77306  Archipelago_intermediate_files_fasta_MOUSE.tar.gz
+e34a6dde2f96ea3e17dc4209f40277d5  Archipelago_intermediate_files_fasta_MOUSE_SLIM.tar.gz
+62ded5a8b96b62da8b6825304683584b  Models.tar.gz
+e2012d039c1cae3479da8d07fbeeee93  Slim_models.tar.gz
+ce12823de573676ea0cee7dce5cadb79  Slim.tar.gz
+409f26704dc960e6033f4358a5659296  hocomoco11.tar.gz
+5a3850be4459cdba5367b2eb95b1b442  macs.tar.gz

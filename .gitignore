@@ -10,7 +10,7 @@
 .DS_Store
 
 # Zenodo download (large data, not tracked)
-14927304/
+/14927304/
 
 # Figures: keep R code, ignore generated images and design files
 Figures/**/*.pdf
@@ -23,7 +23,7 @@ Figures/**/PWMs/
 Slim/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz
 
 # hocomoco11 data (downloaded separately)
-hocomoco11/
+/hocomoco11/
 
 # R session
 .Rhistory
@@ -38,9 +38,9 @@ hocomoco11/
 /Table_*.xlsx.zip
 
 # Staging folder of the Zenodo archives (uploaded to Zenodo, not tracked)
-Zenodo_new_version/
-Zenodo_v1.0.0/
-Zenodo_v2.0.0/
+/Zenodo_new_version/
+/Zenodo_v1.0.0/
+/Zenodo_v2.0.0/
 
 # Logs of the server relay scripts
 2_training/slim_chipmunk/logs/
