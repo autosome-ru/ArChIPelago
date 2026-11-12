@@ -1,7 +1,12 @@
 """Low-FPR metrics from saved per-sequence scores. Tie-aware: curves are built at distinct score
 thresholds and joined by straight segments (= random tie-breaking in expectation). Python 3.8 compatible."""
+import os
+import sys
 import numpy as np
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score  # partial auROC (McClish) only; full auROC / auPRC come from PRROC
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "1_data_preparation"))
+import prroc_metrics  # noqa: E402
 
 
 def curve(y, s):
@@ -12,12 +17,6 @@ def curve(y, s):
     tp = np.r_[0.0, np.cumsum(y)[last]]
     fp = np.r_[0.0, np.cumsum(1 - y)[last]]
     return tp, fp
-
-
-def auprc_integral(y, s, c=None):
-    """PRROC auc.integral (Davis-Goadrich), identical to archi_data.auprc_integral."""
-    tp, fp = c if c is not None else curve(y, s)
-    return float(sum(recall_interval_areas(tp, fp, [0.0, 1.0])))
 
 
 def recall_interval_areas(tp, fp, edges):
@@ -80,8 +79,7 @@ def all_metrics(y, s):
     P, N = tp[-1], fp[-1]
     fpr, tpr = roc_points(tp, fp)
     m = {"n_pos": P, "n_neg": N}
-    m["auroc"] = float(np.trapz(tpr, fpr))
-    m["auprc"] = auprc_integral(y, s, (tp, fp))
+    m["auroc"], m["auprc"] = prroc_metrics.auroc_auprc(y, s)  # PRROC roc.curve()$auc and pr.curve()$auc.integral
     for x in FPR_CUTS:
         raw, std = partial_auc(fpr, tpr, x, y, s)
         m["pauc_raw_fpr%g" % x] = raw

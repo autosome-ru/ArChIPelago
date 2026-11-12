@@ -6,8 +6,9 @@
  c4  wrong-order control: the same model with columns reversed for SRF (must give a much lower auROC, proves c1 can fail)
 """
 import os, sys, joblib
-from sklearn.metrics import roc_auc_score
 from b4_common import *
+
+roc_auc_score = ad.prroc_metrics.auroc  # full auROC by PRROC (y, s)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from b4_03_usage import pvals
 

@@ -20,7 +20,7 @@ Paths outside the repository come from environment variables, read in `../archi_
 
 ## Software
 
-Versions are listed in `../2_training/VERSIONS.txt`: Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1, pybedtools 0.9.1, bedtools 2.31.1, seqtk 1.3-r107-dirty, BiasAway 3.3.0, SARUS 2.0.2 (`sarus-2.0.2.jar`), conda environment `rpy2_env`. The diChIPMunk scans of `../3_analysis/server/scan_tf_h5.sh` used SARUS 2.0.1.
+Versions are listed in `../2_training/VERSIONS.txt`: Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1, pybedtools 0.9.1, bedtools 2.31.1, seqtk 1.3-r107-dirty, BiasAway 3.3.0, SARUS 2.0.2 (`sarus-2.0.2.jar`), conda environment `rpy2_env`. auROC and auPRC come from the R package PRROC 1.4 through rpy2 3.5 (`prroc_metrics.py`); rpy2 must load the R that holds PRROC (set `R_HOME`). The diChIPMunk scans of `../3_analysis/server/scan_tf_h5.sh` used SARUS 2.0.1.
 
 ## Not in the repository
 

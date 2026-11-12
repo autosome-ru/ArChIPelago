@@ -9,30 +9,16 @@ Baselines: pwmH_byroc (for auROC) and pwmH_byprc (for auPRC), selected on the hu
 """
 import os, re, sys, json, glob
 import numpy as np, pandas as pd
-from sklearn.metrics import roc_auc_score
 
 OUT = sys.argv[1]
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..")); import archi_env as AE
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "1_data_preparation")); import prroc_metrics
 REL = AE.work("human_sym_h5", "TF-ML")  # human data build
 REL_M = AE.work("mouse_sym_h5", "TF-ML")  # mouse data build
 SC = AE.work("H5_alltrain", "human_sym", "scores")
 NS = [500, 1000, 2000]
 NDRAW = 10
 SEED = 0
-
-
-def auprc_integral(y, s):  # copy of archi_data.auprc_integral (PRROC integral)
-    y = np.asarray(y, float); s = np.asarray(s, float)
-    o = np.argsort(-s, kind="mergesort"); y = y[o]; s = s[o]
-    last = np.r_[s[1:] != s[:-1], True]
-    tp = np.r_[0.0, np.cumsum(y)[last]]; fp = np.r_[0.0, np.cumsum(1 - y)[last]]
-    P = tp[-1]
-    a, b = tp[:-1], tp[:-1] + fp[:-1]
-    c, e = np.diff(tp), np.diff(tp) + np.diff(fp)
-    with np.errstate(divide="ignore", invalid="ignore"):
-        seg = np.where(b == 0, c / e, c / e + (a - b * c / e) / e * np.log((b + e) / np.where(b == 0, 1, b)))
-    seg = np.where(c == 0, 0.0, seg)
-    return float(np.sum(seg * c) / P)
 
 
 def read_tab(path):
@@ -61,8 +47,8 @@ def pick_neg(neg_idx, n, seed):
 
 def metrics(y, rf, pr_roc, pr_prc, idx):
     yy = y[idx]
-    return (roc_auc_score(yy, rf[idx]), roc_auc_score(yy, pr_roc[idx]),
-            auprc_integral(yy, rf[idx]), auprc_integral(yy, pr_prc[idx]))
+    return (prroc_metrics.auroc(yy, rf[idx]), prroc_metrics.auroc(yy, pr_roc[idx]),
+            prroc_metrics.auprc(yy, rf[idx]), prroc_metrics.auprc(yy, pr_prc[idx]))
 
 
 def neg_n(variant, nk, npos, nneg):

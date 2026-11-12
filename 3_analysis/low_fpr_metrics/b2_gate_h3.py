@@ -19,12 +19,14 @@ import sys
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import average_precision_score, roc_auc_score
+from sklearn.metrics import average_precision_score
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "integration/"))
 import w2  # noqa: E402
 import h3_inputs as H  # noqa: E402
+sys.path.insert(0, os.path.join(HERE, "..", "..", "1_data_preparation"))
+import prroc_metrics  # noqa: E402
 
 R2 = w2.R2
 TOL_ID, TOL_RF = 1e-9, 1e-3
@@ -62,9 +64,8 @@ for f in files:
         for nm, key, href in (("rf_s0", krf, "%s_rf_%s_%%s_s0" % (pre, ts)), ("bROC", kb % "roc", "%s_broc_%s_%%s" % (pre, ts)),
                               ("bPRC", kb % "prc", "%s_bprc_%s_%%s" % (pre, ts))):
             s = z[key]
-            r[nm + "_auroc"] = roc_auc_score(y, s)
+            r[nm + "_auroc"], r[nm + "_auprc_int"] = prroc_metrics.auroc_auprc(y, s)
             r[nm + "_auroc_mine"] = L.all_metrics(y, s)["auroc"] if nm == "rf_s0" else np.nan
-            r[nm + "_auprc_int"] = L.auprc_integral(y, s)
             r[nm + "_auprc_ap"] = average_precision_score(y, s)
             r["ref_hm_%s_auroc" % nm] = hm.loc[tf, href % "auroc"]
             r["ref_hm_%s_auprc" % nm] = hm.loc[tf, href % "auprc"]

@@ -94,7 +94,7 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
 
    It checks every input against the md5 manifest of `results/server/` first and stops at the first failing command
    (about 3 min on a laptop). Requirements: Python 3.9 or later with pandas 2.3, numpy 1.26, scipy 1.13, matplotlib 3.5,
-   scikit-learn, openpyxl, pyyaml, pypdf; R 4.4 with dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis,
+   scikit-learn, rpy2 3.5, openpyxl, pyyaml, pypdf; R 4.4 with PRROC 1.4 (rpy2 must load the R that holds PRROC; set `R_HOME`), dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis,
    tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext) and rsvg-convert. Stage `fig1` sets the
    resolution of Fig. 1 with the macOS tool `sips`; on Linux that command fails and the run stops there (run the other
    stages by name, see `3_analysis/README.md`). The optional stage `gate` (check of the low FPR metrics against the score files) is not part of `all`; it needs the score files of the Zenodo v2.0.0 deposit (see "Data on Zenodo").
@@ -104,7 +104,7 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
 
 **Scripts of steps 1-3** read their data from the folders named in the environment variables `ARCHI_WORK` (working root), `ARCHI_RELEASE` (published `TF-ML` folder) and the input variables listed in `archi_env.py`; the README of each stage names the ones it needs. Their software: Python 3.8.18,
 scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, xgboost 1.7.3, pybedtools 0.9.1, bedtools 2.31.1, BiasAway 3.3.0,
-SPRY-SARUS 2.0.2 (`2_training/VERSIONS.txt`). External data not in this repository: reference genomes hg38 and mm10, GTRD
+SPRY-SARUS 2.0.2, R with PRROC and rpy2 for auROC and auPRC (`2_training/VERSIONS.txt`; rpy2 must load the R that holds PRROC, set `R_HOME`). External data not in this repository: reference genomes hg38 and mm10, GTRD
 MACS peak files, HOCOMOCO v11 PWMs (Zenodo archives `macs.tar.gz`, `hocomoco11.tar.gz`, `PWMs_*.tar.gz`) and the
 RepeatMasker masks (`repeatmasker_hg38_mm10.tar.gz`).
 

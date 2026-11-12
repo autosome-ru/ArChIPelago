@@ -40,7 +40,7 @@ Run order for the Fig. 4 scans and the runtime benchmark is in `../3_analysis/se
 
 ## Software
 
-`VERSIONS.txt` lists the versions. Environment: Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1, joblib 1.2.0, xgboost 1.7.3, pybedtools 0.9.1; one BLAS thread per worker, `nice -n 10`. RF settings: `RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100, random_state=0)` with the StandardScaler fitted on the training matrix. The diChIPMunk scans of `../3_analysis/server/scan_tf_h5.sh` used SARUS 2.0.1; the feature tables of the data build used SARUS 2.0.2.
+`VERSIONS.txt` lists the versions. Environment: Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1, joblib 1.2.0, xgboost 1.7.3, pybedtools 0.9.1, R with PRROC 1.4 and rpy2 3.5 (auROC and auPRC; rpy2 must load the R that holds PRROC, set `R_HOME`); one BLAS thread per worker, `nice -n 10`. RF settings: `RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100, random_state=0)` with the StandardScaler fitted on the training matrix. The diChIPMunk scans of `../3_analysis/server/scan_tf_h5.sh` used SARUS 2.0.1; the feature tables of the data build used SARUS 2.0.2.
 
 ## Not in the repository
 

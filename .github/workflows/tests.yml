@@ -14,11 +14,17 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.10"
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4"
+      - name: Install PRROC (auROC and auPRC are computed by PRROC through rpy2)
+        run: |
+          Rscript -e 'install.packages("PRROC", repos="https://cloud.r-project.org"); stopifnot(packageVersion("PRROC") == "1.4")'
       - name: Install (versions the tracked outputs were built with)
         run: |
           command -v pdftotext || for i in 1 2 3; do sudo apt-get update && sudo apt-get install -y poppler-utils && break; sleep 60; done
           command -v pdftotext
-          pip install pandas==2.3.0 numpy==1.26.4 scipy==1.13.1 matplotlib==3.5.2 openpyxl==3.1.5 pyyaml==6.0 scikit-learn==1.1.2 pytest
+          pip install pandas==2.3.0 numpy==1.26.4 scipy==1.13.1 matplotlib==3.5.2 openpyxl==3.1.5 pyyaml==6.0 scikit-learn==1.1.2 rpy2==3.5.17 pytest
       - name: Recompute the tables and numbers from their sources
         env:
           ARCHI_STAGE: H5

@@ -46,6 +46,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score, precision_recall_curve, auc, average_precision_score
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__))); import prroc_metrics  # rpy2 and R are loaded on the first metric call
 REL = AE.release()
 OUT = os.path.join(REL, "outputdir")
 # Both species are read from the symmetric data roots (out_tab, feature tables, negative ids). REL / OUT
@@ -216,37 +217,19 @@ def load_tf(tf, species_train="HUMAN", pwm_species="HUMAN", pwm_set="mono_di", s
                 species_train=species_train, pwm_species=pwm_species, pwm_set=pwm_set, scale=scale)
 
 
-def auprc_integral(y, s):
-    """auPRC with Davis-Goadrich continuous interpolation between consecutive distinct-score
-        points == PRROC::pr.curve()$auc.integral, the estimator behind the published tables
-        (verified to all printed digits on the SRF single-PWM baselines)."""
-    y = np.asarray(y, float); s = np.asarray(s, float)
-    o = np.argsort(-s, kind="mergesort"); y = y[o]; s = s[o]
-    last = np.r_[s[1:] != s[:-1], True]                      # end of each tie block
-    tp = np.r_[0.0, np.cumsum(y)[last]]; fp = np.r_[0.0, np.cumsum(1 - y)[last]]
-    P = tp[-1]
-    a, b = tp[:-1], tp[:-1] + fp[:-1]                        # segment start TP, TP+FP
-    c, e = np.diff(tp), np.diff(tp) + np.diff(fp)            # dTP, d(TP+FP)  (e > 0 always)
-    with np.errstate(divide="ignore", invalid="ignore"):
-        seg = np.where(b == 0, c / e, c / e + (a - b * c / e) / e * np.log((b + e) / np.where(b == 0, 1, b)))
-    seg = np.where(c == 0, 0.0, seg)
-    return float(np.sum(seg * c) / P)
-
-
 def auroc_auprc(y, s, prc="integral"):
-    """(auROC, auPRC).  prc="integral": PRROC-style integral (what the published logs contain; the default);
+    """(auROC, auPRC).  prc="integral": PRROC (R package via rpy2, prroc_metrics.py; auROC = roc.curve()$auc, auPRC =
+        pr.curve()$auc.integral; what the published logs contain; the default);
         prc="trapz": sklearn auc(recall, precision) (what the release notebook code computes). The two differ by <1e-3
         for continuous RF scores, but for tied single-PWM scores the trapezoid can be far off (ERG mono_25: train auPRC
         0.163 trapz vs 0.048 integral), and best_pwm_baseline() picks a different auPRC baseline PWM for 11 of 36 TFs
         with "trapz"."""
+    if prc == "integral":
+        return prroc_metrics.auroc_auprc(y, s)
     if prc == "trapz":
         p, r, _ = precision_recall_curve(y, s)
-        pr = float(auc(r, p))
-    elif prc == "integral":
-        pr = auprc_integral(y, s)
-    else:
-        raise ValueError(prc)
-    return float(roc_auc_score(y, s)), pr
+        return float(roc_auc_score(y, s)), float(auc(r, p))
+    raise ValueError(prc)
 
 
 def average_precision(y, s):

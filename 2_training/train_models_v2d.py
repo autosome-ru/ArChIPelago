@@ -13,7 +13,6 @@ import json, time
 from multiprocessing import Pool
 import numpy as np, pandas as pd, joblib
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import roc_auc_score
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "1_data_preparation"))
 import archi_data_v5 as ad
@@ -50,9 +49,9 @@ def run(tf):
             out = {"TF": tf, "species_train": sp, "mode": mode, "k": len(cols), "saved": saved}
             for k, rk in (("train", "train_H"), ("test_H", "test_H"), ("test_M", "test_M")):
                 s = m.predict_proba(X[k])[:, 1]
-                a = roc_auc_score(d["y_" + k], s)
+                a, p = ad.auroc_auprc(d["y_" + k], s)
                 out["auroc_" + k] = a; out["auroc_" + k + "_h5"] = ref[rk][0]; out["absdiff_" + k] = abs(a - ref[rk][0])
-                out["auprc_" + k] = ad.auprc_integral(d["y_" + k], s)
+                out["auprc_" + k] = p
             own, other = ("test_H", "test_M") if sp == "HUMAN" else ("test_M", "test_H")
             sp_other = "MOUSE" if sp == "HUMAN" else "HUMAN"
             spec = {"tf": tf, "pwm_set": mode, "training_species": sp.lower(), "pwm_species": sp,

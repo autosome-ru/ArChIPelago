@@ -1,7 +1,7 @@
 """b4_01_importance.py - feature importance, step 1: Gini importance, test-set metrics, permutation importance (top 20 Gini features), PWM origin check.
 Per TF writes (in $OUT): gini/<TF>_gini.csv, perm/<TF>_perm.csv, cache/<TF>_test.npz, and appends metrics via
 metrics/<TF>_metrics.csv. Model: finalized_model_<TF>_HUMAN_RandomForestClassifier_mono_di_full_MODEL_all_features.sav
-Permutation: top-20 Gini features, 5 repeats, RandomState(seed 0), drop in auROC and auPRC (PRROC-style integral, ad.auprc_integral)
+Permutation: top-20 Gini features, 5 repeats, RandomState(seed 0), drop in auROC and auPRC (PRROC pr.curve()$auc.integral through ad.auroc_auprc)
 on the full human test set (chr1/8/21; negatives would be subsampled to 100,000 with seed 0 only if more - never triggered).
 usage: python b4_01_importance.py --tfs SRF P53 ... [--n-jobs 2]
 """
