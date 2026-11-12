@@ -1,5 +1,5 @@
 #!/bin/bash
-# Data build on server, human and mouse (run from anywhere; new folders only, every producer refuses to overwrite; nice 10).
+# Data build, human and mouse (run from anywhere; new folders only, every producer refuses to overwrite; nice 10).
 # Steps:
 #  1 positives per_tf + pooled (build_positives_v5.py: chromosome lists from h5_splits.py)
 #  2 test-set identity of the positives vs the earlier build (check_h5_test_identity.py) -> stop on any difference
@@ -7,9 +7,11 @@
 #  4 test-set identity of the negatives -> stop on any difference
 #  5 SARUS feature tables (make_scan_jobs_sym.py; 2 x 7,992 jobs, 24 in parallel)
 #  6 test-set identity of the feature tables
-# Usage: bash h5_data_server.sh. Log: $DH/logs/data_driver.log, end marker H5_DATA_DONE.
-R=~/archi_work; DH=$R/human_sym_h5; DM=$R/mouse_sym_h5; C=$DH/code
-PY=$HOME/miniconda3/envs/rpy2_env/bin/python; P="nice -n 10 $PY"
+# Usage: ARCHI_WORK=<root> ARCHI_MASK_HUMAN=<track_out_HUMAN.bed> ... bash h5_data_server.sh (variables: ../archi_env.py). Log: $DH/logs/data_driver.log, end marker H5_DATA_DONE.
+. "$(dirname "$(readlink -f "$0")")/../archi_env.sh"
+R=$ARCHI_WORK; DH=$R/human_sym_h5; DM=$R/mouse_sym_h5; C=$ARCHI_CODE/1_data_preparation
+P="nice -n 10 $PY"
+MASK_H=${ARCHI_MASK_HUMAN:?CHECK FAILED: ARCHI_MASK_HUMAN (track_out_HUMAN.bed) is not set}
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1
 log() { echo "$(date +%F_%T) $*" >> $DH/logs/data_driver.log; }
 die() { log "FAILED $*"; exit 1; }
@@ -23,7 +25,7 @@ build() {  # $1 species, $2 root, $3 peaks, $4 mask
   $P $C/build_positives_v5.py per_tf --peaks $3 --mask $4 --out TF-ML --species $1 > logs/build_positives_per_tf.log 2>&1 || return 1
   $P $C/build_positives_v5.py pooled --mfa-dir TF-ML --out TF-ML --species $1 > logs/build_positives_pooled.log 2>&1 || return 1
 }
-build HUMAN $DH $R/human_sym/inputs/human_sym_peak_ids.csv $HOME/Cleaning_data/track_out_HUMAN.bed & PH=$!
+build HUMAN $DH $R/human_sym/inputs/human_sym_peak_ids.csv $MASK_H & PH=$!
 build MOUSE $DM $R/mouse_sym/inputs/mouse_sym_peak_ids.csv $R/mouse_sym/ref/track_out_MOUSE_mm10.bed & PM=$!
 wait $PH || die build_HUMAN
 wait $PM || die build_MOUSE
@@ -43,7 +45,7 @@ log negatives_done
 $P $C/check_h5_test_identity.py negatives $DH/checks > $DH/logs/test_identity_negatives.log 2>&1 || die "STOP test negatives differ from H4"
 log test_identity_negatives_ok
 
-# 3b Slim inputs (loader v5 selection, build_slim_inputs_v5.py --export) and the server shipment, in the background
+# 3b Slim inputs (loader v5 selection, build_slim_inputs_v5.py --export) and the packaged inputs of the Slim queue, in the background
 slim_inputs() {
   S=$R/H5_alltrain/human_sym/slim; mkdir -p $S/inputs $S/ship || return 1
   echo $TFS | tr " " "\n" | grep -v '^$' | xargs -P 4 -I{} sh -c "$P $C/build_slim_inputs_v5.py $C {} $S/inputs/{} --export || echo SLIM_IN_FAILED {}" > $S/build_slim_inputs.log 2>&1

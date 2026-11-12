@@ -1,8 +1,7 @@
 # tests
 
 Checks of the local chain: each test recomputes a value of the tables, figures or `outputs/numbers/NUMBERS_R2_35TF.csv`
-from its source table and compares. `server_checks/` holds the checks that run on the
-compute server.
+from its source table and compares. `server_checks/` holds the checks of the compute stages (they need `ARCHI_WORK`).
 
 ## Run
 

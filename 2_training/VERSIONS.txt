@@ -1,4 +1,4 @@
-Software used to build the data and models (build server server, conda env rpy2_env; Slim and diChIPMunk on server)
+Software used to build the data and models (conda env rpy2_env)
 Python 3.8.18; scikit-learn 1.3.0; pandas 2.0.3; numpy 1.24.3; scipy 1.10.1; joblib 1.2.0; xgboost 1.7.3; pybedtools 0.9.1
 bedtools v2.31.1; seqtk 1.3-r107-dirty; BiasAway 3.3.0 (biasaway g -n 100 -e 1)
 SPRY-SARUS 2.0.2 (sarus-2.0.2.jar; --skipn --show-non-matching --output-scoring-mode score besthit); the diChIPMunk scans
@@ -12,9 +12,9 @@ Folders
                        make_negatives_v3.py, build_slim_inputs_v5.py, archi_data_v5.py (loader), checks
   2_training/          training and evaluation of the models: run_hm_mm_h5.py, evaluate_models_h5.py,
                        assemble_evaluation_table_h3a.py, train_models_v2d.py (the Models.tar.gz models that the evaluation
-                       did not save), server/ (Slim and diChIPMunk training)
+                       did not save), slim_chipmunk/ (Slim and diChIPMunk training)
   3_analysis/server/   operational metrics, b2 / b3 / saturation / Fig. 4 scripts, feature importance, runtime benchmark, drivers (*.sh)
-Paths inside the scripts point to the build server. The scripts read the working trees, in which the mouse files named
+The scripts read the working trees (root: environment variable ARCHI_WORK), in which the mouse files named
 'train' hold chr1, 8, 19 (the test set); archi_data_v5._file_split() maps the logical split to those
 names. In an archive in which every mouse file name follows the logical split (as for human), _file_split() must return
 the split unchanged for MOUSE as well.

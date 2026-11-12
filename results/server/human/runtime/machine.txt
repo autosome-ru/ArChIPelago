@@ -1,4 +1,4 @@
-server
+linux-server
 CPU(s):                                  48
 Model name:                              Intel(R) Xeon(R) CPU E5-4607 v2 @ 2.60GHz
 Thread(s) per core:                      2

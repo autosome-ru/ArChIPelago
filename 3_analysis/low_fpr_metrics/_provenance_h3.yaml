@@ -24,7 +24,7 @@
   exclude_tfs: ["P53"]
   human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
-  parameters: "{TOL_ID: 1e-09, TOL_RF: 0.001, scores: 'results/server/human/scores', scores_origin: 'server:~/archi_work/H5_alltrain/human_sym/scores'}"
+  parameters: "{TOL_ID: 1e-09, TOL_RF: 0.001, scores: 'results/server/human/scores', scores_origin: '$ARCHI_WORK/H5_alltrain/human_sym/scores'}"
   inputs:
     - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
     - {file: "3_analysis/package/results_table.csv", md5: "624fd1a8482927165894a5c2183bc339"}

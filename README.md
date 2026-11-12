@@ -50,21 +50,20 @@ metric of the row. Human rows are random seed 0, mouse rows the mean of seeds 0 
 
 ```
 ArChIPelago/
-├── 1_data_preparation/     positives, GC-matched negatives, SPRY-SARUS feature tables, Slim inputs, data checks (server)
+├── 1_data_preparation/     positives, GC-matched negatives, SPRY-SARUS feature tables, Slim inputs, data checks
 ├── 2_training/             Random Forest, logistic regression, XGBoost and bagging models, evaluation tables,
-│                           Slim and diChIPMunk models (server), release models
+│                           Slim and diChIPMunk models, release models
 ├── 3_analysis/
 │   ├── server/             operational and low-FPR metrics, top peaks, random split, feature importance, saturation,
-│   │                       Fig. 4 refits, runtime benchmark (server)
+│   │                       Fig. 4 refits, runtime benchmark
 │   ├── integration/        local driver run_h3.py and the producers of the integrated tables and numbers
 │   ├── package/            results table, saturation, cross-species tables, figure source data
 │   ├── low_fpr_metrics/  top_peaks/  random_split/  feature_importance/  transfer_drivers/
 │   └── supplementary_tables/   Sup. Tables 1-10
 ├── 4_visualisation/        producers of Fig. 1-4 and Fig. S1-S12
-├── results/                tracked inputs of the local stages (mirror of the server results, dataset lists, PWM archives)
+├── results/                tracked inputs of the local stages (result tables of the compute stages, dataset lists, PWM archives)
 ├── outputs/                figures/, supplementary_tables/, numbers/ of the final run
 ├── tests/                  checks of the tables, figures and numbers (pytest)
-├── setup_server_layout.sh  links the repository folders into the folder layout the server scripts expect
 ├── Kravchenko_et_al_Supplementary_Materials.pdf   table and figure legends, Fig. S1-S12
 ├── ArChIPelago_code/       archipielago Python package, its tests and the CTCF demo notebook
 ├── ArChIPelago-TFBS-finder/  scanning tool (git submodule)
@@ -78,15 +77,15 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
 
 ## How the analysis runs
 
-1. **Data preparation** (`1_data_preparation/`, server): for every GTRD MACS peak set the top 1,000 peaks (tags >= 10,
+1. **Data preparation** (`1_data_preparation/`): for every GTRD MACS peak set the top 1,000 peaks (tags >= 10,
    ranked by -10log10 P), +-500 bp windows around the summits, removal of windows overlapping RepeatMasker repeats by more
    than 70 %, at most 10,000 positives per TF and set, 300 bp sequences around the summit. Negatives are peaks of TFs of
    other TFClass classes, without windows within 300 bp of the TF's own positives, GC-matched with BiasAway. Features are
    SPRY-SARUS best-hit log-odds scores of every PWM of the TF.
-2. **Training** (`2_training/`, server): `RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100)` and the
+2. **Training** (`2_training/`): `RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100)` and the
    other algorithms on the human and the mouse training sets; every matrix is standardised with the mean and standard
    deviation of the training matrix. Slim (m = 0, 1, -5) and diChIPMunk models for the comparison of Fig. 4.
-3. **Server analyses** (`3_analysis/server/`), then a mirror of their result tables to `results/server/`.
+3. **Compute-stage analyses** (`3_analysis/server/`); their result tables are in `results/server/`.
 4. **Local analysis and visualisation**: one command rebuilds every table, figure and number from `results/`:
 
    ```bash
@@ -95,7 +94,7 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
    python3 3_analysis/integration/run_h3.py all
    ```
 
-   It checks every input against the md5 manifest of the server mirror first and stops at the first failing command
+   It checks every input against the md5 manifest of `results/server/` first and stops at the first failing command
    (about 3 min on a laptop). Requirements: Python 3.9 or later with pandas 2.3, numpy 1.26, scipy 1.13, matplotlib 3.5,
    scikit-learn, openpyxl, pyyaml, pypdf; R 4.4 with dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis,
    tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext) and rsvg-convert. Stage `fig1` sets the
@@ -105,8 +104,7 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
 **Training and test chromosomes.** Human: training chr2-7, 9-20 and 22, test chr1, 8 and 21. Mouse: training chr2-7 and
 9-18, test chr1, 8 and 19. Each autosome is in exactly one set; the sex chromosomes are in neither.
 
-**Server scripts** (steps 1-3) ran on the servers of the authors and keep their paths (`~/archi_work/...`);
-`setup_server_layout.sh <repo> <base>` recreates that layout as symbolic links. Their software: Python 3.8.18,
+**Scripts of steps 1-3** read their data from the folders named in the environment variables `ARCHI_WORK` (working root), `ARCHI_RELEASE` (published `TF-ML` folder) and the input variables listed in `archi_env.py`; the README of each stage names the ones it needs. Their software: Python 3.8.18,
 scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, xgboost 1.7.3, pybedtools 0.9.1, bedtools 2.31.1, BiasAway 3.3.0,
 SPRY-SARUS 2.0.2 (`2_training/VERSIONS.txt`). External data not in this repository: reference genomes hg38 and mm10, GTRD
 MACS peak files, HOCOMOCO v11 PWMs (Zenodo archives `macs.tar.gz`, `hocomoco11.tar.gz`, `PWMs_*.tar.gz`) and the

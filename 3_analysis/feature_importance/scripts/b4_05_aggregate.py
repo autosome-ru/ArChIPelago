@@ -1,4 +1,4 @@
-"""Step 5 of the feature-importance analysis (local, miniconda python3): aggregate the per-TF server outputs into the result tables.
+"""Step 5 of the feature-importance analysis aggregate the per-TF outputs into the result tables.
 Input : {gini,perm,metrics,subtypes,usage,ablation}/<TF>_*.csv under the folder B4_IN (and <TF>_sim.npy under B4_SIM)
 Output: 3_analysis/feature_importance/tables/B4_*.csv
 TFs in p53drop.EXCLUDE_TFS are not read (35 TFs; ablation 11 TFs).

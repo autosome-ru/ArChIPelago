@@ -31,7 +31,7 @@ import numpy as np
 import pandas as pd
 from joblib import parallel_backend
 
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))  # loader of the data builds (HUMAN: human, MOUSE: mouse)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "..", "1_data_preparation"))  # loader of the data builds (HUMAN: human, MOUSE: mouse)
 TRAIN_SPECIES = "HUMAN"  # training species of this copy
 import archi_data_v5 as ad  # loader with negatives v3  # noqa: E402
 

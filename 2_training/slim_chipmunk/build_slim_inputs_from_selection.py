@@ -1,7 +1,7 @@
-"""build_slim_inputs_from_selection.py (server) - the Slim inputs of build_slim_inputs_v5.py rebuilt from a shipped selection, without the loader.
-Inputs (shipped from server, md5 checked): OUT_TAB = out_tab_HUMAN_10000_train.tab, SLIM =
+"""build_slim_inputs_from_selection.py - the Slim inputs of build_slim_inputs_v5.py rebuilt from a saved selection, without the loader.
+Inputs (packaged by 1_data_preparation/h5_data_server.sh, md5 checked): OUT_TAB = out_tab_HUMAN_10000_train.tab, SLIM =
 all_mfa_file_HUMAN_SLIM_10000_train_no_NF_no_N.fasta, SEL = <TF>/selection.npz (row positions into OUT_TAB and y, written by
-build_slim_inputs_v5.py --export on server). Same selection order, headers and 60-base lines as on server.
+build_slim_inputs_v5.py --export). Same selection order, headers and 60-base lines as build_slim_inputs_v5.py.
 usage: python build_slim_inputs_from_selection.py OUT_TAB SLIM SEL OUTDIR   (refuses to overwrite)"""
 import os, sys
 import numpy as np

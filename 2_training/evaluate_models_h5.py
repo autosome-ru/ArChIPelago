@@ -3,7 +3,7 @@ evaluate_models_h5.py - compute the rows of the evaluation table (schema of the 
 per-TF feature files, with aligned human/mouse feature columns and the single-best-PWM baseline selected on
 the human training set by PWM identity; mouse test set = chr1/8/19.
 
-For every TF (dirs in $ARCHI_RELEASE_DIR/outputdir), pwm_set in {mono, di, mono_di} and the 5 paper models,
+For every TF (dirs in $ARCHI_RELEASE/outputdir), pwm_set in {mono, di, mono_di} and the 5 paper models,
 fits on human train (random_state=0) and records auROC / auPRC(PRROC integral) on train_H, test_H, test_M.
 Baselines (best mono PWM, best di PWM; by train auROC and independently by train auPRC) once per TF.
 The training scaler is applied to the test sets (scale="train").
@@ -48,7 +48,7 @@ from sklearn.ensemble import RandomForestClassifier, BaggingClassifier
 from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
 
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))  # loader of the data builds (HUMAN: human, MOUSE: mouse)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "1_data_preparation"))  # loader of the data builds (HUMAN: human, MOUSE: mouse)
 import archi_data_v5 as ad  # loader with negatives v3
 
 PRC = "integral"     # auPRC estimator of the manuscript (PRROC pr.curve()$auc.integral)

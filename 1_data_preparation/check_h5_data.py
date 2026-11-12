@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import h5_splits as S
 
 out = sys.argv[1]
-H = os.path.expanduser("~"); R = f"{H}/archi_work"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE; R = AE.work()
 ROOT = {("H4", "HUMAN"): f"{R}/human_sym/TF-ML", ("H5", "HUMAN"): f"{R}/human_sym_h5/TF-ML",
         ("H4", "MOUSE"): f"{R}/mouse_sym/TF-ML", ("H5", "MOUSE"): f"{R}/mouse_sym_h5/TF-ML"}
 FILE = {("HUMAN", "train"): "train", ("HUMAN", "test"): "control", ("MOUSE", "train"): "control", ("MOUSE", "test"): "train"}

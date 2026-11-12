@@ -14,7 +14,7 @@ from b4_03_usage import pvals
 rows = []
 for tf in TFS:
     C = np.load(os.path.join(CACHE, "%s_test.npz" % tf), allow_pickle=True)
-    d = np.load(os.path.expanduser("~/archi_work/H5_alltrain/human_sym/scores/%s.npz" % tf), allow_pickle=True)  # same model -> identical auROC
+    d = np.load(AE.work("H5_alltrain", "human_sym", "scores", "%s.npz" % tf), allow_pickle=True)  # same model -> identical auROC
     a_model = roc_auc_score(C["y"], C["rf"])
     a0, a1 = roc_auc_score(d["y_test_H"], d["rf_H_s0"]), roc_auc_score(d["y_test_H"], d["rf_H_s1"])
     G = pd.read_csv(os.path.join(OUT, "gini", "%s_gini.csv" % tf))

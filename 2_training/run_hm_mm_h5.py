@@ -1,6 +1,6 @@
 """
 run_hm_mm_h5.py - human-trained (H->M) and mouse-trained (M->M) RF vs single-mono-PWM baselines
-for the TFs given by --tfs (35 in this study).  Writes ONLY into ~/archi_work/H5_alltrain/human_sym (models, scores, rows) and the results csv.
+for the TFs given by --tfs (35 in this study).  Writes ONLY into $ARCHI_WORK/H5_alltrain/human_sym (models, scores, rows) and the results csv.
 
 usage: python run_hm_mm_h5.py --tfs SRF ANDR ... --workers 4 --rf-jobs 4 --out-csv <path> --rows-dir <dir> --scores-dir <dir>
 Existing per-TF row json / npz are never overwritten: a TF whose row json exists is skipped.
@@ -13,7 +13,8 @@ import numpy as np
 import pandas as pd
 from joblib import parallel_backend
 
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))  # loader of the data builds (HUMAN: human, MOUSE: mouse)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "1_data_preparation"))  # loader of the data builds (HUMAN: human, MOUSE: mouse)
 import archi_data_v5 as ad  # loader with negatives v3
 
 PRC = "integral"          # published auPRC estimator (PRROC)
@@ -57,7 +58,7 @@ def raw_col(d, key, j):
     return (d["X_" + key][:, j] * sc.scale_[j] + sc.mean_[j]).astype(np.float32)
 
 
-MODELS_DIR = os.path.expanduser("~/archi_work/H5_alltrain/human_sym/models")  # human RF mono+di, seed 0
+MODELS_DIR = AE.work("H5_alltrain", "human_sym", "models")  # human RF mono+di, seed 0
 
 
 def fit_eval(d, tag, n_jobs, save_tf=None):

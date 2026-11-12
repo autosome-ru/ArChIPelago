@@ -6,8 +6,9 @@ test_neg_id_out_HUMAN_result_H_control_full}.csv. Writes human_sym_h5/TF-ML/coun
 usage: python counts_D_human_h5.py > counts_D.log"""
 import os
 import pandas as pd
-H = os.path.expanduser("~")
-NEW = f"{H}/archi_work/human_sym_h5/TF-ML"; OLD = f"{H}/Release/TF-ML"
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+NEW = AE.work("human_sym_h5", "TF-ML"); OLD = AE.release()
 out = f"{NEW}/counts_per_tf.csv"
 if os.path.exists(out): raise SystemExit("refusing to overwrite " + out)
 c = pd.read_csv(f"{NEW}/per_tf_positive_counts.csv")

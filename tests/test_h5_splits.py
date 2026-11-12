@@ -25,6 +25,8 @@ EXPECTED = {
 
 
 def _load(path, name):
+    for k in ("ARCHI_WORK", "ARCHI_RELEASE", "ARCHI_MACS", "ARCHI_GENOMES", "ARCHI_FAMILY"):   # the modules read their roots at import
+        os.environ.setdefault(k, "/nonexistent/" + k.lower())
     if "pybedtools" not in sys.modules:          # only the module-level lists are needed, not bedtools
         sys.modules["pybedtools"] = types.ModuleType("pybedtools")
     spec = importlib.util.spec_from_file_location(name, path)
@@ -69,7 +71,7 @@ def test_loader_test_chromosomes():
     ad = _load(os.path.join(CODE5, "archi_data_v5.py"), "ad_v5")
     for sp in ("HUMAN", "MOUSE"):
         assert sorted(ad.TEST_CHROMS[sp]) == sorted(S.LOGICAL[sp]["test"])
-    assert ad.HUMAN_REL.endswith("/archi_work/human_sym_h5/TF-ML") and ad.MOUSE_REL.endswith("/archi_work/mouse_sym_h5/TF-ML")
+    assert ad.HUMAN_REL.endswith("/human_sym_h5/TF-ML") and ad.MOUSE_REL.endswith("/mouse_sym_h5/TF-ML")
     assert ad._file_split("MOUSE", "train") == "control" and ad._file_split("HUMAN", "train") == "train"   # mouse swap kept
 
 

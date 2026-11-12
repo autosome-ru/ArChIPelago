@@ -4,12 +4,13 @@ Paths (all overridable by environment variables, which is how the mutation runs 
   T1_R2      repository root (local tables, NUMBERS file); default: the folder that holds tests/, if it has
              outputs/supplementary_tables/, otherwise unset (the tests that need it are skipped)
   T1_CODE_H  human_sym code (build_positives_sym.py, make_negatives_sym.py, archi_data.py, ...)
-             default: the server copy ~/archi_work/human_sym/code when the real data are present, else
+             default: $ARCHI_WORK/human_sym/code when the real data are present, else
              the earlier build code (not in this repository) under <T1_R2>/B14_human_sym/code
   T1_CODE_M  mouse_sym code (build_positives.py, make_negatives_v2.py, archi_data.py, ...), same rule with mouse_sym and
              the earlier build code (not in this repository) under <T1_R2>/B11_mouse_sym/code
   T1_MUTATE  name of an in-memory fault to inject into real data (comma separated; used only by the red runs of the real-data tests)
-Python 3.8 compatible (server rpy2_env).
+Python 3.8 compatible.
+  ARCHI_WORK the working root; the real-data tests run only when it is set and $ARCHI_WORK/human_sym/TF-ML exists.
 """
 import csv
 import os
@@ -20,9 +21,8 @@ import sys
 import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-_HOME = os.path.expanduser("~")
-SERVER_ROOT = os.path.join(_HOME, "archi_work")
-ON_SERVER = os.path.isdir(os.path.join(SERVER_ROOT, "human_sym", "TF-ML"))
+WORK_ROOT = os.environ.get("ARCHI_WORK")
+REAL_DATA = bool(WORK_ROOT) and os.path.isdir(os.path.join(WORK_ROOT, "human_sym", "TF-ML"))
 
 
 def _r2_default():
@@ -42,8 +42,8 @@ def h3in():
     return m
 
 
-if ON_SERVER:
-    _ch, _cm = os.path.join(SERVER_ROOT, "human_sym", "code"), os.path.join(SERVER_ROOT, "mouse_sym", "code")
+if REAL_DATA:
+    _ch, _cm = os.path.join(WORK_ROOT, "human_sym", "code"), os.path.join(WORK_ROOT, "mouse_sym", "code")
 else:
     _ch = os.path.join(R2, "B14_human_sym", "code") if R2 else None
     _cm = os.path.join(R2, "B11_mouse_sym", "code") if R2 else None
@@ -71,7 +71,7 @@ def mutate(name):
     return name in os.environ.get("T1_MUTATE", "").split(",")
 
 
-# ------------------------------------------------------------------ synthetic HOME for the server scripts
+# ------------------------------------------------------------------ synthetic input folders for the build scripts
 def make_genome(path, species, seed=7):
     rng = random.Random(seed)
     seqs = {}
@@ -102,7 +102,7 @@ FAMILY_ROWS = [  # Model, TF, TF family (TFClass code in braces; the code keeps 
 
 
 def make_home(tmp, species="HUMAN"):
-    """A fake $HOME with the paths that the server scripts hard-code: ~/macs/, ~/Genomic_data/, ~/TF-ML_last_v_22/."""
+    """A fake folder tree with the inputs of the build scripts (ARCHI_MACS, ARCHI_GENOMES, ARCHI_FAMILY, ARCHI_SEQTK; see env_for)."""
     home = os.path.join(str(tmp), "home")
     for d in ("macs", "Genomic_data", "TF-ML_last_v_22", "seqtk"):
         os.makedirs(os.path.join(home, d), exist_ok=True)
@@ -117,7 +117,8 @@ def make_home(tmp, species="HUMAN"):
 
 
 def env_for(home):
-    e = dict(os.environ, HOME=home, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1",
+    e = dict(os.environ, HOME=home, ARCHI_MACS=os.path.join(home, "macs"), ARCHI_GENOMES=os.path.join(home, "Genomic_data"),
+             ARCHI_FAMILY=os.path.join(home, "TF-ML_last_v_22"), ARCHI_SEQTK=os.path.join(home, "seqtk", "seqtk"), OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1",
              PYTHONDONTWRITEBYTECODE="1")
     return e
 

@@ -77,7 +77,7 @@ def main():
             datetime.datetime.now().isoformat(timespec="seconds"), git, MIN_OVERLAP))
         for p in (PCM, SRC):
             fh.write("  - {path: %s, md5: %s}\n" % (os.path.relpath(p, R2), md5(p)))
-        fh.write("source: server ~/hocomoco11/final_bundle/hocomoco11/full/HUMAN/mono/HOCOMOCOv11_full_pcms_HUMAN_mono.txt\n")
+        fh.write("source: HOCOMOCO v11 full HUMAN mono PCMs (HOCOMOCOv11_full_pcms_HUMAN_mono.txt)\n")
     print(out.drop(columns=["pwm_name"]).to_string())
 
 

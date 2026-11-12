@@ -1,10 +1,10 @@
 """Write the human training matrices (negatives v3, monoPWM features) for the runtime benchmark,
-in the same layout as ~/archi_release/TF-ML/outputdir/<TF>/result_H_train_full.csv read by rf_bench_h3a.py:
+in the same layout as $ARCHI_RELEASE/outputdir/<TF>/result_H_train_full.csv read by rf_bench_h3a.py:
 index, columns 0-3 = position / name / threshold (NaN, not used) / TF label, then k monoPWM best-hit scores, 'ind'.
 Usage: build_h3a_matrices.py <out_dir> TF [TF ...]"""
 import os, sys, json, hashlib
 import numpy as np, pandas as pd
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "..", "1_data_preparation"))
 import archi_data_v5 as ad
 assert ad.NEG_VERSION == "v3"
 out_dir = sys.argv[1]; os.makedirs(out_dir, exist_ok=True)

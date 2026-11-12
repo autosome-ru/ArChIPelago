@@ -3,14 +3,14 @@
 (2) identical windows (chrom, start, end) among the positives of a TF (train + test bed): count, and for each such
     window the number of distinct listed peak sets whose top 1,000 (tags >= 10) holds its summit (must be >= copies,
     i.e. the copies come from different sets);
-(3) the same duplicate count on the published human beds (~/archi_release/TF-ML/{train,test}) as a control that must be red.
+(3) the same duplicate count on the published human beds ($ARCHI_RELEASE/{train,test}) as a control that must be red.
 usage: python check_E.py ROOT_TFML PEAKS_CSV SPECIES OUTCSV   (refuses to overwrite)"""
 import os, sys
 from collections import Counter
 import numpy as np, pandas as pd
 root, peaks, sp, out = sys.argv[1:5]
 if os.path.exists(out): raise SystemExit("refusing to overwrite " + out)
-H = os.path.expanduser("~"); OLD = f"{H}/Release/TF-ML"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE; OLD = AE.release()
 pk = pd.read_csv(peaks); cnt = pd.read_csv(f"{root}/per_tf_positive_counts.csv").set_index("TF")
 
 
@@ -26,7 +26,7 @@ for tf in sorted(pk.TF.unique()):
     dup = {k: v for k, v in c.items() if v > 1}
     src = {}
     for pid in sorted(set(pk.peak_id[pk.TF == tf])):
-        d = pd.read_csv(f"{H}/macs/{pid}.interval", sep="\t").query("tags >= 10").sort_values(by=["-10*log10(pvalue)"], ascending=False).iloc[:1000]
+        d = pd.read_csv(AE.macs(f"{pid}.interval"), sep="\t").query("tags >= 10").sort_values(by=["-10*log10(pvalue)"], ascending=False).iloc[:1000]
         for k in set(zip("chr" + d["#CHROM"].astype(str), (d.START + d.summit - 500).clip(lower=0), d.START + d.summit + 500)):
             src.setdefault(k, set()).add(pid)
     bad = sum(1 for k, v in dup.items() if len(src.get(k, ())) < v)

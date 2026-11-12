@@ -14,10 +14,11 @@ from multiprocessing import Pool
 import numpy as np, pandas as pd, joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "1_data_preparation"))
 import archi_data_v5 as ad
 assert ad.NEG_VERSION == "v3"
-RB = os.path.expanduser("~/archi_work")
+RB = AE.work()
 RF_P = {"max_depth": 6, "max_samples": 0.8, "n_estimators": 100}
 ROWS = {"HUMAN": RB + "/H5_alltrain/human_sym/eval_models/rows_HM", "MOUSE": RB + "/H5_alltrain/mouse_sym/eval_models/rows_MM"}
 H5_MODEL = RB + "/H5_alltrain/human_sym/models/{tf}_HUMAN_RandomForestClassifier_mono_di_seed0_human_sym_negv3.sav"

@@ -1,7 +1,7 @@
 """
 counts_D_mouse_h5.py - per-TF counts table of the mouse data build, with the published mouse numbers beside it.
 Reads (all read-only): mouse_sym_h5/TF-ML/{per_tf_positive_counts.csv, out_tab_MOUSE_10000_{train,control}.tab,
-n_pwms_per_folder.tsv, outputdir/<TF>/*_neg_id_out_MOUSE_*_full.csv} and the same out_tab / neg-id files of ~/archi_release/TF-ML.
+n_pwms_per_folder.tsv, outputdir/<TF>/*_neg_id_out_MOUSE_*_full.csv} and the same out_tab / neg-id files of the published TF-ML folder ($ARCHI_RELEASE).
 Writes mouse_sym_h5/TF-ML/counts_per_tf.csv (refuses to overwrite).
 File naming: on disk, mouse files named "train" hold the test chromosomes 1, 8 and 19; files named "control" hold the
 training chromosomes (2-7, 9-18).
@@ -10,9 +10,10 @@ usage: python counts_D_mouse_h5.py > counts_D.log
 import os
 import pandas as pd
 
-H = os.path.expanduser("~")
-NEW = f"{H}/archi_work/mouse_sym_h5/TF-ML"
-OLD = f"{H}/Release/TF-ML"
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+NEW = AE.work("mouse_sym_h5", "TF-ML")
+OLD = AE.release()
 out = f"{NEW}/counts_per_tf.csv"
 if os.path.exists(out):
     raise SystemExit("refusing to overwrite " + out)

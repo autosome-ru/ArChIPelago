@@ -1,5 +1,5 @@
 """b3_topN_h5.py - top-N re-evaluation of RF (human-trained, seed 0) vs best monoPWM on the strongest test peaks.
-Runs on server: ~/miniconda3/envs/rpy2_env/bin/python b3_topN_h5.py OUTDIR
+Usage: python b3_topN_h5.py OUTDIR (environment variable ARCHI_WORK)
 Inputs (read-only): the score npz of run_hm_mm_h5.py, TF-ML/out_tab_{HUMAN_10000_control,MOUSE_10000_train}.tab
 (human test = file 'control', mouse test = file 'train'; names are inverted on disk, see archi_data_v5.py).
 Selection: top-N positives by MACS signal (header 'signal:' = -10log10 P of the source peak), ties broken by file order.
@@ -12,9 +12,10 @@ import numpy as np, pandas as pd
 from sklearn.metrics import roc_auc_score
 
 OUT = sys.argv[1]
-REL = os.path.expanduser("~/archi_work/human_sym_h5/TF-ML")  # human data build
-REL_M = os.path.expanduser("~/archi_work/mouse_sym_h5/TF-ML")  # mouse data build
-SC = os.path.expanduser("~/archi_work/H5_alltrain/human_sym/scores")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..")); import archi_env as AE
+REL = AE.work("human_sym_h5", "TF-ML")  # human data build
+REL_M = AE.work("mouse_sym_h5", "TF-ML")  # mouse data build
+SC = AE.work("H5_alltrain", "human_sym", "scores")
 NS = [500, 1000, 2000]
 NDRAW = 10
 SEED = 0

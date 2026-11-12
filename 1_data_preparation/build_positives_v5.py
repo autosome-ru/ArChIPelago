@@ -28,17 +28,17 @@ import pybedtools as pbt
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import h5_splits  # the one definition of the split
 
-H = os.path.expanduser("~")
-MACS = f"{H}/macs/"
-TEMPLATE = f"{H}/macs/PEAKS041820.interval"
-FAMILY = f"{H}/TF-ML_last_v_22/core_annotation_HUMAN_mono.csv"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+MACS = AE.macs() + "/"
+TEMPLATE = AE.macs("PEAKS041820.interval")
+FAMILY = AE.family("core_annotation_HUMAN_mono.csv")
 TOP, TAGS_MIN, WINDOW, CAP, SIZE_OF_SET = 1000, 10, 1000, 10000, 10000
 SPECIES = {
-    "MOUSE": dict(GENOME=f"{H}/Genomic_data/GRCm38.p6.genome.fa",                               # notebook cell 61
+    "MOUSE": dict(GENOME=AE.genomes("GRCm38.p6.genome.fa"),                               # notebook cell 61
                   TRAIN_CHR=h5_splits.on_disk("MOUSE")[0],  # on-disk "train" = mouse test set
                   TEST_CHR=h5_splits.on_disk("MOUSE")[1],  # on-disk "test" = mouse training set
                   FACTOR=False),
-    "HUMAN": dict(GENOME=f"{H}/Genomic_data/hg38_genome.fasta",                                 # notebook cell 34
+    "HUMAN": dict(GENOME=AE.genomes("hg38_genome.fasta"),                                 # notebook cell 34
                   TRAIN_CHR=h5_splits.on_disk("HUMAN")[0],  # chr2-7, 9-20, 22
                   TEST_CHR=h5_splits.on_disk("HUMAN")[1],  # chr1, 8, 21 (cell 28)
                   FACTOR=True),

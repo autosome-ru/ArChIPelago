@@ -1,14 +1,15 @@
 """Shared helpers for the feature-importance analysis (b4_01 to b4_07).
-Runs on server with ~/miniconda3/envs/rpy2_env/bin/python (py3.8, sklearn 1.3.0). Reads ~/archi_release only.
+Needs py3.8, sklearn 1.3.0 (2_training/VERSIONS.txt). Reads $ARCHI_RELEASE only.
 """
 import os, sys, re, hashlib, subprocess
 import numpy as np
 import pandas as pd
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))  # human data build
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "..")); import archi_env as AE
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "..", "1_data_preparation"))  # human data build
 import archi_data_v5 as ad  # loader with negatives v3
 
-OUT = os.path.expanduser("~/archi_work/H5_alltrain/human_sym/B4_importance")
-MODELS = os.path.expanduser("~/archi_work/H5_alltrain/human_sym/models")
+OUT = AE.work("H5_alltrain", "human_sym", "B4_importance")
+MODELS = AE.work("H5_alltrain", "human_sym", "models")
 CACHE = os.path.join(OUT, "cache")
 TFS = ["ANDR", "AP2A", "CEBPB", "COE1", "CTCF", "E2F4", "ERG", "ESR1", "FLI1", "GATA1", "GATA2", "GATA3", "GCR",
        "HNF4A", "IRF1", "IRF4", "JUND", "MAFK", "MAX", "MYC", "PPARG", "PRGR", "REST", "RUNX1", "RXRA",

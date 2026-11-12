@@ -22,17 +22,18 @@ from collections import defaultdict
 import numpy as np
 import pandas as pd
 
-H = os.path.expanduser("~")
-FAMILY = f"{H}/TF-ML_last_v_22/core_annotation_HUMAN_mono.csv"
-SEQTK = f"{H}/seqtk/seqtk"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+FAMILY = AE.family("core_annotation_HUMAN_mono.csv")
+SEQTK = AE.var("ARCHI_SEQTK", "seqtk executable")
 POS_CLASS, NEG_CLASS = 10000, 1000000
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--tfml", required=True); ap.add_argument("--outdir", required=True)
 ap.add_argument("--tf", required=True); ap.add_argument("--split", choices=["train", "control"], required=True)
-ap.add_argument("--biasaway", default=f"{H}/miniconda3/envs/rpy2_env/bin/biasaway")
+ap.add_argument("--biasaway", default=None, help="default: $ARCHI_BIASAWAY")
 ap.add_argument("--species", choices=["HUMAN", "MOUSE"], required=True)
 a = ap.parse_args()
+a.biasaway = a.biasaway or AE.var("ARCHI_BIASAWAY", "biasaway executable")
 SP = a.species
 mode, flag = ("train", f"result_{SP[0]}_train_full") if a.split == "train" else ("test", f"result_{SP[0]}_control_full")
 TF_name = a.tf + "_" + SP

@@ -14,7 +14,7 @@ usage (server): nice python b9_random_split_h5.py OUTDIR TF [TF ...]   env: N_JO
 """
 import os, sys, re, time
 import numpy as np, pandas as pd
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "1_data_preparation"))
 import archi_data_v5 as ad
 assert ad.NEG_VERSION == "v3"
 from sklearn.preprocessing import StandardScaler

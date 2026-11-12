@@ -1,7 +1,7 @@
 # 3_analysis
 
-Analysis code. The `server/` folder runs on the compute server and is described in its own README. Every other folder
-here runs locally: it reads the server results mirrored to `results/server/` and the data in `results/`, and writes the
+Analysis code. The `server/` folder holds the compute-heavy stages and is described in its own README. Every other folder
+here runs locally: it reads the results of the compute stages in `results/server/` and the data in `results/`, and writes the
 tables behind the figures, the supplementary tables and the numbers quoted in the text.
 
 ## Run
@@ -14,7 +14,7 @@ ARCHI_STAGE=H5 ARCHI_H5_SCORES=$PWD/results/server/human/scores \
 nice -n 15 python3 3_analysis/integration/run_h3.py all
 ```
 
-`run_h3.py` first checks every registered input (`preflight_inputs.py`: present, md5 equal to the server manifest
+`run_h3.py` first checks every registered input (`preflight_inputs.py`: present, md5 equal to the manifest
 `results/server/MIRROR_MANIFEST_md5.txt`, split labels of the GC table), unpacks the PWM archives of the Zenodo deposit
 v1.0.0 (`zenodo_v1.py`, md5 checked), and then runs the stages one process at a time. It stops at the first failing
 command and writes one log per command to `3_analysis/integration/logs/`. Single stages can be run by name, for example

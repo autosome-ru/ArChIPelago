@@ -5,7 +5,7 @@
   Selection = loader select_rows (group_selection_GC replica: positives capped at 10,000, rs 0; negatives = neg-id file).
   Biopython SeqIO fasta layout: 60 bases per line.
 --export also writes the selection (row positions into out_tab_HUMAN_10000_train.tab and y) as <OUTDIR>/selection.npz, so
-that server can rebuild the same FASTAs from the shipped pooled SLIM fasta (build_slim_inputs_from_selection.py).
+that the same FASTAs can be rebuilt from the pooled SLIM fasta without the loader (2_training/slim_chipmunk/build_slim_inputs_from_selection.py).
 usage: python build_slim_inputs_v5.py LOADER_DIR TF OUTDIR [--export]   (LOADER_DIR holds archi_data_v5.py; refuses to overwrite)"""
 import os, sys
 loader, tf, out = sys.argv[1:4]

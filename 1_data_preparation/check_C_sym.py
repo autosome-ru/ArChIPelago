@@ -10,7 +10,7 @@ usage: python check_C_sym.py --tfml DIR --peaks CSV --mask BED --tmp DIR --speci
 import os, sys, argparse, subprocess, tempfile
 import numpy as np, pandas as pd
 
-H = os.path.expanduser("~")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
 ap = argparse.ArgumentParser()
 ap.add_argument("--tfml", required=True); ap.add_argument("--peaks", required=True); ap.add_argument("--mask", required=True)
 ap.add_argument("--tfs", nargs="*"); ap.add_argument("--tmp", required=True)
@@ -22,7 +22,7 @@ tot = dict(n=0, not_top=0, rep=0)
 for tf in tfs:
     keys = set()
     for pid in sorted(set(pk.peak_id[pk.TF == tf])):
-        d = pd.read_csv(f"{H}/macs/{pid}.interval", sep="\t")
+        d = pd.read_csv(AE.macs(f"{pid}.interval"), sep="\t")
         d = d[d["tags"] >= 10]
         p = d["-10*log10(pvalue)"].values
         sp = np.sort(p)

@@ -14,7 +14,7 @@ import os, sys, glob, hashlib
 import pandas as pd
 
 stage, outdir = sys.argv[1:3]
-H = os.path.expanduser("~"); R = f"{H}/archi_work"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE; R = AE.work()
 ROOTS = {"HUMAN": (f"{R}/human_sym/TF-ML", f"{R}/human_sym_h5/TF-ML"), "MOUSE": (f"{R}/mouse_sym/TF-ML", f"{R}/mouse_sym_h5/TF-ML")}
 TEST = {"HUMAN": ("test", "control"), "MOUSE": ("train", "train")}  # (per-TF folder/bed split, pooled split) of the test set
 TRAIN = {"HUMAN": ("train", "train"), "MOUSE": ("test", "control")}

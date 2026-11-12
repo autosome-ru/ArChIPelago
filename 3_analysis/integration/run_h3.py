@@ -105,14 +105,14 @@ STAGES = {
                      (["Rscript", "Fig3_S3/Figure_3D_logos.R"], j("4_visualisation/figures")),
                      ([PY, "Fig3_S3/assemble_figure3.py"], j("4_visualisation/figures"))]),
     # step-0 gate of the low-FPR metrics on b2_v2 and the best-mono baseline. With ARCHI_STAGE=H4 (inputs not in the repo) the 35 score npz of the
-    # training-scaler run stay on the server (~/archi_work/human_sym/H4_trainscale/scores); copy them (md5-checked) and set
+    # training-scaler run are not in the repository ($ARCHI_WORK/human_sym/H4_trainscale/scores); set
     # ARCHI_H4_SCORES to that folder (ARCHI_H3A_SCORES is still read, for the old name).
     "gate": dict(backup=["3_analysis/low_fpr_metrics/B2_gate_h3_*.csv"],
-                 # ARCHI_STAGE=H5: ARCHI_H5_SCORES, a copy of server ~/archi_work/H5_alltrain/human_sym/scores (results/server/human/scores; no fallback to the previous run)
+                 # ARCHI_STAGE=H5: ARCHI_H5_SCORES, the folder $ARCHI_WORK/H5_alltrain/human_sym/scores (copy in results/server/human/scores; no fallback to the previous run)
                  cmds=[([PY, "../low_fpr_metrics/b2_gate_h3.py", "--scores", (os.environ.get("ARCHI_H4_SCORES") or os.environ.get("ARCHI_H3A_SCORES")
                          or "ARCHI_H4_SCORES-not-set") if H.STAGE == "H4" else (os.environ.get("ARCHI_H5_SCORES") or "ARCHI_H5_SCORES-not-set"),
-                         "--scores-origin", {"H4": "server:~/archi_work/human_sym/H4_trainscale/scores",
-                                             "H5": "server:~/archi_work/H5_alltrain/human_sym/scores"}[H.STAGE]], B13)]),
+                         "--scores-origin", {"H4": "$ARCHI_WORK/human_sym/H4_trainscale/scores",
+                                             "H5": "$ARCHI_WORK/H5_alltrain/human_sym/scores"}[H.STAGE]], B13)]),
     # random split (Fig. S12, Sup. Table 7 sheets); then rebuild Sup. Table 7 with the sup stage
     "b9": dict(backup=[], cmds=[([PY, "b9_figure_h3.py"], os.path.join(B13, "../random_split"))]),
     # PWM origin and the first-submission comparison tables (read Sup. Tables 1 and 2: run after "sup")

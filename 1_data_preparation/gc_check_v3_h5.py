@@ -12,9 +12,9 @@ import os, sys, argparse
 import numpy as np, pandas as pd
 from scipy.stats import ks_2samp
 
-H = os.path.expanduser("~")
-POOLS = {"human_sym_h5_v3": ("HUMAN", f"{H}/archi_work/human_sym_h5/TF-ML", "_v3"),  # v3 files only
-         "mouse_sym_h5_v3": ("MOUSE", f"{H}/archi_work/mouse_sym_h5/TF-ML", "_v3")}
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+POOLS = {"human_sym_h5_v3": ("HUMAN", AE.work("human_sym_h5", "TF-ML"), "_v3"),  # v3 files only
+         "mouse_sym_h5_v3": ("MOUSE", AE.work("mouse_sym_h5", "TF-ML"), "_v3")}
 CHROMS = {("HUMAN", "train"): "chr2-7,9-20,22", ("HUMAN", "control"): "chr1/8/21",  # split labels
           ("MOUSE", "train"): "chr1/8/19", ("MOUSE", "control"): "chr2-7,9-18"}
 POS_CLASS, NEG_CLASS = 10000, 1000000

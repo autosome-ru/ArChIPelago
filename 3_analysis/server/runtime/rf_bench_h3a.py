@@ -1,6 +1,6 @@
 """RF runtime/memory benchmark for ArChIPelago.
 Usage: rf_bench_h3a.py <TF> <step: load|train|predict> <n_jobs>
-Data: ~/archi_release/TF-ML/outputdir/<TF>/result_H_train_full.csv (the pipeline's human training
+Data: $ARCHI_RELEASE/outputdir/<TF>/result_H_train_full.csv (the pipeline's human training
 matrix; columns: index, 0-3 = id/name/threshold/TF, then k PWM best-hit scores, 'ind' = label).
 Model: StandardScaler + RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100),
 exactly as in the notebook (random_state=0 added for reproducibility).

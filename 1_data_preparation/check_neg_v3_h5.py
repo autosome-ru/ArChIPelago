@@ -6,11 +6,11 @@ Also aggregates neg_v3_stats_<split>.tsv. Writes <out>/neg_v3_checks.csv and neg
 usage: python check_neg_v3_h5.py OUTDIR"""
 import os, sys
 import numpy as np, pandas as pd
-H = os.path.expanduser("~"); R = f"{H}/archi_work"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE; R = AE.work()
 OUT = sys.argv[1]
 for f in ("neg_v3_checks.csv", "neg_v3_stats_all.csv"):
     if os.path.exists(f"{OUT}/{f}"): raise SystemExit("refusing to overwrite " + f)
-fam = pd.read_csv(f"{H}/TF-ML_last_v_22/core_annotation_HUMAN_mono.csv", sep="\t")
+fam = pd.read_csv(AE.family("core_annotation_HUMAN_mono.csv"), sep="\t")
 F = {i.split("_")[0]: float(j.split("{")[1][:3]) for i, j in zip(fam["Model"], fam["TF family"]) if type(j) == str}
 rows, st = [], []
 for SP, root in (("HUMAN", f"{R}/human_sym_h5/TF-ML"), ("MOUSE", f"{R}/mouse_sym_h5/TF-ML")):

@@ -66,9 +66,9 @@
     - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_RF_training_H3a.csv", md5: "aeb69265e63b5f231cee7a5ec02e96b2"}
     - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_RF_inference_H3a.csv", md5: "6b1b8ede077f7fbee08f68b8b15420dd"}
     - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_PWM_scanning_single_H3a_vs_round1.csv", md5: "189b5b0c173bbf634d7821740d5fa77e"}
-    - {file: "results/server/human/runtime/rf_timings.jsonl", md5: "8748de5bc4c3fc2d1e261d2f44cd6d9d"}
+    - {file: "results/server/human/runtime/rf_timings.jsonl", md5: "253b3b745ba6b7a1220332ed152edbc7"}
     - {file: "results/server/human/runtime/load_during_run.log", md5: "c56f1e00a55b4a772f24519772982a07"}
-    - {file: "results/server/human/runtime/machine.txt", md5: "e282d8f9aaa3591d05949fbfc44a60c0"}
+    - {file: "results/server/human/runtime/machine.txt", md5: "1b84d7ca3b09c69929f32e6502cfb75f"}
     - {file: "results/round1_package/Manuscript_analysis/Sup_Tables/Sup_Table_6_runtime_memory.xlsx", md5: "ff05637dbe509fd13e8d6c5e93954708"}
     - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
   outputs:

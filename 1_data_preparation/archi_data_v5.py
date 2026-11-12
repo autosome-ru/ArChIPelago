@@ -1,17 +1,17 @@
 """
 archi_data_v5.py - loader of the per-TF feature matrices for the RF models, human and mouse.
 
-Data roots: ~/archi_work/human_sym_h5/TF-ML and ~/archi_work/mouse_sym_h5/TF-ML. Every autosome is in the
+Data roots: $ARCHI_WORK/human_sym_h5/TF-ML and $ARCHI_WORK/mouse_sym_h5/TF-ML. Every autosome is in the
 training or the test set (human training chr2-7, 9-20, 22, test chr1, 8, 21; mouse training chr2-7, 9-18, test chr1, 8,
 19; lists in h5_splits.py). Negative ids come from the files <mode>_neg_id_out_<SEQ>_<flag>_v3.csv (NEG_VERSION = "v3";
 negatives overlapping the TF's own positive 300 bp windows were removed before GC matching). A negative id that is not
-in the split table raises an error. ~/archi_release/TF-ML is read only for the published PWM files and model artefacts
+in the split table raises an error. $ARCHI_RELEASE (the published TF-ML folder) is read only for the published PWM files and model artefacts
 (REL / OUT). Never writes there.
 Python 3.8 / sklearn 1.3.0 / pandas. Re-implements the matrix assembly of the release notebook
 (RELEASE_SLIM_MONO_0807024_..._sav_model_generation.ipynb, functions group_selection_GC / Scale_transform /
 model_building / rocauc_plotting) without the shell `paste` step.
 
-Data layout (per TF, e.g. ~/archi_release/TF-ML/outputdir/SRF/):
+Data layout (per TF, e.g. $ARCHI_RELEASE/outputdir/SRF/):
   <SEQ>_seq_<PWMSP>_pwm_<mono|di>/<k>_<TF>_<SP>~C[MD]~..._feature_compare_table_<train|control>_cut.tab
       one column: best-hit log-odds of PWM k for every sequence of the GLOBAL table
       out_tab_<SEQ>_10000_<train|control>.tab (same row order / row count).
@@ -37,6 +37,7 @@ Assembly (exactly as in the notebook):
   RF except through the unseeded RNG, which is not reproducible anyway).
 """
 import os
+import sys
 import glob
 import numpy as np
 import pandas as pd
@@ -44,13 +45,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score, precision_recall_curve, auc, average_precision_score
 
-REL = os.path.expanduser("~/archi_release/TF-ML")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+REL = AE.release()
 OUT = os.path.join(REL, "outputdir")
 # Both species are read from the symmetric data roots (out_tab, feature tables, negative ids). REL / OUT
 # remain only for the published model artefacts (finalized_model_*.sav, code_H_*.sh).
-MOUSE_REL = os.path.expanduser("~/archi_work/mouse_sym_h5/TF-ML")
+MOUSE_REL = AE.work("mouse_sym_h5", "TF-ML")
 MOUSE_OUT = os.path.join(MOUSE_REL, "outputdir")
-HUMAN_REL = os.path.expanduser("~/archi_work/human_sym_h5/TF-ML")
+HUMAN_REL = AE.work("human_sym_h5", "TF-ML")
 HUMAN_OUT = os.path.join(HUMAN_REL, "outputdir")
 SYM_REL = {"MOUSE": MOUSE_REL, "HUMAN": HUMAN_REL}
 SYM_OUT = {"MOUSE": MOUSE_OUT, "HUMAN": HUMAN_OUT}

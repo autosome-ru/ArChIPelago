@@ -2,19 +2,19 @@
 make_scan_jobs_sym.py - SARUS job list for the <SP>_seq_{HUMAN,MOUSE}_pwm_{mono,di} feature tables of one sequence
 species (--species HUMAN|MOUSE).
 The PWM lists, their k indices and the output file names are taken from the published feature folders
-~/archi_release/TF-ML/outputdir/<TF>/<folder>/ (k.pwm / k.dpwm copies and <k>_<name>_feature_compare_table_<split>_cut.tab),
+$ARCHI_RELEASE/outputdir/<TF>/<folder>/ (k.pwm / k.dpwm copies and <k>_<name>_feature_compare_table_<split>_cut.tab),
 so the feature indices stay equal to the human tables. Each k.pwm is checked to be byte-identical to the HOCOMOCO
-matrix it is named after (~/hocomoco11/models/pwm/{mono,di}/all/<TF_SP>/<name>.pwm|dpwm).
+matrix it is named after ($ARCHI_HOCOMOCO/models/pwm/{mono,di}/all/<TF_SP>/<name>.pwm|dpwm).
 Command = release notebooks (MONO/DI cells, sarus-2.0.2.jar), plus single-CPU JVM flags (same output), piped through
 the original awk truncation to two decimals.
 usage: python make_scan_jobs_sym.py --tfml TFMLDIR --tfs A B ... --species HUMAN|MOUSE > jobs.txt
 """
 import os, sys, glob, argparse, filecmp
 
-H = os.path.expanduser("~")
-ORIG = f"{H}/Release/TF-ML/outputdir"
-HOCO = {"mono": f"{H}/hocomoco11/models/pwm/mono/all", "di": f"{H}/hocomoco11/models/pwm/di/all"}
-JAR = f"{H}/sarus-2.0.2.jar"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..")); import archi_env as AE
+ORIG = AE.release("outputdir")
+HOCO = {"mono": AE.hocomoco("models/pwm/mono/all"), "di": AE.hocomoco("models/pwm/di/all")}
+JAR = AE.var("ARCHI_SARUS_JAR", "SARUS 2.0.2 jar")
 CLS = {"mono": "ru.autosome.SARUS", "di": "ru.autosome.di.SARUS"}
 EXT = {"mono": "pwm", "di": "dpwm"}
 

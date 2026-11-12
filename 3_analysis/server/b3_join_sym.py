@@ -12,14 +12,14 @@ ap = argparse.ArgumentParser()
 ap.add_argument("out"); ap.add_argument("--signal-offset", type=float, default=0.0); ap.add_argument("--suffix", default="_mouse")
 ap.add_argument("--species", choices=["H", "M"], required=True)
 a = ap.parse_args()
-H = os.path.expanduser("~")
-MACS = f"{H}/macs"
-MS = f"{H}/archi_work/mouse_sym"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..")); import archi_env as AE
+MACS = AE.macs()
+MS = AE.work("mouse_sym")
 SP = a.species
-ROOT = {"H": f"{H}/archi_work/human_sym", "M": MS}[SP]
+ROOT = {"H": AE.work("human_sym"), "M": MS}[SP]
 PEAKS = {"H": f"{ROOT}/inputs/human_sym_peak_ids.csv", "M": f"{MS}/inputs/mouse_sym_peak_ids.csv"}[SP]
 TABF = {"H": f"{ROOT}/TF-ML/out_tab_HUMAN_10000_control.tab", "M": f"{MS}/TF-ML/out_tab_MOUSE_10000_train.tab"}[SP]
-SCD = f"{H}/archi_work/human_sym/H3a/scores"
+SCD = AE.work("human_sym", "H3a", "scores")
 HALF, TOPK = 150, 1000
 outs = {k: f"{a.out}/b3_{k}{a.suffix}.csv" for k in ("peak_widths_per_dataset", "join_test_per_tf", "join_test_per_sequence")}
 for p in outs.values():

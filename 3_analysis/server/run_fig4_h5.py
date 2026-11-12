@@ -34,16 +34,17 @@ os.environ.setdefault("OMP_NUM_THREADS", "1")
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-sys.path.insert(0, os.path.expanduser("~/archi_work/human_sym_h5/code"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..")); import archi_env as AE
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "1_data_preparation"))
 import archi_data_v5 as ad
 assert ad.NEG_VERSION == "v3"
 
 PRC = "integral"
 N_GLOBAL = {("HUMAN", "train"): 179479, ("HUMAN", "control"): 51029, ("MOUSE", "control"): 41720}
-SWAP = os.path.expanduser("~/archi_work/mouse_swap")
-SCANS = os.path.expanduser("~/archi_work/H5_alltrain/human_sym/slim/scans")
-assert ad.MOUSE_REL == os.path.expanduser("~/archi_work/mouse_sym_h5/TF-ML"), ad.MOUSE_REL
-assert ad.HUMAN_REL == os.path.expanduser("~/archi_work/human_sym_h5/TF-ML"), ad.HUMAN_REL
+SWAP = AE.work("mouse_swap")
+SCANS = AE.work("H5_alltrain", "human_sym", "slim", "scans")
+assert ad.MOUSE_REL == AE.work("mouse_sym_h5", "TF-ML"), ad.MOUSE_REL
+assert ad.HUMAN_REL == AE.work("human_sym_h5", "TF-ML"), ad.HUMAN_REL
 SETS = {"train": ("HUMAN", "train", "HUMAN_10000_train"), "test_H": ("HUMAN", "control", "HUMAN_10000_control"),
         "test_M": ("MOUSE", "control", "MOUSE_10000_train")}
 MOUSE_SET = "MOUSE_10000_train"  # on-disk name of the chr1/8/19 mouse table / fasta

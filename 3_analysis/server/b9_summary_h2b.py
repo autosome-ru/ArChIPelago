@@ -1,5 +1,5 @@
 """b9_summary_h2b.py - b9_summary.csv from a b9_random_split_per_fit.csv: per TF and split, mean over seeds 0-2;
-gain = RF minus best monoPWM. No figure (rendered on the Mac with archi_style).
+gain = RF minus best monoPWM. No figure (rendered with archi_style).
 usage: python b9_summary_h2b.py PER_FIT_CSV OUT_CSV   (refuses to overwrite)"""
 import os, sys
 import pandas as pd
