@@ -35,7 +35,7 @@ def agg(name, files):
 
 ver = subprocess.run([sys.executable, "-c", "import sklearn, xgboost, numpy, pandas, scipy; print(sklearn.__version__, xgboost.__version__, numpy.__version__, pandas.__version__, scipy.__version__)"],
                      capture_output=True, text=True).stdout.strip()
-L = ["task: H5 all autosomes in training or test (the revision round 2, D16/D18; training scaler D10/D10a), written %s" % time.strftime("%Y-%m-%d %H:%M"),
+L = ["task: H5 all autosomes in training or test (revision round 2, D16/D18; training scaler D10/D10a), written %s" % time.strftime("%Y-%m-%d %H:%M"),
      "python: %s (sklearn xgboost numpy pandas scipy = %s); <= 32 threads (RF stage), <= 96 threads (Slim queue); nice 10" % (sys.version.split()[0], ver),
      "git_hash_repo: %s" % os.environ.get("ARCHI_GIT_HASH", "not given"),
      "chromosomes (logical sets; mouse on-disk file 'train' = test set, D11):"]

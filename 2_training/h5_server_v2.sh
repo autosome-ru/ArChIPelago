@@ -38,7 +38,7 @@ chainA() {
   $P $T3/b2_compute.py --scores scores --tables b2_v2/tables --out b2_v2 > logs/b2_v2_compute.log 2>&1 || die b2
   $P $T3/b3_topN_h5.py b3 > logs/b3_topN.log 2>&1 || die b3
   log downstream_done
-  B4=$T3/feature_importance; mkdir -p B4_importance/cache B4_importance/scripts && cd B4_importance/scripts || die mkdir_B4
+  B4=$T3/feature_importance; mkdir B4_importance/cache && mkdir -p B4_importance/scripts && cd B4_importance/scripts || die mkdir_B4
   OMP_NUM_THREADS=8 $P $B4/b4_01_importance.py --tfs $TFS --n-jobs 8 > ../../logs/b4_01.log 2>&1 || die b4_01
   $P $B4/b4_02_subtypes.py --tfs $TFS --workers 8 > ../../logs/b4_02.log 2>&1 || die b4_02
   OMP_NUM_THREADS=8 $P $B4/b4_03_usage.py --tfs $TFS --n-jobs 8 > ../../logs/b4_03.log 2>&1 || die b4_03

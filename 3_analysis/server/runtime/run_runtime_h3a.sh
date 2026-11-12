@@ -13,7 +13,7 @@ TF_FMT="%e %U %S %M"
 LOGGER=$!
 snap() { echo "--- $(date '+%F %T') $1"; uptime; ps -eo user,pid,pcpu,etime,comm --sort=-pcpu | head -12; }
 snap START > $H/machine_state.txt
-{ echo linux-server; lscpu | grep -E "Model name|Socket|Core|Thread|^CPU\(s\)"; free -g | head -2; uname -r; } > $H/machine.txt
+{ hostname; lscpu | grep -E "Model name|Socket|Core|Thread|^CPU\(s\)"; free -g | head -2; uname -r; } > $H/machine.txt
 
 # A. load / train / predict (rf_bench_h3a.py)
 export BENCH_R=$H BENCH_CSV="$H/data/{TF}_H3a_human_train_mono.csv"

@@ -18,7 +18,16 @@ Paths outside the repository come from environment variables, read in `../archi_
 Data preparation (`../1_data_preparation`) comes first.
 
 1. `bash 2_training/slim_chipmunk/h5_server_queue.sh` (working folder `$ARCHI_WORK/H5_alltrain`). It unpacks the Slim inputs that `../1_data_preparation/h5_data_server.sh` wrote to `$ARCHI_WORK/H5_alltrain/human_sym/slim` (`ship/`, `inputs_md5.txt`, `munk_src_md5.txt`), rebuilds the 35 Slim inputs with `build_slim_inputs_from_selection.py`, checks them against `inputs_md5.txt`, then runs one queue (`xargs -P24`, 4 threads per job, longest first, lists in `slim_chipmunk/slim_jobs_lpt.txt` and `slim_chipmunk/munk_jobs_lpt.txt`): `train_slim_h5.sh <TF> <0|1|5>` for 105 Slim models and `run_munk_h5.sh <TF>` for 35 diChIPMunk runs (`ruby run_dichiphorde8.rb`). End marker `SERVER_H5_QUEUE_DONE` in `logs/queue.log`.
-2. The Slim xml files and the diChIPMunk dpwm of each finished TF are copied to `H5_alltrain/human_sym/slim/models_server/<TF>/` with their md5 list, and `COPY_VERIFIED.txt` is written there once the md5 check passes (35 TFs).
+2. For each TF whose three Slim models (log line `exit code 0`) and diChIPMunk dpwm exist, the files the scans need are
+   copied to `H5_alltrain/human_sym/slim/models_server/<TF>/` without overwriting, checked by md5, and the md5 list is
+   written to `COPY_VERIFIED.txt`, which `h5_fig4_server_v2.sh` waits for (35 TFs):
+   ```bash
+   t=<TF>; cd $ARCHI_WORK/H5_alltrain/models
+   F="$t/${t}_SlimModel_"{0,1,5}"/Motif_1/SlimDimont_1.xml $t/${t}_SlimModel_"{0,1,5}"/protocol_slimdimont.txt"
+   F="$F $t/HUMAN_seq_HUMAN_pwm_mono/train_H_1_ChIPMunk_no_repeats_0."{dpwm,dpcm,dat}" $t/ChIPMunk.txt $t/train_pos_id_HUMAN_p.fasta"
+   D=$ARCHI_WORK/H5_alltrain/human_sym/slim/models_server; md5sum $F > /tmp/md5_$t.txt
+   mkdir -p $D && tar cf - $F | (cd $D && tar xkf -) && (cd $D && md5sum -c --quiet /tmp/md5_$t.txt) && cp -n /tmp/md5_$t.txt $D/$t/COPY_VERIFIED.txt
+   ```
 3. `bash 2_training/h5_server_v2.sh` (working folder `$ARCHI_WORK/H5_alltrain/human_sym`, about 3 h with 32 threads):
    - phase 1: both `run_saturation_h5.py` (in `../3_analysis/server`) and `run_hm_mm_h5.py --tfs $TFS --workers 4 --rf-jobs 4 --out-csv hm_mm_results.csv --rows-dir rows --scores-dir scores`;
    - phase 2 (the analyses of `../3_analysis/server`): `operational_metrics.py`, `b2_compute.py`, `b3_topN_h5.py`, the feature-importance scripts `b4_01`, `b4_02`, `b4_03`, `b4_04` (`--thr 80` and `--thr 90`) and `b4_07`, `N_JOBS=8 b9_random_split_h5.py b9 PRGR RXRA SPI1 ANDR REST`, `b9_summary_h2b.py`;
