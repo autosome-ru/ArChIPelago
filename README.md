@@ -7,27 +7,12 @@
 
 **Classic machine learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites**
 
-ArChIPelago combines multiple position weight matrices (PWMs) of one transcription factor (TF) into a joint model with
-classic machine learning, from logistic regression to ensembles of decision trees, to predict TF binding sites in genomic
-sequences.
-
-With 637 ChIP-Seq datasets (361 human, 276 mouse) for 35 orthologous human and mouse TFs and 1,447 monoPWMs and 754 diPWMs
-(human; mouse 1,178 and 617) curated for HOCOMOCO v11, ArChIPelago outperforms the best single PWM of every TF and scores
-higher than Slim and diChIPMunk models for most TFs. Models trained on human data transfer to the mouse orthologs.
-
-> Kravchenko P., Vorontsov I.E., Grosse I., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). *Classic machine
-> learning on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.*
-
-This repository holds the code that built the data, trained and evaluated the models and produced every table, figure and
-number of the manuscript, together with the inputs and outputs of the final run. The data and models are on Zenodo
-([10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303), all versions). The command-line tool
-[ArChIPelago-TFBS-finder](https://github.com/autosome-ru/ArChIPelago-TFBS-finder) (git submodule) scans a FASTA file
-with the trained models, human-trained or mouse-trained.
-
-Version 2.0.0 is the revised analysis. The first version (36 TFs, the notebooks and `Manuscript_analysis/`) is kept at
-tag [v1.0.0](https://github.com/autosome-ru/ArChIPelago/tree/v1.0.0).
-
----
+ArChIPelago combines the position weight matrices (PWMs) of one transcription factor (TF) into a joint model with classic
+machine learning (Random Forest, logistic regression, XGBoost, bagging) to predict TF binding sites in genomic sequences.
+This repository holds the code that built the training and test data of 35 human and mouse TFs, trained and evaluated the
+models and produced the tables, figures and numbers of the paper, together with the result tables of the final run. The
+command-line tool [ArChIPelago-TFBS-finder](https://github.com/autosome-ru/ArChIPelago-TFBS-finder) (git submodule
+`ArChIPelago-TFBS-finder/`) scans a FASTA file with the trained models.
 
 ## Results (Random Forest on monoPWMs and diPWMs, 35 TFs)
 
@@ -40,125 +25,102 @@ tag [v1.0.0](https://github.com/autosome-ru/ArChIPelago/tree/v1.0.0).
 | mouse, mouse-trained models, auROC | 0.873 | 0.897 | 35 of 35 |
 | mouse, mouse-trained models, auPRC | 0.248 | 0.356 | 35 of 35 |
 
-At 50 % recall on the human test set, ArChIPelago gives 30 % fewer false positives than the best single monoPWM (median
-over TFs; 33 of 35 TFs). The baseline is the best single monoPWM of each TF, selected on the human training set by the
-metric of the row. Human rows are random seed 0, mouse rows the mean of seeds 0 and 1 (Table 1). Every value is in `outputs/numbers/NUMBERS_R2_35TF.csv` with its source table.
+The baseline is the best single monoPWM of each TF, selected on the human training set by the metric of the row. Human
+rows are random seed 0, mouse rows the mean of seeds 0 and 1. Every value is in `outputs/numbers/NUMBERS_R2_35TF.csv`
+with its source table.
 
----
+Supported TFs (35): ANDR, AP2A, CEBPB, COE1, CTCF, E2F4, ERG, ESR1, FLI1, GATA1, GATA2, GATA3, GCR, HNF4A, IRF1, IRF4,
+JUND, MAFK, MAX, MYC, PPARG, PRGR, REST, RUNX1, RXRA, SOX2, SPI1, SRF, STA5A, STAT1, STAT3, TAL1, TF65, TFE2, USF2.
+
+Chromosomes: human training chr2-7, 9-20 and 22, test chr1, 8 and 21; mouse training chr2-7 and 9-18, test chr1, 8 and
+19 (`1_data_preparation/h5_splits.py`).
 
 ## Repository structure
 
 ```
 ArChIPelago/
-├── 1_data_preparation/     positives, GC-matched negatives, SPRY-SARUS feature tables, Slim inputs, data checks
-├── 2_training/             Random Forest, logistic regression, XGBoost and bagging models, evaluation tables,
-│                           Slim and diChIPMunk models, release models
+├── 1_data_preparation/        positives, GC-matched negatives, SARUS feature tables, Slim inputs, data checks, loader
+├── 2_training/                Random Forest and other models, Slim and diChIPMunk models, evaluation tables
 ├── 3_analysis/
-│   ├── server/             operational and low-FPR metrics, top peaks, random split, feature importance, saturation,
-│   │                       Fig. 4 refits, runtime benchmark
-│   ├── integration/        local driver run_h3.py and the producers of the integrated tables and numbers
-│   ├── package/            results table, saturation, cross-species tables, figure source data
+│   ├── server/                compute-heavy analyses (metrics, feature importance, saturation, Fig. 4 refits, runtime)
+│   ├── integration/           driver run_h3.py and the producers of the integrated tables and numbers
+│   ├── package/               results table, saturation, cross-species tables, figure source data
 │   ├── low_fpr_metrics/  top_peaks/  random_split/  feature_importance/  transfer_drivers/
-│   └── supplementary_tables/   Sup. Tables 1-10
-├── 4_visualisation/        producers of Fig. 1-4 and Fig. S1-S12
-├── results/                tracked inputs of the local stages (result tables of the compute stages, dataset lists, PWM archives)
-├── outputs/                figures/, supplementary_tables/, numbers/ of the final run
-├── tests/                  checks of the tables, figures and numbers (pytest)
-├── ArChIPelago-TFBS-finder/  scanning tool (git submodule)
-├── sarus/  seqtk/          SPRY-SARUS and seqtk (git submodules)
-└── Slim/                   not tracked: Slim jars, ytilib, JDK 8, unpacked from Zenodo v1.0.0 (see "Slim and round 1")
+│   └── supplementary_tables/  builders of Sup. Tables 1-10
+├── 4_visualisation/
+│   ├── main_figures/          Figure_2, Figure_3, Figure_4, each with its producer
+│   ├── supplementary_figures/ Figure_S1 to Figure_S12, each with its producer
+│   └── style/                 shared palette and figure writer
+├── results/                   tracked inputs of the local stages
+├── outputs/                   supplementary tables and numbers of the final run
+├── tests/                     pytest checks of the tables, figures and numbers
+├── archi_env.py  archi_env.sh environment variables for the data outside the repository
+├── ArChIPelago-TFBS-finder/   scanning tool (git submodule)
+└── sarus/  seqtk/             SPRY-SARUS and seqtk (git submodules)
 ```
 
-Each numbered folder, `results/`, `outputs/` and `tests/` has its own README with the run commands, inputs and outputs.
+Each folder has its own README. Figure 1 of the paper is drawn by hand and is not in the repository; the numbers it
+shows are in `3_analysis/integration/figure1_values.csv`.
 
----
+## How to rerun
 
-## How the analysis runs
+Steps 1-3 run on a compute server and need the inputs listed under "Inputs on Zenodo": `1_data_preparation/`, then
+`2_training/`, then `3_analysis/server/` (see their READMEs). Their result tables are tracked in `results/server/`.
 
-1. **Data preparation** (`1_data_preparation/`): for every GTRD MACS peak set the top 1,000 peaks (tags >= 10,
-   ranked by -10log10 P), +-500 bp windows around the summits, removal of windows overlapping RepeatMasker repeats by more
-   than 70 %, at most 10,000 positives per TF and set, 300 bp sequences around the summit. Negatives are peaks of TFs of
-   other TFClass classes, without windows within 300 bp of the TF's own positives, GC-matched with BiasAway. Features are
-   SPRY-SARUS best-hit log-odds scores of every PWM of the TF.
-2. **Training** (`2_training/`): `RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100)` and the
-   other algorithms on the human and the mouse training sets; every matrix is standardised with the mean and standard
-   deviation of the training matrix. Slim (m = 0, 1, -5) and diChIPMunk models for the comparison of Fig. 4.
-3. **Compute-stage analyses** (`3_analysis/server/`); their result tables are in `results/server/`.
-4. **Local analysis and visualisation**: one command rebuilds every table, figure and number from `results/`:
-
-   ```bash
-   OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
-   ARCHI_STAGE=H5 \
-   python3 3_analysis/integration/run_h3.py all
-   ```
-
-   It checks every input against the md5 manifest of `results/server/` first and stops at the first failing command
-   (about 3 min on a laptop). Requirements: Python 3.9 or later with pandas 2.3, numpy 1.26, scipy 1.13, matplotlib 3.5,
-   scikit-learn, rpy2 3.5, openpyxl, pyyaml, pypdf; R 4.4 with PRROC 1.4 (rpy2 must load the R that holds PRROC; set `R_HOME`), dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis,
-   tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext). Fig. 1 is drawn by hand by the authors and is not in the repository; the
-   numbers it shows are written by stage `fig1` to `3_analysis/integration/figure1_values.csv`. The optional stage `gate` (check of the low FPR metrics against the score files) is not part of `all`; it needs the score files of the Zenodo v2.0.0 deposit (see "Data on Zenodo").
-
-**Training and test chromosomes.** Human: training chr2-7, 9-20 and 22, test chr1, 8 and 21. Mouse: training chr2-7 and
-9-18, test chr1, 8 and 19. Each autosome is in exactly one set; the sex chromosomes are in neither.
-
-**Scripts of steps 1-3** read their data from the folders named in the environment variables `ARCHI_WORK` (working root), `ARCHI_RELEASE` (published `TF-ML` folder) and the input variables listed in `archi_env.py`; the README of each stage names the ones it needs. Their software: Python 3.8.18,
-scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, xgboost 1.7.3, pybedtools 0.9.1, bedtools 2.31.1, BiasAway 3.3.0,
-SPRY-SARUS 2.0.2, R with PRROC and rpy2 for auROC and auPRC (`2_training/VERSIONS.txt`; rpy2 must load the R that holds PRROC, set `R_HOME`). External data not in this repository: reference genomes hg38 and mm10, GTRD
-MACS peak files, HOCOMOCO v11 PWMs (Zenodo archives `macs.tar.gz`, `hocomoco11.tar.gz`, `PWMs_*.tar.gz`) and the
-RepeatMasker masks (`repeatmasker_hg38_mm10.tar.gz`).
-
----
-
-## Supported TFs (35)
-
-ANDR, AP2A, CEBPB, COE1, CTCF, E2F4, ERG, ESR1, FLI1, GATA1, GATA2, GATA3, GCR, HNF4A, IRF1, IRF4, JUND, MAFK, MAX, MYC,
-PPARG, PRGR, REST, RUNX1, RXRA, SOX2, SPI1, SRF, STA5A, STAT1, STAT3, TAL1, TF65, TFE2, USF2.
-
----
-
-## Data on Zenodo
-
-Record [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves to the latest version; the version of
-v1.0.0 is [10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475)). Version 2.0.0 holds the training and test
-sets (`train.tar.gz`, `test.tar.gz`), the PWMs (`PWMs_{mono,di}_{HUMAN,MOUSE}.tar.gz`), the global sequence tables and
-FASTA files, the negatives, the 210 Random Forest models (`Models.tar.gz`: 35 TFs, human-trained and mouse-trained, on
-monoPWMs, diPWMs or both, each with a `.json` of feature order and training mean and standard deviation), the Slim and
-diChIPMunk models, the RepeatMasker masks (with the download URLs and md5 of the UCSC tables they were built from), the
-metadata, and the test-set scores read by the optional `gate` check (`scores_H5_human.tar.gz`, see
-`3_analysis/README.md`). Its `README_v2.md` describes every archive. In the Zenodo
-files, `train` always marks the training chromosomes. The loader `1_data_preparation/archi_data_v5.py` reads the build
-folders, where the mouse files named `train` hold the test chromosomes; on the Zenodo files its `_file_split()` must
-return the split unchanged for MOUSE (see `1_data_preparation/README.md`).
-
----
-
-## Slim and round 1
-
-The Slim jars, the ytilib Ruby library of diChIPMunk and JDK 8 are not tracked in git. They are in the Zenodo record
-[10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475) (v1.0.0) as `Slim.tar.gz` (md5
-`ce12823de573676ea0cee7dce5cadb79`, 614 files). Unpack it in the repository root to recreate `Slim/`, which the scripts of
-`2_training/` and `3_analysis/server/` expect. The `archipielago` Python package of the first submission and its CTCF demo
-notebook are also in Zenodo v1.0.0 and are not part of this repository.
-
----
-
-## Tests
+The local chain rebuilds every table, figure and number from `results/` with one command, run from the repository root:
 
 ```bash
-ARCHI_STAGE=H5 pytest tests       # tables, figures and numbers of the manuscript
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
+ARCHI_STAGE=H5 \
+python3 3_analysis/integration/run_h3.py all
 ```
 
-The suite recomputes values of the supplementary tables, the figures and `outputs/numbers/NUMBERS_R2_35TF.csv`
-from their source tables, reruns the supplementary table builders in a temporary copy, and checks the md5 values recorded
-in the provenance files. GitHub Actions runs it on every push.
+It checks every input against `results/server/MIRROR_MANIFEST_md5.txt`, then runs the 11 stages of `all` in this order
+and stops at the first failing command (about 3 min on a laptop): `pkg`, `figs`, `b234`, `b5`, `b9`, `sup`, `s7`,
+`porig`, `v1`, `fig1`, `numbers`. Single stages run by name, for example
+`python3 3_analysis/integration/run_h3.py sup`. The optional stage `gate` is not part of `all`. What each stage runs is
+listed in `3_analysis/README.md`.
 
----
+## Requirements
 
-## License
+Local chain: Python 3.9 or later with pandas 2.3, numpy 1.26, scipy 1.13, matplotlib 3.5, scikit-learn, rpy2 3.5,
+openpyxl, pyyaml, pypdf; R 4.4 with PRROC 1.4, dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis, tidyr,
+ggbeeswarm, ggseqlogo and png; poppler (`pdftoppm`, `pdfimages`, `pdftotext`); the Arial font. auROC and auPRC come
+from PRROC through rpy2 (`1_data_preparation/prroc_metrics.py`). rpy2 must load the R that holds PRROC: set `R_HOME` to
+that R. Steps 1-3 use the versions in `2_training/VERSIONS.txt`.
 
-ArChIPelago is distributed under [WTFPL](http://www.wtfpl.net/). If you prefer a standard license, treat it as CC-BY.
+## Inputs on Zenodo
+
+- Record [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves to the latest version, v2.0.0):
+  training and test sets (`train.tar.gz`, `test.tar.gz`), PWMs (`PWMs_{mono,di}_{HUMAN,MOUSE}.tar.gz`), Random Forest
+  models (`Models.tar.gz`), Slim and diChIPMunk models (`Slim_diChIPMunk_models_v2.tar.gz`), RepeatMasker masks
+  (`repeatmasker_hg38_mm10.tar.gz`) and the test-set scores that the stage `gate` reads (`scores_H5_human.tar.gz`). Its
+  `README_v2.md` lists every archive. The MACS peak files (`macs.tar.gz`) and HOCOMOCO v11 PWMs (`hocomoco11.tar.gz`) are
+  Zenodo archives as well. In these files `train` always marks the training chromosomes; `1_data_preparation/README.md`
+  says how the loader reads them.
+- Record v1.0.0 [10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475): the four PWM archives (tracked in
+  `results/datasets/zenodo_v1.0.0/`, unpacked by the driver) and `Slim.tar.gz` (md5
+  `ce12823de573676ea0cee7dce5cadb79`). Steps 2 and 3 need the Slim jar, JDK 8 and `ytilib/` from it: unpack it in the
+  repository root, which creates `Slim/` (not tracked).
+
+The reference genomes (hg38, GRCm38.p6) come from the user's own copy, found through `ARCHI_GENOMES` (`archi_env.py`).
+
+## Tests and CI
+
+```bash
+ARCHI_STAGE=H5 python3 -m pytest -q tests
+```
+
+The 54 tests recompute values of the supplementary tables, figures and `outputs/numbers/NUMBERS_R2_35TF.csv` from their
+source tables, rerun the supplementary table builders in a temporary copy and check the md5 values in the provenance
+files (`tests/README.md`). GitHub Actions (`.github/workflows/tests.yml`) runs them on every push with Python 3.10, R 4.4
+and PRROC 1.4.
 
 ## Citation
 
 Kravchenko P., Vorontsov I.E., Grosse I., Makeev V.J., Kulakovskiy I.V., and Penzar D.D. (2026). Classic machine learning
 on top of multiple position weight matrices improves genomic prediction of transcription factor binding sites.
+
+## Licence
+
+ArChIPelago is distributed under [WTFPL](http://www.wtfpl.net/). If you prefer a standard licence, treat it as CC-BY.

@@ -1,30 +1,62 @@
 # 1_data_preparation
 
-Builds the training and test data of the RF models for human and mouse: positive windows, GC-matched negatives, SARUS feature tables, Slim inputs, and the data checks. CPU only.
+Builds the training and test data of the models for human and mouse: positive windows, GC-matched negatives, SARUS
+feature tables, Slim inputs, and the data checks. CPU only. Later stages import the loader `archi_data_v5.py` from this
+folder.
 
-## Run order
+## Files
 
-Paths outside the repository come from environment variables, read in `../archi_env.py` (Python) and `../archi_env.sh` (drivers); a variable that is needed and not set stops the script with a message. `ARCHI_WORK` is the working root that holds `human_sym_h5/` and `mouse_sym_h5/` (the data builds), `ARCHI_RELEASE` the published `TF-ML` folder, `ARCHI_PY` the Python interpreter of the drivers (default `python3`). The inputs listed under "Not in the repository" are found through `ARCHI_MACS` (peak files), `ARCHI_GENOMES` (genome fasta files), `ARCHI_FAMILY` (folder with `core_annotation_HUMAN_mono.csv`), `ARCHI_HOCOMOCO` (HOCOMOCO v11 models), `ARCHI_MASK_HUMAN` (`track_out_HUMAN.bed`), `ARCHI_SEQTK`, `ARCHI_BIASAWAY` and `ARCHI_SARUS_JAR` (`sarus-2.0.2.jar`). The driver sets `PY` and `DH=$ARCHI_WORK/human_sym_h5`; for the commands of step 2 set the same two variables in the shell.
+| file | role |
+|---|---|
+| `h5_data_server.sh` | driver of the whole build |
+| `build_positives_v5.py` | positive windows per TF and pooled |
+| `make_negatives_v3.py` | GC-matched negatives (BiasAway) |
+| `build_slim_inputs_v5.py` | Slim inputs of the 35 TFs |
+| `make_scan_jobs_sym.py` | SARUS scan jobs (feature tables) |
+| `check_h5_test_identity.py`, `check_h5_data.py`, `check_C_sym.py`, `check_E.py`, `check_neg_v3_h5.py`, `gc_check_v3_h5.py`, `counts_D_human_h5.py`, `counts_D_mouse_h5.py` | data checks and counts |
+| `h5_splits.py` | the chromosome split: human training chr2-7, 9-20, 22, test chr1, 8, 21; mouse training chr2-7, 9-18, test chr1, 8, 19 |
+| `archi_data_v5.py` | loader of the data builds |
+| `prroc_metrics.py` | auROC and auPRC by R PRROC through rpy2 |
 
-1. `bash 1_data_preparation/h5_data_server.sh` builds everything in one driver (new folders only, every producer refuses to overwrite, about 1.5 h):
-   `build_positives_v5.py` per TF and pooled (human, mouse) - `check_h5_test_identity.py positives` - `make_negatives_v3.py` (140 jobs, `xargs -P12`) - `check_h5_test_identity.py negatives` - `build_slim_inputs_v5.py` for 35 TFs and the tarballs of the Slim inputs (in the background) - `make_scan_jobs_sym.py` for human and mouse, then 15,984 SARUS jobs (`xargs -P24`) - `check_h5_test_identity.py sarus`. The driver stops on any difference in a test file and writes the end marker `H5_DATA_DONE` to `$DH/logs/data_driver.log`.
-2. Tables and checks, run by hand after the driver. The commands are reconstructed from the usage lines and log names; they were not recorded:
+## Environment
+
+Paths outside the repository come from environment variables, read in `../archi_env.py` (Python) and `../archi_env.sh`
+(drivers); a variable that is needed and not set stops the script with a message. `ARCHI_WORK` is the working root that
+receives `human_sym_h5/` and `mouse_sym_h5/`, `ARCHI_RELEASE` the pipeline output folder `TF-ML`, `ARCHI_PY` the Python
+interpreter of the drivers (default `python3`). The inputs are found through `ARCHI_MACS` (MACS peak files,
+`macs.tar.gz` on Zenodo), `ARCHI_GENOMES` (hg38 and GRCm38.p6 fasta), `ARCHI_FAMILY` (folder with
+`core_annotation_HUMAN_mono.csv`), `ARCHI_HOCOMOCO` (HOCOMOCO v11 models, `hocomoco11.tar.gz` on Zenodo),
+`ARCHI_MASK_HUMAN` (`track_out_HUMAN.bed`, from `repeatmasker_hg38_mm10.tar.gz` on Zenodo), `ARCHI_SEQTK` (seqtk,
+submodule `../seqtk`), `ARCHI_BIASAWAY` (biasaway executable) and `ARCHI_SARUS_JAR` (`sarus-2.0.2.jar`, submodule
+`../sarus`). The Zenodo records are listed in `../README.md`.
+
+## Run
+
+1. From the repository root, `bash 1_data_preparation/h5_data_server.sh` builds everything in one driver (about 1.5 h;
+   every producer refuses to overwrite): `build_positives_v5.py` (human, mouse), `check_h5_test_identity.py positives`,
+   `make_negatives_v3.py` (140 jobs, `xargs -P12`), `check_h5_test_identity.py negatives`, `build_slim_inputs_v5.py`
+   for 35 TFs, `make_scan_jobs_sym.py` for human and mouse, then 15,984 SARUS jobs (`xargs -P24`) and
+   `check_h5_test_identity.py sarus`. It stops on any difference in a test file and writes the end marker
+   `H5_DATA_DONE` to `$ARCHI_WORK/human_sym_h5/logs/data_driver.log`.
+2. Checks after the driver, run in `1_data_preparation/` with `PY=${ARCHI_PY:-python3}` and
+   `DH=$ARCHI_WORK/human_sym_h5`:
    - `$PY check_h5_data.py $DH/checks/data`
-   - `$PY check_C_sym.py --tfml TF-ML --peaks <sp>_sym_peak_ids.csv --mask <bed> --tmp <dir> --species HUMAN|MOUSE > logs/check_C.log`
-   - `$PY check_E.py TF-ML <peaks csv> HUMAN|MOUSE checks/check_E.csv`
-   - `$PY counts_D_human_h5.py > logs/counts_D_v2.log` and `$PY counts_D_mouse_h5.py > logs/counts_D.log`
+   - `$PY check_C_sym.py --tfml <TF-ML> --peaks <species>_sym_peak_ids.csv --mask <bed> --tmp <dir> --species HUMAN|MOUSE`
+   - `$PY check_E.py <TF-ML> <peaks csv> HUMAN|MOUSE <out csv>`
+   - `$PY counts_D_human_h5.py` and `$PY counts_D_mouse_h5.py`
    - `$PY check_neg_v3_h5.py $DH/checks_neg_v3`
    - `$PY gc_check_v3_h5.py --tfs <35 TFs> --out $DH/checks_neg_v3/gc_check_v3.csv`
 
-`archi_data_v5.py` is the loader that all later stages import (training and analysis scripts add this folder to `sys.path`). `h5_splits.py` defines the chromosome split once: human training chr2-7, 9-20, 22, test chr1, 8, 21; mouse training chr2-7, 9-18, test chr1, 8, 19. On disk, mouse files named `train` hold the test chromosomes 1, 8 and 19; the loader maps the logical split to those names.
+   The peak-id tables of the used peak sets are in `../results/datasets/peak_ids/`.
+
+## Loader and file names
+
+`archi_data_v5.py` reads the build folders, where the mouse files named `train` hold the test chromosomes 1, 8 and 19;
+its `_file_split()` maps the logical split to those names. In the Zenodo files `train` always marks the training
+chromosomes, so to read them `_file_split()` must return the split unchanged for MOUSE as well.
 
 ## Software
 
-Versions are listed in `../2_training/VERSIONS.txt`: Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1, pybedtools 0.9.1, bedtools 2.31.1, seqtk 1.3-r107-dirty, BiasAway 3.3.0, SARUS 2.0.2 (`sarus-2.0.2.jar`), conda environment `rpy2_env`. auROC and auPRC come from the R package PRROC through rpy2 (`prroc_metrics.py`; versions in `VERSIONS.txt`); rpy2 must load the R that holds PRROC (set `R_HOME`). The diChIPMunk scans of `../3_analysis/server/scan_tf_h5.sh` used SARUS 2.0.1.
-
-## Not in the repository
-
-- Peak sets (`$ARCHI_MACS`, `PEAKS041820.interval`), the peak-id tables `human_sym_peak_ids.csv` and `mouse_sym_peak_ids.csv`, the repeat masks (`track_out_HUMAN.bed`, `track_out_MOUSE_mm10.bed`), the genomes (hg38, GRCm38.p6, in `$ARCHI_GENOMES`) and `core_annotation_HUMAN_mono.csv`.
-- The published release folder `$ARCHI_RELEASE` (`TF-ML`: PWM files, feature folders, published tables) and the HOCOMOCO v11 models (`$ARCHI_HOCOMOCO`).
-- Tools: seqtk, BiasAway, bedtools, the SARUS jars, `chipmunk.jar` with `ytilib/` (see `../2_training/README.md`).
-- The Zenodo archive holds the resulting data; this folder only holds the code that built it.
+Versions in `../2_training/VERSIONS.txt`: Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1,
+pybedtools 0.9.1, bedtools 2.31.1, seqtk 1.3-r107-dirty, BiasAway 3.3.0, SARUS 2.0.2. `prroc_metrics.py` needs R with
+PRROC 1.4 and rpy2 3.5; rpy2 must load the R that holds PRROC (set `R_HOME`).

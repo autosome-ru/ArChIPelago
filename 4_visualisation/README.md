@@ -1,46 +1,39 @@
 # 4_visualisation
 
-Figure producers of the paper. They read the tables written by `3_analysis/` and are run by the same driver, in the stages
-`figs`, `s7` and `copy` (see `3_analysis/README.md`):
+Figure producers of the paper, each in the folder of its figure, next to its output. They read the tables written by
+`../3_analysis/` and are run by the driver `../3_analysis/integration/run_h3.py` (stages `figs`, `b234`, `b5`, `b9` and
+`s7`; see `../3_analysis/README.md`). Figure 1 is drawn by hand and is not in the repository; its numbers are in
+`../3_analysis/integration/figure1_values.csv`.
 
 ```
-ARCHI_STAGE=H5 python3 3_analysis/integration/run_h3.py figs s7 copy
+ARCHI_STAGE=H5 python3 3_analysis/integration/run_h3.py figs s7
 ```
 
-The R scripts run from `4_visualisation/figures/` with `ARCHI_PKG` pointing at the folder that holds `results_table.csv`
-(`3_analysis/integration/inputs` for the human panels, `3_analysis/package` for the others) and `ARCHI_DRAW` set to `H`
-(human) or `M` (mouse). Panels go to the script folder or to `figures/output/<figure>/`; `3_analysis/integration/copy_figures.py`
-copies every final figure to `outputs/figures/`, except Fig. 3, which `Fig3_S3/assemble_figure3.py` writes there directly.
+(run from the repository root). Each figure folder has a README with its producer, inputs and stage.
 
-## Producers
+## Folders
 
-| figure | producer | panel folder |
+| folder | figures | producer |
 |---|---|---|
-| Fig. 1 | drawn by hand by the authors, not in the repository; the numbers it shows are in `3_analysis/integration/figure1_values.csv` (written by `figure1_values.py`) | none |
-| Fig. 2 | `figures/Fig2_S1/Figure_2_and_S1_restyled.R` (human) | `figures/Fig2_S1/` |
-| Fig. S1 | `figures/Fig2_S1/Figure_2_and_S1_restyled.R` (mouse) | `figures/output/S1/` |
-| Fig. 3 | A-C `figures/Fig3_S3/Figure_3_and_S3_restyled.R` (human); D `figures/Fig3_S3/build_Figure_3D_source_data_h3.py` and `Figure_3D_logos.R`; composite `figures/Fig3_S3/assemble_figure3.py` | `figures/Fig3_S3/` |
-| Fig. S3 | `figures/Fig3_S3/Figure_3_and_S3_restyled.R` (mouse) | `figures/output/S3/` |
-| Fig. 4, Fig. S4 | `figures/Fig4_S4/Figure_4_and_S4_restyled.R` (also writes `Figure_4_stats.csv`, `Figure_S4_stats.csv`) | `figures/output/Fig4/` |
-| Fig. S2 | `figures/FigS2/Figure_S2_restyled.py` | `figures/output/S2/` |
-| Fig. S5 | `figures/FigS5/Figure_S5_restyled.R` | `figures/output/S5/` |
-| Fig. S6 | `figures/FigS6/Figure_S6_restyled.R` | `figures/output/S6/` |
-| Fig. S7 | `figures/FigS7/build_Figure_S7_source_data_h3.py`, `hocomoco11_check/subtype_vs_hocomoco11.py`, `subtype_vs_named_v11.py`, `figures/FigS7/Figure_S7_motif_subtypes.R` | `figures/FigS7/` |
-| Fig. S8 | `3_analysis/low_fpr_metrics/b2_figure_h3.py` | `3_analysis/low_fpr_metrics/` |
-| Fig. S9 | `3_analysis/top_peaks/b3_summary_figure_w2.py` | `3_analysis/top_peaks/` |
-| Fig. S10 | `3_analysis/feature_importance/scripts/b4_06_figure.py` | `3_analysis/feature_importance/` |
-| Fig. S11 | `3_analysis/transfer_drivers/B5_02_figure.py` | `3_analysis/transfer_drivers/` |
-| Fig. S12 | `3_analysis/random_split/b9_figure_h3.py` | `3_analysis/random_split/` |
+| `main_figures/Figure_2/` | Fig. 2, Fig. S1 | `Figure_2_and_S1.R` |
+| `main_figures/Figure_3/` | Fig. 3, Fig. S3 | `Figure_3_and_S3.R` (A-C), `build_Figure_3D_source_data_h3.py` and `Figure_3D_logos.R` (D), `assemble_figure3.py` (composite) |
+| `main_figures/Figure_4/` | Fig. 4, Fig. S4 | `Figure_4_and_S4.R` |
+| `supplementary_figures/Figure_S2/` | Fig. S2 | `Figure_S2.py` |
+| `supplementary_figures/Figure_S5/`, `supplementary_figures/Figure_S6/` | Fig. S5, S6 | `Figure_S5.R`, `Figure_S6.R` |
+| `supplementary_figures/Figure_S7/` | Fig. S7 | `build_Figure_S7_source_data_h3.py`, `Figure_S7.R`; HOCOMOCO v11 comparison in `hocomoco11_check/` |
+| `supplementary_figures/Figure_S8/` to `supplementary_figures/Figure_S12/` | Fig. S8-S12 | `Figure_S8.py` to `Figure_S12.py` |
+| `style/` | shared style | `archi_style.R`, `archi_style.py`, `check_palette.py` |
 
-`figures/FigS7/hocomoco11_check/cluster_vs_v11.py` compares the ablation subtypes with HOCOMOCO v11 (Sup. Table 9 sheets).
-The HOCOMOCO v11 HUMAN mono models and their annotation are in `results/datasets/hocomoco11/`.
+The joint scripts in `main_figures/` write Fig. S1, S3 and S4 into `supplementary_figures/Figure_S1/`, `Figure_S3/` and
+`Figure_S4/`. The R scripts of Fig. 2, 3 and 4 read the results table or the figure source data from the folder in
+`ARCHI_PKG` (`3_analysis/integration/inputs` for the human panels, `3_analysis/package` for the others); `ARCHI_DRAW=H`
+draws the human figure only, `ARCHI_DRAW=M` the mouse one.
 
 ## Style
 
-`figures/archi_style.R` and `figures/archi_style.py` hold the shared palette, fonts and the PDF + PNG writer: all text
-black, Arial, no transparency, PNG rendered from the PDF at 300 dpi with `pdftoppm`. `figures/check_palette.py` reports the
-colour distances of the palette under simulated colour vision deficiency
-(`cd 4_visualisation/figures && python3 check_palette.py`).
+`style/archi_style.R` and `style/archi_style.py` hold the shared palette, fonts and the PDF and PNG writer: all text
+black, Arial, no transparency, PNG rendered from the PDF at 300 dpi with `pdftoppm`. `style/check_palette.py` reports the
+colour distances of the palette under simulated colour vision deficiency (`cd 4_visualisation/style && python3 check_palette.py`).
 
 ## Software
 
