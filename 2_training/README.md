@@ -23,10 +23,11 @@ Data preparation (`../1_data_preparation`) comes first.
    written to `COPY_VERIFIED.txt`, which `h5_fig4_server_v2.sh` waits for (35 TFs):
    ```bash
    t=<TF>; cd $ARCHI_WORK/H5_alltrain/models
-   F="$t/${t}_SlimModel_"{0,1,5}"/Motif_1/SlimDimont_1.xml $t/${t}_SlimModel_"{0,1,5}"/protocol_slimdimont.txt"
-   F="$F $t/HUMAN_seq_HUMAN_pwm_mono/train_H_1_ChIPMunk_no_repeats_0."{dpwm,dpcm,dat}" $t/ChIPMunk.txt $t/train_pos_id_HUMAN_p.fasta"
-   D=$ARCHI_WORK/H5_alltrain/human_sym/slim/models_server; md5sum $F > /tmp/md5_$t.txt
-   mkdir -p $D && tar cf - $F | (cd $D && tar xkf -) && (cd $D && md5sum -c --quiet /tmp/md5_$t.txt) && cp -n /tmp/md5_$t.txt $D/$t/COPY_VERIFIED.txt
+   F="$t/ChIPMunk.txt $t/train_pos_id_HUMAN_p.fasta"
+   for o in 0 1 5; do F="$F $t/${t}_SlimModel_$o/Motif_1/SlimDimont_1.xml $t/${t}_SlimModel_$o/protocol_slimdimont.txt"; done
+   for e in dpwm dpcm dat; do F="$F $t/HUMAN_seq_HUMAN_pwm_mono/train_H_1_ChIPMunk_no_repeats_0.$e"; done
+   D=$ARCHI_WORK/H5_alltrain/human_sym/slim/models_server; L=$ARCHI_WORK/H5_alltrain/logs/md5_$t.txt
+   md5sum $F > $L && mkdir -p $D && tar cf - $F | (cd $D && tar xkf -) && (cd $D && md5sum -c --quiet $L) && cp -n $L $D/$t/COPY_VERIFIED.txt
    ```
 3. `bash 2_training/h5_server_v2.sh` (working folder `$ARCHI_WORK/H5_alltrain/human_sym`, about 3 h with 32 threads):
    - phase 1: both `run_saturation_h5.py` (in `../3_analysis/server`) and `run_hm_mm_h5.py --tfs $TFS --workers 4 --rf-jobs 4 --out-csv hm_mm_results.csv --rows-dir rows --scores-dir scores`;
