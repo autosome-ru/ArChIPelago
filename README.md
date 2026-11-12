@@ -124,7 +124,9 @@ v1.0.0 is [10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475)). V
 sets (`train.tar.gz`, `test.tar.gz`), the PWMs (`PWMs_{mono,di}_{HUMAN,MOUSE}.tar.gz`), the global sequence tables and
 FASTA files, the negatives, the 210 Random Forest models (`Models.tar.gz`: 35 TFs, human-trained and mouse-trained, on
 monoPWMs, diPWMs or both, each with a `.json` of feature order and training mean and standard deviation), the Slim and
-diChIPMunk models, the RepeatMasker masks and the metadata. Its `README_v2.md` describes every archive. In the Zenodo
+diChIPMunk models, the RepeatMasker masks (with the download URLs and md5 of the UCSC tables they were built from), the
+metadata, and the test-set scores read by the optional `gate` check (`scores_H5_human.tar.gz`, see
+`3_analysis/README.md`). Its `README_v2.md` describes every archive. In the Zenodo
 files, `train` always marks the training chromosomes. The loader `1_data_preparation/archi_data_v5.py` reads the build
 folders, where the mouse files named `train` hold the test chromosomes; on the Zenodo files its `_file_split()` must
 return the split unchanged for MOUSE (see `1_data_preparation/README.md`).
