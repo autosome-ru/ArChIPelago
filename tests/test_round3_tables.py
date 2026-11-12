@@ -20,9 +20,9 @@ def J(*p):
 
 
 def test_fig3c_thresholds_equal_b5():
-    r = open(J("4_visualisation/figures", "Fig3_S3", "Figure_3_and_S3_restyled.R")).read()
+    r = open(J("4_visualisation", "main_figures", "Figure_3", "Figure_3_and_S3.R")).read()
     b5 = open(J("3_analysis/transfer_drivers", "B5_01_drivers_and_ceiling.py")).read()
-    f11 = open(J("3_analysis/transfer_drivers", "B5_02_figure.py")).read()
+    f11 = open(J("4_visualisation", "supplementary_figures", "Figure_S11", "Figure_S11.py")).read()
     roc_r = float(re.search(r"^F3C_ROC_GAP <- ([0-9.]+)", r, re.M).group(1))
     prc_r = float(re.search(r"^F3C_PRC_GAP <- ([0-9.]+)", r, re.M).group(1))
     if T.mutate("f3c_thr"):

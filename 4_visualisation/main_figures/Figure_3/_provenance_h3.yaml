@@ -1,4 +1,4 @@
-- script: "4_visualisation/figures/Fig3_S3/build_Figure_3D_source_data_h3.py"
+- script: "4_visualisation/main_figures/Figure_3/build_Figure_3D_source_data_h3.py"
   run: "2026-11-11 14:20:32"
   git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
   git_changed_tracked_files: 46
@@ -15,8 +15,8 @@
     - {file: "results/server/human/B4_importance/gini/SRF_gini.csv", md5: "809d6a4fb80d49b7541d7aa96411c022"}
     - {file: "results/server/human/B4_importance/gini/ANDR_gini.csv", md5: "57c7a941d8132a8bd6973f17924d3c0e"}
   outputs:
-    - {file: "4_visualisation/figures/Fig3_S3/Figure_3D_source_data.csv", md5: "8de8134bb5b6cfbc0548b45d3293d44b"}
-- script: "4_visualisation/figures/Fig3_S3/build_Figure_3D_source_data_h3.py"
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3D_source_data.csv", md5: "8de8134bb5b6cfbc0548b45d3293d44b"}
+- script: "4_visualisation/main_figures/Figure_3/build_Figure_3D_source_data_h3.py"
   run: "2026-11-11 15:23:51"
   git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
   git_changed_tracked_files: 18
@@ -33,4 +33,19 @@
     - {file: "results/server/human/B4_importance/gini/SRF_gini.csv", md5: "809d6a4fb80d49b7541d7aa96411c022"}
     - {file: "results/server/human/B4_importance/gini/ANDR_gini.csv", md5: "57c7a941d8132a8bd6973f17924d3c0e"}
   outputs:
-    - {file: "4_visualisation/figures/Fig3_S3/Figure_3D_source_data.csv", md5: "8de8134bb5b6cfbc0548b45d3293d44b"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3D_source_data.csv", md5: "8de8134bb5b6cfbc0548b45d3293d44b"}
+- script: "4_visualisation/main_figures/Figure_3/assemble_figure3.py"
+  run: "2026-11-11 15:23:56"
+  git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
+  git_changed_tracked_files: 22
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC_restyled.pdf", md5: "ceb031e5b27a7154232919bc80089624"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3D_logos.pdf", md5: "e464dbf5ee3337ac8545035c35bd5028"}
+  outputs:
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3.pdf", md5: "32e6d941f7b7b2a72e9b24c9033ef6f7"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3.png", md5: "e87963880533550935ddc1dcf705f884"}

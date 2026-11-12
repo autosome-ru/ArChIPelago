@@ -3,7 +3,7 @@ For every Fig. S7 matrix, r (pcc_max of the S7 builder, overlap >= 5) to the bes
 reference TF (ETV2, ETV7, BATF, FLI1 by default; --tfs to change), with the model's quality letter from
 HOCOMOCOv11_full_annotation_HUMAN_mono.tsv, and the co-factor gap r_ref - r_own (r_own = r_best_own of subtype_vs_hocomoco11.csv).
 Output: subtype_vs_named_v11.csv (one row per Fig. S7 matrix), _provenance_named.yaml.
-usage: python3 4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_named_v11.py [--tfs ETV2,ETV7,BATF,FLI1]"""
+usage: python3 4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/subtype_vs_named_v11.py [--tfs ETV2,ETV7,BATF,FLI1]"""
 import argparse, os, datetime, subprocess
 import pandas as pd
 

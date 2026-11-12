@@ -308,8 +308,8 @@ DERIVED["Fig. 3C open diamond: RF (monoPWMs + diPWMs) below the best monoPWM on 
 DERIVED["ablation: seeds behind the 3 SD rule (random removals per TF; V1-25)"] = lambda: [
     pd.read_csv(J("3_analysis/feature_importance", "tables", "B4_ablation_all_fits.csv")).query("cond == 'drop_random'").groupby("TF").seed.nunique().min()]
 def _s7_counts():   # Fig. S7 legend counts recomputed from the source data and the verdicts
-    s = pd.read_csv(J("4_visualisation/figures", "FigS7", "Figure_S7_source_data.csv"))
-    v = pd.read_csv(J("4_visualisation/figures", "FigS7", "subtype_verdicts_v11_h3.csv"))
+    s = pd.read_csv(J("4_visualisation", "supplementary_figures", "Figure_S7", "Figure_S7_source_data.csv"))
+    v = pd.read_csv(J("4_visualisation", "supplementary_figures", "Figure_S7", "subtype_verdicts_v11_h3.csv"))
     d = s[s.TF.isin(v.TF[v.drawn])]
     return [int((s[s.TF == s.TF.iloc[0]].pwm_class == "mono").sum()), int((s[s.TF == s.TF.iloc[0]].pwm_class == "di").sum()),
             s.TF.nunique(), int(v.drawn.sum()), len(d), int(d.cofactor.sum())]
@@ -361,8 +361,8 @@ def _b9wins():
 
 
 def _f3d(tf):
-    s = pd.read_csv(J("4_visualisation/figures", "Fig3_S3", "Figure_3D_source_data.csv"))
-    v = pd.read_csv(J("4_visualisation/figures", "FigS7", "hocomoco11_check", "subtype_vs_hocomoco11.csv")).set_index(["TF", "pwm_name"])
+    s = pd.read_csv(J("4_visualisation", "main_figures", "Figure_3", "Figure_3D_source_data.csv"))
+    v = pd.read_csv(J("4_visualisation", "supplementary_figures", "Figure_S7", "hocomoco11_check", "subtype_vs_hocomoco11.csv")).set_index(["TF", "pwm_name"])
     out, names = [], []
     for _, r in s[s.TF == tf].sort_values("panel").iterrows():
         x = v.loc[(tf, r.pwm_name)]

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Motif-subtype supplementary figure (Fig. S7): source data, as released with the first submission.
 The final run imports only the helper functions and constants of this module
-(4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py).
+(4_visualisation/supplementary_figures/Figure_S7/build_Figure_S7_source_data_h3.py).
 
 1. Ranks the 36 TFs of the first submission by the gain of the mono+di ArChIPelago RF over the best monoPWM on the human
    test set (Figure_3_source_data.csv, rows PWM_set == "mono+di", test_set == "human"); candidates =

@@ -173,7 +173,7 @@ OUT3 = os.path.join(OUT, "Sup_Table_3_ArChIPelago_performance.xlsx")
 # paired counts RF on all PWMs vs Slim / diChIPMunk (3_analysis/integration/fig4_paired_h4.py)
 SD = os.path.join(R2, "3_analysis", "package", "Figures", "source_data")
 IN3X = {"Fig4_human_test": os.path.join(SD, "Figure_4_source_data.csv"), "FigS4_mouse_test": os.path.join(SD, "Figure_S4_source_data.csv"),
-        "Fig4_S4_paired_counts": os.path.join(R2, "4_visualisation/figures/output", "Fig4", "Figure_4_S4_paired_RF_vs_Slim.csv"),
+        "Fig4_S4_paired_counts": os.path.join(R2, "4_visualisation", "main_figures", "Figure_4", "Figure_4_S4_paired_RF_vs_Slim.csv"),
         "FigS5_per_TF": os.path.join(SD, "Figure_S5_source_data.csv"), "FigS5_median_curves": os.path.join(SD, "Figure_S5_median_curves.csv")}
 t3x = {sh: pd.read_csv(f) for sh, f in IN3X.items()}
 for sh in ("Fig4_human_test", "FigS4_mouse_test", "FigS5_per_TF"):

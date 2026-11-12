@@ -2,20 +2,22 @@
 Inputs:
   h3_inputs b9_dir/b9_random_split_per_fit.csv  -> byte copy here (md5 checked)
   h3_inputs b9_dir/b9_summary.csv               -> the summary recomputed here must equal it (max |diff| <= 1e-12)
-Outputs (3_analysis/random_split/): b9_random_split_per_fit.csv, b9_summary.csv, B9_random_split_figure.pdf/png, _provenance_h3.yaml.
-usage: python3 3_analysis/random_split/b9_figure_h3.py
+Outputs (3_analysis/random_split/): b9_random_split_per_fit.csv, b9_summary.csv, _provenance_h3.yaml; the figure Figure_S12.pdf/png
+goes to this folder.
+usage: python3 4_visualisation/supplementary_figures/Figure_S12/Figure_S12.py
 """
 import pandas as pd, numpy as np, matplotlib, shutil
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import os, sys
-HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE)
-R2 = os.path.dirname(os.path.dirname(HERE))
-sys.path.insert(0, os.path.join(R2, "4_visualisation/figures")); import archi_style as AS
+FIG = os.path.dirname(os.path.abspath(__file__)); R2 = os.path.dirname(os.path.dirname(os.path.dirname(FIG)))
+HERE = os.path.join(R2, "3_analysis", "random_split"); os.chdir(HERE)   # tables and provenance in the analysis folder
+sys.path.insert(0, os.path.join(R2, "4_visualisation", "style")); import archi_style as AS
 sys.path.insert(0, os.path.join(R2, "3_analysis/integration")); import p53drop as PD
 sys.path.insert(0, os.path.join(R2, "3_analysis", "integration")); import w2; import h3_inputs as H
 SRC = H.IN["b9_dir"]   # B9 rerun with the training scaler
 B9_TFS = ["PRGR", "RXRA", "SPI1", "ANDR", "REST"]
-for _f in ("b9_random_split_per_fit.csv", "b9_summary.csv", "B9_random_split_figure.pdf", "B9_random_split_figure.png"):
+FIGOUT = [os.path.join(FIG, "Figure_S12" + e) for e in (".pdf", ".png")]
+for _f in ["b9_random_split_per_fit.csv", "b9_summary.csv"] + FIGOUT:
     if os.path.exists(_f):
         w2.backup(_f)
 shutil.copy2(os.path.join(SRC, "b9_random_split_per_fit.csv"), "b9_random_split_per_fit.csv")
@@ -58,8 +60,8 @@ ax[2].bar(x, 100 * v.frac_test_pos_exact, color="#00503B", edgecolor="black", lw
 ax[2].set_xticks(x); ax[2].set_xticklabels(order, rotation=45, ha="right")
 ax[2].set_ylabel("Test positives with a training\npositive at the locus (%)"); ax[2].set_ylim(0, 125); ax[2].set_yticks([0, 20, 40, 60, 80, 100]); ax[2].legend(frameon=False, loc="upper left", ncol=2, handletextpad=0.3, columnspacing=1.0)
 ax[2].text(-0.26, 1.12, "C", transform=ax[2].transAxes, fontweight="bold", fontsize=10, va="bottom"); ax[2].set_title("Human test set", loc="left", pad=6); ax[2].spines[["top", "right"]].set_visible(False)
-fig.tight_layout(w_pad=1.6); AS.save_both(fig, "B9_random_split_figure")
-w2.provenance(HERE, "3_analysis/random_split/b9_figure_h3.py",
-    [os.path.abspath(f) for f in ("b9_random_split_per_fit.csv", "b9_summary.csv", "B9_random_split_figure.pdf", "B9_random_split_figure.png")],
+fig.tight_layout(w_pad=1.6); AS.save_both(fig, os.path.join(FIG, "Figure_S12"))
+w2.provenance(HERE, "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.py",
+    [os.path.abspath(f) for f in ["b9_random_split_per_fit.csv", "b9_summary.csv"] + FIGOUT],
     [os.path.join(SRC, "b9_random_split_per_fit.csv"), os.path.join(SRC, "b9_summary.csv")], note="Fig. S12 (H3b, v3 negatives); TFs %s" % ", ".join(_exp))
 print(m.round(4).to_string())

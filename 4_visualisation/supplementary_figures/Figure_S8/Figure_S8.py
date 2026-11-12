@@ -1,6 +1,7 @@
 """B2 figure: low-FPR performance, ArChIPelago (RF) vs best monoPWM. Main set: human-trained RF (seed 0) on human test chr1/8/21.
-Reads the final-run tables of this folder (corrected partial AUC; summaries by b2_summary_w2.py) and writes the figure here.
-usage: python3 3_analysis/low_fpr_metrics/b2_figure_h3.py"""
+Reads the final-run tables of 3_analysis/low_fpr_metrics (corrected partial AUC; summaries by b2_summary_w2.py) and writes the
+figure here (Figure_S8.pdf/png); its provenance block goes to 3_analysis/low_fpr_metrics/_provenance_p53drop.yaml.
+usage: python3 4_visualisation/supplementary_figures/Figure_S8/Figure_S8.py"""
 import os, sys
 import numpy as np, pandas as pd
 import matplotlib
@@ -8,9 +9,11 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib.lines import Line2D
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, "../../4_visualisation/figures")
-sys.path.insert(0, "../integration/")
+FIG = os.path.dirname(os.path.abspath(__file__))
+R2 = os.path.dirname(os.path.dirname(os.path.dirname(FIG)))
+os.chdir(os.path.join(R2, "3_analysis", "low_fpr_metrics"))   # the tables are read from the analysis folder
+sys.path.insert(0, os.path.join(R2, "4_visualisation", "style"))
+sys.path.insert(0, os.path.join(R2, "3_analysis", "integration"))
 import archi_style as AS
 import p53drop as PD
 AS.apply_rc()
@@ -20,7 +23,8 @@ PFONT = "Arial Unicode MS"   # Arial lacks the Unicode superscripts used in P va
 GREEN, RED, GREY = AS.PALETTE["RF"], AS.PALETTE["monoPWM"], "#999999"
 RFN = "ArChIPelago (RF)"
 w = pd.read_csv("B2_metrics_wide.csv"); s = pd.read_csv("B2_summary.csv"); pc = pd.read_csv("B2_per_chromosome.csv")
-for f in ("B2_low_FPR_metrics.pdf", "B2_low_FPR_metrics.png"):
+OUT = [os.path.join(FIG, "Figure_S8" + e) for e in (".pdf", ".png")]
+for f in OUT:
     PD.backup(f)
 H = w[(w.scenario == "HH") & ~w.TF.isin(PD.EXCLUDE_TFS)]
 pc = pc[~pc.TF.isin(PD.EXCLUDE_TFS)]
@@ -92,6 +96,6 @@ a.legend(handles=[Patch(facecolor=GREEN, edgecolor=GREEN, label="auROC (filled)"
          frameon=False, loc="lower left", handlelength=1.2)   # lower left: the lowest points are on chr21 (right)
 fig.text(0.5, 0.995, "Human test set (human-trained model)", ha="center", va="top", fontsize=8)
 fig.tight_layout(rect=(0, 0, 1, 0.97), h_pad=2.2, w_pad=2.0)
-AS.save_both(fig, "B2_low_FPR_metrics")
-PD.write_provenance(os.path.abspath("."), "3_analysis/low_fpr_metrics/b2_figure_h3.py (copy of B2_metrics/b2_figure.py)", [os.path.abspath("B2_low_FPR_metrics.pdf"), os.path.abspath("B2_low_FPR_metrics.png")],
+AS.save_both(fig, os.path.join(FIG, "Figure_S8"))
+PD.write_provenance(os.path.abspath("."), "4_visualisation/supplementary_figures/Figure_S8/Figure_S8.py (copy of B2_metrics/b2_figure.py)", OUT,
     [os.path.abspath(f) for f in ("B2_metrics_wide.csv", "B2_summary.csv", "B2_per_chromosome.csv")], note="Fig. S8, HH only, 35 TFs")

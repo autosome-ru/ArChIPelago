@@ -5,11 +5,11 @@ Old values are read from the frozen copies under results/previous_values/<git re
 the released package results/round1_package/Manuscript_analysis or from the first-submission Sup. Tables
 (results/round1_package/Resubmission), never from live tables. New values come from the final outputs:
   results table   3_analysis/integration/inputs/results_table.csv (= 3_analysis/package/results_table.csv; *_PWM = best monoPWM)
-  Fig. 2          4_visualisation/figures/Fig2_S1/Figure_2_plotdata.csv   operational   outputs/supplementary_tables/Sup_Table_4 per_TF
+  Fig. 2          4_visualisation/main_figures/Figure_2/Figure_2_plotdata.csv   operational   outputs/supplementary_tables/Sup_Table_4 per_TF
   low-FPR metrics 3_analysis/low_fpr_metrics                              top peaks     3_analysis/top_peaks
   importance      3_analysis/feature_importance/tables                    drivers       3_analysis/transfer_drivers
   Fig. S5         3_analysis/package/Figures/source_data                  Sup. Table 2  outputs/supplementary_tables
-  Fig. 4          4_visualisation/figures/output/Fig4/Figure_4_stats.csv; random split (Fig. S12) from 3_analysis/random_split
+  Fig. 4          4_visualisation/main_figures/Figure_4/Figure_4_stats.csv; random split (Fig. S12) from 3_analysis/random_split
 Each old value that the manuscript quotes is asserted against the quoted text value (the old computation must reproduce
 the first submission). Only rows whose value changes are written (unchanged checks are printed).
 usage: python3 3_analysis/integration/make_numbers.py
@@ -95,8 +95,8 @@ for met, b, qb, qr, qg in (("roc_auc_test_H", "roc_auc_test_H_PWM", "0.861", "0.
     add("Human Wilcoxon signed-rank P (two-sided), %s gain" % nm, wilcoxon(o[met] - o[b]).pvalue, wilcoxon(n[met] - n[b]).pvalue, src, inv)
 
 # ---------------------------------------------------------------- Fig. 2 boxes
-src = src2("4_visualisation/figures/Fig2_S1/Figure_2_plotdata.csv", "B6_figures/Fig2_S1/Figure_2_plotdata.csv")
-f2o, f2n = old("B6_figures/Fig2_S1/Figure_2_plotdata.csv"), pd.read_csv(p("4_visualisation/figures/Fig2_S1/Figure_2_plotdata.csv"))
+src = src2("4_visualisation/main_figures/Figure_2/Figure_2_plotdata.csv", "B6_figures/Fig2_S1/Figure_2_plotdata.csv")
+f2o, f2n = old("B6_figures/Fig2_S1/Figure_2_plotdata.csv"), pd.read_csv(p("4_visualisation/main_figures/Figure_2/Figure_2_plotdata.csv"))
 for (mdl, pw), g in f2o.groupby(["Model", "PWM"], sort=False):
     h = f2n[(f2n.Model == mdl) & (f2n.PWM == pw)]
     for m in ("auROC", "auPRC"):
@@ -282,7 +282,7 @@ fo = old("B6_figures/Fig4_S4/Figure_4_stats.csv")
 s4o = pd.read_csv(os.path.join(PKG, "Figures/source_data/Figure_4_source_data.csv"))
 # new values from the Fig. 4 stats table that the figure producer writes from the Fig. 4 source data (via the package copy);
 # medians, TFs above 0 and the one-sided P equal Figure_4_and_S4_numbers.csv of the server run
-F4N = "4_visualisation/figures/output/Fig4/Figure_4_stats.csv"
+F4N = "4_visualisation/main_figures/Figure_4/Figure_4_stats.csv"
 fn = pd.read_csv(p(F4N)).set_index(["metric", "model"])
 if set(fn.index) != set(zip(fo.metric, fo.model)) or (fn.n != 35).any():
     raise SystemExit("CHECK FAILED Fig. 4 (H3b): stats rows differ from round 1 or n != 35")
@@ -378,6 +378,6 @@ srcs = [os.path.join(PKG, "results_table.csv"), p("3_analysis/integration/inputs
         os.path.join(PKG, "Figures/source_data/Figure_S5_source_data.csv"), S5N, T2R1, T1R1, p("results/datasets/top_peaks/b3_missing_datasets.csv"), p("outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx"),
         p(B13 + "low_fpr_metrics/B2_summary.csv"), p(B13 + "low_fpr_metrics/B2_per_chromosome_summary.csv"), p(B13 + "low_fpr_metrics/B2_metrics_wide.csv"), p(B13 + "top_peaks/b3_topN_summary.csv"),
         p(B13 + "top_peaks/b3_gain_vs_npos_spearman.csv"), p(B13 + "top_peaks/b3_peak_widths_summary.csv"), p("3_analysis/transfer_drivers/B5_B_ceiling_spearman.csv"),
-        p("3_analysis/transfer_drivers/B5_B_clouds_per_TF.csv"), p("3_analysis/transfer_drivers/B5_B_cloud_separation.csv"), p("4_visualisation/figures/Fig2_S1/Figure_2_plotdata.csv")]
+        p("3_analysis/transfer_drivers/B5_B_clouds_per_TF.csv"), p("3_analysis/transfer_drivers/B5_B_cloud_separation.csv"), p("4_visualisation/main_figures/Figure_2/Figure_2_plotdata.csv")]
 PD.write_provenance(PD.B12, "3_analysis/integration/make_numbers.py", [dst, os.path.join(PD.B12, "../../outputs/numbers/NUMBERS_human_35TF_unchanged.csv")], srcs,
                     note="H3: old values from git tag %s, PKG or R1 (asserted against the quoted text numbers); new values from the H3 outputs" % O.TAG)

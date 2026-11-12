@@ -1,4 +1,5 @@
-"""B3: summary tables and the multi-panel figure. Runs locally in 3_analysis/top_peaks.
+"""B3: summary tables and the multi-panel figure. Tables are read from and written to 3_analysis/top_peaks, the figure
+(Figure_S9.pdf/png) goes to this folder. usage: python3 4_visualisation/supplementary_figures/Figure_S9/Figure_S9.py
 Reads the server outputs (b3_topN_results.csv, b3_peak_widths_per_dataset.csv, b3_join_test_*.csv) and b3_gain_vs_npos_*.csv.
 Human (H) rows exclude p53drop.EXCLUDE_TFS (35 TFs); peak widths are restricted to the used peak sets
 (human 361, mouse 276); mouse (M) top-N and join rows are the first-submission mouse data, marked stale.
@@ -14,11 +15,13 @@ def plain_log(ax, axis):
     a = ax.xaxis if axis == "x" else ax.yaxis
     a.set_major_formatter(PLAIN); a.set_minor_formatter(NullFormatter())
 
-import os, sys; os.chdir(os.path.dirname(os.path.abspath(__file__)))  # inputs and outputs in this folder
-sys.path.insert(0, "../../4_visualisation/figures"); import archi_style as AS
-sys.path.insert(0, "../integration/"); import p53drop as PD
+import os, sys
+FIG = os.path.dirname(os.path.abspath(__file__)); R2 = os.path.dirname(os.path.dirname(os.path.dirname(FIG)))
+os.chdir(os.path.join(R2, "3_analysis", "top_peaks"))  # table inputs and outputs in the analysis folder
+sys.path.insert(0, os.path.join(R2, "4_visualisation", "style")); import archi_style as AS
+sys.path.insert(0, os.path.join(R2, "3_analysis", "integration")); import p53drop as PD
 MSTATUS = "current: rebuilt mouse data, 35 TFs"
-OUTS = ["b3_topN_summary.csv", "b3_peak_widths_summary.csv", "b3_join_summary.csv", "B3_peaks_figure.pdf", "B3_peaks_figure.png"]
+OUTS = ["b3_topN_summary.csv", "b3_peak_widths_summary.csv", "b3_join_summary.csv", os.path.join(FIG, "Figure_S9.pdf"), os.path.join(FIG, "Figure_S9.png")]
 for f in OUTS:
     PD.backup(f)
 RF, PWM, GREY = AS.PALETTE["RF"], AS.PALETTE["monoPWM"], "#B0B0B0"
@@ -195,8 +198,8 @@ for i, v in enumerate(data):
 ax.set_xticks([1, 2]); ax.set_xticklabels(["Human", "Mouse"]); ax.set_ylabel("300 bp window covering\nat least half of the peak (%)")
 ax.set_title("Coverage of the peak by the 300 bp window", pad=6)
 for ext in ("pdf", "png"):
-    fig.savefig(f"B3_peaks_figure.{ext}", dpi=300 if ext == "png" else None)
-PD.write_provenance(os.path.abspath("."), "3_analysis/top_peaks/b3_summary_figure_w2.py (copy of B3_peaks/b3_summary_figure.py)", [os.path.abspath(f) for f in OUTS],
+    fig.savefig(os.path.join(FIG, "Figure_S9." + ext), dpi=300 if ext == "png" else None)
+PD.write_provenance(os.path.abspath("."), "4_visualisation/supplementary_figures/Figure_S9/Figure_S9.py (copy of B3_peaks/b3_summary_figure.py)", [os.path.abspath(f) for f in OUTS],
     [os.path.abspath(f) for f in ("b3_topN_results.csv", "b3_peak_widths_per_dataset.csv", "b3_join_test_per_tf.csv", "b3_join_test_per_sequence.csv",
                                   "b3_gain_vs_npos_per_tf.csv", "b3_gain_vs_npos_spearman.csv")],
     note="W2: H rows 35 TFs; widths 361 + 276 used peak sets; M rows from the rebuilt mouse data (B11 W1G1/b3)")

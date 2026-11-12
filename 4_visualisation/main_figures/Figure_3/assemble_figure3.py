@@ -1,9 +1,9 @@
 """Figure 3 as a vector composite. Panels A-C (Figure_3_ABC_restyled.pdf, from
-Figure_3_and_S3_restyled.R) above panel D (Figure_3D_logos.pdf, from Figure_3D_logos.R on the final importances); both are cairo
+Figure_3_and_S3.R) above panel D (Figure_3D_logos.pdf, from Figure_3D_logos.R on the final importances); both are cairo
 vector PDFs of the same width (878 pt) and are stacked page on page with pypdf (no rasterisation). The PNG is the composite PDF
 rendered at 300 dpi with pdftoppm.
-Writes outputs/figures/Figure_3.{pdf,png} (backups first).
-usage: python3 4_visualisation/figures/Fig3_S3/assemble_figure3.py
+Writes Figure_3.{pdf,png} into this folder (backups first).
+usage: python3 4_visualisation/main_figures/Figure_3/assemble_figure3.py
 """
 import os
 import subprocess
@@ -16,7 +16,7 @@ R2 = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 sys.path.insert(0, os.path.join(R2, "3_analysis", "integration"))
 import w2  # noqa: E402
 
-OUT = os.path.join(R2, "outputs/figures")
+OUT = HERE
 ABC, D = os.path.join(HERE, "Figure_3_ABC_restyled.pdf"), os.path.join(HERE, "Figure_3D_logos.pdf")
 GAP = 10   # pt between C and D
 pa, pd_ = PdfReader(ABC).pages[0], PdfReader(D).pages[0]
@@ -36,4 +36,4 @@ with open(pdf, "wb") as fh:
 subprocess.run([os.environ.get("PDFTOPPM", "pdftoppm"), "-png", "-r", "300", "-singlefile", pdf, png[:-4]], check=True)
 imgs = subprocess.run([os.environ.get("PDFIMAGES", "pdfimages"), "-list", pdf], capture_output=True, text=True).stdout.strip().splitlines()[2:]
 print("Figure 3: %.0f x %.0f pt, raster images in the PDF: %d" % (wa, ha + GAP + hd, len(imgs)))
-w2.provenance(OUT, "4_visualisation/figures/Fig3_S3/assemble_figure3.py", [pdf, png], [ABC, D])
+w2.provenance(OUT, "4_visualisation/main_figures/Figure_3/assemble_figure3.py", [pdf, png], [ABC, D])

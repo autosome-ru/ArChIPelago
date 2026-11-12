@@ -1,4 +1,4 @@
-# Figure_3_and_S3_restyled.R - Fig. 3 A-C (human test set) and Fig. S3 A-C (mouse test set), restyled.
+# Figure_3_and_S3.R - Fig. 3 A-C (human test set) and Fig. S3 A-C (mouse test set), restyled.
 # Based on the released Figure_3ABC_human_test.R / Figure_S3ABC_mouse_test.R; data handling unchanged. Presentation only:
 #   * A, B (with marginal histograms drawn as outlines, so that overlapping sets stay visible): Random Forest on monoPWMs / diPWMs / monoPWMs + diPWMs against the best single monoPWM; the feature sets are
 #     red / orange / green as best monoPWM / best diPWM / Random Forest in Fig. 2 (../archi_style.R: MODEL_COL), opaque circles
@@ -6,8 +6,9 @@
 #   * C: bubbles opaque (no alpha), viridis option D instead of plasma (plasma uses the red/orange of the PWM reference series)
 #   * panels assembled with cowplot so that a complete figure PDF/PNG exists (previously assembled in Illustrator; panel D = logos,
 #     not drawn here)
-# Input : <ARCHI_PKG>/results_table.csv     Usage: Rscript Figure_3_and_S3_restyled.R [output_dir]
-# Writes: Figure_3_ABC_restyled.{pdf,png}, Figure_S3_ABC_restyled.{pdf,png}, *_plotdata.csv
+# Input : <ARCHI_PKG>/results_table.csv     Usage: Rscript Figure_3_and_S3.R [output_dir]
+# Writes: Figure_3_ABC_restyled.{pdf,png} (panels A-C, assembled into Figure_3.pdf by assemble_figure3.py) here,
+#         Figure_S3.{pdf,png} in ../../supplementary_figures/Figure_S3, *_plotdata.csv next to each
 # The TF set must equal the 35 reference TFs (check_tfs); ARCHI_DRAW=H draws Fig. 3 only.
 # P53-free input: ARCHI_PKG=3_analysis/integration/inputs (made by 3_analysis/integration/make_inputs.py).
 suppressPackageStartupMessages({library(dplyr); library(ggplot2); library(cowplot); library(ggrepel); library(ggExtra); library(viridis)})
@@ -15,17 +16,23 @@ script_dir <- local({
   f <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
 })
-source(file.path(script_dir, "..", "archi_style.R"))
+source(file.path(script_dir, "..", "..", "style", "archi_style.R"))
 source(file.path(script_dir, "..", "..", "../3_analysis/integration", "p53drop.R"))   # check_tfs(), ARCHI_DRAW
 args <- commandArgs(trailingOnly = TRUE)
-out_dir <- if (length(args) >= 1) args[1] else script_dir
-dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+# output folder: Fig. 3 A-C next to this script, Fig. S3 in supplementary_figures/Figure_S3; an argument overrides both
+out_dir_of <- function(fig_name) {
+  d <- if (length(args) >= 1) args[1] else if (fig_name == "Figure_3") script_dir else
+    file.path(script_dir, "..", "..", "supplementary_figures", fig_name)
+  dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  d
+}
 if (!interactive()) pdf(NULL)
 tab <- read.csv(file.path(ARCHI_PKG, "results_table.csv"), sep = "\t")
 F3C_ROC_GAP <- 0.075   # = ROC_GAP of 3_analysis/transfer_drivers/B5_01_drivers_and_ceiling.py (checked by a test)
 F3C_PRC_GAP <- 0.15    # = PRC_GAP of the same script
 
 draw <- function(sp, fig_name, label) {
+  out_dir <- out_dir_of(fig_name)
   test_lab <- if (sp == "H") "Human test set" else "Mouse test set\n(human-trained)"
   roc <- paste0("roc_auc_test_", sp); prc <- paste0("pr_auc_test_", sp)
   dA <- tab %>% filter(Model == "RandomForestClassifier") %>%
@@ -130,7 +137,7 @@ draw <- function(sp, fig_name, label) {
   top <- plot_grid(left, ct, ncol = 2, rel_widths = c(1, 2.2), labels = c("", "C"), label_size = 26,
                    label_fontfamily = "Arial", label_colour = "black")
   full <- plot_grid(top, leg, ncol = 1, rel_heights = c(1, 0.07))
-  save_both(function() print(full), file.path(out_dir, paste0(fig_name, "_ABC_restyled")), 310 / 25.4, 200 / 25.4)
+  save_both(function() print(full), file.path(out_dir, if (fig_name == "Figure_3") "Figure_3_ABC_restyled" else fig_name), 310 / 25.4, 200 / 25.4)
 }
 if ("H" %in% ARCHI_DRAW) draw("H", "Figure_3", "human test set")
 if ("M" %in% ARCHI_DRAW) draw("M", "Figure_S3", "mouse test set")

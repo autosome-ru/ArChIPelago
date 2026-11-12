@@ -6,8 +6,8 @@ Writes Figures/panels/Figure_S2_RF_vs_best_monoPWM.pdf and Figures/source_data/F
 
 Restyled version of the released script; data and layout unchanged. Palette from ../archi_style.py
 (PWM sets = lightness steps of the Random Forest green, black outline; above/below the baseline = dark green of monoPWMs+diPWMs / red), opaque marks,
-no MathText (Unicode Delta), all text black. Usage: python3 Figure_S2_restyled.py [output_dir]; reads the released
-results_table.csv (ARCHI_PKG, read only); writes Figure_S2_restyled.{pdf,png} and Figure_S2_plotdata.csv.
+no MathText (Unicode Delta), all text black. Usage: python3 Figure_S2.py [output_dir]; reads the released
+results_table.csv (ARCHI_PKG, read only); writes Figure_S2.{pdf,png} and Figure_S2_plotdata.csv.
 """
 import os
 import numpy as np
@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 import sys
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "style"))
 import archi_style as AS
 
 RES = os.environ.get("ARCHI_PKG", os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../results/round1_package/Manuscript_analysis"))   # released package, read only
@@ -211,11 +211,11 @@ def figure_s2():
     h += [Line2D([], [], marker="D", ls="", markerfacecolor="white", markeredgecolor="black", markeredgewidth=0.7, markersize=5,
                  label="below the best monoPWM")]
     fig.legend(handles=h, loc="lower center", ncol=4, frameon=False, fontsize=7.5, bbox_to_anchor=(.5, 0.0))
-    AS.save_both(fig, os.path.join(OUT, "Figure_S2_restyled"))
+    AS.save_both(fig, os.path.join(OUT, "Figure_S2"))
     plt.close(fig)
     pd.DataFrame(src_rows).to_csv(os.path.join(OUT, "Figure_S2_plotdata.csv"), index=False)
 
 
 if __name__ == "__main__":
     figure_s2()
-    print("written:", os.path.join(OUT, "Figure_S2_restyled.pdf"))
+    print("written:", os.path.join(OUT, "Figure_S2.pdf"))

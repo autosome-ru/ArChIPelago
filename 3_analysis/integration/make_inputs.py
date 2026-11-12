@@ -1,4 +1,4 @@
-"""Inputs of the human figure scripts in 4_visualisation/figures (ARCHI_PKG=3_analysis/integration/inputs).
+"""Inputs of the human figure scripts in 4_visualisation/main_figures (ARCHI_PKG=3_analysis/integration/inputs).
 
 The human tables are the final ones of the package 3_analysis/package; this script copies them byte for byte into
 3_analysis/integration/inputs/ (folder layout of the package) after the 35-TF check. Files:

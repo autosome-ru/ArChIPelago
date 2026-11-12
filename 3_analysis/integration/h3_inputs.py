@@ -73,7 +73,7 @@ FIXED = {
     "ids_H": "dataset lists (D16 changes chromosomes only)", "ids_M": "dataset lists (D16 changes chromosomes only)",
     "b8_summary": "random split of the top 1,000 peaks per dataset: independent of the chromosome lists", "b8_top": "as b8_summary",
     "b8_per_tf": "as b8_summary", "mask_readme": "repeat mask description", "figS4_num": "round-1 Fig. S4 numbers (old text values)",
-    "b9_summary": "B13 copy that b9_figure_h3.py writes from b9_h3b (staged)", "b9_per_fit": "as b9_summary",
+    "b9_summary": "B13 copy that Figure_S12.py writes from b9_h3b (staged)", "b9_per_fit": "as b9_summary",
 }
 
 # chromosome split: the previous run's lists as its data build made them (chr11, chr12 in neither set); the final run = h5_splits.LOGICAL
@@ -141,7 +141,7 @@ IN = {k: os.path.join(R2, v) for k, v in {
     "fig4_num": H3H + "/fig4_refit_trainscale/Figure_4_and_S4_numbers.csv", "fig4_prov": MANIFEST,
     # first-submission Fig. S4 numbers (36 TFs; old text values of the Fig. S4 NUMBERS rows only)
     "figS4_num": "results/datasets/round1_fig_s4/Figure_S4_numbers.csv",
-    # random split (Fig. S12, Sup. Table 7): retraining on the v3 negatives, copied and checked by 3_analysis/random_split/b9_figure_h3.py
+    # random split (Fig. S12, Sup. Table 7): retraining on the v3 negatives, copied and checked by 4_visualisation/supplementary_figures/Figure_S12/Figure_S12.py
     "b9_summary": "3_analysis/random_split/b9_summary.csv", "b9_per_fit": "3_analysis/random_split/b9_random_split_per_fit.csv",
     "b9_h3b": H3H + "/H3b/b9/b9_summary.csv", "b9_dir": H3H + "/H3b/b9",
 }.items()}

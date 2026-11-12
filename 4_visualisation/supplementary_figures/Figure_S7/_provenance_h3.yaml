@@ -1,4 +1,4 @@
-- script: "4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py"
+- script: "4_visualisation/supplementary_figures/Figure_S7/build_Figure_S7_source_data_h3.py"
   run: "2026-11-11 14:20:14"
   git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
   git_changed_tracked_files: 42
@@ -49,10 +49,10 @@
     - {file: "results/server/human/B4_importance/gini/TFE2_gini.csv", md5: "eddf0eadc95eab7f53284aec0c1cc852"}
     - {file: "results/server/human/B4_importance/gini/USF2_gini.csv", md5: "4330e35a0a1ee6c4bd3d952673d78ee4"}
   outputs:
-    - {file: "4_visualisation/figures/FigS7/Figure_S7_source_data.csv", md5: "eafc7e9dbf3dd343333c1569f374cc9f"}
-    - {file: "4_visualisation/figures/FigS7/tf_ranking_h3.csv", md5: "e17b6e0b31a955e981404c4c2affc72d"}
-    - {file: "4_visualisation/figures/FigS7/subtype_verdicts_v11_h3.csv", md5: "86707722dd61a23c78c7ecc7b1aa6a77"}
-- script: "4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py"
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/Figure_S7_source_data.csv", md5: "eafc7e9dbf3dd343333c1569f374cc9f"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/tf_ranking_h3.csv", md5: "e17b6e0b31a955e981404c4c2affc72d"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/subtype_verdicts_v11_h3.csv", md5: "86707722dd61a23c78c7ecc7b1aa6a77"}
+- script: "4_visualisation/supplementary_figures/Figure_S7/build_Figure_S7_source_data_h3.py"
   run: "2026-11-11 15:23:33"
   git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
   git_changed_tracked_files: 14
@@ -103,6 +103,6 @@
     - {file: "results/server/human/B4_importance/gini/TFE2_gini.csv", md5: "eddf0eadc95eab7f53284aec0c1cc852"}
     - {file: "results/server/human/B4_importance/gini/USF2_gini.csv", md5: "4330e35a0a1ee6c4bd3d952673d78ee4"}
   outputs:
-    - {file: "4_visualisation/figures/FigS7/Figure_S7_source_data.csv", md5: "eafc7e9dbf3dd343333c1569f374cc9f"}
-    - {file: "4_visualisation/figures/FigS7/tf_ranking_h3.csv", md5: "e17b6e0b31a955e981404c4c2affc72d"}
-    - {file: "4_visualisation/figures/FigS7/subtype_verdicts_v11_h3.csv", md5: "86707722dd61a23c78c7ecc7b1aa6a77"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/Figure_S7_source_data.csv", md5: "eafc7e9dbf3dd343333c1569f374cc9f"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/tf_ranking_h3.csv", md5: "e17b6e0b31a955e981404c4c2affc72d"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/subtype_verdicts_v11_h3.csv", md5: "86707722dd61a23c78c7ecc7b1aa6a77"}

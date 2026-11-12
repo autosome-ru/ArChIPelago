@@ -82,8 +82,8 @@ TABLES = {
         ("ablation", "3_analysis/feature_importance/tables/B4_ablation_summary.csv"),
         ("PWM_origin", "3_analysis/feature_importance/tables/B4_pwm_origin_check.csv"),
         # ablation subtypes vs nearest HOCOMOCO v11 subtype, per TF and per PWM (265 PWMs of the 11 ablated TFs)
-        ("subtypes_vs_HOCOMOCO_v11", "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11.csv"),
-        ("HOCOMOCO_v11_per_PWM", "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11_per_PWM.csv"),
+        ("subtypes_vs_HOCOMOCO_v11", "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv"),
+        ("HOCOMOCO_v11_per_PWM", "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv"),
     ],
     "Sup_Table_10_transfer_drivers_and_headroom": [
         ("per_TF", "3_analysis/transfer_drivers/B5_per_TF_table.csv"),

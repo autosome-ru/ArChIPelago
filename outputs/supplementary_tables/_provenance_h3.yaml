@@ -32,7 +32,7 @@
     - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
     - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
     - {file: "3_analysis/package/Figures/source_data/Figure_S4_source_data.csv", md5: "753e28dd1c53fc699903012b2bdc0021"}
-    - {file: "4_visualisation/figures/output/Fig4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
     - {file: "3_analysis/package/Figures/source_data/Figure_S5_source_data.csv", md5: "37b32c1c00dde62e88b09b3bb2286239"}
     - {file: "3_analysis/package/Figures/source_data/Figure_S5_median_curves.csv", md5: "58e1821317c3ac12d21bda81f4ef7f3f"}
   outputs:
@@ -149,8 +149,8 @@
     - {file: "3_analysis/feature_importance/tables/B4_activation_best_pwm.csv", md5: "afe169a3ad97adc2c36eeeaae69ff6d9"}
     - {file: "3_analysis/feature_importance/tables/B4_ablation_summary.csv", md5: "e603a3a37bfeac76a881fa2d6f58dca7"}
     - {file: "3_analysis/feature_importance/tables/B4_pwm_origin_check.csv", md5: "f24df1a3098a9657edca9c081efc893b"}
-    - {file: "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11.csv", md5: "00cc8dd9cd35493f8e9fdff7fd4e987b"}
-    - {file: "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "0553b3dfabf88f6f09f7c4c1661a6488"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv", md5: "00cc8dd9cd35493f8e9fdff7fd4e987b"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "0553b3dfabf88f6f09f7c4c1661a6488"}
   outputs:
     - {file: "outputs/supplementary_tables/Sup_Table_9_feature_importance.xlsx", md5: "11a726c772a06e2832c547d7b5af08a2"}
 - script: "3_analysis/supplementary_tables/make_sup_tables_7_10.py (Sup_Table_10_transfer_drivers_and_headroom)"

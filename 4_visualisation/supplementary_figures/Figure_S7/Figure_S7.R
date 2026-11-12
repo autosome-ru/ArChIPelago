@@ -1,5 +1,5 @@
 # =============================================================================
-# Figure_S7_motif_subtypes.R -- supplementary figure:
+# Figure_S7.R -- supplementary figure:
 # for the TFs with the largest ArChIPelago gains over the best monoPWM (human test
 # set, mono+di RF), the PWMs the Random Forest relies on most. One row per TF:
 # the top-4 monoPWMs and the top diPWMs (three; builder N_DI) by RF feature importance, drawn as
@@ -10,9 +10,9 @@
 #         diPWMs are shown as the mononucleotide marginal of the dinucleotide model
 #         (see build_source_data.py); logos on the '-' strand relative to the top
 #         monoPWM of the TF are reverse-complemented for display ("rc" in the title).
-# Output: Figure_S7_motif_subtypes.pdf (cairo_pdf, Arial), Figure_S7_motif_subtypes.png,
+# Output: Figure_S7.pdf (cairo_pdf, Arial), Figure_S7.png,
 #         preview/<TF>.png (150 dpi, one row per TF) for inspection.
-# Usage : Rscript Figure_S7_motif_subtypes.R [TF ...]   (edit TFS below, or list TFs on the command line)
+# Usage : Rscript Figure_S7.R [TF ...]   (edit TFS below, or list TFs on the command line)
 # Style : as results/round1_package/Resubmission/scripts/Figure_S6_cross_species.R (Arial, theme_minimal,
 #         cairo_pdf); logo letters use ggseqlogo's built-in glyphs.
 # =============================================================================
@@ -30,7 +30,7 @@ verd <- read.csv(file.path(local({f <- grep("^--file=", commandArgs(trailingOnly
 verd <- verd[verd$drawn == "True", ]
 TFS <- verd$TF[order(verd$figure_row)]
 PREVIEWS <- TRUE                  # also write preview/<TF>.png for every TF drawn
-cli <- commandArgs(trailingOnly = TRUE)      # Rscript Figure_S7_motif_subtypes.R TAL1 RXRA  overrides TFS
+cli <- commandArgs(trailingOnly = TRUE)      # Rscript Figure_S7.R TAL1 RXRA  overrides TFS
 if (length(cli)) TFS <- cli
 
 script_dir <- local({
@@ -138,8 +138,8 @@ H <- 4 + 48 * length(TFS) + 6
 fig <- fig + plot_annotation(theme = theme(plot.margin = margin(0, 0, 8, 0, "mm")))   # room for the longer label of the last row
 H <- H + 8
 W <- round(400 * (N_COL + 0.62) / 6.62)   # 400 mm for six logo columns; wider when N_DI grows, so logos keep their size
-pdf_out <- file.path(script_dir, "Figure_S7_motif_subtypes.pdf")
-png_out <- file.path(script_dir, "Figure_S7_motif_subtypes.png")
+pdf_out <- file.path(script_dir, "Figure_S7.pdf")
+png_out <- file.path(script_dir, "Figure_S7.png")
 ggsave(pdf_out, fig, device = grDevices::cairo_pdf, width = W, height = H, units = "mm", limitsize = FALSE)
 ggsave(png_out, fig, width = W, height = H, units = "mm", dpi = 300, bg = "white", limitsize = FALSE)
 # ggsave without ragg writes no pHYs chunk; re-save with a 300 dpi tag,

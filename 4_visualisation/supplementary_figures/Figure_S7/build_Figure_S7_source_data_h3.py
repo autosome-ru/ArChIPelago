@@ -13,7 +13,7 @@ Figure TFs (FIG_TFS): subtype examples STAT1 and TAL1, own motif plus co-factor 
 of each is checked against the v11 columns (>= 2 own v11 subtypes nearest without a tie / >= 1 co-factor panel).
 Outputs (this folder): tf_ranking_h3.csv, Figure_S7_source_data.csv (with the v11 columns), subtype_verdicts_v11_h3.csv,
 matrices/<TF>_<feature>.txt, _provenance_h3.yaml.
-usage: ARCHI_STAGE=H5 ARCHI_ZENODO_DIR=results/datasets/zenodo_v1.0.0 python3 4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py
+usage: ARCHI_STAGE=H5 ARCHI_ZENODO_DIR=results/datasets/zenodo_v1.0.0 python3 4_visualisation/supplementary_figures/Figure_S7/build_Figure_S7_source_data_h3.py
 """
 import glob
 import importlib.util
@@ -201,7 +201,7 @@ def main():
     print("\n".join(check))
     v = verdicts(src, rk)
     print(v.to_string(index=False))
-    w2.provenance(HERE, "4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py",
+    w2.provenance(HERE, "4_visualisation/supplementary_figures/Figure_S7/build_Figure_S7_source_data_h3.py",
                   [out, os.path.join(HERE, "tf_ranking_h3.csv"), os.path.join(HERE, "subtype_verdicts_v11_h3.csv")],
                   [IN["rt"], IN["t2"], IN["meta"], IN["v11"]] + sorted(glob.glob(os.path.join(IN["gini"], "*_gini.csv"))),
                   params="{N_TOP: %d, N_MONO: %d, N_DI: %d, candidates: union of top N_TOP by dauROC and dauPRC, figure: %s, "

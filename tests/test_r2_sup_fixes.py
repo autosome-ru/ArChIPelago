@@ -129,7 +129,7 @@ def test_sup8_uncapped_columns_only_for_the_positives_predictor():
 
 
 def test_sup9_activation_best_pwm_sheet_is_the_fig_s10d_source():
-    """Sheet 'activation_best_pwm' holds 3_analysis/feature_importance/tables/B4_activation_best_pwm.csv (read by b4_06_figure.py for
+    """Sheet 'activation_best_pwm' holds 3_analysis/feature_importance/tables/B4_activation_best_pwm.csv (read by Figure_S10.py for
     Fig. S10D). Red: T1_MUTATE=sup9_no_sheet drops the sheet."""
     sheets = pd.read_excel(J("outputs/supplementary_tables", "Sup_Table_9_feature_importance.xlsx"), sheet_name=None)
     if T.mutate("sup9_no_sheet"):
@@ -141,7 +141,7 @@ def test_sup9_activation_best_pwm_sheet_is_the_fig_s10d_source():
     print("activation_best_pwm %d rows, source %d rows" % (len(got), len(src)))
     pd.testing.assert_frame_equal(got.reset_index(drop=True), src[got.columns].reset_index(drop=True), check_dtype=False, atol=1e-9)
     assert "Fig. S10D" not in "".join(got.columns)
-    assert "B4_activation_best_pwm.csv" in open(J("3_analysis/feature_importance", "scripts", "b4_06_figure.py")).read()
+    assert "B4_activation_best_pwm.csv" in open(J("4_visualisation", "supplementary_figures", "Figure_S10", "Figure_S10.py")).read()
 
 
 def test_sup10_multivariable_sheet_has_coefficients_and_bootstrap_intervals():

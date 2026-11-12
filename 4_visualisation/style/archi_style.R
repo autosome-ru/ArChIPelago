@@ -1,5 +1,5 @@
 # archi_style.R - shared colours, shapes and theme of all ArChIPelago figures.
-# Sourced by every producer in 4_visualisation/figures/. Python twin: archi_style.py (same hex values, checked by check_palette.py).
+# Sourced by the R producers in 4_visualisation/main_figures/ and supplementary_figures/. Python twin: archi_style.py (same hex values, checked by check_palette.py).
 #
 # Series (Fig. 2, S1, S2 and wherever models are compared):
 #   single best monoPWM  red     #D62728  triangle   (reference series, dashed line = median over TFs)

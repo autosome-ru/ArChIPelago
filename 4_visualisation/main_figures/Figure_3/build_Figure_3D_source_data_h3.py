@@ -1,9 +1,9 @@
 """Fig. 3D source data on the final data: for RXRA, SRF and ANDR the two monoPWMs and the two diPWMs
 with the highest Gini importance in the human-trained RF (monoPWMs + diPWMs, seed 0), as the legend says. Same inputs and
-logo conversion as Fig. S7 (4_visualisation/figures/FigS7/build_Figure_S7_source_data_h3.py, imported: importances(), the package
+logo conversion as Fig. S7 (4_visualisation/supplementary_figures/Figure_S7/build_Figure_S7_source_data_h3.py, imported: importances(), the package
 to_prob / consensus / pcc_max); logos of a TF are oriented on the strand of its top monoPWM.
 Outputs (this folder): Figure_3D_source_data.csv, matrices_3D/<TF>_<feature>.txt, _provenance_h3.yaml.
-usage: python3 4_visualisation/figures/Fig3_S3/build_Figure_3D_source_data_h3.py
+usage: python3 4_visualisation/main_figures/Figure_3/build_Figure_3D_source_data_h3.py
 """
 import glob
 import importlib.util
@@ -15,7 +15,7 @@ import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 R2 = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
-_s = importlib.util.spec_from_file_location("s7h3", os.path.join(R2, "4_visualisation/figures", "FigS7", "build_Figure_S7_source_data_h3.py"))
+_s = importlib.util.spec_from_file_location("s7h3", os.path.join(R2, "4_visualisation", "supplementary_figures", "Figure_S7", "build_Figure_S7_source_data_h3.py"))
 S7 = importlib.util.module_from_spec(_s)
 _s.loader.exec_module(S7)
 P, w2 = S7.P, S7.w2
@@ -54,6 +54,6 @@ src = pd.DataFrame(rows)
 src["rank_within_class"] = src.groupby(["TF", "pwm_class"]).cumcount() + 1
 src.to_csv(out, index=False)
 print(src[["TF", "panel", "feature", "dataset", "importance", "strand_for_display", "r_max_vs_panel1", "consensus"]].to_string(index=False))
-w2.provenance(HERE, "4_visualisation/figures/Fig3_S3/build_Figure_3D_source_data_h3.py", [out],
+w2.provenance(HERE, "4_visualisation/main_figures/Figure_3/build_Figure_3D_source_data_h3.py", [out],
               [S7.IN["rt"], S7.IN["t2"]] + [os.path.join(S7.IN["gini"], "%s_gini.csv" % t) for t in TFS],
               params="{TFs: [%s], n_mono: %d, n_di: %d}" % (", ".join(TFS), N_MONO, N_DI))

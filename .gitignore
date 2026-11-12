@@ -23,7 +23,7 @@ Figures/**/PWMs/
 /Slim/
 
 # Not tracked: preview renders of Fig. S7 and the score files of the gate check (Zenodo v2.0.0, scores_H5_human.tar.gz)
-4_visualisation/figures/FigS7/preview/
+4_visualisation/supplementary_figures/Figure_S7/preview/
 results/server/human/scores/
 
 # hocomoco11 data (downloaded separately)

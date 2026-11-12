@@ -1,4 +1,4 @@
-# Figure_4_and_S4_restyled.R - Fig. 4 (human test set) and Fig. S4 (mouse test set), restyled.
+# Figure_4_and_S4.R - Fig. 4 (human test set) and Fig. S4 (mouse test set), restyled.
 # Based on the released Figure_4_and_S4.R; same data, same model order and names. Presentation only:
 #   * x axis zoomed to the 2nd-98th percentile of all deltas of the panel (padded by 8 %, always containing 0); points beyond the
 #     range are not drawn but marked at the edge with an arrow and their count per model
@@ -8,8 +8,8 @@
 #   * Slim / LSlim / diChIPMunk (single-motif models) = grey triangles, ArChIPelago RF models = green circles (RF colour of Fig. 2)
 #   * the zero-line explanation is in the figure itself: delta = model minus the best single monoPWM of the same TF
 # Input : <ARCHI_PKG>/Figures/source_data/Figure_4_source_data.csv, Figure_S4_source_data.csv
-# Usage : Rscript Figure_4_and_S4_restyled.R [output_dir]
-# Writes: Figure_4_restyled.{pdf,png}, Figure_S4_restyled.{pdf,png}, Figure_4_stats.csv, Figure_S4_stats.csv
+# Usage : Rscript Figure_4_and_S4.R [output_dir]     (default: Fig. 4 here, Fig. S4 in ../../supplementary_figures/Figure_S4)
+# Writes: Figure_4.{pdf,png}, Figure_S4.{pdf,png}, Figure_4_stats.csv, Figure_S4_stats.csv
 # n TFs is taken from the data and must equal the 35 reference TFs (check_tfs);
 # ARCHI_DRAW=H draws Fig. 4 only; the stats table also gives the two-sided Wilcoxon P (quoted in the Results).
 # P53-free input: ARCHI_PKG=3_analysis/integration/inputs (made by 3_analysis/integration/make_inputs.py).
@@ -18,11 +18,16 @@ script_dir <- local({
   f <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
 })
-source(file.path(script_dir, "..", "archi_style.R"))
+source(file.path(script_dir, "..", "..", "style", "archi_style.R"))
 source(file.path(script_dir, "..", "..", "../3_analysis/integration", "p53drop.R"))   # check_tfs(), ARCHI_DRAW
 args <- commandArgs(trailingOnly = TRUE)
-out_dir <- if (length(args) >= 1) args[1] else script_dir
-dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+# output folder: Fig. 4 next to this script, Fig. S4 in supplementary_figures/Figure_S4; an argument overrides both
+out_dir_of <- function(fig_name) {
+  d <- if (length(args) >= 1) args[1] else if (fig_name == "Figure_4") script_dir else
+    file.path(script_dir, "..", "..", "supplementary_figures", fig_name)
+  dir.create(d, showWarnings = FALSE, recursive = TRUE)
+  d
+}
 if (!interactive()) pdf(NULL)
 src_dir <- file.path(ARCHI_PKG, "Figures", "source_data")
 
@@ -89,6 +94,7 @@ make_panel <- function(data, title, x_label, show_y_labels, letter, ntf) {
 }
 
 draw <- function(csv, fig_name, label, test_lab) {
+  out_dir <- out_dir_of(fig_name)
   d <- read.csv(file.path(src_dir, csv), stringsAsFactors = FALSE) %>% mutate(variable = factor(model, levels = ORDER))
   if (anyNA(d$variable)) stop("unknown model label in ", csv)
   ntf <- check_tfs(d$TF, csv)
@@ -100,7 +106,7 @@ draw <- function(csv, fig_name, label, test_lab) {
   write.csv(both, file.path(out_dir, paste0(fig_name, "_stats.csv")), row.names = FALSE)
   cat("\n====", fig_name, label, "====\n"); print(as.data.frame(both), digits = 4)
   combined <- (pa$plot | pb$plot) + plot_layout(widths = c(1.45, 1))
-  save_both(combined, file.path(out_dir, paste0(fig_name, "_restyled")), 16, 6.2)
+  save_both(combined, file.path(out_dir, fig_name), 16, 6.2)
 }
 if ("H" %in% ARCHI_DRAW) draw("Figure_4_source_data.csv", "Figure_4", "(human test set)", "Human test set")
 if ("M" %in% ARCHI_DRAW) draw("Figure_S4_source_data.csv", "Figure_S4", "(mouse test set)", "Mouse test set")

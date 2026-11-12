@@ -7,7 +7,7 @@ same cluster and same v11 subtype, or different and different); also the adjuste
 number of PWMs whose two nearest own subtypes are within TIE in r, and 'informative' (both partitions have at least 2 groups, so
 that the ARI is defined). Summary rows: median Rand over the 11 TFs, median ARI over the informative TFs, pooled pairs.
 Output: cluster_vs_v11.csv (one row per TF, then "all"), cluster_vs_v11_per_PWM.csv, _provenance_h3.yaml (this folder).
-usage: ARCHI_STAGE=H5 python3 4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11.py
+usage: ARCHI_STAGE=H5 python3 4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.py
 """
 import importlib.util
 import os
@@ -90,7 +90,7 @@ def main():
     pd.DataFrame(per).to_csv(OUT["pwm"], index=False)
     pd.set_option("display.width", 250)
     print(t.drop(columns=["contingency"]).round(3).to_string(index=False))
-    w2.provenance(HERE, "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11.py", list(OUT.values()),
+    w2.provenance(HERE, "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.py", list(OUT.values()),
                   [IN["sub"], IN["abl"], IN["v11"]] + [os.path.join(S7.IN["gini"], "%s_gini.csv" % t_) for t_ in tfs],
                   params="{clustering: ablation cut per TF (%s), tie: %.2f, v11_min_overlap: %d, agreement: Rand index, ARI}" % (
                       ", ".join("%s %.1f" % kv for kv in cut.items() if kv[1] != 0.8) or "all 0.8", TIE, V11.MIN_OVERLAP))

@@ -1,4 +1,4 @@
-"""B4 step 6 (local): multi-panel figure from tables/B4_*.csv -> B4_importance_figure.{pdf,png}. No transparency, black text, no MathText."""
+"""B4 step 6 (local): multi-panel figure from 3_analysis/feature_importance/tables/B4_*.csv -> Figure_S10.{pdf,png} in this folder. No transparency, black text, no MathText."""
 import os
 import numpy as np
 import pandas as pd
@@ -10,13 +10,15 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 from matplotlib.ticker import FuncFormatter, NullFormatter
 
-HERE = os.path.dirname(os.path.abspath(__file__)); B = os.path.normpath(os.path.join(HERE, ".."))
+HERE = os.path.dirname(os.path.abspath(__file__)); R2 = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
+B = os.path.join(R2, "3_analysis", "feature_importance")   # analysis folder: tables in, provenance out
 T = os.path.join(B, "tables")
-sys.path.insert(0, os.path.join(B, "..", "../4_visualisation/figures"))
-sys.path.insert(0, os.path.join(B, "..", "integration/"))
+sys.path.insert(0, os.path.join(R2, "4_visualisation", "style"))
+sys.path.insert(0, os.path.join(R2, "3_analysis", "integration"))
 import p53drop as PD
-for _f in ("B4_importance_figure.pdf", "B4_importance_figure.png"):
-    PD.backup(os.path.join(B, _f))
+OUT = [os.path.join(HERE, "Figure_S10" + e) for e in (".pdf", ".png")]
+for _f in OUT:
+    PD.backup(_f)
 import archi_style as ST
 ST.apply_rc()
 plt.rcParams.update({"font.size": 8, "axes.titlesize": 8, "axes.labelsize": 8, "xtick.labelsize": 7, "ytick.labelsize": 7, "legend.fontsize": 7,
@@ -128,9 +130,9 @@ for a, t in zip((axA, axB, axC1, axD, axE), "ABCDE"):
     a.text(-0.05 if a in (axA, axB) else -0.25, 1.12 if a is axA else (1.30 if a is axB else 1.10), t, transform=a.transAxes, fontsize=10, fontweight="bold", va="bottom", ha="left")
 for a in (axC1, axD, axE):   # test-set label: panels C-E use the human test set
     a.text(0, 1.17, "Human test set", transform=a.transAxes, fontsize=8, ha="left", va="bottom", color="black")
-fig.savefig(os.path.join(B, "B4_importance_figure.pdf"), bbox_inches="tight")
-fig.savefig(os.path.join(B, "B4_importance_figure.png"), dpi=300, bbox_inches="tight")
+fig.savefig(OUT[0], bbox_inches="tight")
+fig.savefig(OUT[1], dpi=300, bbox_inches="tight")
 print("saved; panel C TFs", len(sec_order), "panel D TFs", len(tf_d), "panel E TFs", len(tf_e))
-PD.write_provenance(B, "3_analysis/feature_importance/scripts/b4_06_figure.py", [os.path.join(B, "B4_importance_figure.pdf"), os.path.join(B, "B4_importance_figure.png")],
+PD.write_provenance(B, "4_visualisation/supplementary_figures/Figure_S10/Figure_S10.py", OUT,
                     [os.path.join(T, n) for n in ("B4_importance_concentration.csv", "B4_subtype_importance.csv", "B4_subtype_summary_per_TF.csv",
                      "B4_ablation_summary.csv", "B4_activation_best_pwm.csv", "B4_activation_groups.csv", "B4_ablation_all_fits.csv")], note="Fig. S10")

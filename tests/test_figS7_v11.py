@@ -1,5 +1,5 @@
 """Fig. S7 on HOCOMOCO v11: every tile label of the figure equals the nearest v11 model in
-4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_hocomoco11.csv (own TF on every tile; any TF on the co-factor tiles), the source
+4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/subtype_vs_hocomoco11.csv (own TF on every tile; any TF on the co-factor tiles), the source
 data carries the same v11 columns, and the figure draws STAT1, TAL1 (v11 subtypes) and IRF4, TFE2 (own motif plus co-factor).
 Red: T1_MUTATE=figS7_v11 swaps the nearest own-TF model of STAT1 panel 3 (STAT1_HUMAN.H11MO.1.A) for subtype 0 in the csv.
 """
@@ -15,8 +15,8 @@ import pytest
 import t1_helpers as T
 
 pytestmark = pytest.mark.r2
-S7 = os.path.join(T.R2, "4_visualisation/figures", "FigS7")
-FIGS = [os.path.join(S7, "Figure_S7_motif_subtypes.pdf"), os.path.join(T.R2, "outputs/figures", "Figure_S7.pdf")]
+S7 = os.path.join(T.R2, "4_visualisation", "supplementary_figures", "Figure_S7")
+FIGS = [os.path.join(S7, "Figure_S7.pdf")]
 LABEL = re.compile(r"(v11|any TF:) ([A-Z0-9]+_HUMAN\.H11MO\.\d\.[A-D]), r (\d\.\d{3})")
 KEY = ["TF", "panel", "pwm_name"]
 
@@ -45,7 +45,7 @@ def test_label_regex_toy():
         ("v11", "TAL1_HUMAN.H11MO.1.A", "0.995"), ("any TF:", "BATF_HUMAN.H11MO.0.A", "0.975")]
 
 
-@pytest.mark.parametrize("pdf", FIGS, ids=["B6", "E_figures"])
+@pytest.mark.parametrize("pdf", FIGS, ids=["Figure_S7"])
 def test_every_tile_label_equals_the_nearest_v11_model(pdf):
     want, n_tiles, n_cof = expected()
     # tile and co-factor counts as the NUMBERS legend row states them (4 TFs x (4 mono + 3 di) = 28 tiles, 3 co-factor tiles)
@@ -65,7 +65,7 @@ def test_source_data_v11_columns_equal_the_csv():
     assert not bad, bad
 
 
-@pytest.mark.parametrize("pdf", FIGS, ids=["B6", "E_figures"])
+@pytest.mark.parametrize("pdf", FIGS, ids=["Figure_S7"])
 def test_drawn_tfs_are_the_v11_examples(pdf):
     drawn = re.findall(r"^\s*[A-H]\s*\n\s*([A-Z0-9]+)\b", text(pdf), re.M)   # the TF name follows the panel letter
     v = pd.read_csv(os.path.join(S7, "subtype_verdicts_v11_h3.csv"))

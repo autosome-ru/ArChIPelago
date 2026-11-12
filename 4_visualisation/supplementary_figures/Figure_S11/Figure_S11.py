@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""B5 figure from the CSVs written by B5_01_drivers_and_ceiling.py. Run: OMP_NUM_THREADS=1 nice -n 15 python3 B5_02_figure.py"""
+"""B5 figure (Fig. S11) from the CSVs written by 3_analysis/transfer_drivers/B5_01_drivers_and_ceiling.py; writes Figure_S11.{pdf,png} here.
+Run: OMP_NUM_THREADS=1 nice -n 15 python3 4_visualisation/supplementary_figures/Figure_S11/Figure_S11.py"""
 import os
 import numpy as np, pandas as pd
 import matplotlib
@@ -9,8 +10,9 @@ from matplotlib.colors import LinearSegmentedColormap
 from scipy import stats
 import sys
 
-D = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(D, "..", "../4_visualisation/figures"))
+FIG = os.path.dirname(os.path.abspath(__file__)); R2 = os.path.dirname(os.path.dirname(os.path.dirname(FIG)))
+D = os.path.join(R2, "3_analysis", "transfer_drivers")   # input tables
+sys.path.insert(0, os.path.join(R2, "4_visualisation", "style"))
 import archi_style as ST
 ST.apply_rc()
 plt.rcParams.update({"font.size": 8, "axes.titlesize": 8, "axes.labelsize": 8, "xtick.labelsize": 7, "ytick.labelsize": 7, "legend.fontsize": 7,
@@ -121,4 +123,4 @@ bpanel((0, 2), H.bROC, H.head_roc, "Baseline auROC (best monoPWM)", "\u0394auROC
 bpanel((2, 4), H.bPRC, H.head_prc, "Baseline auPRC (best monoPWM)", "\u0394auPRC / (1 - baseline auPRC)", "Human test set: auPRC gain per unit headroom",
        "raw \u0394auPRC vs baseline: \u03c1 = %.2f" % r2, L="D")
 bpanel((4, 6), H.bPRC, H.rel_prc, "Baseline auPRC (best monoPWM)", "\u0394auPRC / baseline auPRC", "Human test set: auPRC gain relative to baseline", right=True, L="E")
-fig.savefig(D + "/B5_figure.pdf", bbox_inches="tight"); fig.savefig(D + "/B5_figure.png", dpi=300, bbox_inches="tight")
+fig.savefig(FIG + "/Figure_S11.pdf", bbox_inches="tight"); fig.savefig(FIG + "/Figure_S11.png", dpi=300, bbox_inches="tight")

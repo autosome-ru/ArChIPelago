@@ -1,4 +1,4 @@
-# Figure_S5_saturation.R - Fig. S5: performance vs the
+# Figure_S5.R - Fig. S5: performance vs the
 # number of PWMs used, drawn in R in the style of the main and supplementary
 # figures of the paper (Arial, theme_minimal(base_size = 21, base_family = "Arial"), Set2 palette,
 # dotted zero lines, cairo_pdf output).
@@ -6,8 +6,8 @@
 # Input : Figures/source_data/Figure_S5_source_data.csv   (per-TF curves)
 #         Figures/source_data/Figure_S5_median_curves.csv (median curves)
 #         (written by make_figure_source_data.py)
-# Usage : Rscript Figure_S5_saturation.R [source_data_dir] [output_dir]
-#         (defaults: ../Figures/source_data and ../Figures/panels)
+# Usage : Rscript Figure_S5.R [source_data_dir] [output_dir]
+#         (defaults: <ARCHI_PKG>/Figures/source_data and this folder)
 # Mouse test set = mouse chr1/8/19; reference = best single monoPWM.
 
 suppressPackageStartupMessages({library(dplyr); library(tidyr); library(ggplot2); library(patchwork)})
@@ -17,7 +17,7 @@ script_dir <- local({
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
 })
 args     <- commandArgs(trailingOnly = TRUE)
-source(file.path(script_dir, "..", "archi_style.R"))
+source(file.path(script_dir, "..", "..", "style", "archi_style.R"))
 pkg_dir <- ARCHI_PKG   # released package, read only
 src_dir <- if (length(args) >= 1) args[1] else file.path(pkg_dir, "Figures", "source_data")
 out_dir <- if (length(args) >= 2) args[2] else script_dir
@@ -105,8 +105,8 @@ legend_plot <- ggplot(legend_df, aes(x = x, y = y, color = series, linetype = se
 combined <- (panels[[1]] | panels[[2]]) / (panels[[3]] | panels[[4]]) /
   cowplot::get_legend(legend_plot) + plot_layout(heights = c(1, 1, 0.22))
 
-pdf_out <- file.path(out_dir, "Figure_S5_restyled.pdf")
-save_both(combined, file.path(out_dir, "Figure_S5_restyled"), 320 / 25.4, 260 / 25.4)
+pdf_out <- file.path(out_dir, "Figure_S5.pdf")
+save_both(combined, file.path(out_dir, "Figure_S5"), 320 / 25.4, 260 / 25.4)
 
 # stdout diagnostics
 cat("\n==== Fig. S5: median delta vs k (random subsets) ====\n")

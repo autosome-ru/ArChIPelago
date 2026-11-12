@@ -1,4 +1,4 @@
-- script: "3_analysis/random_split/b9_figure_h3.py"
+- script: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.py"
   run: "2026-11-11 14:19:54"
   git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
   git_changed_tracked_files: 28
@@ -14,5 +14,5 @@
   outputs:
     - {file: "3_analysis/random_split/b9_random_split_per_fit.csv", md5: "8b747b29cb3a4fda38c24d0cd397f50f"}
     - {file: "3_analysis/random_split/b9_summary.csv", md5: "1ee6bca9d64ef32492b380eab8df3dbc"}
-    - {file: "3_analysis/random_split/B9_random_split_figure.pdf", md5: "e487f71c707f0a5bca68f795e2b526be"}
-    - {file: "3_analysis/random_split/B9_random_split_figure.png", md5: "a61af31304e6871fb2c482ac9d22d955"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.pdf", md5: "e487f71c707f0a5bca68f795e2b526be"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.png", md5: "a61af31304e6871fb2c482ac9d22d955"}

@@ -27,10 +27,10 @@
     - {file: 3_analysis/transfer_drivers/B5_B_ceiling_spearman.csv, md5: 4d635b2de6f0ecb0c2c7f1df058e5e0c}
     - {file: 3_analysis/transfer_drivers/B5_B_clouds_per_TF.csv, md5: e4d75d38d88553f669a905388e4872b5}
     - {file: 3_analysis/transfer_drivers/B5_B_cloud_separation.csv, md5: 8553b580faf7a02c44ef27812a4b6b5d}
-    - {file: 4_visualisation/figures/Fig2_S1/Figure_2_plotdata.csv, md5: 4eee93164b7f5f73a1e9b6d69708474b}
+    - {file: 4_visualisation/main_figures/Figure_2/Figure_2_plotdata.csv, md5: 4eee93164b7f5f73a1e9b6d69708474b}
   outputs:
-    - {file: outputs/numbers/NUMBERS_human_35TF.csv, md5: 7c48b5d3c4a5345363fbf2725dd38f00}
-    - {file: outputs/numbers/NUMBERS_human_35TF_unchanged.csv, md5: 7d8069b35f4e3e1eda97bdb2e0e9abff}
+    - {file: outputs/numbers/NUMBERS_human_35TF.csv, md5: cdb68063afdb9b4dd4e377593373567b}
+    - {file: outputs/numbers/NUMBERS_human_35TF_unchanged.csv, md5: 9f2627a1e8e328b31376f7a2f2b6695d}
 - script: 3_analysis/integration/make_numbers.py
   run: 2026-11-11 14:49
   task: W1-L P53 drop (human 35 TFs)
@@ -60,7 +60,7 @@
     - {file: 3_analysis/transfer_drivers/B5_B_ceiling_spearman.csv, md5: 4d635b2de6f0ecb0c2c7f1df058e5e0c}
     - {file: 3_analysis/transfer_drivers/B5_B_clouds_per_TF.csv, md5: e4d75d38d88553f669a905388e4872b5}
     - {file: 3_analysis/transfer_drivers/B5_B_cloud_separation.csv, md5: 8553b580faf7a02c44ef27812a4b6b5d}
-    - {file: 4_visualisation/figures/Fig2_S1/Figure_2_plotdata.csv, md5: 4eee93164b7f5f73a1e9b6d69708474b}
+    - {file: 4_visualisation/main_figures/Figure_2/Figure_2_plotdata.csv, md5: 4eee93164b7f5f73a1e9b6d69708474b}
   outputs:
-    - {file: outputs/numbers/NUMBERS_human_35TF.csv, md5: 7c48b5d3c4a5345363fbf2725dd38f00}
-    - {file: outputs/numbers/NUMBERS_human_35TF_unchanged.csv, md5: 7d8069b35f4e3e1eda97bdb2e0e9abff}
+    - {file: outputs/numbers/NUMBERS_human_35TF.csv, md5: cdb68063afdb9b4dd4e377593373567b}
+    - {file: outputs/numbers/NUMBERS_human_35TF_unchanged.csv, md5: 9f2627a1e8e328b31376f7a2f2b6695d}

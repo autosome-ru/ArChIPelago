@@ -3,7 +3,7 @@ diChIPMunk model. Inputs: the Fig. 4 / S4 source data (h3_inputs fig4_src, figS4
 results/server_h4_test_sets/human/fig4_refit_trainscale). Per test set and comparator: number of TFs, TFs with RF above the comparator
 (strictly), ties, median paired difference (RF minus comparator) and the two-sided Wilcoxon signed-rank P (scipy default, as in
 NUMBERS), for auROC and auPRC.
-Output: 4_visualisation/figures/output/Fig4/Figure_4_S4_paired_RF_vs_Slim.csv (Sup. Table 3 sheet 'Fig4_S4_paired_counts').
+Output: 4_visualisation/main_figures/Figure_4/Figure_4_S4_paired_RF_vs_Slim.csv (Sup. Table 3 sheet 'Fig4_S4_paired_counts').
 usage: ARCHI_STAGE=H5 python3 3_analysis/integration/fig4_paired_h4.py"""
 import os
 import sys
@@ -18,7 +18,7 @@ import w2   # noqa: E402
 
 RF = "ArChIPelago RF on all PWMs"
 COMPARATORS = ("Slim m=0", "Slim m=1", "LSlim m=-5", "diChIPMunk")
-OUT = os.path.join(os.path.dirname(HERE), "../4_visualisation/figures/output/Fig4", "Figure_4_S4_paired_RF_vs_Slim.csv")
+OUT = os.path.join(os.path.dirname(HERE), "../4_visualisation/main_figures/Figure_4", "Figure_4_S4_paired_RF_vs_Slim.csv")
 
 
 def main():

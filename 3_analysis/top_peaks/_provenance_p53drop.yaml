@@ -1,4 +1,4 @@
-- script: 3_analysis/top_peaks/b3_summary_figure_w2.py (copy of B3_peaks/b3_summary_figure.py)
+- script: 4_visualisation/supplementary_figures/Figure_S9/Figure_S9.py (copy of B3_peaks/b3_summary_figure.py)
   run: 2026-11-11 14:19
   task: W1-L P53 drop (human 35 TFs)
   python: 3.9.12
@@ -17,5 +17,5 @@
     - {file: 3_analysis/top_peaks/b3_topN_summary.csv, md5: 22aa13c33acbf388c9faebc1c1d366a1}
     - {file: 3_analysis/top_peaks/b3_peak_widths_summary.csv, md5: c2d89cb0136b9c5159298c25f39afdc6}
     - {file: 3_analysis/top_peaks/b3_join_summary.csv, md5: 68ae385b544e793439e9d1de29236742}
-    - {file: 3_analysis/top_peaks/B3_peaks_figure.pdf, md5: 9a7d4c5687ee5d2e5c6cdc9641f829ea}
-    - {file: 3_analysis/top_peaks/B3_peaks_figure.png, md5: 6d5fe36a27f53b46661e89ef4b64ff2a}
+    - {file: 4_visualisation/supplementary_figures/Figure_S9/Figure_S9.pdf, md5: 9a7d4c5687ee5d2e5c6cdc9641f829ea}
+    - {file: 4_visualisation/supplementary_figures/Figure_S9/Figure_S9.png, md5: 6d5fe36a27f53b46661e89ef4b64ff2a}

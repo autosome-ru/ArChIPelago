@@ -23,7 +23,7 @@ SRC = {k: J(*v.split("/")) for k, v in {
     "hm": os.path.relpath(H.IN["hm_mm"], w2.R2), "gc": os.path.relpath(H.IN["gc_v3"], w2.R2), "cm": os.path.relpath(H.IN["counts_M"], w2.R2),
     "ch": os.path.relpath(H.IN["counts_H"], w2.R2), "b8": "results/datasets/split_leakage/b8w1g2_summary.csv",
     "b8top": "3_analysis/integration/top1000_check_h3.csv", "s4": "results/datasets/round1_fig_s4/Figure_S4_numbers.csv",
-    "s4n": "4_visualisation/figures/output/Fig4/Figure_S4_stats.csv", "tok": "4_visualisation/figures/output/Fig4/text_tokens_h3b.csv",
+    "s4n": "4_visualisation/supplementary_figures/Figure_S4/Figure_S4_stats.csv", "tok": "4_visualisation/main_figures/Figure_4/text_tokens_h3b.csv",
     "negst": os.path.relpath(H.IN["neg_v3_stats"], w2.R2), "negck": os.path.relpath(H.IN["neg_v3_checks"], w2.R2),
     "bp": os.path.relpath(H.IN["build_positives"], w2.R2), "abl": "3_analysis/feature_importance/tables/B4_ablation_summary.csv",
     "t10": "outputs/supplementary_tables/Sup_Table_10_transfer_drivers_and_headroom.xlsx", "plan": "results/datasets/mouse_rebuild/mouse_rebuild_cpu_time.csv",
@@ -33,18 +33,18 @@ SRC = {k: J(*v.split("/")) for k, v in {
     "head": "3_analysis/transfer_drivers/B5_B_ceiling_spearman.csv", "clouds": "3_analysis/transfer_drivers/B5_B_cloud_members.txt",
     "cs": "3_analysis/package/analysis/cross_species/cross_species_table.csv", "tab1": "3_analysis/integration/table1_rows.csv",
     "fig1": "3_analysis/integration/figure1_values.csv", "sat": "3_analysis/package/analysis/saturation/saturation_summary_by_k.csv",
-    "mask": "results/datasets/repeat_mask/repeat_mask_counts.csv", "subrank": "4_visualisation/figures/FigS7/tf_ranking_h3.csv",
-    "subverd": "4_visualisation/figures/FigS7/subtype_verdicts_v11_h3.csv",
-    "v11": "4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_hocomoco11.csv", "cv11": "4_visualisation/figures/FigS7/hocomoco11_check/cluster_vs_v11.csv", "subsrc": "4_visualisation/figures/FigS7/Figure_S7_source_data.csv",
-    "v11n": "4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_named_v11.csv",
-    "f4pair": "4_visualisation/figures/output/Fig4/Figure_4_S4_paired_RF_vs_Slim.csv",
+    "mask": "results/datasets/repeat_mask/repeat_mask_counts.csv", "subrank": "4_visualisation/supplementary_figures/Figure_S7/tf_ranking_h3.csv",
+    "subverd": "4_visualisation/supplementary_figures/Figure_S7/subtype_verdicts_v11_h3.csv",
+    "v11": "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/subtype_vs_hocomoco11.csv", "cv11": "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv", "subsrc": "4_visualisation/supplementary_figures/Figure_S7/Figure_S7_source_data.csv",
+    "v11n": "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/subtype_vs_named_v11.csv",
+    "f4pair": "4_visualisation/main_figures/Figure_4/Figure_4_S4_paired_RF_vs_Slim.csv",
     "gate": "3_analysis/low_fpr_metrics/B2_gate_h3_summary.csv", "porig": "3_analysis/integration/pwm_origin_h3.csv",
     "mvd": "3_analysis/integration/mono_vs_monodi_h3.csv", "gct": "3_analysis/integration/gc_per_tf_h3.csv", "gcs": "3_analysis/integration/gc_vs_gain_h3.csv",
     "ties": "3_analysis/integration/positive_count_ties_h3.csv", "abf": "3_analysis/feature_importance/tables/B4_ablation_all_fits.csv",
     "rt": "3_analysis/package/results_table.csv", "b2w": "3_analysis/low_fpr_metrics/B2_metrics_wide.csv", "s6": "3_analysis/integration/sup6_methods_values_h3.csv",
     "t6": "outputs/supplementary_tables/Sup_Table_6_runtime_memory.xlsx", "hpt": "3_analysis/transfer_drivers/B5_B_headroom_per_TF.csv",
-    "conc": "3_analysis/feature_importance/tables/B4_importance_concentration.csv", "s1p": "4_visualisation/figures/output/S1/Figure_S1_plotdata.csv",
-    "f3c": "4_visualisation/figures/Fig3_S3/Figure_3_C_plotdata.csv", "b5t": "3_analysis/transfer_drivers/B5_per_TF_table.csv",
+    "conc": "3_analysis/feature_importance/tables/B4_importance_concentration.csv", "s1p": "4_visualisation/supplementary_figures/Figure_S1/Figure_S1_plotdata.csv",
+    "f3c": "4_visualisation/main_figures/Figure_3/Figure_3_C_plotdata.csv", "b5t": "3_analysis/transfer_drivers/B5_per_TF_table.csv",
     "f4src": "3_analysis/package/Figures/source_data/Figure_4_source_data.csv"}.items()}
 H4_REF = "10feef6"    # frozen copy results/previous_values/10feef6 of the earlier NUMBERS_R2_35TF.csv (git commit 10feef6); its values fill the h4 column
 H3A_REF = "ffcef4d"   # frozen copy results/previous_values/ffcef4d of the earlier NUMBERS_R2_35TF.csv (git commit ffcef4d); its values fill the h3a column
@@ -456,7 +456,7 @@ add("Fig. S7 legend counts: monoPWMs / diPWMs per TF; candidate TFs; TFs drawn; 
     "%d / %d; %d; %d; %d; %d" % (_npc["mono"].iloc[0], _npc["di"].iloc[0], _ss.TF.nunique(), len(_shown), len(_drw), int(_drw.cofactor.sum())),
     rel("subsrc"), "V1-S7, Fig. S7 legend", "authors' decision: the top three diPWMs of every TF, one rule for all TFs")
 add("Fig. S7 subtype match: method (V1-S7)", "-", "pcc_max: max over offsets and strands of mean column Pearson r of z-scored PWMs, overlap >= 5; "
-    "HOCOMOCO v11 HUMAN mono, full collection", "4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_hocomoco11.py", "V1-S7, Methods 2.10")
+    "HOCOMOCO v11 HUMAN mono, full collection", "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/subtype_vs_hocomoco11.py", "V1-S7, Methods 2.10")
 _cv0 = pd.read_csv(SRC["cv11"])
 _cv = _cv0.assign(key=_cv0.TF.fillna(_cv0.summary)).set_index("key")
 _cvt = _cv[_cv.TF.notna()]                        # the 11 TF rows (summary rows: TF empty, label in 'summary')
@@ -625,7 +625,7 @@ import io as _io, subprocess as _sp   # noqa: E401,E402
 from scipy.stats import wilcoxon as _wx   # noqa: E402
 _XP = {"s4sd": ("3_analysis/package/Figures/source_data/Figure_S4_source_data.csv",) * 2, "drv": (SRC["drv"], "3_analysis/transfer_drivers/B5_A_spearman_drivers.csv"),
        "topn": (SRC["topn"], "3_analysis/top_peaks/b3_topN_summary.csv"), "b9pf": ("3_analysis/random_split/b9_random_split_per_fit.csv",) * 2,
-       "f3d": ("4_visualisation/figures/Fig3_S3/Figure_3D_source_data.csv",) * 2, "v11": ("4_visualisation/figures/FigS7/hocomoco11_check/subtype_vs_hocomoco11.csv",) * 2,
+       "f3d": ("4_visualisation/main_figures/Figure_3/Figure_3D_source_data.csv",) * 2, "v11": ("4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/subtype_vs_hocomoco11.csv",) * 2,
        "hm": (SRC["hm"], "results/server_h4_test_sets/human/hm_mm_results.csv")}
 def _xread(key, ref):
     cur, old = _XP[key]

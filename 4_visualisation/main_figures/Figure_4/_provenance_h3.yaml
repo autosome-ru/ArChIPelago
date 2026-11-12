@@ -9,12 +9,12 @@
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   parameters: "{alpha: 0.05, tokens: 19}"
   inputs:
-    - {file: "4_visualisation/figures/output/Fig4/Figure_4_stats.csv", md5: "47e856301f7caa5fd873ccd5b790c1d5"}
-    - {file: "4_visualisation/figures/output/Fig4/Figure_S4_stats.csv", md5: "203a80c19c333288cca95dfd93842c21"}
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4_stats.csv", md5: "47e856301f7caa5fd873ccd5b790c1d5"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S4/Figure_S4_stats.csv", md5: "203a80c19c333288cca95dfd93842c21"}
     - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
     - {file: "results/datasets/text_tokens/manuscript_text_tokens.txt", md5: "a759ddda705b01099bf0a553d763d250"}
   outputs:
-    - {file: "4_visualisation/figures/output/Fig4/text_tokens_h3b.csv", md5: "9e39d5878322f7d06cc90a95326f8ccb"}
+    - {file: "4_visualisation/main_figures/Figure_4/text_tokens_h3b.csv", md5: "9e39d5878322f7d06cc90a95326f8ccb"}
 - script: "3_analysis/integration/fig4_paired_h4.py"
   run: "2026-11-11 14:19:35"
   git_commit: "e6ec8088688c78d645c5b972471c0258b636aa51"
@@ -29,7 +29,7 @@
     - {file: "results/server/human/fig4_refit_trainscale/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
     - {file: "results/server/human/fig4_refit_trainscale/Figure_S4_source_data.csv", md5: "753e28dd1c53fc699903012b2bdc0021"}
   outputs:
-    - {file: "4_visualisation/figures/output/Fig4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
 - script: "3_analysis/integration/fig4_tokens_h3b.py"
   run: "2026-11-11 15:23:24"
   git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
@@ -41,12 +41,12 @@
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   parameters: "{alpha: 0.05, tokens: 19}"
   inputs:
-    - {file: "4_visualisation/figures/output/Fig4/Figure_4_stats.csv", md5: "47e856301f7caa5fd873ccd5b790c1d5"}
-    - {file: "4_visualisation/figures/output/Fig4/Figure_S4_stats.csv", md5: "203a80c19c333288cca95dfd93842c21"}
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4_stats.csv", md5: "47e856301f7caa5fd873ccd5b790c1d5"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S4/Figure_S4_stats.csv", md5: "203a80c19c333288cca95dfd93842c21"}
     - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
     - {file: "results/datasets/text_tokens/manuscript_text_tokens.txt", md5: "a759ddda705b01099bf0a553d763d250"}
   outputs:
-    - {file: "4_visualisation/figures/output/Fig4/text_tokens_h3b.csv", md5: "9e39d5878322f7d06cc90a95326f8ccb"}
+    - {file: "4_visualisation/main_figures/Figure_4/text_tokens_h3b.csv", md5: "9e39d5878322f7d06cc90a95326f8ccb"}
 - script: "3_analysis/integration/fig4_paired_h4.py"
   run: "2026-11-11 15:23:26"
   git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
@@ -61,4 +61,4 @@
     - {file: "results/server/human/fig4_refit_trainscale/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
     - {file: "results/server/human/fig4_refit_trainscale/Figure_S4_source_data.csv", md5: "753e28dd1c53fc699903012b2bdc0021"}
   outputs:
-    - {file: "4_visualisation/figures/output/Fig4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}

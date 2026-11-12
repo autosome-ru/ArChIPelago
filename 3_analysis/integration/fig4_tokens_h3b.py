@@ -1,8 +1,8 @@
 """Values for the [PENDING_H3B:<name>] tokens of the manuscript text producer (Abstract, Results 3.4), computed from the Fig. 4 / S4
-stats tables that the figure producer writes (4_visualisation/figures/output/Fig4) and, for the abstract claim, from the
+stats tables that the figure producer writes (4_visualisation/main_figures/Figure_4, supplementary_figures/Figure_S4) and, for the abstract claim, from the
 Fig. 4 source data (paired per TF). Token names: results/datasets/text_tokens/manuscript_text_tokens.txt. One row per token:
 the text value, the numbers behind it, the first-submission text value it replaces, and whether the statement of the sentence holds.
-Output: 4_visualisation/figures/output/Fig4/text_tokens_h3b.csv, provenance block in the same folder (_provenance_h3.yaml).
+Output: 4_visualisation/main_figures/Figure_4/text_tokens_h3b.csv, provenance block in the same folder (_provenance_h3.yaml).
 usage: ARCHI_STAGE=H5 python3 3_analysis/integration/fig4_tokens_h3b.py
 """
 import os
@@ -15,8 +15,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import w2  # noqa: E402
 
 R2, B13 = w2.R2, w2.B13
-D = os.path.join(B13, "../../4_visualisation/figures/output/Fig4")
-IN = {"H": os.path.join(D, "Figure_4_stats.csv"), "M": os.path.join(D, "Figure_S4_stats.csv"),
+D = os.path.join(R2, "4_visualisation", "main_figures", "Figure_4")
+IN = {"H": os.path.join(D, "Figure_4_stats.csv"),
+      "M": os.path.join(R2, "4_visualisation", "supplementary_figures", "Figure_S4", "Figure_S4_stats.csv"),
       "src": os.path.join(B13, "../package", "Figures", "source_data", "Figure_4_source_data.csv"),
       # token lines of the text producer before the values were filled (the filled producer changes with the fill, so it cannot be an
       # input; tests/test_fig4_h3b.py checks that the filled producer has no token left and quotes each value)

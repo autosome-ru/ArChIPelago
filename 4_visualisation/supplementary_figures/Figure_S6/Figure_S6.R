@@ -5,7 +5,7 @@
 #
 # Input : Figures/source_data/Figure_S6_source_data.csv (extract of Sup. Table 5,
 #         written by make_figure_source_data.py)
-# Usage : Rscript Figure_S6_cross_species.R [source_data_dir] [output_dir]
+# Usage : Rscript Figure_S6.R [source_data_dir] [output_dir]
 #         (defaults: ../Figures/source_data and ../Figures/panels)
 # Mouse test set = mouse chr1/8/19; baseline = best single monoPWM. The TFs
 # below the baseline after transfer are drawn last and labelled; jitter in panel D is seeded.
@@ -18,7 +18,7 @@ script_dir <- local({
   if (length(f)) dirname(normalizePath(sub("^--file=", "", f[1]))) else getwd()
 })
 args    <- commandArgs(trailingOnly = TRUE)
-source(file.path(script_dir, "..", "archi_style.R"))
+source(file.path(script_dir, "..", "..", "style", "archi_style.R"))
 pkg_dir <- ARCHI_PKG   # released package, read only
 src_dir <- if (length(args) >= 1) args[1] else file.path(pkg_dir, "Figures", "source_data")
 out_dir <- if (length(args) >= 2) args[2] else script_dir
@@ -150,8 +150,8 @@ combined <- (panel_ab("ROC", "A") | panel_ab("PRC", "B")) / (panel_c | panel_d) 
   plot_layout(guides = "collect") &
   theme(legend.position = "bottom", legend.box = "horizontal")
 
-pdf_out <- file.path(out_dir, "Figure_S6_restyled.pdf")
-save_both(combined, file.path(out_dir, "Figure_S6_restyled"), 320 / 25.4, 280 / 25.4)
+pdf_out <- file.path(out_dir, "Figure_S6.pdf")
+save_both(combined, file.path(out_dir, "Figure_S6"), 320 / 25.4, 280 / 25.4)
 
 # stdout diagnostics
 cat("\n==== Fig. S6 ====\n")
