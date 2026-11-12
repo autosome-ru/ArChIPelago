@@ -24,9 +24,6 @@
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   note: "H3: Fig. 1, 2, 3 (assembled), S1-S3, S5, S6, S7, S8-S11, S12 rebuilt; Fig. 4, S4 pending (H3b)"
   inputs:
-    - {file: "4_visualisation/figure1/Figure_1_R2.pdf", md5: "5627b9ef1d58e19d985f6f2cdb3ee433"}
-    - {file: "4_visualisation/figure1/Figure_1_R2.png", md5: "aa3b950012b0450513a2edf1bf388d64"}
-    - {file: "4_visualisation/figure1/Figure_1_R2.svg", md5: "9111c21ba9f47d5e8f9a8fb97ee68237"}
     - {file: "4_visualisation/figures/Fig2_S1/Figure_2_restyled.pdf", md5: "396571a275961b37dbf649c5179e78af"}
     - {file: "4_visualisation/figures/Fig2_S1/Figure_2_restyled.png", md5: "318b149e2a5315a604cb38e754fcb6c7"}
     - {file: "4_visualisation/figures/output/S1/Figure_S1_restyled.pdf", md5: "160061da000b899b1ed25d0236f1bad2"}
@@ -57,9 +54,6 @@
     - {file: "4_visualisation/figures/output/Fig4/Figure_S4_restyled.png", md5: "bee4512b2d328dc98c5aa31317711fe2"}
     - {file: "4_visualisation/figures/Fig3_S3/Figure_3_ABC_restyled.png", md5: "5b775be266441ca576442c1f1c9f0d10"}
   outputs:
-    - {file: "outputs/figures/Figure_1.pdf", md5: "5627b9ef1d58e19d985f6f2cdb3ee433"}
-    - {file: "outputs/figures/Figure_1.png", md5: "aa3b950012b0450513a2edf1bf388d64"}
-    - {file: "outputs/figures/Figure_1.svg", md5: "9111c21ba9f47d5e8f9a8fb97ee68237"}
     - {file: "outputs/figures/Figure_2.pdf", md5: "396571a275961b37dbf649c5179e78af"}
     - {file: "outputs/figures/Figure_2.png", md5: "318b149e2a5315a604cb38e754fcb6c7"}
     - {file: "outputs/figures/Figure_S1.pdf", md5: "160061da000b899b1ed25d0236f1bad2"}
@@ -116,9 +110,6 @@
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   note: "H3: Fig. 1, 2, 3 (assembled), S1-S3, S5, S6, S7, S8-S11, S12 rebuilt; Fig. 4, S4 pending (H3b)"
   inputs:
-    - {file: "4_visualisation/figure1/Figure_1_R2.pdf", md5: "5627b9ef1d58e19d985f6f2cdb3ee433"}
-    - {file: "4_visualisation/figure1/Figure_1_R2.png", md5: "aa3b950012b0450513a2edf1bf388d64"}
-    - {file: "4_visualisation/figure1/Figure_1_R2.svg", md5: "9111c21ba9f47d5e8f9a8fb97ee68237"}
     - {file: "4_visualisation/figures/Fig2_S1/Figure_2_restyled.pdf", md5: "309313750d52170d623b92fcd644ccdb"}
     - {file: "4_visualisation/figures/Fig2_S1/Figure_2_restyled.png", md5: "318b149e2a5315a604cb38e754fcb6c7"}
     - {file: "4_visualisation/figures/output/S1/Figure_S1_restyled.pdf", md5: "9dd756cd8f911ac37164ec84d2db7f9d"}
@@ -149,9 +140,6 @@
     - {file: "4_visualisation/figures/output/Fig4/Figure_S4_restyled.png", md5: "bee4512b2d328dc98c5aa31317711fe2"}
     - {file: "4_visualisation/figures/Fig3_S3/Figure_3_ABC_restyled.png", md5: "66bcc57872971ae046b007e9fcb9370a"}
   outputs:
-    - {file: "outputs/figures/Figure_1.pdf", md5: "5627b9ef1d58e19d985f6f2cdb3ee433"}
-    - {file: "outputs/figures/Figure_1.png", md5: "aa3b950012b0450513a2edf1bf388d64"}
-    - {file: "outputs/figures/Figure_1.svg", md5: "9111c21ba9f47d5e8f9a8fb97ee68237"}
     - {file: "outputs/figures/Figure_2.pdf", md5: "309313750d52170d623b92fcd644ccdb"}
     - {file: "outputs/figures/Figure_2.png", md5: "318b149e2a5315a604cb38e754fcb6c7"}
     - {file: "outputs/figures/Figure_S1.pdf", md5: "9dd756cd8f911ac37164ec84d2db7f9d"}

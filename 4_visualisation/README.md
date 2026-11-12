@@ -1,10 +1,10 @@
 # 4_visualisation
 
 Figure producers of the paper. They read the tables written by `3_analysis/` and are run by the same driver, in the stages
-`figs`, `s7`, `fig1` and `copy` (see `3_analysis/README.md`):
+`figs`, `s7` and `copy` (see `3_analysis/README.md`):
 
 ```
-ARCHI_STAGE=H5 python3 3_analysis/integration/run_h3.py figs s7 fig1 copy
+ARCHI_STAGE=H5 python3 3_analysis/integration/run_h3.py figs s7 copy
 ```
 
 The R scripts run from `4_visualisation/figures/` with `ARCHI_PKG` pointing at the folder that holds `results_table.csv`
@@ -16,7 +16,7 @@ copies every final figure to `outputs/figures/`, except Fig. 3, which `Fig3_S3/a
 
 | figure | producer | panel folder |
 |---|---|---|
-| Fig. 1 | `figure1/make_figure1_R2.py` (values from `3_analysis/integration/figure1_values.csv`), then `rsvg-convert` (PNG 300 dpi, PDF) and `sips` | `figure1/` |
+| Fig. 1 | drawn by hand by the authors, not in the repository; the numbers it shows are in `3_analysis/integration/figure1_values.csv` (written by `figure1_values.py`) | none |
 | Fig. 2 | `figures/Fig2_S1/Figure_2_and_S1_restyled.R` (human) | `figures/Fig2_S1/` |
 | Fig. S1 | `figures/Fig2_S1/Figure_2_and_S1_restyled.R` (mouse) | `figures/output/S1/` |
 | Fig. 3 | A-C `figures/Fig3_S3/Figure_3_and_S3_restyled.R` (human); D `figures/Fig3_S3/build_Figure_3D_source_data_h3.py` and `Figure_3D_logos.R`; composite `figures/Fig3_S3/assemble_figure3.py` | `figures/Fig3_S3/` |
@@ -46,4 +46,4 @@ colour distances of the palette under simulated colour vision deficiency
 
 R 4.4.3 with dplyr 1.2.0, ggplot2 4.0.2, patchwork 1.3.2, cowplot 1.2.0, ggrepel 0.9.8, ggExtra 0.11.0, viridis 0.6.5,
 tidyr 1.3.2, ggbeeswarm 0.7.3, ggseqlogo 0.2, png 0.1.9. Python 3.9.12 with matplotlib 3.5.2, pandas 2.3.0, numpy 1.26.4,
-Pillow 11.3.0, pypdf 6.9.1. Poppler 24.04 (`pdftoppm`, `pdfimages`), `rsvg-convert` 2.50.7, macOS `sips`, Arial.
+Pillow 11.3.0, pypdf 6.9.1. Poppler 24.04 (`pdftoppm`, `pdfimages`), Arial.

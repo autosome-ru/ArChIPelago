@@ -1,6 +1,6 @@
 """Every number of Fig. 1 recomputed from the final Sup. Tables and the final-data inputs, written to
-3_analysis/integration/figure1_values.csv. 4_visualisation/figure1/make_figure1_R2.py reads this file and formats its labels
-from it (no literal values in the producer).
+3_analysis/integration/figure1_values.csv. Fig. 1 is drawn by hand by the authors and is not in the repository; this file holds
+the numbers it shows (and feeds make_numbers_w2.py).
 Sources: Sup. Tables 1-4 (outputs/supplementary_tables), hm_mm (the negatives and positives each model was trained and tested
 on, for the realised negative:positive ratios).
 usage: ARCHI_STAGE=H5 python3 3_analysis/integration/figure1_values.py

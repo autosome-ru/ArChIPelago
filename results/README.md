@@ -16,7 +16,7 @@ except the unpacked PWM folders in `datasets/zenodo_v1.0.0/` (not tracked).
 | `datasets/top_peaks/b3_missing_datasets.csv` | 19 human peak sets without a peak file | |
 | `datasets/round1_fig_s4/`, `datasets/round1_b2_gate/` | Fig. S4 numbers and the low FPR gate of the first submission (old values) | |
 | `datasets/text_tokens/manuscript_text_tokens.txt` | the lines of the manuscript text producer that hold the `[PENDING_H3B:<name>]` tokens; `3_analysis/integration/fig4_tokens_h3b.py` computes one value per token | manuscript text producer before the values were filled |
-| `round1_package/` | inputs of the first submission that the old-value columns read: `Manuscript_analysis/` (released analysis package: results table, Sup. Table 6, Fig. 4 and S5 source data, motif similarity), `Resubmission/Sup_Tables/` (Sup. Tables 1, 2, 4 of the first submission), `analysis_mouse_swap/hm_mm_results.csv`, `Figure_1_original.png` | first submission |
+| `round1_package/` | inputs of the first submission that the old-value columns read: `Manuscript_analysis/` (released analysis package: results table, Sup. Table 6, Fig. 4 and S5 source data, motif similarity), `Resubmission/Sup_Tables/` (Sup. Tables 1, 2, 4 of the first submission), `analysis_mouse_swap/hm_mm_results.csv` | first submission |
 | `previous_values/` | frozen copies of the files that the old-value columns of `outputs/numbers/NUMBERS_R2_35TF.csv` read from the git history of the manuscript repository; one folder per git commit or tag, file names as in that commit; `SOURCES.csv` lists the original path and md5 of each | exact bytes of `git show <ref>:<path>` |
 
 The analysis package keeps its own inputs inside `3_analysis/package/analysis/inputs/` (GTRD experiment table and metadata,

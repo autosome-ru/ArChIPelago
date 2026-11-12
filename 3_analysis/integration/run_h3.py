@@ -82,14 +82,10 @@ STAGES = {
                       ([PY, "3_analysis/supplementary_tables/make_sup_tables_1_3_R2.py", "1", "2", "3", "4", "6"], R2),
                       ([PY, "3_analysis/supplementary_tables/make_sup_table_5_R2.py"], R2),
                       ([PY, "3_analysis/supplementary_tables/make_sup_tables_7_10.py", "7", "8", "9", "10"], R2)]),
-    # Fig. 1 values, Table 1 rows, Fig. 1 (svg -> png 300 dpi, pdf); "copy" then collects all figures in outputs/figures
-    "fig1": dict(backup=["4_visualisation/figure1/Figure_1_R2.*"],
+    # Fig. 1 values (numbers printed in the hand-drawn Fig. 1) and Table 1 rows; the drawing itself is not in the repository
+    "fig1": dict(backup=[],
                  cmds=[([PY, "./figure1_values.py"], B13),
-                       ([PY, "./table1_inputs.py"], B13),
-                       ([PY, "make_figure1_R2.py"], j("4_visualisation/figure1")),
-                       (["rsvg-convert", "-d", "300", "-p", "300", "Figure_1_R2.svg", "-o", "Figure_1_R2.png"], j("4_visualisation/figure1")),
-                       (["sips", "-s", "dpiWidth", "300", "-s", "dpiHeight", "300", "Figure_1_R2.png"], j("4_visualisation/figure1")),
-                       (["rsvg-convert", "-d", "72", "-p", "72", "-f", "pdf", "Figure_1_R2.svg", "-o", "Figure_1_R2.pdf"], j("4_visualisation/figure1"))]),
+                       ([PY, "./table1_inputs.py"], B13)]),
     # Fig. S7: gain ranking from the package results_table, Gini of the models; HOCOMOCO v11 match per tile, TFs and
     # roles from subtype_verdicts_v11_h3.csv; then the v11 cross-check csv and the feature-importance clustering vs v11 agreement
     "s7": dict(backup=["4_visualisation/figures/FigS7/Figure_S7_motif_subtypes.p*", "4_visualisation/figures/FigS7/Figure_S7_source_data.csv", "4_visualisation/figures/FigS7/tf_ranking_h3.csv",

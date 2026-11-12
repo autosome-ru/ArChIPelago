@@ -30,7 +30,7 @@ command and writes one log per command to `3_analysis/integration/logs/`. Single
 | sup | Sup. Tables 1-10 |
 | s7 | Fig. S7 and Fig. 3D source data, Fig. S7, Fig. 3 composite |
 | porig, v1 | PWM origin table, mono vs mono+di, GC tables |
-| fig1 | Fig. 1 values, Table 1 rows, Fig. 1 (SVG, PNG 300 dpi, PDF) |
+| fig1 | Fig. 1 values (`figure1_values.csv`; Fig. 1 itself is drawn by hand by the authors and is not in the repository), Table 1 rows |
 | numbers | `outputs/numbers/NUMBERS_human_35TF*.csv`, `NUMBERS_R2_35TF.csv`, flip report |
 | copy | every figure to `outputs/figures/` |
 
@@ -88,6 +88,6 @@ copies are not tracked.
 Python 3.9.12 with pandas 2.3.0, numpy 1.26.4, scipy 1.13.1, matplotlib 3.5.2, scikit-learn 1.1.2, openpyxl 3.1.5,
 pypdf 6.9.1, PyYAML 6.0, Pillow 11.3.0. R 4.4.3 with dplyr 1.2.0, ggplot2 4.0.2, patchwork 1.3.2, cowplot 1.2.0,
 ggrepel 0.9.8, ggExtra 0.11.0, viridis 0.6.5, tidyr 1.3.2, ggbeeswarm 0.7.3, ggseqlogo 0.2, png 0.1.9. Poppler 24.04
-(`pdftoppm`, `pdfimages`, `pdftotext`), `rsvg-convert` 2.50.7, macOS `sips`, the Arial font. Tools are taken from `PATH`;
+(`pdftoppm`, `pdfimages`, `pdftotext`), the Arial font. Tools are taken from `PATH`;
 `PDFTOPPM`, `PDFIMAGES` and `PDFTOTEXT` override them.
 Scripts that compute auROC or auPRC also need R with PRROC 1.4 and rpy2 3.5.17 (as in CI; rpy2 must load the R that holds PRROC, set `R_HOME`).

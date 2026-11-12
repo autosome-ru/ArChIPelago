@@ -95,9 +95,8 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
    It checks every input against the md5 manifest of `results/server/` first and stops at the first failing command
    (about 3 min on a laptop). Requirements: Python 3.9 or later with pandas 2.3, numpy 1.26, scipy 1.13, matplotlib 3.5,
    scikit-learn, rpy2 3.5, openpyxl, pyyaml, pypdf; R 4.4 with PRROC 1.4 (rpy2 must load the R that holds PRROC; set `R_HOME`), dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis,
-   tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext) and rsvg-convert. Stage `fig1` sets the
-   resolution of Fig. 1 with the macOS tool `sips`; on Linux that command fails and the run stops there (run the other
-   stages by name, see `3_analysis/README.md`). The optional stage `gate` (check of the low FPR metrics against the score files) is not part of `all`; it needs the score files of the Zenodo v2.0.0 deposit (see "Data on Zenodo").
+   tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext). Fig. 1 is drawn by hand by the authors and is not in the repository; the
+   numbers it shows are written by stage `fig1` to `3_analysis/integration/figure1_values.csv`. The optional stage `gate` (check of the low FPR metrics against the score files) is not part of `all`; it needs the score files of the Zenodo v2.0.0 deposit (see "Data on Zenodo").
 
 **Training and test chromosomes.** Human: training chr2-7, 9-20 and 22, test chr1, 8 and 21. Mouse: training chr2-7 and
 9-18, test chr1, 8 and 19. Each autosome is in exactly one set; the sex chromosomes are in neither.
