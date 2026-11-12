@@ -64,11 +64,9 @@ ArChIPelago/
 ├── results/                tracked inputs of the local stages (result tables of the compute stages, dataset lists, PWM archives)
 ├── outputs/                figures/, supplementary_tables/, numbers/ of the final run
 ├── tests/                  checks of the tables, figures and numbers (pytest)
-├── Kravchenko_et_al_Supplementary_Materials.pdf   table and figure legends, Fig. S1-S12
-├── ArChIPelago_code/       archipielago Python package, its tests and the CTCF demo notebook
 ├── ArChIPelago-TFBS-finder/  scanning tool (git submodule)
 ├── sarus/  seqtk/          SPRY-SARUS and seqtk (git submodules)
-└── Slim/                   Slim jars (SlimDimont, TrainAndApplySlim), the ytilib Ruby library of diChIPMunk, JDK 8
+└── Slim/                   not tracked: Slim jars, ytilib, JDK 8, unpacked from Zenodo v1.0.0 (see "Slim and round 1")
 ```
 
 Each numbered folder, `results/`, `outputs/` and `tests/` has its own README with the run commands, inputs and outputs.
@@ -90,7 +88,7 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
 
    ```bash
    OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
-   ARCHI_STAGE=H5 ARCHI_H5_SCORES=$PWD/results/server/human/scores \
+   ARCHI_STAGE=H5 \
    python3 3_analysis/integration/run_h3.py all
    ```
 
@@ -99,7 +97,7 @@ Each numbered folder, `results/`, `outputs/` and `tests/` has its own README wit
    scikit-learn, openpyxl, pyyaml, pypdf; R 4.4 with dplyr, ggplot2, patchwork, cowplot, ggrepel, ggExtra, viridis,
    tidyr, ggbeeswarm, ggseqlogo and png; poppler (pdftoppm, pdfimages, pdftotext) and rsvg-convert. Stage `fig1` sets the
    resolution of Fig. 1 with the macOS tool `sips`; on Linux that command fails and the run stops there (run the other
-   stages by name, see `3_analysis/README.md`).
+   stages by name, see `3_analysis/README.md`). The optional stage `gate` (check of the low FPR metrics against the score files) is not part of `all`; it needs the score files of the Zenodo v2.0.0 deposit (see "Data on Zenodo").
 
 **Training and test chromosomes.** Human: training chr2-7, 9-20 and 22, test chr1, 8 and 21. Mouse: training chr2-7 and
 9-18, test chr1, 8 and 19. Each autosome is in exactly one set; the sex chromosomes are in neither.
@@ -133,36 +131,25 @@ return the split unchanged for MOUSE (see `1_data_preparation/README.md`).
 
 ---
 
-## `archipielago` package and CTCF demo
+## Slim and round 1
 
-`ArChIPelago_code/archipielago/` holds general functions for training on PWM scores (configuration, FASTA and BED input,
-SPRY-SARUS scanning and feature matrices, Random Forest training and evaluation, scikit-learn and PRROC scorers), with unit
-tests in `ArChIPelago_code/tests/`. `ArChIPelago_code/5_CTCF_demo_pipeline.ipynb` is the demo of v1.0.0: scanning,
-training and evaluation for CTCF. Besides the positives of `train.tar.gz` and `test.tar.gz` it needs negative FASTA files
-(`train/CTCF_negative_train.fasta`, `test/CTCF_negative_test.fasta`), which are built from the negative ID lists of
-`Archipelago_intermediate_files_negatives_v3.tar.gz` and the sequences of the `Archipelago_intermediate_files_fasta_*`
-archives (paths in `ArChIPelago_code/config.yml`, conda environment `ArChIPelago_code/environment_rpy_2.yml`).
-
-```bash
-git clone --recurse-submodules https://github.com/autosome-ru/ArChIPelago.git
-cd ArChIPelago
-conda env create -n ArChIPelago -f ArChIPelago_code/environment_rpy_2.yml
-conda activate ArChIPelago
-pytest ArChIPelago_code/tests
-```
+The Slim jars, the ytilib Ruby library of diChIPMunk and JDK 8 are not tracked in git. They are in the Zenodo record
+[10.5281/zenodo.23036475](https://doi.org/10.5281/zenodo.23036475) (v1.0.0) as `Slim.tar.gz` (md5
+`ce12823de573676ea0cee7dce5cadb79`, 614 files). Unpack it in the repository root to recreate `Slim/`, which the scripts of
+`2_training/` and `3_analysis/server/` expect. The `archipielago` Python package of the first submission and its CTCF demo
+notebook are also in Zenodo v1.0.0 and are not part of this repository.
 
 ---
 
 ## Tests
 
 ```bash
-pytest ArChIPelago_code/tests                                   # archipielago package
-ARCHI_STAGE=H5 pytest tests --ignore=tests/server_checks       # tables, figures and numbers of the manuscript
+ARCHI_STAGE=H5 pytest tests       # tables, figures and numbers of the manuscript
 ```
 
-The second suite recomputes values of the supplementary tables, the figures and `outputs/numbers/NUMBERS_R2_35TF.csv`
+The suite recomputes values of the supplementary tables, the figures and `outputs/numbers/NUMBERS_R2_35TF.csv`
 from their source tables, reruns the supplementary table builders in a temporary copy, and checks the md5 values recorded
-in the provenance files. GitHub Actions runs both suites on every push.
+in the provenance files. GitHub Actions runs it on every push.
 
 ---
 

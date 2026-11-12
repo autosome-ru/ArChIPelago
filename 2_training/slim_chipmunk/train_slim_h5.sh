@@ -1,7 +1,7 @@
 #!/bin/bash
 # Slim Dimont training as notebook 2 SlimModel.fit
 # (p=peak v=signal m=<o> moobm=-1 w=0.2 Starts=20 threads=4, -XX:ParallelGCThreads=1), JDK 8u232 + TrainAndApplySlim.jar
-# (md5 5186b158) from the Slim/ folder of the repository. Inputs P5/inputs/<TF>/train_H_{1,0}_SLIM.fasta. Atomic mkdir claim.
+# (md5 5186b158) from the Slim/ folder of the repository root (unpacked from Slim.tar.gz of Zenodo v1.0.0, not tracked). Inputs P5/inputs/<TF>/train_H_{1,0}_SLIM.fasta. Atomic mkdir claim.
 # usage: train_slim_h5.sh <TF> <0|1|5>
 . "$(dirname "$(readlink -f "$0")")/../../archi_env.sh"
 TF=$1; D=$2; case $D in 0) M=0;; 1) M=1;; 5) M=-5;; *) echo "bad order $D"; exit 1;; esac

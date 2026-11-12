@@ -44,5 +44,5 @@ Run order for the Fig. 4 scans and the runtime benchmark is in `../3_analysis/se
 
 ## Not in the repository
 
-- diChIPMunk: `chipmunk.jar` (v8) and `dpmflogo3.rb` from the ChIPMunk v8 supporting scripts (https://autosome.org/ChIPMunk/). `slim_chipmunk/chipmunk/run_dichiphorde8.rb` expects `chipmunk.jar` and `ytilib/` next to it. The Slim jar `TrainAndApplySlim.jar`, the JDK 8u232 and `ytilib/` are in `../Slim/` of this repository.
+- diChIPMunk: `chipmunk.jar` (v8) and `dpmflogo3.rb` from the ChIPMunk v8 supporting scripts (https://autosome.org/ChIPMunk/). `slim_chipmunk/chipmunk/run_dichiphorde8.rb` expects `chipmunk.jar` and `ytilib/` next to it. The Slim jar `TrainAndApplySlim.jar`, the JDK 8u232 and `ytilib/` are in `Slim.tar.gz` of Zenodo v1.0.0 (10.5281/zenodo.23036475, md5 `ce12823de573676ea0cee7dce5cadb79`); unpack it in the repository root to recreate `Slim/`.
 - `notebook4_results_table.csv` (schema of the published results table), the data of `../1_data_preparation`, and the published release folder (`$ARCHI_RELEASE`).

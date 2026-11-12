@@ -1,4 +1,5 @@
 #!/bin/bash
+# Needs Slim/ in the repository root (unpacked from Slim.tar.gz of Zenodo v1.0.0, not tracked).
 # Slim m=0/1/5 scans of one TF on the human training, human test and mouse test fasta (java, Slim jar),
 # then the diChIPMunk (SARUS 2.0.1) scans. Usage: scan_tf_h5.sh <TF>. ARCHI_SARUS201_JAR is the SARUS 2.0.1 jar; the java log is written to log_v2_<epoch>.txt (never overwritten).
 . "$(dirname "$(readlink -f "$0")")/../../archi_env.sh"

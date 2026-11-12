@@ -1,14 +1,14 @@
 # tests
 
 Checks of the local chain: each test recomputes a value of the tables, figures or `outputs/numbers/NUMBERS_R2_35TF.csv`
-from its source table and compares. `server_checks/` holds the checks of the compute stages (they need `ARCHI_WORK`).
+from its source table and compares. The checks of the compute stages are not part of this repository.
 
 ## Run
 
 From the repository root, after `3_analysis/integration/run_h3.py all` (or on the tracked outputs):
 
 ```
-ARCHI_STAGE=H5 python3 -m pytest -q tests --ignore=tests/server_checks
+ARCHI_STAGE=H5 python3 -m pytest -q tests
 ```
 
 Tests marked `r2` are skipped when `outputs/supplementary_tables/` is absent. `pdftotext` is taken from `PATH` or from the environment

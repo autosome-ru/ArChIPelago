@@ -6,20 +6,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  archipielago:
-    name: archipielago package
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.10"
-      - name: Install
-        run: pip install numpy pandas scikit-learn pyyaml pytest
-      - name: Unit tests
-        working-directory: ArChIPelago_code
-        run: pytest tests -v
-
   r2-analysis:
     name: R2 tables, figures and numbers
     runs-on: ubuntu-latest
@@ -36,4 +22,4 @@ jobs:
       - name: Recompute the tables and numbers from their sources
         env:
           ARCHI_STAGE: H5
-        run: pytest tests --ignore=tests/server_checks -v
+        run: pytest tests -v

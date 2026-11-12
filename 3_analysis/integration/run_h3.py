@@ -1,8 +1,9 @@
 """Integration runner: unpacks the Zenodo v1.0.0 PWM archives, then runs the producers of each stage in dependency order,
 backing up every output file first (p53drop.backup), one process at a time under nice 15 with one BLAS thread.
 Stops at the first failing command; logs go to 3_analysis/integration/logs/h3_<stage>_<n>.log.
-usage: ARCHI_STAGE=H5 ARCHI_H5_SCORES=<repo>/results/server/human/scores python3 3_analysis/integration/run_h3.py all
-       (or one or more stage names: see STAGES)
+usage: ARCHI_STAGE=H5 python3 3_analysis/integration/run_h3.py all
+       (or one or more stage names: see STAGES). The optional stage "gate" is not part of "all": it needs ARCHI_H5_SCORES, the
+       unpacked scores/ folder of the Zenodo v2.0.0 archive scores_H5_human.tar.gz
 """
 import glob
 import os
@@ -108,7 +109,7 @@ STAGES = {
     # training-scaler run are not in the repository ($ARCHI_WORK/human_sym/H4_trainscale/scores); set
     # ARCHI_H4_SCORES to that folder (ARCHI_H3A_SCORES is still read, for the old name).
     "gate": dict(backup=["3_analysis/low_fpr_metrics/B2_gate_h3_*.csv"],
-                 # ARCHI_STAGE=H5: ARCHI_H5_SCORES, the folder $ARCHI_WORK/H5_alltrain/human_sym/scores (copy in results/server/human/scores; no fallback to the previous run)
+                 # ARCHI_STAGE=H5: ARCHI_H5_SCORES, the folder $ARCHI_WORK/H5_alltrain/human_sym/scores (unpacked scores/ folder of the Zenodo v2.0.0 archive scores_H5_human.tar.gz; no fallback to the previous run)
                  cmds=[([PY, "../low_fpr_metrics/b2_gate_h3.py", "--scores", (os.environ.get("ARCHI_H4_SCORES") or os.environ.get("ARCHI_H3A_SCORES")
                          or "ARCHI_H4_SCORES-not-set") if H.STAGE == "H4" else (os.environ.get("ARCHI_H5_SCORES") or "ARCHI_H5_SCORES-not-set"),
                          "--scores-origin", {"H4": "$ARCHI_WORK/human_sym/H4_trainscale/scores",
@@ -134,6 +135,12 @@ STAGES = {
 
 def run(stage):
     st = STAGES[stage]
+    if stage == "gate":
+        var = "ARCHI_H4_SCORES" if H.STAGE == "H4" else "ARCHI_H5_SCORES"
+        d = os.environ.get(var) or (os.environ.get("ARCHI_H3A_SCORES") if H.STAGE == "H4" else None)
+        if not d or not os.path.isdir(d) or not glob.glob(os.path.join(d, "*.npz")):
+            raise SystemExit("CHECK FAILED stage gate: %s must name a folder with the score .npz files (for H5: the unpacked scores/ "
+                             "folder of the Zenodo v2.0.0 archive scores_H5_human.tar.gz); got %r" % (var, d))
     H.check()
     backup_globs(*st["backup"])
     for i, c in enumerate(st["cmds"]):
@@ -148,9 +155,10 @@ def run(stage):
             raise SystemExit("CHECK FAILED stage %s step %d (rc %d), log %s" % (stage, i, p.returncode, log))
 
 
-# one order in which every consumer runs after its producers (xlsx before figure1_values, pwm_origin, v1, NUMBERS), so the
+# "gate" is an optional extra stage (it needs the score files of the Zenodo v2.0.0 deposit) and is not in ALL.
+# One order in which every consumer runs after its producers (xlsx before figure1_values, pwm_origin, v1, NUMBERS), so the
 # input md5 recorded in each provenance block is the md5 of the file on disk at the end of the run
-ALL = ["pkg", "figs", "b234", "b5", "b9", "gate", "sup", "s7", "porig", "v1", "fig1", "numbers", "copy"]
+ALL = ["pkg", "figs", "b234", "b5", "b9", "sup", "s7", "porig", "v1", "fig1", "numbers", "copy"]
 
 if __name__ == "__main__":
     stages = ALL if sys.argv[1:] == ["all"] else sys.argv[1:]

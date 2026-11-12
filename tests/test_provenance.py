@@ -1,7 +1,8 @@
 """Every _provenance_h3.yaml of the repository parses as YAML, every block carries a git commit, and the last
 block that wrote each output records the md5 of its inputs and outputs as they are on disk now (a consumer that ran before its input was
 rewritten is caught here). Files outside the repository that are absent (e.g. the md5-checked scratch copy of the server score npz)
-are listed, not failed; a missing file inside the tree fails.
+are listed, not failed; a missing file inside the tree fails. Records written "zenodo:<archive>/<member>" (the score npz of the
+Zenodo v2.0.0 deposit, not tracked) are listed as external and never looked up in the tree.
 Red: T1_MUTATE=prov_md5 changes one recorded input md5; T1_MUTATE=prov_yaml appends an unquoted colon value to one file's text.
 """
 import glob
@@ -71,6 +72,9 @@ def test_recorded_md5_equal_the_files_on_disk():
                 want = e["md5"]
                 if T.mutate("prov_md5") and i == 0 and k == 0 and f == prov_files()[0]:
                     want = "0" * 32
+                if e["file"].startswith("zenodo:"):
+                    external.append("%s: %s %s (Zenodo archive)" % (script, kind, e["file"]))
+                    continue
                 p = path(e["file"])
                 if not os.path.exists(p):
                     (external if not os.path.abspath(p).startswith(T.R2 + os.sep) else bad).append("%s: %s %s missing" % (script, kind, e["file"]))

@@ -10,7 +10,7 @@ From the repository root, one command runs the whole local chain (analysis and v
 
 ```
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
-ARCHI_STAGE=H5 ARCHI_H5_SCORES=$PWD/results/server/human/scores \
+ARCHI_STAGE=H5 \
 nice -n 15 python3 3_analysis/integration/run_h3.py all
 ```
 
@@ -18,7 +18,7 @@ nice -n 15 python3 3_analysis/integration/run_h3.py all
 `results/server/MIRROR_MANIFEST_md5.txt`, split labels of the GC table), unpacks the PWM archives of the Zenodo deposit
 v1.0.0 (`zenodo_v1.py`, md5 checked), and then runs the stages one process at a time. It stops at the first failing
 command and writes one log per command to `3_analysis/integration/logs/`. Single stages can be run by name, for example
-`python3 3_analysis/integration/run_h3.py sup`. Stage order of `all`:
+`python3 3_analysis/integration/run_h3.py sup`. Stage order of `all` (the optional stage `gate` is listed after the table):
 
 | stage | what it runs |
 |---|---|
@@ -27,7 +27,6 @@ command and writes one log per command to `3_analysis/integration/logs/`. Single
 | b234 | low FPR metrics (Fig. S8), top peaks (Fig. S9), feature importance (Fig. S10), ablation subtypes against HOCOMOCO v11 |
 | b5 | transfer drivers and headroom (Fig. S11) |
 | b9 | random split retraining (Fig. S12) |
-| gate | check of the low FPR metrics against the score files `results/server/human/scores` |
 | sup | Sup. Tables 1-10 |
 | s7 | Fig. S7 and Fig. 3D source data, Fig. S7, Fig. 3 composite |
 | porig, v1 | PWM origin table, mono vs mono+di, GC tables |
@@ -35,9 +34,20 @@ command and writes one log per command to `3_analysis/integration/logs/`. Single
 | numbers | `outputs/numbers/NUMBERS_human_35TF*.csv`, `NUMBERS_R2_35TF.csv`, flip report |
 | copy | every figure to `outputs/figures/` |
 
+Optional stage `gate` (not part of `all`): check of the low FPR metrics against the 35 score files (`B2_gate_h3_*.csv` in
+`low_fpr_metrics/` are tracked). The score files are not in git; they are in the Zenodo v2.0.0 deposit of this release (DOI in
+the release notes) as `scores_H5_human.tar.gz`, which unpacks to `scores/<TF>.npz`. Unpack it and run
+
+```
+ARCHI_STAGE=H5 ARCHI_H5_SCORES=<folder>/scores python3 3_analysis/integration/run_h3.py gate
+```
+
+With `ARCHI_H5_SCORES` unset, or not naming a folder with `.npz` files, the stage stops with a message. The provenance records
+of the score files in `low_fpr_metrics/_provenance_h3.yaml` are written `zenodo:scores_H5_human.tar.gz/scores/<TF>.npz`.
+
 `ARCHI_STAGE=H5` selects the final data (training on all autosomes except the test chromosomes). The registry of every
 input is `integration/h3_inputs.py`; the value `H4` selects the previous training run, whose inputs are not part of this
-repository apart from the test-set tables in `results/server_h4_test_sets/`.
+repository apart from the test-set tables in `results/server_h4_test_sets/` (its evaluation table is no longer tracked).
 
 ## Folders
 

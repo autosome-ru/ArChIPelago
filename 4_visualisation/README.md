@@ -4,7 +4,7 @@ Figure producers of the paper. They read the tables written by `3_analysis/` and
 `figs`, `s7`, `fig1` and `copy` (see `3_analysis/README.md`):
 
 ```
-ARCHI_STAGE=H5 ARCHI_H5_SCORES=$PWD/results/server/human/scores python3 3_analysis/integration/run_h3.py figs s7 fig1 copy
+ARCHI_STAGE=H5 python3 3_analysis/integration/run_h3.py figs s7 fig1 copy
 ```
 
 The R scripts run from `4_visualisation/figures/` with `ARCHI_PKG` pointing at the folder that holds `results_table.csv`

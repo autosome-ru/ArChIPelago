@@ -12,7 +12,7 @@ Paths outside the repository come from environment variables, read in `../../arc
 2. `bash 3_analysis/server/h5_fig4_server_v2.sh` (working folder `$ARCHI_WORK/H5_alltrain/human_sym`, about 26 h): per TF `one_tf_h5.sh` runs `scan_tf_h5.sh` (Slim m0, m1, m5 scans and diChIPMunk scans of the training table, human test and mouse test) and `run_fig4_h5.py` (RF refit with the training scaler), 24 TFs in parallel with 1 thread each. The driver starts a TF once its models are in `slim/models_server/<TF>/` with `COPY_VERIFIED.txt` (`2_training/README.md`, step 2). It then runs `assemble_fig4_s4.py` (human and mouse) and `s4_numbers.py`. End marker `FIG4_H5_DONE` in `logs/fig4_driver.log`.
 3. Runtime benchmark (about 10 min, run when nothing else runs on the machine): `bash 3_analysis/server/runtime/make_h5_runtime_v2.sh` creates `$ARCHI_WORK/H5_alltrain/human_sym/runtime_v2` (the driver exits when it exists) and runs `build_h3a_matrices.py data STAT3 HNF4A CTCF`, `run_runtime_h3a.sh` and `assemble_sup_table6_h3a.py` from `runtime/`. The input of block D is `$ARCHI_WORK/runtime/data/bench_50k_300bp.fa`; the published timings used for the comparison are read from `$ARCHI_WORK/runtime`.
 4. `ARCHI_GIT_HASH=<hash> ARCHI_MASK_HUMAN=<track_out_HUMAN.bed> $PY 3_analysis/server/h5_provenance.py` writes `_provenance.yaml` (chromosome lists, md5 of scripts, inputs and outputs).
-5. Checks: `$PY tests/server_checks/h5_post.py` (equality and difference checks against the earlier build, headline numbers) and `$PY tests/server_checks/h5_post_v2.py <table1_rows.csv>` (Table 1 definitions).
+5. The post-run checks of the compute stages (`h5_post.py`, `h5_post_v2.py`) are not part of this repository.
 
 `$PY` in the commands is the interpreter of `ARCHI_PY`.
 
@@ -22,7 +22,7 @@ Python 3.8.18, scikit-learn 1.3.0, pandas 2.0.3, numpy 1.24.3, scipy 1.10.1, job
 
 ## Not in the repository
 
-- The trained Slim and diChIPMunk models (`slim/models_server/<TF>`; on Zenodo, `Slim_diChIPMunk_models_v2.tar.gz`) and the data of `../../1_data_preparation` (on Zenodo). The RF results and score files of `../../2_training` (`hm_mm_results.csv`, `scores/*.npz`) are tracked in `../../results/server/human/`.
+- The trained Slim and diChIPMunk models (`slim/models_server/<TF>`; on Zenodo, `Slim_diChIPMunk_models_v2.tar.gz`) and the data of `../../1_data_preparation` (on Zenodo). The RF results of `../../2_training` (`hm_mm_results.csv`) are tracked in `../../results/server/human/`; the score files (`scores/*.npz`) are in the Zenodo v2.0.0 deposit as `scores_H5_human.tar.gz`.
 - Reference tables of the earlier build, read by `h5_fig4_server_v2.sh`, `h5_post.py` and `h5_post_v2.py` (default paths below `$ARCHI_WORK`; `H5POST_G`, `H5POST_G4` and `H5POST_RED` set the roots and the red control).
 - The benchmark input `$ARCHI_WORK/runtime/data/bench_50k_300bp.fa` and the earlier timings in `$ARCHI_WORK/runtime`.
 - The published release folder (`$ARCHI_RELEASE`) and `notebook4_results_table.csv`.

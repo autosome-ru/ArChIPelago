@@ -19,8 +19,12 @@ Figures/**/*.ai
 Figures/**/*.csv
 Figures/**/PWMs/
 
-# Slim: tarball not needed (JDK already extracted)
-Slim/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz
+# Slim (JDK 8, jars, ytilib): unpacked from Slim.tar.gz of Zenodo v1.0.0 (10.5281/zenodo.23036475), not tracked
+/Slim/
+
+# Not tracked: preview renders of Fig. S7 and the score files of the gate check (Zenodo v2.0.0, scores_H5_human.tar.gz)
+4_visualisation/figures/FigS7/preview/
+results/server/human/scores/
 
 # hocomoco11 data (downloaded separately)
 /hocomoco11/
