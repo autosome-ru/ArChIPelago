@@ -13,7 +13,7 @@ ARCHI_STAGE=H5 python3 -m pytest -q tests
 
 Tests marked `r2` are skipped when `outputs/supplementary_tables/` is absent, tests marked `bedtools` when bedtools is
 not on `PATH`. `pdftotext` is taken from `PATH` or from the environment variable `PDFTOTEXT`. `test_prroc_metrics.py`
-needs R with PRROC and rpy2 and errors without them. GitHub Actions runs the suite on every push
+needs R with PRROC and rpy2 and fails without them. GitHub Actions runs the suite on every push
 (`../.github/workflows/tests.yml`).
 
 | file | what it checks |

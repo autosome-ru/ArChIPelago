@@ -1,6 +1,6 @@
 # Figure 3
 
-A-C: Random Forest against the best single monoPWM on the human test set (A auROC, B auPRC, C gain in auROC against gain in auPRC per TF, bubble size the number of PWMs); D: logos of the two monoPWMs and two diPWMs with the highest Gini importance for RXRA, SRF and ANDR.
+A-C: Random Forest against the best single monoPWM on the human test set (A auROC, B auPRC, C gain in auROC against gain in auPRC per TF, bubble size the number of training positives, fill colour the number of PWMs); D: logos of the two monoPWMs and two diPWMs with the highest Gini importance for RXRA, SRF and ANDR.
 
 Producer: `Figure_3_and_S3.R` (A-C; also writes Fig. S3 to `../../supplementary_figures/Figure_S3/`), `build_Figure_3D_source_data_h3.py` and `Figure_3D_logos.R` (D), `assemble_figure3.py` (vector composite `Figure_3.pdf`).
 

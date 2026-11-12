@@ -75,7 +75,7 @@ The figures drawn from these tables are in `../4_visualisation/` (Fig. S8 to S12
 
 ## Provenance
 
-Every producer appends one block to a `_provenance_h3.yaml` (or `_provenance_p53drop.yaml`) in its output folder:
+Python producers of tables and figures append one block to a `_provenance_h3.yaml` (or `_provenance_p53drop.yaml`) in their output folder (in the analysis folder for `Figure_S8.py` and `Figure_S10.py`); `transfer_drivers/B5_01_drivers_and_ceiling.py` and `server/h5_provenance.py` write a `_provenance.yaml`. The R figure producers and `Figure_S11.py` write no record. A block holds
 script, run time, git commit of the repository, Python version, and the md5 of every input and output. Before a producer
 overwrites an output it keeps one copy named `<stem>_backup_<tag><ext>`; these copies are not tracked.
 

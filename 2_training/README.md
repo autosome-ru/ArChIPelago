@@ -26,7 +26,7 @@ results-table schema (`../3_analysis/package/analysis/inputs/notebook4_results_t
 
 Inputs: `Slim.tar.gz` of Zenodo v1.0.0, unpacked in the repository root (`Slim/`: the Slim jar
 `TrainAndApplySlim.jar`, JDK 8u232, `ytilib/`; record and md5 in `../README.md`); `chipmunk.jar` (v8) and `dpmflogo3.rb` from the
-ChIPMunk v8 supporting scripts (https://autosome.org/ChIPMunk/), placed in `$ARCHI_CHIPMUNK`; the peak-id table `$ARCHI_WORK/human_sym/inputs/human_sym_peak_ids.csv`.
+ChIPMunk v8 supporting scripts (https://autosome.org/ChIPMunk/), placed in `$ARCHI_CHIPMUNK`; the peak-id table `$ARCHI_WORK/human_sym/inputs/human_sym_peak_ids.csv` (from the data build, see `../1_data_preparation/README.md`; not published under that name).
 
 ## Run
 

@@ -199,7 +199,7 @@ ax.set_xticks([1, 2]); ax.set_xticklabels(["Human", "Mouse"]); ax.set_ylabel("30
 ax.set_title("Coverage of the peak by the 300 bp window", pad=6)
 for ext in ("pdf", "png"):
     fig.savefig(os.path.join(FIG, "Figure_S9." + ext), dpi=300 if ext == "png" else None)
-PD.write_provenance(os.path.abspath("."), "4_visualisation/supplementary_figures/Figure_S9/Figure_S9.py (copy of B3_peaks/b3_summary_figure.py)", [os.path.abspath(f) for f in OUTS],
+PD.write_provenance(os.path.abspath("."), "4_visualisation/supplementary_figures/Figure_S9/Figure_S9.py", [os.path.abspath(f) for f in OUTS],
     [os.path.abspath(f) for f in ("b3_topN_results.csv", "b3_peak_widths_per_dataset.csv", "b3_join_test_per_tf.csv", "b3_join_test_per_sequence.csv",
                                   "b3_gain_vs_npos_per_tf.csv", "b3_gain_vs_npos_spearman.csv")],
     note="W2: H rows 35 TFs; widths 361 + 276 used peak sets; M rows from the rebuilt mouse data (B11 W1G1/b3)")

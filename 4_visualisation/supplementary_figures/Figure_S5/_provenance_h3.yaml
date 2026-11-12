@@ -1,0 +1,7 @@
+- script: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.R"
+  run: "2026-11-11 15:23:57"
+  git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
+  note: "md5 record carried over from the deleted outputs/figures copy record"
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.pdf", md5: "5b1d1d580e8a5c8c6eddc133fe4545a1"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.png", md5: "080c9a82db08b2879bbf74e04d150bb3"}

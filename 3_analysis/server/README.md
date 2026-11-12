@@ -36,12 +36,12 @@ Variables are read in `../../archi_env.py` and `../../archi_env.sh`: `ARCHI_WORK
    training scaler), 24 TFs in parallel with 1 thread each. A TF starts once
    `slim/models_server/<TF>/COPY_VERIFIED.txt` exists (`../../2_training/README.md`, step 2). The driver then runs
    `assemble_fig4_s4.py` (human and mouse; it also reads the reference tables
-   `$ARCHI_WORK/human_sym/H4_trainscale/fig4_refit_trainscale/Figure_{4,S4}_source_data.csv`) and `s4_numbers.py`. End
+   `$ARCHI_WORK/human_sym/H4_trainscale/fig4_refit_trainscale/Figure_{4,S4}_source_data.csv`; these tables come from an earlier server run and are not published) and `s4_numbers.py`. End
    marker `FIG4_H5_DONE` in `logs/fig4_driver.log`.
 3. Runtime benchmark (about 10 min, on an otherwise idle machine): `bash 3_analysis/server/runtime/make_h5_runtime_v2.sh`
    creates `$ARCHI_WORK/H5_alltrain/human_sym/runtime_v2` (it exits if the folder exists) and runs
    `build_h3a_matrices.py`, `run_runtime_h3a.sh` and `assemble_sup_table6_h3a.py`. Inputs:
-   `$ARCHI_WORK/runtime/data/bench_50k_300bp.fa` and the timings in `$ARCHI_WORK/runtime`.
+   `$ARCHI_WORK/runtime/data/bench_50k_300bp.fa` and the timings in `$ARCHI_WORK/runtime`; both come from an earlier server run and are not published.
 4. `ARCHI_GIT_HASH=<hash> ARCHI_MASK_HUMAN=<track_out_HUMAN.bed> $ARCHI_PY 3_analysis/server/h5_provenance.py` writes
    `_provenance.yaml` (chromosome lists, md5 of scripts, inputs and outputs).
 

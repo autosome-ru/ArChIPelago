@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Fig. S2: Random Forest against the best single monoPWM (selected on the human training set), human test set
 (chr1, 8, 21; left) and mouse test set (chr1, 8, 19; right), for the monoPWM / diPWM / monoPWM+diPWM models;
-from Manuscript_analysis/results_table.csv. Panel letters A, B = auROC row, C, D = auPRC row of each 2 x 2 block.
-Writes Figures/panels/Figure_S2_RF_vs_best_monoPWM.pdf and Figures/source_data/Figure_S2_source_data.csv.
+from results_table.csv. Panel letters A, B = auROC row, C, D = auPRC row of each 2 x 2 block.
+Writes Figure_S2.{pdf,png} and Figure_S2_plotdata.csv.
 
-Restyled version of the released script; data and layout unchanged. Palette from ../archi_style.py
+Palette from ../../style/archi_style.py
 (PWM sets = lightness steps of the Random Forest green, black outline; above/below the baseline = dark green of monoPWMs+diPWMs / red), opaque marks,
 no MathText (Unicode Delta), all text black. Usage: python3 Figure_S2.py [output_dir]; reads the released
 results_table.csv (ARCHI_PKG, read only); writes Figure_S2.{pdf,png} and Figure_S2_plotdata.csv.

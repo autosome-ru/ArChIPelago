@@ -30,6 +30,8 @@ interpreter of the drivers (default `python3`). The inputs are found through `AR
 submodule `../seqtk`), `ARCHI_BIASAWAY` (biasaway executable) and `ARCHI_SARUS_JAR` (`sarus-2.0.2.jar`, submodule
 `../sarus`). The Zenodo records are listed in `../README.md`.
 
+Three more inputs are read from fixed places under `$ARCHI_WORK` by `h5_data_server.sh`: `human_sym/inputs/human_sym_peak_ids.csv` (peak-id table of the 35 human TFs, columns `TF,peak_id`), `mouse_sym/inputs/mouse_sym_peak_ids.csv` (same for mouse; the file `../results/datasets/peak_ids/mouse_sym_peak_ids.csv` has this name and format) and `mouse_sym/ref/track_out_MOUSE_mm10.bed` (mouse repeat mask; the Zenodo archive `repeatmasker_hg38_mm10.tar.gz` holds the RepeatMasker masks). The human table comes from an earlier server run and is not published under that name; `../results/datasets/peak_ids/human_used_peak_ids.csv` lists the used human peak sets (the 35 TFs and P53). Copy or link these files to the paths above before the run.
+
 ## Run
 
 1. From the repository root, `bash 1_data_preparation/h5_data_server.sh` builds everything in one driver (about 1.5 h;

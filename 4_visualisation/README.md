@@ -26,13 +26,13 @@ ARCHI_STAGE=H5 python3 3_analysis/integration/run_h3.py figs s7
 
 The joint scripts in `main_figures/` write Fig. S1, S3 and S4 into `supplementary_figures/Figure_S1/`, `Figure_S3/` and
 `Figure_S4/`. The R scripts of Fig. 2, 3 and 4 read the results table or the figure source data from the folder in
-`ARCHI_PKG` (`3_analysis/integration/inputs` for the human panels, `3_analysis/package` for the others); `ARCHI_DRAW=H`
+`ARCHI_PKG` (`3_analysis/integration/inputs` for the human panels of Fig. 2 and 3, `3_analysis/package` for the mouse panels and for Fig. 4); `ARCHI_DRAW=H`
 draws the human figure only, `ARCHI_DRAW=M` the mouse one.
 
 ## Style
 
 `style/archi_style.R` and `style/archi_style.py` hold the shared palette, fonts and the PDF and PNG writer: all text
-black, Arial, no transparency, PNG rendered from the PDF at 300 dpi with `pdftoppm`. `style/check_palette.py` reports the
+black, Arial, no transparency, PNG at 300 dpi (rendered from the PDF with `pdftoppm` by the R writer, saved by matplotlib in the Python writer). `style/check_palette.py` reports the
 colour distances of the palette under simulated colour vision deficiency (`cd 4_visualisation/style && python3 check_palette.py`).
 
 ## Software

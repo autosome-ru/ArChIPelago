@@ -97,5 +97,5 @@ a.legend(handles=[Patch(facecolor=GREEN, edgecolor=GREEN, label="auROC (filled)"
 fig.text(0.5, 0.995, "Human test set (human-trained model)", ha="center", va="top", fontsize=8)
 fig.tight_layout(rect=(0, 0, 1, 0.97), h_pad=2.2, w_pad=2.0)
 AS.save_both(fig, os.path.join(FIG, "Figure_S8"))
-PD.write_provenance(os.path.abspath("."), "4_visualisation/supplementary_figures/Figure_S8/Figure_S8.py (copy of B2_metrics/b2_figure.py)", OUT,
+PD.write_provenance(os.path.abspath("."), "4_visualisation/supplementary_figures/Figure_S8/Figure_S8.py", OUT,
     [os.path.abspath(f) for f in ("B2_metrics_wide.csv", "B2_summary.csv", "B2_per_chromosome.csv")], note="Fig. S8, HH only, 35 TFs")
