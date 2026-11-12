@@ -22,9 +22,12 @@ def _prroc():
     global _PKG
     if _PKG is None:
         try:
-            from rpy2.robjects.packages import importr
-            _PKG = importr("PRROC")
+            from rpy2.robjects.packages import importr, PackageNotInstalledError
         except ImportError as e:
+            raise ImportError(_INSTALL + " (%s)" % e) from e
+        try:
+            _PKG = importr("PRROC")
+        except PackageNotInstalledError as e:
             raise ImportError(_INSTALL + " (%s)" % e) from e
     return _PKG
 

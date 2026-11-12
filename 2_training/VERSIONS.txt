@@ -3,7 +3,7 @@ Python 3.8.18; scikit-learn 1.3.0; pandas 2.0.3; numpy 1.24.3; scipy 1.10.1; job
 bedtools v2.31.1; seqtk 1.3-r107-dirty; BiasAway 3.3.0 (biasaway g -n 100 -e 1)
 SPRY-SARUS 2.0.2 (sarus-2.0.2.jar; --skipn --show-non-matching --output-scoring-mode score besthit); the diChIPMunk scans
 of 3_analysis/server/scan_tf_h5.sh use sarus-2.0.1.jar
-R 4.3.1, PRROC via rpy2 3.5.11 (round 1); PRROC 1.4, rpy2 3.5.17 in CI (auROC and auPRC: 1_data_preparation/prroc_metrics.py)
+R 4.3.1 with PRROC from CRAN through rpy2 3.5.11 (round 1; the environment file does not record the PRROC version). The H5 tables of v2.0.0 were computed with a NumPy port of PRROC auc.integral and sklearn auROC, equal to PRROC within 4e-13 on all 560 final-run score vectors. The code now calls PRROC through rpy2 (1_data_preparation/prroc_metrics.py); CI uses R 4.4, PRROC 1.4 and rpy2 3.5.17.
 Random Forest: RandomForestClassifier(max_depth=6, max_samples=0.8, n_estimators=100, random_state=0); every matrix standardised
 with the StandardScaler fitted on the training matrix.
 

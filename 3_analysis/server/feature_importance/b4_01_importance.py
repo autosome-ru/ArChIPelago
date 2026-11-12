@@ -7,7 +7,6 @@ usage: python b4_01_importance.py --tfs SRF P53 ... [--n-jobs 2]
 """
 import argparse, time, re, json
 import joblib
-from sklearn.metrics import roc_auc_score
 from b4_common import *
 
 TOPN, NREP, SEED = 20, 5, 0

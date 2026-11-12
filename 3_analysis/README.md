@@ -86,7 +86,8 @@ copies are not tracked.
 ## Software
 
 Python 3.9.12 with pandas 2.3.0, numpy 1.26.4, scipy 1.13.1, matplotlib 3.5.2, scikit-learn 1.1.2, openpyxl 3.1.5,
-pypdf 6.9.1, PyYAML 6.0, Pillow 11.3.0, rpy2 3.5.17. R 4.4.3 with PRROC 1.4 (auROC and auPRC through rpy2; rpy2 must load the R that holds PRROC, set `R_HOME`), dplyr 1.2.0, ggplot2 4.0.2, patchwork 1.3.2, cowplot 1.2.0,
+pypdf 6.9.1, PyYAML 6.0, Pillow 11.3.0. R 4.4.3 with dplyr 1.2.0, ggplot2 4.0.2, patchwork 1.3.2, cowplot 1.2.0,
 ggrepel 0.9.8, ggExtra 0.11.0, viridis 0.6.5, tidyr 1.3.2, ggbeeswarm 0.7.3, ggseqlogo 0.2, png 0.1.9. Poppler 24.04
 (`pdftoppm`, `pdfimages`, `pdftotext`), `rsvg-convert` 2.50.7, macOS `sips`, the Arial font. Tools are taken from `PATH`;
 `PDFTOPPM`, `PDFIMAGES` and `PDFTOTEXT` override them.
+Scripts that compute auROC or auPRC also need R with PRROC 1.4 and rpy2 3.5.17 (as in CI; rpy2 must load the R that holds PRROC, set `R_HOME`).

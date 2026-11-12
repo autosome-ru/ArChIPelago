@@ -11,7 +11,7 @@ import prroc_metrics as PM  # noqa: E402
 
 
 def auprc_integral_port(y, s):
-    """auPRC with Davis-Goadrich continuous interpolation between consecutive distinct-score points (verbatim port)."""
+    """PRROC auc.integral (continuous interpolation between consecutive distinct-score points), verbatim NumPy port."""
     y = np.asarray(y, float); s = np.asarray(s, float)
     o = np.argsort(-s, kind="mergesort"); y = y[o]; s = s[o]
     last = np.r_[s[1:] != s[:-1], True]                      # end of each tie block
