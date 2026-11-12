@@ -126,5 +126,7 @@ print(c[["check", "max_abs_diff", "decision", "round1_decision"]].to_string(inde
 hh = g[g.scenario == "HH"]
 print("HH medians: RF auROC %.4f auPRC %.4f | bROC auROC %.4f | bPRC auPRC %.4f" % (hh.rf_s0_auroc.median(), hh.rf_s0_auprc_int.median(),
       hh.bROC_auroc.median(), hh.bPRC_auprc_int.median()))
+SC = "zenodo:scores_H5_human.tar.gz/scores"   # recorded name of the score folder (never the local path)
 w2.provenance(HERE, "3_analysis/low_fpr_metrics/b2_gate_h3.py", [fo, fs], list(IN.values()) + files,
-              params="{TOL_ID: %g, TOL_RF: %g, scores: '%s', scores_origin: '%s'}" % (TOL_ID, TOL_RF, a.scores, a.scores_origin))
+              params="{TOL_ID: %g, TOL_RF: %g, scores: '%s', scores_origin: '%s'}" % (TOL_ID, TOL_RF, SC, a.scores_origin),
+              external={a.scores: SC})

@@ -41,11 +41,18 @@ def _git():
     return h.stdout.strip(), len(dirty)
 
 
-def provenance(folder, script, outputs, inputs, params=None, note=""):
+def provenance(folder, script, outputs, inputs, params=None, note="", external=None):
     """Append one block to <folder>/_provenance_h3.yaml. Every scalar is written as a JSON string (valid YAML), the block
-    carries the git commit and the count of changed tracked files, and paths are relative to the repo root (absolute outside it)."""
+    carries the git commit and the count of changed tracked files, and paths are relative to the repo root (absolute outside it).
+    external: {local folder: label}, e.g. {scores_dir: "zenodo:scores_H5_human.tar.gz/scores"}, records files under that folder
+    by label instead of their local path (the md5 is still taken from the local file)."""
     q = json.dumps
-    rel = lambda f: os.path.relpath(f, R2) if os.path.abspath(f).startswith(R2 + os.sep) else os.path.abspath(f)
+    def rel(f):
+        a = os.path.abspath(f)
+        for d, lab in (external or {}).items():
+            if a.startswith(os.path.abspath(d) + os.sep):
+                return lab + "/" + os.path.relpath(a, os.path.abspath(d))
+        return os.path.relpath(f, R2) if a.startswith(R2 + os.sep) else a
     commit, dirty = _git()
     L = ["- script: %s" % q(script),
          "  run: %s" % q(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
