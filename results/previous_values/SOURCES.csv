@@ -16,7 +16,7 @@ pre-mouse-sym-20261106,B4_activation_groups.csv,manuscript/B4_importance/tables/
 pre-mouse-sym-20261106,b9_summary.csv,manuscript/B9_random_split/b9_summary.csv,755bdfb3211109e1f9df7bca1236343d
 pre-mouse-sym-20261106,Figure_4_stats.csv,manuscript/B6_figures/Fig4_S4/Figure_4_stats.csv,5c03f4cd3e1658484901e372b93c952c
 pre-mouse-sym-20261106,b3_peak_widths_summary.csv,manuscript/B3_peaks/b3_peak_widths_summary.csv,4533aa7018f4fc82740d1fcfc9878952
-pre-mouse-sym-20261106,Figure_S7_source_data.csv,manuscript/B6_figures/FigS7/Figure_S7_source_data.csv,55f051361ea0b845c5bb7c30aa6bee15
+pre-mouse-sym-20261106,Figure_S7_source_data.csv,manuscript/B6_figures/FigS7/Figure_S7_source_data.csv,a1fe09e67d553579fe460b98b10e485e
 pre-mouse-sym-20261106,B2_gate_summary.csv,manuscript/B2_metrics/B2_gate_summary.csv,ec0f0b618be0ff7568cc89a6f189ba6d
 10feef6,Figure_S4_source_data.csv,manuscript/B13_integration/pkg/Figures/source_data/Figure_S4_source_data.csv,0ad4d3978b105286dece5dff1e74f27a
 10feef6,B5_A_spearman_drivers.csv,manuscript/B5_drivers/B5_A_spearman_drivers.csv,79cf7e5443c2f789306c5638dfc2536c
@@ -27,5 +27,5 @@ pre-mouse-sym-20261106,B2_gate_summary.csv,manuscript/B2_metrics/B2_gate_summary
 10feef6,hm_mm_results.csv,manuscript/B16_h4_trainscale/human_sym/hm_mm_results.csv,9f965ac7e6c75aaec49802a59fc0f193
 10feef6,Sup_Table_3_ArChIPelago_performance.csv,manuscript/B13_integration/pkg/Sup_Tables/Sup_Table_3_ArChIPelago_performance.csv,3c41a97cc7af8cc0205a4b362ea9fb57
 10feef6,B2_summary.csv,manuscript/B13_integration/b2/B2_summary.csv,7c3f8c0734a69ddddbf8c710e3ed87be
-10feef6,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,91e07251bd8f66fb50ffdd78a10c77c3
-ffcef4d,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,3a3895fe45758ced91b9e3c688efd57f
+10feef6,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,737c8fc44a3e0678c57f67bfa9e45028
+ffcef4d,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,0c31eba723821a72d0d8ccaab496fcd4

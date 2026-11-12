@@ -98,7 +98,7 @@
   human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   inputs:
-    - {file: "outputs/numbers/NUMBERS_human_35TF.csv", md5: "4de3e344a06fb539fb527f6042be6e42"}
+    - {file: "outputs/numbers/NUMBERS_human_35TF.csv", md5: "7c48b5d3c4a5345363fbf2725dd38f00"}
     - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "8e24aa3689aaf8cde3d372734d96335b"}
     - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
     - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "ee360c646b2226184f43ba3a08733d10"}
@@ -168,7 +168,7 @@
   human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   inputs:
-    - {file: "outputs/numbers/NUMBERS_human_35TF.csv", md5: "4de3e344a06fb539fb527f6042be6e42"}
+    - {file: "outputs/numbers/NUMBERS_human_35TF.csv", md5: "7c48b5d3c4a5345363fbf2725dd38f00"}
     - {file: "outputs/supplementary_tables/Sup_Table_1_ChIP-Seq_experiments.xlsx", md5: "8e24aa3689aaf8cde3d372734d96335b"}
     - {file: "outputs/supplementary_tables/Sup_Table_2_PWMs_and_datasets.xlsx", md5: "37a3460dcb58adabb37f6b2275b1aac9"}
     - {file: "outputs/supplementary_tables/Sup_Table_3_ArChIPelago_performance.xlsx", md5: "ee360c646b2226184f43ba3a08733d10"}
@@ -227,4 +227,4 @@
     - {file: "3_analysis/transfer_drivers/B5_per_TF_table.csv", md5: "9c26edce4db82e4385cdf938a1c3a08d"}
     - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
   outputs:
-    - {file: "outputs/numbers/NUMBERS_R2_35TF.csv", md5: "4f82dea1fc4c1425c16ba56a22bf1fe8"}
+    - {file: "outputs/numbers/NUMBERS_R2_35TF.csv", md5: "b6001f331240c5651a6e65707be7b625"}
