@@ -70,7 +70,7 @@ def rerun(tmp_path_factory):
             shutil.copytree(src, os.path.join(mirror, e), symlinks=True)
         else:
             shutil.copy2(src, os.path.join(mirror, e))
-    shutil.copytree(os.path.join(T.R2, ROUND1), os.path.join(str(base), "Manuscript", ROUND1), symlinks=True)
+    shutil.copytree(os.path.join(T.R2, ROUND1), os.path.join(str(base), ROUND1), symlinks=True)
     mut = os.environ.get("T1_MUTATE", "")
     if "hm_mm_changed" in mut.split(","):             # red run: the rebuilt mouse results change after the tables were built
         f = os.path.join(mirror, os.path.relpath(T.h3in().IN["hm_mm"], T.R2))   # the final-run results (h3_inputs hm_mm)

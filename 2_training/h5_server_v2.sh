@@ -32,13 +32,13 @@ sat() {  # $1 working dir, $2 log, $3 run_saturation_h5.py
 grep -q "HMMM_EXIT 0" logs/run_hm_mm.log || die run_hm_mm
 log run_hm_mm_done
 chainA() {
-  mkdir operational b2_v2/tables b3 || die mkdir_A
+  mkdir operational b2_v2 b2_v2/tables b3 || die mkdir_A
   ln -s $DH/TF-ML/out_tab_HUMAN_10000_control.tab b2_v2/tables/ && ln -s $DM/TF-ML/out_tab_MOUSE_10000_train.tab b2_v2/tables/ || die ln
   $P $T3/operational_metrics.py scores operational/operational_metrics.csv > logs/operational.log 2>&1 || die operational
   $P $T3/b2_compute.py --scores scores --tables b2_v2/tables --out b2_v2 > logs/b2_v2_compute.log 2>&1 || die b2
   $P $T3/b3_topN_h5.py b3 > logs/b3_topN.log 2>&1 || die b3
   log downstream_done
-  B4=$T3/feature_importance; mkdir B4_importance/cache && mkdir -p B4_importance/scripts && cd B4_importance/scripts || die mkdir_B4
+  B4=$T3/feature_importance; mkdir B4_importance B4_importance/cache B4_importance/scripts && cd B4_importance/scripts || die mkdir_B4
   OMP_NUM_THREADS=8 $P $B4/b4_01_importance.py --tfs $TFS --n-jobs 8 > ../../logs/b4_01.log 2>&1 || die b4_01
   $P $B4/b4_02_subtypes.py --tfs $TFS --workers 8 > ../../logs/b4_02.log 2>&1 || die b4_02
   OMP_NUM_THREADS=8 $P $B4/b4_03_usage.py --tfs $TFS --n-jobs 8 > ../../logs/b4_03.log 2>&1 || die b4_03

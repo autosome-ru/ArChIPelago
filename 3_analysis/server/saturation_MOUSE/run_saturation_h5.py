@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "..
 TRAIN_SPECIES = "MOUSE"  # training species of this copy
 import archi_data_v5 as ad  # loader with negatives v3  # noqa: E402
 
-OUTDIR = os.path.dirname(os.path.abspath(__file__))
+OUTDIR = os.getcwd()  # the working folder (the driver cds into $ARCHI_WORK/.../saturation_<SP>); outputs and ../inputs resolve from here
 PER_TF = os.path.join(OUTDIR, "per_tf")
 MASTER = os.path.join(OUTDIR, "saturation_results.csv")
 CSV36 = os.path.join(OUTDIR, "..", "inputs", "notebook4_results_table.csv")
