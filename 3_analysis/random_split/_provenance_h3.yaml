@@ -16,3 +16,21 @@
     - {file: "3_analysis/random_split/b9_summary.csv", md5: "1ee6bca9d64ef32492b380eab8df3dbc"}
     - {file: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.pdf", md5: "e487f71c707f0a5bca68f795e2b526be"}
     - {file: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.png", md5: "a61af31304e6871fb2c482ac9d22d955"}
+- script: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.py"
+  run: "2026-11-13 02:07:52"
+  git_commit: "9328811706c3341d8c8a0c26abf858ca366e150f"
+  git_changed_tracked_files: 3
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "Fig. S12 (H3b, v3 negatives); TFs ANDR, PRGR, REST, RXRA, SPI1"
+  inputs:
+    - {file: "results/server/human/H3b/b9/b9_random_split_per_fit.csv", md5: "8b747b29cb3a4fda38c24d0cd397f50f"}
+    - {file: "results/server/human/H3b/b9/b9_summary.csv", md5: "1ee6bca9d64ef32492b380eab8df3dbc"}
+  outputs:
+    - {file: "3_analysis/random_split/b9_random_split_per_fit.csv", md5: "8b747b29cb3a4fda38c24d0cd397f50f"}
+    - {file: "3_analysis/random_split/b9_summary.csv", md5: "1ee6bca9d64ef32492b380eab8df3dbc"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.pdf", md5: "0b8953005402d0447850c920c14c3b35"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S12/Figure_S12.png", md5: "392c0aff142af3a37c4a6c5e2965a612"}

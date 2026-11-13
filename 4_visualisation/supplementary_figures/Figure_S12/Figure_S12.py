@@ -49,7 +49,7 @@ for k, (col, lab) in enumerate([("gain_auroc", "ΔauROC\n(ArChIPelago (RF) minus
         v = m[m.split == sp].set_index("TF").loc[order, col]
         a.scatter(x + dx, v, marker=mk, s=24, facecolor=c, edgecolor="black", linewidth=0.4, zorder=3,
                   label="chromosome hold-out" if sp == "chromosome" else "random split")
-    a.axhline(0, color="black", lw=0.6, ls=":"); a.set_xticks(x); a.set_xticklabels(order, rotation=45, ha="right")
+    a.axhline(0, color="black", lw=0.6, ls=":"); a.set_xticks(x); a.set_xticklabels(order)
     a.set_ylabel(lab); a.text(-0.26, 1.12, "AB"[k], transform=a.transAxes, fontweight="bold", fontsize=10, va="bottom"); a.set_title("Human test set", loc="left", pad=6)
     a.spines[["top", "right"]].set_visible(False)
 ax[0].legend(frameon=False, loc="center right", bbox_to_anchor=(1.0, 0.52), handletextpad=0.2)
@@ -57,7 +57,7 @@ v = m[m.split == "random"].set_index("TF").loc[order]
 x = np.arange(len(order))
 ax[2].bar(x, 100 * v.frac_test_pos_overlap, color="#B7E3D3", edgecolor="black", lw=0.4, label="within 300 bp")
 ax[2].bar(x, 100 * v.frac_test_pos_exact, color="#00503B", edgecolor="black", lw=0.4, label="same summit")
-ax[2].set_xticks(x); ax[2].set_xticklabels(order, rotation=45, ha="right")
+ax[2].set_xticks(x); ax[2].set_xticklabels(order)
 ax[2].set_ylabel("Test positives with a training\npositive at the locus (%)"); ax[2].set_ylim(0, 125); ax[2].set_yticks([0, 20, 40, 60, 80, 100]); ax[2].legend(frameon=False, loc="upper left", ncol=2, handletextpad=0.3, columnspacing=1.0)
 ax[2].text(-0.26, 1.12, "C", transform=ax[2].transAxes, fontweight="bold", fontsize=10, va="bottom"); ax[2].set_title("Human test set", loc="left", pad=6); ax[2].spines[["top", "right"]].set_visible(False)
 fig.tight_layout(w_pad=1.6); AS.save_both(fig, os.path.join(FIG, "Figure_S12"))
