@@ -7,7 +7,7 @@
 #   * panels assembled with cowplot so that a complete figure PDF/PNG exists (previously assembled in Illustrator; panel D = logos,
 #     not drawn here)
 # Input : <ARCHI_PKG>/results_table.csv     Usage: Rscript Figure_3_and_S3.R [output_dir]
-# Writes: Figure_3_ABC_restyled.{pdf,png} (panels A-C, assembled into Figure_3.pdf by assemble_figure3.py) here,
+# Writes: Figure_3_ABC.{pdf,png} (panels A-C, assembled into Figure_3.pdf by assemble_figure3.py) here,
 #         Figure_S3.{pdf,png} in ../../supplementary_figures/Figure_S3, *_plotdata.csv next to each
 # The TF set must equal the 35 reference TFs (check_tfs); ARCHI_DRAW=H draws Fig. 3 only.
 # P53-free input: ARCHI_PKG=3_analysis/integration/inputs (made by 3_analysis/integration/make_inputs.py).
@@ -137,7 +137,7 @@ draw <- function(sp, fig_name, label) {
   top <- plot_grid(left, ct, ncol = 2, rel_widths = c(1, 2.2), labels = c("", "C"), label_size = 26,
                    label_fontfamily = "Arial", label_colour = "black")
   full <- plot_grid(top, leg, ncol = 1, rel_heights = c(1, 0.07))
-  save_both(function() print(full), file.path(out_dir, if (fig_name == "Figure_3") "Figure_3_ABC_restyled" else fig_name), 310 / 25.4, 200 / 25.4)
+  save_both(function() print(full), file.path(out_dir, if (fig_name == "Figure_3") "Figure_3_ABC" else fig_name), 310 / 25.4, 200 / 25.4)
 }
 if ("H" %in% ARCHI_DRAW) draw("H", "Figure_3", "human test set")
 if ("M" %in% ARCHI_DRAW) draw("M", "Figure_S3", "mouse test set")

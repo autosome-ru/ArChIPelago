@@ -44,7 +44,7 @@
   human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
   mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
   inputs:
-    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC_restyled.pdf", md5: "ceb031e5b27a7154232919bc80089624"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC.pdf", md5: "ceb031e5b27a7154232919bc80089624"}
     - {file: "4_visualisation/main_figures/Figure_3/Figure_3D_logos.pdf", md5: "e464dbf5ee3337ac8545035c35bd5028"}
   outputs:
     - {file: "4_visualisation/main_figures/Figure_3/Figure_3.pdf", md5: "32e6d941f7b7b2a72e9b24c9033ef6f7"}
@@ -54,4 +54,4 @@
   git_commit: "8d44ee7042bd60396c0792fadb2c343ad942cb29"
   note: "md5 record carried over from the deleted outputs/figures copy record"
   outputs:
-    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC_restyled.png", md5: "66bcc57872971ae046b007e9fcb9370a"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC.png", md5: "66bcc57872971ae046b007e9fcb9370a"}

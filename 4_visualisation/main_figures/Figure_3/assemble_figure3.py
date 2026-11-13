@@ -1,4 +1,4 @@
-"""Figure 3 as a vector composite. Panels A-C (Figure_3_ABC_restyled.pdf, from
+"""Figure 3 as a vector composite. Panels A-C (Figure_3_ABC.pdf, from
 Figure_3_and_S3.R) above panel D (Figure_3D_logos.pdf, from Figure_3D_logos.R on the final importances); both are cairo
 vector PDFs of the same width (878 pt) and are stacked page on page with pypdf (no rasterisation). The PNG is the composite PDF
 rendered at 300 dpi with pdftoppm.
@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.join(R2, "3_analysis", "integration"))
 import w2  # noqa: E402
 
 OUT = HERE
-ABC, D = os.path.join(HERE, "Figure_3_ABC_restyled.pdf"), os.path.join(HERE, "Figure_3D_logos.pdf")
+ABC, D = os.path.join(HERE, "Figure_3_ABC.pdf"), os.path.join(HERE, "Figure_3D_logos.pdf")
 GAP = 10   # pt between C and D
 pa, pd_ = PdfReader(ABC).pages[0], PdfReader(D).pages[0]
 wa, ha = float(pa.mediabox.width), float(pa.mediabox.height)
