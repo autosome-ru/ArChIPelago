@@ -1,7 +1,7 @@
 """Figure 3 as a vector composite. Panels A-C (Figure_3_ABC.pdf, from
 Figure_3_and_S3.R) above panel D (Figure_3D_logos.pdf, from Figure_3D_logos.R on the final importances); both are cairo
 vector PDFs of the same width (878 pt) and are stacked page on page with pypdf (no rasterisation). The PNG is the composite PDF
-rendered at 300 dpi with pdftoppm.
+rendered at 600 dpi with pdftoppm.
 Writes Figure_3.{pdf,png} into this folder (backups first).
 usage: python3 4_visualisation/main_figures/Figure_3/assemble_figure3.py
 """
@@ -33,7 +33,7 @@ for f in (pdf, png):
     w2.backup(f)
 with open(pdf, "wb") as fh:
     w.write(fh)
-subprocess.run([os.environ.get("PDFTOPPM", "pdftoppm"), "-png", "-r", "300", "-singlefile", pdf, png[:-4]], check=True)
+subprocess.run([os.environ.get("PDFTOPPM", "pdftoppm"), "-png", "-r", "600", "-singlefile", pdf, png[:-4]], check=True)
 imgs = subprocess.run([os.environ.get("PDFIMAGES", "pdfimages"), "-list", pdf], capture_output=True, text=True).stdout.strip().splitlines()[2:]
 print("Figure 3: %.0f x %.0f pt, raster images in the PDF: %d" % (wa, ha + GAP + hd, len(imgs)))
 w2.provenance(OUT, "4_visualisation/main_figures/Figure_3/assemble_figure3.py", [pdf, png], [ABC, D])

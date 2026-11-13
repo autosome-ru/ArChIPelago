@@ -141,10 +141,10 @@ W <- round(400 * (N_COL + 0.62) / 6.62)   # 400 mm for six logo columns; wider w
 pdf_out <- file.path(script_dir, "Figure_S7.pdf")
 png_out <- file.path(script_dir, "Figure_S7.png")
 ggsave(pdf_out, fig, device = grDevices::cairo_pdf, width = W, height = H, units = "mm", limitsize = FALSE)
-ggsave(png_out, fig, width = W, height = H, units = "mm", dpi = 300, bg = "white", limitsize = FALSE)
-# ggsave without ragg writes no pHYs chunk; re-save with a 300 dpi tag,
+ggsave(png_out, fig, width = W, height = H, units = "mm", dpi = 600, bg = "white", limitsize = FALSE)
+# ggsave without ragg writes no pHYs chunk; re-save with a 600 dpi tag,
 # pixel values unchanged (8-bit RGBA read and written back exactly)
-set_png_dpi <- function(f, dpi = 300) png::writePNG(png::readPNG(f), f, dpi = dpi)
+set_png_dpi <- function(f, dpi = 600) png::writePNG(png::readPNG(f), f, dpi = dpi)
 set_png_dpi(png_out)
 
 cat("TFs:", paste(TFS, collapse = ", "), "\n")

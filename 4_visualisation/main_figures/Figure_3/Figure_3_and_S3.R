@@ -28,8 +28,6 @@ out_dir_of <- function(fig_name) {
 }
 if (!interactive()) pdf(NULL)
 tab <- read.csv(file.path(ARCHI_PKG, "results_table.csv"), sep = "\t")
-F3C_ROC_GAP <- 0.075   # = ROC_GAP of 3_analysis/transfer_drivers/B5_01_drivers_and_ceiling.py (checked by a test)
-F3C_PRC_GAP <- 0.15    # = PRC_GAP of the same script
 
 draw <- function(sp, fig_name, label) {
   out_dir <- out_dir_of(fig_name)
@@ -112,11 +110,6 @@ draw <- function(sp, fig_name, label) {
   dC$below <- dC$dROC < 0 | dC$dPRC < 0   # below the baseline: black open diamond (spec rule 1)
   ct <- ggplot(dC %>% arrange(desc(Seq_count_min)), aes(x = dPRC, y = dROC, size = Seq_count_min, fill = Count_PWM)) +
     geom_hline(yintercept = 0, linetype = "dotted", linewidth = 0.8) + geom_vline(xintercept = 0, linetype = "dotted", linewidth = 0.8) +
-    # Fig. 3C group thresholds of 3_analysis/transfer_drivers/B5_01_drivers_and_ceiling.py (ROC_GAP, PRC_GAP), set post hoc
-    { if (sp == "H") list(geom_hline(yintercept = F3C_ROC_GAP, linetype = "dashed", linewidth = 0.6, colour = "grey45"),
-                          geom_vline(xintercept = F3C_PRC_GAP, linetype = "dashed", linewidth = 0.6, colour = "grey45"),
-                          annotate("text", x = Inf, y = 0.033, hjust = 1.02, vjust = 0.5, size = 4.4, family = "Arial", colour = "black", lineheight = 0.9,
-                                   label = "dashed lines:\ngroup thresholds,\nset post hoc")) else list() } +
     geom_point(data = function(d) d[!d$below, ], shape = 21, colour = "black", stroke = 0.6) +
     geom_point(data = function(d) d[d$below, ], shape = 23, fill = "white", colour = "black", stroke = 1.1) +
     scale_size(range = c(1.5, 13), breaks = c(500, 1000, 5000, 10000, 50000), name = "Training positives") +

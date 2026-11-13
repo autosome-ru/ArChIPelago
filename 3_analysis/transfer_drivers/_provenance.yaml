@@ -1,6 +1,6 @@
 p53drop: {exclude_tfs: [P53], n_TF: 35, mouse_inputs: 'current'}
 script: 3_analysis/transfer_drivers/B5_01_drivers_and_ceiling.py
-run: 2026-11-11T14:19:50
+run: 2026-11-13T13:32:23
 python: 3.9.12
 numpy: 1.26.4
 pandas: 2.3.0+4.g1dfc98e16a
@@ -8,7 +8,7 @@ scipy: 1.13.1
 random_seed: 1
 bootstrap_n: 2000
 background_per_base: 0.25
-ArChIPelago_repo_git_head: e6ec8088688c78d645c5b972471c0258b636aa51
+ArChIPelago_repo_git_head: 6ef4952710b6636cd894bd819e5af1fb469c7318
 inputs:
   crossspecies_table: {path: 3_analysis/package/analysis/cross_species/cross_species_table.csv, md5: 25200b27174e538c12d3c783a62e3599}
   results_table: {path: 3_analysis/package/results_table.csv, md5: 624fd1a8482927165894a5c2183bc339}

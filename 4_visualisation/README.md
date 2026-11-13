@@ -32,7 +32,7 @@ draws the human figure only, `ARCHI_DRAW=M` the mouse one.
 ## Style
 
 `style/archi_style.R` and `style/archi_style.py` hold the shared palette, fonts and the PDF and PNG writer: all text
-black, Arial, no transparency, PNG at 300 dpi (rendered from the PDF with `pdftoppm` by the R writer, saved by matplotlib in the Python writer). `style/check_palette.py` reports the
+black, Arial, no transparency, PNG at 600 dpi (rendered from the PDF with `pdftoppm` by the R writer, saved by matplotlib in the Python writer). `style/check_palette.py` reports the
 colour distances of the palette under simulated colour vision deficiency (`cd 4_visualisation/style && python3 check_palette.py`).
 
 ## Software

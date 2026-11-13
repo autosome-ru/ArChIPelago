@@ -2,9 +2,9 @@
 (Machado et al. 2009, severity 1.0). Usage: python3 check_palette.py  (reads PALETTE from archi_style.py)."""
 import itertools, os, numpy as np
 try:
-    from archi_style import PALETTE_ORDER, PALETTE
+    from archi_style import PALETTE_ORDER, PALETTE, PWMSET_COL
 except ImportError:
-    PALETTE_ORDER = PALETTE = None
+    PALETTE_ORDER = PALETTE = PWMSET_COL = None
 
 M = {"deutan": [[0.367322, 0.860646, -0.227968], [0.280085, 0.672501, 0.047413], [-0.011820, 0.042940, 0.968881]],
      "protan": [[0.152286, 1.052583, -0.204868], [0.114503, 0.786281, 0.099216], [-0.003882, -0.048116, 1.051998]],
@@ -65,3 +65,7 @@ if __name__ == "__main__":
     m = re.search(r'MODEL_COL <- setNames\(c\(([^)]*)\)', r)
     rcols = re.findall(r'#[0-9A-Fa-f]{6}', m.group(1))
     print("R and Python palettes identical:", [c.upper() for c in rcols] == [PALETTE[k].upper() for k in PALETTE_ORDER])
+    rset = re.search(r'PWMSET_COL <- setNames\(unname\(MODEL_COL\[c\((.*?)\)\]\)', r)   # R: PWM sets take the colours of these MODEL_COL series
+    rnames = re.findall(r'"([^"]+)"', rset.group(1))
+    rset_hex = [rcols[["Single best monoPWM", "Single best diPWM", "Logistic Regression", "Random Forest (RF)"].index(n)] for n in rnames]
+    print("PWM-set colours (R series %s) = Python PWMSET_COL:" % rnames, [c.upper() for c in rset_hex] == [PWMSET_COL[k].upper() for k in ("mono", "di", "mono+di")])

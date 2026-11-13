@@ -3,7 +3,7 @@
 # monoPWMs and the two diPWMs with the highest Gini importance (Figure_3D_source_data.csv, build_Figure_3D_source_data_h3.py).
 # Logos as in Fig. S7 (ggseqlogo, information content in bits; diPWMs as their mononucleotide marginal; rc = reverse
 # complement for display so that all logos of a TF share the strand of its top monoPWM).
-# Output: Figure_3D_logos.pdf (cairo_pdf, vector, width of Figure_3_ABC.pdf) and Figure_3D_logos.png (300 dpi).
+# Output: Figure_3D_logos.pdf (cairo_pdf, vector, width of Figure_3_ABC.pdf) and Figure_3D_logos.png (600 dpi).
 # Usage : Rscript Figure_3D_logos.R
 # =============================================================================
 suppressPackageStartupMessages({library(ggplot2); library(ggseqlogo); library(patchwork)})
@@ -50,6 +50,6 @@ p <- (wrap_elements(cols[[1]]) | wrap_elements(cols[[2]]) | wrap_elements(cols[[
 for (ext in c("pdf", "png")) {
   f <- file.path(script_dir, paste0("Figure_3D_logos.", ext))
   if (ext == "pdf") ggsave(f, p, width = W_IN, height = H_IN, device = cairo_pdf)
-  else ggsave(f, p, width = W_IN, height = H_IN, dpi = 300, bg = "white")
+  else ggsave(f, p, width = W_IN, height = H_IN, dpi = 600, bg = "white")
 }
 cat("Written: Figure_3D_logos.pdf/png;", nrow(d), "logos\n")

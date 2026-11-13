@@ -5,3 +5,15 @@
   outputs:
     - {file: "4_visualisation/supplementary_figures/Figure_S1/Figure_S1.pdf", md5: "9dd756cd8f911ac37164ec84d2db7f9d"}
     - {file: "4_visualisation/supplementary_figures/Figure_S1/Figure_S1.png", md5: "c3e5e6935aae67f18d46aea3aed11a9c"}
+- script: "4_visualisation/main_figures/Figure_2/Figure_2_and_S1.R"
+  run: "2026-11-13 13:31:00"
+  git_commit: "6ef4952710b6636cd894bd819e5af1fb469c7318"
+  note: "re-rendered by run_h3.py figs (PNG 600 dpi; Fig. 3C without the group-threshold lines; PWM-set colours of Fig. 3); md5 recorded after the run"
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S1/Figure_S1.pdf", md5: "d1bf9f688f431acf9e04bf093ee5b5e6"}
+- script: "4_visualisation/main_figures/Figure_2/Figure_2_and_S1.R"
+  run: "2026-11-13 13:32:00"
+  git_commit: "6ef4952710b6636cd894bd819e5af1fb469c7318"
+  note: "re-rendered by run_h3.py (PNG 600 dpi; no group-threshold lines; PWM-set colours of Fig. 3); md5 recorded after the run"
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S1/Figure_S1.png", md5: "383d68d122d706c7ca54576409e1889a"}

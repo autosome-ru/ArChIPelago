@@ -8,8 +8,8 @@
 #                        Bagging (Gradient Boosting) #CC79A7, Bagging (Logistic Regression) #332288
 # Okabe-Ito based; minimum CIEDE2000 between any two of the 7 colours: 22.3 (normal vision), 15.7 (deuteranopia),
 # 12.2 (protanopia), 10.2 (tritanopia) - see check_palette.py.
-# PWM feature sets of one model (Fig. 3, S2, S3: Random Forest): three lightness steps of the Random Forest green,
-# black outline, so the Random Forest keeps its colour and the sets are told apart by lightness.
+# PWM feature sets of one model (Fig. 3, S2, S3: Random Forest): monoPWMs red, diPWMs orange, monoPWMs + diPWMs green,
+# the colours of the best monoPWM, best diPWM and Random Forest series above; black outline.
 # Everything opaque (no alpha: Illustrator fails on transparency), all text black, Arial.
 
 ARCHI_PKG <- Sys.getenv("ARCHI_PKG", "../../results/round1_package/Manuscript_analysis")   # released package, read only
@@ -25,7 +25,7 @@ RF_COL <- unname(MODEL_COL["Random Forest (RF)"])
 
 PWMSET_KEYS   <- c("mono", "di", "mono+di")
 PWMSET_LABELS <- c("monoPWMs", "diPWMs", "monoPWMs + diPWMs")
-PWMSET_COL <- setNames(c("#B7E3D3", "#009E73", "#00503B"), PWMSET_LABELS)
+PWMSET_COL <- setNames(unname(MODEL_COL[c("Single best monoPWM", "Single best diPWM", "Random Forest (RF)")]), PWMSET_LABELS)
 
 GREY_PTS  <- "#BDBDBD"   # per-TF background points / lines
 GREY_BOX  <- "#EDEDED"
@@ -51,7 +51,7 @@ theme_archi <- function(base_size = 16) {
       plot.background = ggplot2::element_rect(fill = "white", colour = NA))
 }
 
-# Save as cairo PDF (text stays text) and as a 300 dpi PNG rendered from that PDF.
+# Save as cairo PDF (text stays text) and as a 600 dpi PNG rendered from that PDF.
 # `path_noext` without extension; `plot` is a ggplot/patchwork or a function that draws (for gtables).
 save_both <- function(plot, path_noext, width_in, height_in) {
   pdf_path <- paste0(path_noext, ".pdf")
@@ -59,7 +59,7 @@ save_both <- function(plot, path_noext, width_in, height_in) {
   if (is.function(plot)) plot() else print(plot)
   grDevices::dev.off()
   png_stub <- path_noext
-  st <- system2(Sys.getenv("PDFTOPPM", "pdftoppm"), c("-r", "300", "-png", "-singlefile", shQuote(pdf_path), shQuote(png_stub)))
+  st <- system2(Sys.getenv("PDFTOPPM", "pdftoppm"), c("-r", "600", "-png", "-singlefile", shQuote(pdf_path), shQuote(png_stub)))
   if (st != 0) stop("pdftoppm failed for ", pdf_path)
   cat("Written:", pdf_path, "and", paste0(path_noext, ".png"), "\n")
 }

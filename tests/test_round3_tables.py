@@ -1,6 +1,6 @@
-"""Fig. 3C / Fig. S11B group thresholds, Sup. Table 3 sheets with the per-TF values of Fig. 4,
+"""Fig. S11B label thresholds (= B5 group thresholds; Fig. 3C and S11B draw no lines), Sup. Table 3 sheets with the per-TF values of Fig. 4,
 Fig. S4 and Fig. S5 and the paired RF vs Slim / diChIPMunk counts, and the negatives of Sup. Table 2.
-Red: T1_MUTATE=f3c_thr reads the Fig. 3C ROC threshold of the R script + 0.005; T1_MUTATE=t3_paired adds one TF to the human
+Red: T1_MUTATE=f3c_thr reads the Fig. S11B ROC label threshold + 0.005; T1_MUTATE=t3_paired adds one TF to the human
 Slim m=1 auPRC count of the Sup. Table 3 sheet; T1_MUTATE=t2_neg adds one negative to the first TF's human test negatives."""
 import os
 import re
@@ -23,15 +23,15 @@ def test_fig3c_thresholds_equal_b5():
     r = open(J("4_visualisation", "main_figures", "Figure_3", "Figure_3_and_S3.R")).read()
     b5 = open(J("3_analysis/transfer_drivers", "B5_01_drivers_and_ceiling.py")).read()
     f11 = open(J("4_visualisation", "supplementary_figures", "Figure_S11", "Figure_S11.py")).read()
-    roc_r = float(re.search(r"^F3C_ROC_GAP <- ([0-9.]+)", r, re.M).group(1))
-    prc_r = float(re.search(r"^F3C_PRC_GAP <- ([0-9.]+)", r, re.M).group(1))
+    roc_s, prc_s = re.search(r"H\.dROC > ([0-9.]+)\) \| \(H\.dPRC > ([0-9.]+)\)", f11).groups()   # Fig. S11B labels
+    roc_r, prc_r = float(roc_s), float(prc_s)
     if T.mutate("f3c_thr"):
         roc_r += 0.005
     roc_b = float(re.search(r"^ROC_GAP = ([0-9.]+)", b5, re.M).group(1))
     prc_b = float(re.search(r"^PRC_GAP = ([0-9.]+)", b5, re.M).group(1))
-    h, v = re.search(r'ax\.axhline\(([0-9.]+), color="black", lw=0\.6, ls="--"\); ax\.axvline\(([0-9.]+),', f11).groups()
-    assert (roc_r, prc_r) == (roc_b, prc_b) == (float(h), float(v)), ((roc_r, prc_r), (roc_b, prc_b), (h, v))
-    assert "post hoc" in r and "post hoc" in f11
+    assert (roc_r, prc_r) == (roc_b, prc_b), ((roc_r, prc_r), (roc_b, prc_b))
+    assert "group thresholds" not in r and "F3C_" not in r and "dashed" not in r, "Fig. 3C draws no group-threshold lines"
+    assert "axhline(0.075" not in f11 and "group thresholds" not in f11, "Fig. S11B draws no group-threshold lines"
 
 
 def test_sup_table3_fig4_sheets_and_paired_counts():

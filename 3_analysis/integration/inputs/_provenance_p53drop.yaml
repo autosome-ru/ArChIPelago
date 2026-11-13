@@ -26,3 +26,17 @@
   outputs:
     - {file: 3_analysis/integration/inputs/results_table.csv, md5: 624fd1a8482927165894a5c2183bc339}
     - {file: 3_analysis/integration/inputs/analysis/inputs/training_positives_per_TF.csv, md5: 7769c28e7f1cfb84e018c4e3084b8663}
+- script: 3_analysis/integration/make_inputs.py
+  run: 2026-11-13 13:30
+  task: W1-L P53 drop (human 35 TFs)
+  python: 3.9.12
+  exclude_tfs: [P53]
+  reference_tf_list: {file: results/datasets/peak_ids/mouse_sym_peak_ids.csv, md5: 78c0e1f564c09edc1e7a9492947d16e2}
+  human_used_ids: {file: results/datasets/peak_ids/human_used_peak_ids.csv, md5: c0e9d46d3be010d1927f021a2288489c}
+  note: "H3: byte copies of the integration package tables; ARCHI_PKG for B6"
+  inputs:
+    - {file: 3_analysis/package/results_table.csv, md5: 624fd1a8482927165894a5c2183bc339}
+    - {file: 3_analysis/package/analysis/inputs/training_positives_per_TF.csv, md5: 7769c28e7f1cfb84e018c4e3084b8663}
+  outputs:
+    - {file: 3_analysis/integration/inputs/results_table.csv, md5: 624fd1a8482927165894a5c2183bc339}
+    - {file: 3_analysis/integration/inputs/analysis/inputs/training_positives_per_TF.csv, md5: 7769c28e7f1cfb84e018c4e3084b8663}

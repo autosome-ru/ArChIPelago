@@ -5,3 +5,10 @@
   outputs:
     - {file: "4_visualisation/main_figures/Figure_2/Figure_2.pdf", md5: "309313750d52170d623b92fcd644ccdb"}
     - {file: "4_visualisation/main_figures/Figure_2/Figure_2.png", md5: "318b149e2a5315a604cb38e754fcb6c7"}
+- script: "4_visualisation/main_figures/Figure_2/Figure_2_and_S1.R"
+  run: "2026-11-13 13:31:00"
+  git_commit: "6ef4952710b6636cd894bd819e5af1fb469c7318"
+  note: "re-rendered by run_h3.py figs (PNG 600 dpi; Fig. 3C without the group-threshold lines; PWM-set colours of Fig. 3); md5 recorded after the run"
+  outputs:
+    - {file: "4_visualisation/main_figures/Figure_2/Figure_2.pdf", md5: "17e8136b03090c29e1610292363e23d2"}
+    - {file: "4_visualisation/main_figures/Figure_2/Figure_2.png", md5: "6c738de88060950300cd40d124be7586"}

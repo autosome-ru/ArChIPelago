@@ -10,9 +10,9 @@ PALETTE = dict(zip(PALETTE_ORDER, ["#D62728", "#FF7F0E", "#0072B2", "#009E73", "
 MODEL_COL = dict(zip(MODEL_LABELS, PALETTE.values()))
 MODEL_MARKER = dict(zip(MODEL_LABELS, ["^", "^", "o", "o", "o", "o", "o"]))
 RF_COL = PALETTE["RF"]
-# PWM feature sets of one model (Random Forest): lightness steps of the RF green, black outline
+# PWM feature sets of one model (Random Forest): the colours of best monoPWM (red), best diPWM (orange) and RF (green), black outline
 PWMSET_LABELS = {"mono": "monoPWMs", "di": "diPWMs", "mono+di": "monoPWMs+diPWMs"}
-PWMSET_COL = {"mono": "#B7E3D3", "di": "#009E73", "mono+di": "#00503B"}
+PWMSET_COL = {"mono": PALETTE["monoPWM"], "di": PALETTE["diPWM"], "mono+di": PALETTE["RF"]}
 GREY_PTS = "#BDBDBD"
 
 
@@ -28,7 +28,7 @@ def apply_rc():
 
 def save_both(fig, path_noext):
     fig.savefig(path_noext + ".pdf")
-    fig.savefig(path_noext + ".png", dpi=300)
+    fig.savefig(path_noext + ".png", dpi=600)
 
 
 _SUP = str.maketrans("-0123456789", "⁻⁰¹²³⁴⁵⁶⁷⁸⁹")

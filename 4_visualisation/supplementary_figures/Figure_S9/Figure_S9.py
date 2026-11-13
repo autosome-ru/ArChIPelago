@@ -198,7 +198,7 @@ for i, v in enumerate(data):
 ax.set_xticks([1, 2]); ax.set_xticklabels(["Human", "Mouse"]); ax.set_ylabel("300 bp window covering\nat least half of the peak (%)")
 ax.set_title("Coverage of the peak by the 300 bp window", pad=6)
 for ext in ("pdf", "png"):
-    fig.savefig(os.path.join(FIG, "Figure_S9." + ext), dpi=300 if ext == "png" else None)
+    fig.savefig(os.path.join(FIG, "Figure_S9." + ext), dpi=600 if ext == "png" else None)
 PD.write_provenance(os.path.abspath("."), "4_visualisation/supplementary_figures/Figure_S9/Figure_S9.py", [os.path.abspath(f) for f in OUTS],
     [os.path.abspath(f) for f in ("b3_topN_results.csv", "b3_peak_widths_per_dataset.csv", "b3_join_test_per_tf.csv", "b3_join_test_per_sequence.csv",
                                   "b3_gain_vs_npos_per_tf.csv", "b3_gain_vs_npos_spearman.csv")],

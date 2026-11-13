@@ -131,7 +131,7 @@ for a, t in zip((axA, axB, axC1, axD, axE), "ABCDE"):
 for a in (axC1, axD, axE):   # test-set label: panels C-E use the human test set
     a.text(0, 1.17, "Human test set", transform=a.transAxes, fontsize=8, ha="left", va="bottom", color="black")
 fig.savefig(OUT[0], bbox_inches="tight")
-fig.savefig(OUT[1], dpi=300, bbox_inches="tight")
+fig.savefig(OUT[1], dpi=600, bbox_inches="tight")
 print("saved; panel C TFs", len(sec_order), "panel D TFs", len(tf_d), "panel E TFs", len(tf_e))
 PD.write_provenance(B, "4_visualisation/supplementary_figures/Figure_S10/Figure_S10.py", OUT,
                     [os.path.join(T, n) for n in ("B4_importance_concentration.csv", "B4_subtype_importance.csv", "B4_subtype_summary_per_TF.csv",

@@ -21,7 +21,7 @@ needs R with PRROC and rpy2 and fails without them. GitHub Actions runs the suit
 | `test_numbers_trace.py` | every value of `outputs/numbers/NUMBERS_R2_35TF.csv` whose source is a table occurs in that table |
 | `test_provenance.py` | every `_provenance_h3.yaml` parses, and the md5 values it records equal the files on disk |
 | `test_builders_rerun.py` | the supplementary table builders, rerun in a temporary copy, reproduce the tracked tables |
-| `test_r2_sup_fixes.py`, `test_round3_tables.py` | cells of the supplementary tables and the group thresholds of Fig. 3C and Fig. S11B, recomputed from the producers' source tables |
+| `test_r2_sup_fixes.py`, `test_round3_tables.py` | cells of the supplementary tables and the label thresholds of Fig. S11B against the B5 group thresholds, recomputed from the producers' source tables |
 | `test_figS7_v11.py` | Fig. S7 labels against the HOCOMOCO v11 comparison tables in `4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/` |
 | `test_pwm_origin.py` | `3_analysis/integration/pwm_origin_h3.csv`, recomputed from the PWM archives in `results/datasets/zenodo_v1.0.0/` |
 | `test_inputs_h5.py` | the input registry (`3_analysis/integration/h3_inputs.py`), the pre-flight and the flip report |

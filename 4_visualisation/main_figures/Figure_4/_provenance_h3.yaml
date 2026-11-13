@@ -69,3 +69,42 @@
   outputs:
     - {file: "4_visualisation/main_figures/Figure_4/Figure_4.pdf", md5: "c59836778ba2813ffa65faafb7adf0d2"}
     - {file: "4_visualisation/main_figures/Figure_4/Figure_4.png", md5: "f508048afd43fb52fc097d28b44ac26f"}
+- script: "3_analysis/integration/fig4_tokens_h3b.py"
+  run: "2026-11-13 13:32:05"
+  git_commit: "6ef4952710b6636cd894bd819e5af1fb469c7318"
+  git_changed_tracked_files: 32
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{alpha: 0.05, tokens: 19}"
+  inputs:
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4_stats.csv", md5: "47e856301f7caa5fd873ccd5b790c1d5"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S4/Figure_S4_stats.csv", md5: "203a80c19c333288cca95dfd93842c21"}
+    - {file: "3_analysis/package/Figures/source_data/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
+    - {file: "results/datasets/text_tokens/manuscript_text_tokens.txt", md5: "a759ddda705b01099bf0a553d763d250"}
+  outputs:
+    - {file: "4_visualisation/main_figures/Figure_4/text_tokens_h3b.csv", md5: "9e39d5878322f7d06cc90a95326f8ccb"}
+- script: "3_analysis/integration/fig4_paired_h4.py"
+  run: "2026-11-13 13:32:06"
+  git_commit: "6ef4952710b6636cd894bd819e5af1fb469c7318"
+  git_changed_tracked_files: 33
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{difference: RF on all PWMs minus comparator; above: strictly greater; P: scipy wilcoxon default, two-sided}"
+  inputs:
+    - {file: "results/server/human/fig4_refit_trainscale/Figure_4_source_data.csv", md5: "9e2915874dde6465d7f62f2d94e044be"}
+    - {file: "results/server/human/fig4_refit_trainscale/Figure_S4_source_data.csv", md5: "753e28dd1c53fc699903012b2bdc0021"}
+  outputs:
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4_S4_paired_RF_vs_Slim.csv", md5: "6cc9cf8f12ad0bd8dcd3fe8b86ae68a3"}
+- script: "4_visualisation/main_figures/Figure_4/Figure_4_and_S4.R"
+  run: "2026-11-13 13:31:00"
+  git_commit: "6ef4952710b6636cd894bd819e5af1fb469c7318"
+  note: "re-rendered by run_h3.py figs (PNG 600 dpi; Fig. 3C without the group-threshold lines; PWM-set colours of Fig. 3); md5 recorded after the run"
+  outputs:
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4.pdf", md5: "edcbf50938b7c80e302e88c911a9d8e8"}
+    - {file: "4_visualisation/main_figures/Figure_4/Figure_4.png", md5: "a9dc6fac21cd38c23a2dfeac7514cc91"}

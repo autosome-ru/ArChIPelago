@@ -65,13 +65,11 @@ fig.canvas.draw()
 ang = np.linspace(0, 2 * np.pi, 7)[:-1]
 disp = ax.transData.transform(np.c_[H.dPRC.values, H.dROC.values])
 rad = np.sqrt(sz(T.loc[H.index, "n_train_pos_H"].values)) / 2 * fig.dpi / 72 + 2
-lx, ly = ax.transData.transform((0.15, 0.075))
 def n_ov(texts):
     bbs = [t.get_window_extent() for t in texts]; n = 0; ab = ax.get_window_extent()
     for i, bb in enumerate(bbs):
         n += sum(bb.overlaps(bbs[j]) for j in range(i + 1, len(bbs)))
         n += int(sum((bb.x0 - r_ < px < bb.x1 + r_) and (bb.y0 - r_ < py < bb.y1 + r_) for (px, py), r_ in zip(disp, rad)))
-        n += int(bb.y0 < ly < bb.y1) + int(bb.x0 < lx < bb.x1)   # dashed threshold lines
         n += not (ab.x0 <= bb.x0 and bb.x1 <= ab.x1 and ab.y0 <= bb.y0 and bb.y1 <= ab.y1)
     return n
 rng = np.random.RandomState(1); best = None
@@ -93,9 +91,6 @@ for t, tf in zip(txt, sel):
     if np.hypot(px - cx, py - cy) > 7:
         ax.annotate("", xy=(H.dPRC[tf], H.dROC[tf]), xycoords="data", xytext=((cx - bb.x0) / bb.width, (cy - bb.y0) / bb.height), textcoords=t,
                     arrowprops=dict(arrowstyle="-", lw=0.4, color="black", shrinkA=0, shrinkB=4, relpos=(0.5, 0.5)))
-ax.axhline(0.075, color="black", lw=0.6, ls="--"); ax.axvline(0.15, color="black", lw=0.6, ls="--")
-ax.text(0.002, 0.069, "dashed lines: group thresholds,\nset post hoc (Sup. Table 10)", ha="left", va="top", fontsize=6.5,
-        color="black")
 ax.set_xlabel("\u0394auPRC (RF vs best monoPWM, human test set)"); ax.set_ylabel("\u0394auROC")
 ax.set_title("Gain per TF, coloured by baseline auROC", loc="left", pad=6)
 hs = [ax.scatter([], [], s=sz(n), c="#999999", edgecolor="black", linewidth=0.4, label="{:,}".format(n)) for n in (1000, 5000, 10000)]
@@ -123,4 +118,4 @@ bpanel((0, 2), H.bROC, H.head_roc, "Baseline auROC (best monoPWM)", "\u0394auROC
 bpanel((2, 4), H.bPRC, H.head_prc, "Baseline auPRC (best monoPWM)", "\u0394auPRC / (1 - baseline auPRC)", "Human test set: auPRC gain per unit headroom",
        "raw \u0394auPRC vs baseline: \u03c1 = %.2f" % r2, L="D")
 bpanel((4, 6), H.bPRC, H.rel_prc, "Baseline auPRC (best monoPWM)", "\u0394auPRC / baseline auPRC", "Human test set: auPRC gain relative to baseline", right=True, L="E")
-fig.savefig(FIG + "/Figure_S11.pdf", bbox_inches="tight"); fig.savefig(FIG + "/Figure_S11.png", dpi=300, bbox_inches="tight")
+fig.savefig(FIG + "/Figure_S11.pdf", bbox_inches="tight"); fig.savefig(FIG + "/Figure_S11.png", dpi=600, bbox_inches="tight")
