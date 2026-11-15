@@ -76,9 +76,13 @@ draw <- function(sp, fig_name, label) {
       coord_cartesian(xlim = c(lo, 1), ylim = c(lo, 1)) +
       labs(x = xl, y = yl) +
       theme_archi(18) + theme(legend.position = "none", plot.margin = margin(8, 8, 8, 30))
-    hx <- ggplot(dA, aes(x = .data[[x]], colour = PWMset)) + geom_histogram(aes(y = after_stat(count)), bins = 25, fill = NA,
-            position = "identity", linewidth = 0.7, boundary = 0) +
-      scale_colour_manual(values = set_col) + coord_cartesian(xlim = c(lo, 1)) + theme_void() +
+    # top histogram: the x variable (best monoPWM baseline) is the same in all three PWM sets, so it is drawn once, in grey
+    dX <- dA[dA$PWM == "mono", ]
+    if (nrow(dX) != ntf || max(abs(dX[[x]] - dA[[x]][dA$PWM == "mono+di"][match(dX$TF_name, dA$TF_name[dA$PWM == "mono+di"])])) > 1e-9)
+      stop("CHECK FAILED ", fig_name, ": baseline ", x, " differs between PWM sets")
+    hx <- ggplot(dX, aes(x = .data[[x]])) + geom_histogram(aes(y = after_stat(count)), bins = 25, fill = NA, colour = GREY_PTS,
+            linewidth = 0.7, boundary = 0) +
+      coord_cartesian(xlim = c(lo, 1)) + theme_void() +
       theme(legend.position = "none")
     hy <- ggplot(dA, aes(x = .data[[y]], colour = PWMset)) + geom_histogram(bins = 25, fill = NA, position = "identity",
             linewidth = 0.7, boundary = 0) +

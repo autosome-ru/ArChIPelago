@@ -12,3 +12,17 @@
   outputs:
     - {file: "4_visualisation/supplementary_figures/Figure_S4/Figure_S4.pdf", md5: "eab5758c22bb22ce3286fc333fdc45bc"}
     - {file: "4_visualisation/supplementary_figures/Figure_S4/Figure_S4.png", md5: "bd61bb90cd95d1ef2bd94a7f9624cc13"}
+- script: "4_visualisation/main_figures/Figure_4/Figure_4_and_S4.R"
+  run: "2026-11-15 19:05:49"
+  git_commit: "65d050cd3d3f55f91fb0e0e92cb814b438cc61f3"
+  git_changed_tracked_files: 21
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "re-rendered after the review fix (panel titles Mouse test set (human-trained)); md5 recorded after the run"
+  inputs: []
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S4/Figure_S4.pdf", md5: "1bbb33031d383e4f4af4eb2662b96634"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S4/Figure_S4.png", md5: "0d2eb699033a83ff908f2331643f73a0"}

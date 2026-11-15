@@ -12,3 +12,17 @@
   outputs:
     - {file: "4_visualisation/supplementary_figures/Figure_S2/Figure_S2.pdf", md5: "9c0efdce330a317a096da5f7a473a4c2"}
     - {file: "4_visualisation/supplementary_figures/Figure_S2/Figure_S2.png", md5: "208ecddc4fef3e609a8665a7ace788b2"}
+- script: "4_visualisation/supplementary_figures/Figure_S2/Figure_S2.py"
+  run: "2026-11-15 19:14:23"
+  git_commit: "65d050cd3d3f55f91fb0e0e92cb814b438cc61f3"
+  git_changed_tracked_files: 23
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "re-rendered after the review fix (leader lines end on their own mark; check_leaders); md5 recorded after the run"
+  inputs: []
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S2/Figure_S2.pdf", md5: "4ac33b7f64fa38a7621de99b55a1c3dd"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S2/Figure_S2.png", md5: "5fbd3398330b8f34e4fe11fb4d657b89"}

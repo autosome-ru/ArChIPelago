@@ -36,6 +36,9 @@ RF = TABLE[TABLE.Model == "RandomForestClassifier"]
 
 # Figure S2
 MEDGREY = "#555555"
+PAD = 0.21         # axis padding (fraction of the data range) that makes room for labels
+MARK_PX = 3.0      # px: drawn radius of a mark (scatter s=16, 4 pt diameter, at 100 dpi, plus edge)
+LEADER_MIN = 3.0   # px: a label box closer than this to its mark gets no leader line
 
 
 def panel_scatter(ax, d, xcol, ycol, xlab, ylab, by_pwm=True, label_tfs=None):
@@ -68,18 +71,28 @@ def _seg_hits_box(a, b, box, pad=1.0):   # does segment a-b pass through box (x0
     return bool(((q[:, 0] > box[0] - pad) & (q[:, 0] < box[1] + pad) & (q[:, 1] > box[2] - pad) & (q[:, 1] < box[3] + pad)).any())
 
 
+def _seg_dist(a, b, q):   # distance from each point of q (n x 2) to segment a-b
+    ab = b - a
+    t = np.clip(((q - a) @ ab) / max(float(ab @ ab), 1e-12), 0, 1)
+    return np.hypot(*(q - (a + t[:, None] * ab)).T)
+
+
+def _clear(own, other, mark_r):   # least distance a leader may keep from another mark's centre: a mark radius, or half the gap to a mark nearer than that to the own mark
+    return np.minimum(mark_r, 0.5 * np.hypot(*(other - own).T))
+
+
 def add_labels(ax, mark_r=4.5, line_r=1.5, edge=4.0, gap=2.0):
     """Deterministic greedy label placement: each label takes the nearest candidate position
     (24 directions x 12 distances around its mark) that keeps it off every mark, off the diagonal / zero line, off the other
     labels, at least `edge` px inside the axes, and whose leader line crosses no other leader line or label. The most crowded
     labels are placed first. When no position is free, the cheapest one wins: crossing a reference line costs 1, a mark,
-    crossing leader or a leader through a label 3, another label 4, leaving the axes 5. Prints the labels left on a reference
+    crossing leader, a leader through a label or through another mark 3, another label 4, leaving the axes 5. Prints the labels left on a reference
     line or worse."""
     s, xcol, ycol, label_tfs = ax._lab
     lab = s[s.TF_name.isin(label_tfs)]
     old = (ax.get_xlim(), ax.get_ylim())
     for lim, setter in ((old[0], ax.set_xlim), (old[1], ax.set_ylim)):   # room for labels; data untouched
-        w = lim[1] - lim[0]; setter(lim[0] - 0.10 * w, lim[1] + 0.10 * w)
+        w = lim[1] - lim[0]; setter(lim[0] - PAD * w, lim[1] + PAD * w)
     for getter, setter, lim in ((ax.get_xticks, ax.set_xticks, old[0]), (ax.get_yticks, ax.set_yticks, old[1])):
         setter([t for t in getter() if lim[0] - 1e-9 <= t <= lim[1] + 1e-9])   # no tick outside the original range
     fig = ax.figure
@@ -98,9 +111,11 @@ def add_labels(ax, mark_r=4.5, line_r=1.5, edge=4.0, gap=2.0):
     fig.canvas.draw()
     size = {k: (t.get_window_extent().width, t.get_window_extent().height) for k, t in texts.items()}
     tgt = {r.TF_name: T.transform((r[xcol], r[ycol])) for _, r in lab.iterrows()}
+    names = list(s.TF_name)
+    others = {k: np.delete(marks, names.index(k), axis=0) for k in tgt}   # every mark except the label's own
     crowd = {k: int((np.hypot(*(marks - p).T) < 40).sum()) for k, p in tgt.items()}
     px = fig.dpi / 72.0
-    ang = np.deg2rad(np.arange(0, 360, 15.0))
+    ang = np.deg2rad(np.arange(0, 360, 7.5))
     dist = np.array([4, 7, 10, 15, 21, 28, 36, 45, 55, 66, 80, 95]) * px
     def place(order):
       placed, segs, out, total = [], [], {}, 0
@@ -125,6 +140,8 @@ def add_labels(ax, mark_r=4.5, line_r=1.5, edge=4.0, gap=2.0):
                   bad += 3 * sum(_cross(a0, p, s0, s1) for s0, s1 in segs)
                   parts.append(bad)
                   bad += 3 * (sum(_seg_hits_box(a0, p, b) for b in placed) + sum(_seg_hits_box(s0, s1, box) for s0, s1 in segs))
+                  if np.hypot(*(p - a0)) > LEADER_MIN:   # a leader must not run through (be hidden by) another TF's mark
+                      bad += 3 * int((_seg_dist(a0, p, others[k]) < _clear(p, others[k], MARK_PX)).sum())
                   if best is None or bad < best[0] or (bad == best[0] and d < best[1]):
                       best = (bad, d, c, box, a0, parts + [bad])
                   if bad == 0:
@@ -145,14 +162,56 @@ def add_labels(ax, mark_r=4.5, line_r=1.5, edge=4.0, gap=2.0):
         texts[k].set_position(T.inverted().transform(b[2]))
         if b[0] > 0 and os.environ.get("S2_DEBUG"):
             print("  unplaced", k, "cost", b[0], "cumulative edge/mark/line/label/cross/hit", b[5])
-    fig.canvas.draw()   # leader lines from the nearest edge of each label to its mark
+    fig.canvas.draw()   # leader lines from the nearest edge of each label to the centre of its mark (a shrunk end sat 4 pt off the centre and, in a tight cluster, nearer to a neighbour)
+    leaders = {}
     for k, t in texts.items():
         bb = t.get_window_extent(); px_, py_ = tgt[k]
         cx, cy = min(max(px_, bb.x0), bb.x1), min(max(py_, bb.y0), bb.y1)
-        if np.hypot(px_ - cx, py_ - cy) > 7:
-            ax.annotate("", xy=T.inverted().transform((px_, py_)), xycoords="data", xytext=((cx - bb.x0) / bb.width, (cy - bb.y0) / bb.height),
-                        textcoords=t, arrowprops=dict(arrowstyle="-", lw=0.4, color="black", shrinkA=0, shrinkB=4, relpos=(0.5, 0.5)))
+        if np.hypot(px_ - cx, py_ - cy) > LEADER_MIN:
+            leaders[k] = ax.annotate("", xy=T.inverted().transform((px_, py_)), xycoords="data", xytext=((cx - bb.x0) / bb.width, (cy - bb.y0) / bb.height),
+                        textcoords=t, arrowprops=dict(arrowstyle="-", lw=0.4, color="black", shrinkA=0, shrinkB=0, relpos=(0.5, 0.5)), zorder=0.8)   # ends at the mark centre, drawn under the mark
     print("labels without a conflict-free position:", n_bad, "of", len(texts))
+    fig.canvas.draw()
+    return dict(texts=texts, leaders=leaders, tgt=tgt, marks=marks, names=list(s.TF_name))
+
+
+def check_leaders(rec, panel, anchor_tol=LEADER_MIN, mark_r=None):
+    """Every leader must end nearer to its own TF's mark than to any other mark (display px); a label without a leader must
+    sit within `anchor_tol` px of its own mark (box edge to mark) and not nearer to another mark. Prints labels checked and the
+    worst margin (nearest other mark minus own mark; must be > 0), and no leader may run within `_clear` px of another mark centre (it would be hidden under that mark). Raises AssertionError listing every failing label."""
+    mark_r = MARK_PX if mark_r is None else mark_r
+    fails, worst, n, thr = [], None, 0, np.inf
+    marks, names = rec["marks"], rec["names"]
+    for k, t in rec["texts"].items():
+        own = rec["tgt"][k]
+        other = np.array([m for m, nm in zip(marks, names) if nm != k])
+        if k in rec["leaders"]:
+            v = rec["leaders"][k].arrow_patch.get_path().vertices
+            bb = t.get_window_extent()
+            far = lambda q: np.hypot(min(max(q[0], bb.x0), bb.x1) - q[0], min(max(q[1], bb.y0), bb.y1) - q[1])
+            end = max((v[0], v[-1]), key=far)   # the end at the mark, not the end on the label
+            kind = "leader"
+            a_, b_ = (v[0], v[-1]) if end is v[-1] else (v[-1], v[0])   # label end, mark end
+            thru = _seg_dist(a_, b_, other)
+            req = _clear(own, other, mark_r)
+            thr = min(thr, (thru - req).min())
+            if (thru < req).any():
+                j = int(np.argmin(thru - req))
+                fails.append("%s: leader passes %.2f px from another mark centre (needs %.2f px)" % (k, thru[j], req[j]))
+        else:
+            bb = t.get_window_extent()
+            end = np.array([min(max(own[0], bb.x0), bb.x1), min(max(own[1], bb.y0), bb.y1)])   # label anchor: nearest point of the label box
+            kind = "anchor"
+        d_own, d_oth = np.hypot(*(end - own)), np.hypot(*(other - end).T).min()
+        margin = d_oth - d_own
+        n += 1
+        if worst is None or margin < worst[0]:
+            worst = (margin, k, d_own, d_oth)
+        if margin <= 0 or (kind == "anchor" and d_own > anchor_tol):
+            fails.append("%s (%s): own %.2f px, nearest other mark %.2f px" % (k, kind, d_own, d_oth))
+    print("check_leaders panel %s: %d labels checked, worst margin %.2f px (%s: own %.2f, nearest other %.2f), least leader clearance beyond the required distance %.2f px%s"
+          % (panel, n, worst[0], worst[1], worst[2], worst[3], thr, "  FAIL" if fails else "  ok"))
+    assert not fails, "leader endpoint not on its own mark in panel %s: %s" % (panel, "; ".join(fails))
 
 
 def figure_s2():
@@ -203,7 +262,8 @@ def figure_s2():
     fig.canvas.draw()
     for r in (2, 3):
         for c in range(4):
-            add_labels(axes[r][c])
+            rec = add_labels(axes[r][c])
+            check_leaders(rec, "ABCDEFGHIJKLMNOP"[r * 4 + c])
     for i, ax in enumerate(axes.ravel()):
         ax.text(-0.30, 1.12, "ABCDEFGHIJKLMNOP"[i], transform=ax.transAxes, fontsize=10, fontweight="bold", va="bottom", ha="left")
     h = [Line2D([], [], marker="o", ls="", markerfacecolor=COL[p], markeredgecolor="black", markeredgewidth=0.4, markersize=6, label=LBL[p])

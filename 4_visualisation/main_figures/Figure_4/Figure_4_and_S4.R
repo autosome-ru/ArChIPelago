@@ -109,4 +109,4 @@ draw <- function(csv, fig_name, label, test_lab) {
   save_both(combined, file.path(out_dir, fig_name), 16, 6.2)
 }
 if ("H" %in% ARCHI_DRAW) draw("Figure_4_source_data.csv", "Figure_4", "(human test set)", "Human test set")
-if ("M" %in% ARCHI_DRAW) draw("Figure_S4_source_data.csv", "Figure_S4", "(mouse test set)", "Mouse test set")
+if ("M" %in% ARCHI_DRAW) draw("Figure_S4_source_data.csv", "Figure_S4", "(mouse test set)", "Mouse test set\n(human-trained)")

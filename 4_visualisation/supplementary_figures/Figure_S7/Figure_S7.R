@@ -68,6 +68,7 @@ read_matrix <- function(f) {
 CELL_SHORT <- c("megakaryocytes cultured from cord blood CD34-positive cells" = "megakaryocytes (cord blood CD34+)",
                 "Mesenchymal stem cells-derived adipocytes" = "adipocytes (from MSCs)",
                 "CD133+ expanded umbilical cord blood (UCB) cells" = "CD133+ cord blood cells",
+                "Pro-erythroblasts" = "pro-erythroblasts", "Plasma cell" = "plasma cell",   # cell types start lower case, cell lines keep their names
                 "HeLa S3" = "HeLa-S3")   # one name for the cell line (GTRD writes both)
 short_cell <- function(s, n = 34) {
   s <- ifelse(s %in% names(CELL_SHORT), CELL_SHORT[s], s)

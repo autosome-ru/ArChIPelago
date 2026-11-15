@@ -94,3 +94,32 @@
   note: "re-rendered by run_h3.py figs (PNG 600 dpi; Fig. 3C without the group-threshold lines; PWM-set colours of Fig. 3); md5 recorded after the run"
   outputs:
     - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC.png", md5: "e27d6eea8b3378eecd24f37d5797df7e"}
+- script: "4_visualisation/main_figures/Figure_3/assemble_figure3.py"
+  run: "2026-11-15 19:02:14"
+  git_commit: "65d050cd3d3f55f91fb0e0e92cb814b438cc61f3"
+  git_changed_tracked_files: 11
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC.pdf", md5: "467cee091b892e24abc70f53cf3ef476"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3D_logos.pdf", md5: "0ba1480d1aa9aa19d7778df889109352"}
+  outputs:
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3.pdf", md5: "a0bf385707f738ae4a3e0da57f1445b4"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3.png", md5: "44064acb54f781cc28e3973f49667442"}
+- script: "4_visualisation/main_figures/Figure_3/Figure_3_and_S3.R"
+  run: "2026-11-15 19:05:48"
+  git_commit: "65d050cd3d3f55f91fb0e0e92cb814b438cc61f3"
+  git_changed_tracked_files: 20
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "re-rendered after the review fix (top marginal histograms drawn once, grey); md5 recorded after the run"
+  inputs: []
+  outputs:
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC.pdf", md5: "467cee091b892e24abc70f53cf3ef476"}
+    - {file: "4_visualisation/main_figures/Figure_3/Figure_3_ABC.png", md5: "6984cbced22c2e9a506e993cad9b9596"}

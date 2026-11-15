@@ -7,7 +7,7 @@ usage: python3 3_analysis/supplementary_tables/make_sup_tables_7_10.py [7] [8] [
      sets, repeat mask as the pipeline; shares only, no window counts), top1000_check from the check logs of the rebuilds
      (3_analysis/integration/top1000_check_h3.py; columns that count unique windows or hold the shifted-TF control are not
      shown), random-split retraining of 3_analysis/random_split (v3 negatives, 5 TFs)
-  8  3_analysis/top_peaks (B3 summaries); gain_vs_positives_rho: the uncapped columns (n_tf_uncapped, rho_uncapped, p_uncapped)
+  8  3_analysis/top_peaks (B3 summaries; topN_summary and topN_per_TF without the negatives variant r100 = 1:100 subsample, identical to allneg because no TF exceeds 1:100); gain_vs_positives_rho: the uncapped columns (n_tf_uncapped, rho_uncapped, p_uncapped)
      are blanked for predictors other than the training positives, because the cap (10,000 positives) concerns only that predictor
   9  3_analysis/feature_importance/tables (b4_05_aggregate.py); sheet 'activation_best_pwm' (B4_activation_best_pwm.csv, the
      source of Fig. S10D); 'multivariable' of Sup. Table 10 is described below
@@ -47,6 +47,18 @@ def blank_uncapped(df):
     print("gain_vs_positives_rho: uncapped columns kept for %d rows (%s), blanked for %d" % ((~other).sum(), UNCAPPED_PREDICTOR, other.sum()))
     return df
 
+def drop_r100(df):
+    """Sup. Table 8 topN sheets: the negatives variant r100 (negatives subsampled to 1:100) is not published. No TF has more than 100
+    negatives per positive, so r100 equals allneg in every row; this is checked here (all columns but 'variant') before r100 is dropped."""
+    key = [c for c in df.columns if c not in ("variant", "status")]
+    r, a = df[df.variant == "r100"], df[df.variant == "allneg"]
+    m = r.drop(columns="variant").merge(a.drop(columns="variant"), how="outer", indicator=True)
+    if len(r) == 0 or len(r) != len(a) or (m._merge != "both").any():
+        raise SystemExit("CHECK FAILED topN: variant r100 differs from allneg (%d vs %d rows, %d unmatched); r100 is not redundant" % (len(r), len(a), (m._merge != "both").sum()))
+    out = df[df.variant != "r100"]
+    print("topN: %d r100 rows (identical to allneg) dropped, %d rows kept" % (len(df) - len(out), len(out)))
+    return out
+
 TABLES = {
     "Sup_Table_7_low_FPR_metrics": [
         ("summary", "3_analysis/low_fpr_metrics/B2_summary.csv"),
@@ -60,8 +72,8 @@ TABLES = {
         ("random_split_retraining_summary", "3_analysis/random_split/b9_summary.csv"),
     ],
     "Sup_Table_8_top_peaks_and_peak_widths": [
-        ("topN_summary", "3_analysis/top_peaks/b3_topN_summary.csv"),
-        ("topN_per_TF", "3_analysis/top_peaks/b3_topN_results.csv"),
+        ("topN_summary", "3_analysis/top_peaks/b3_topN_summary.csv", drop_r100),
+        ("topN_per_TF", "3_analysis/top_peaks/b3_topN_results.csv", drop_r100),
         ("gain_vs_positives", "3_analysis/top_peaks/b3_gain_vs_npos_per_tf.csv"),
         ("gain_vs_positives_rho", "3_analysis/top_peaks/b3_gain_vs_npos_spearman.csv", blank_uncapped),
         ("peak_width_summary", "3_analysis/top_peaks/b3_peak_widths_summary.csv"),

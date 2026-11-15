@@ -172,3 +172,21 @@
     - {file: "3_analysis/transfer_drivers/B5_B_cloud_separation.csv", md5: "8553b580faf7a02c44ef27812a4b6b5d"}
   outputs:
     - {file: "outputs/supplementary_tables/Sup_Table_10_transfer_drivers_and_headroom.xlsx", md5: "dcd6f7c38af017f9448b5aedb7254dc2"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_7_10.py (Sup_Table_8_top_peaks_and_peak_widths)"
+  run: "2026-11-15 19:03:29"
+  git_commit: "65d050cd3d3f55f91fb0e0e92cb814b438cc61f3"
+  git_changed_tracked_files: 17
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "3_analysis/top_peaks/b3_topN_summary.csv", md5: "22aa13c33acbf388c9faebc1c1d366a1"}
+    - {file: "3_analysis/top_peaks/b3_topN_results.csv", md5: "0f54a7617a91b58dd9d1a347bc70024d"}
+    - {file: "3_analysis/top_peaks/b3_gain_vs_npos_per_tf.csv", md5: "5766ac8b221956f1f196dc2d015acbd0"}
+    - {file: "3_analysis/top_peaks/b3_gain_vs_npos_spearman.csv", md5: "79de1fd20c4eb75a2aa27937faa20d32"}
+    - {file: "3_analysis/top_peaks/b3_peak_widths_summary.csv", md5: "c2d89cb0136b9c5159298c25f39afdc6"}
+    - {file: "3_analysis/top_peaks/b3_peak_widths_per_dataset.csv", md5: "c3421566ee0af4f831c6b691c1157702"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_8_top_peaks_and_peak_widths.xlsx", md5: "a20a4fd6a826d731a6ac9e0df9786c93"}
