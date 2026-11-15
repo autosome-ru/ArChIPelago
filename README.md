@@ -91,7 +91,7 @@ that R. Steps 1-3 use the versions in `2_training/VERSIONS.txt`.
 
 ## Inputs on Zenodo
 
-- Record [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves to the latest version, v2.0.0):
+- Record [10.5281/zenodo.14927303](https://doi.org/10.5281/zenodo.14927303) (resolves to the latest version, v2.0.0; version DOI of the v2 data record, published 13 Nov 2026: [10.5281/zenodo.24199015](https://doi.org/10.5281/zenodo.24199015)):
   training and test sets (`train.tar.gz`, `test.tar.gz`), PWMs (`PWMs_{mono,di}_{HUMAN,MOUSE}.tar.gz`), Random Forest
   models (`Models.tar.gz`), Slim and diChIPMunk models (`Slim_diChIPMunk_models_v2.tar.gz`), RepeatMasker masks
   (`repeatmasker_hg38_mm10.tar.gz`) and the test-set scores that the stage `gate` reads (`scores_H5_human.tar.gz`). Its

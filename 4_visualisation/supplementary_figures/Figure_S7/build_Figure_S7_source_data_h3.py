@@ -1,6 +1,7 @@
 """Fig. S7 source data on the final data. Same method as the package builder
 (3_analysis/package/analysis/motif_subtypes/build_Figure_S7_source_data.py, imported for to_prob / consensus / pcc_max / ...),
-with the final inputs:
+with the final inputs. The similarity (pcc_max) is computed here on position probability matrices; motif_similarity.py and the subtype
+clustering use log-odds matrices:
   ranking      3_analysis/package/results_table.csv: RF mono+di seed 0 vs *_PWM (best monoPWM, asserted), human test set
   importances  h3_inputs b4_dir/gini/<TF>_gini.csv (Gini of the seed-0 mono+di model)
   PWM files    results/datasets/zenodo_v1.0.0/PWMs_{mono,di}_HUMAN (identical to the Zenodo v1.0.0 tars)

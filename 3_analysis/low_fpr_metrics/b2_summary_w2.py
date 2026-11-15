@@ -22,7 +22,8 @@ metrics = [c for c in w.columns if c not in ("TF", "scenario", "model") and c no
 def wp(d):
     d = d[~np.isnan(d)]
     if len(d) == 0 or np.all(d == 0): return np.nan
-    return wilcoxon(d, zero_method="wilcox").pvalue
+    d = d[d != 0]   # TFs with equal values left out, then the exact two-sided test (as Table 1 and Sup. Table 4)
+    return wilcoxon(d, alternative="two-sided", method="exact").pvalue
 def bh(p):
     p = np.asarray(p, float); q = np.full(len(p), np.nan); ok = ~np.isnan(p)
     pp = p[ok]; o = np.argsort(pp); r = pp[o] * len(pp) / (np.arange(len(pp)) + 1)
@@ -71,7 +72,7 @@ pc.to_csv("B2_per_chromosome_summary.csv", index=False)
 PD.write_provenance(os.path.dirname(os.path.abspath(__file__)), "3_analysis/low_fpr_metrics/b2_summary_w2.py (copy of B2_metrics/b2_summary.py)",
     [os.path.abspath(f) for f in ("B2_summary.csv", "B2_per_chromosome_summary.csv")],
     [os.path.abspath(f) for f in ("B2_metrics_wide.csv", "B2_per_chromosome.csv")],
-    params="{baselines: mono_byroc for ROC-type, mono_byprc for PR-type; Wilcoxon two-sided, zero_method wilcox; BH per scenario and seed; per chromosome BH over all rows}")
+    params="{baselines: mono_byroc for ROC-type, mono_byprc for PR-type; Wilcoxon two-sided exact, TFs with equal values left out; BH per scenario and seed; per chromosome BH over all rows}")
 pd.set_option("display.width", 250); pd.set_option("display.max_rows", 500)
 cols = ["metric", "n_TF", "rf_median", "base_median", "diff_median", "n_improved", "n_equal", "wilcoxon_p"]
 for sc in ("HH", "HM", "MM"):

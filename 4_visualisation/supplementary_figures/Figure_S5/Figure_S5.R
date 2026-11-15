@@ -46,8 +46,8 @@ K_GRID  <- c(1, 2, 4, 8, 16, 32, 64, 128)
 X_ALL   <- 9              # x position (log2 scale) of the "all (P)" tick
 METRICS <- list(c("delta_auroc_H", "auROC, human test set (vs best monoPWM)", "ΔauROC"),
                 c("delta_auprc_H", "auPRC, human test set (vs best monoPWM)", "ΔauPRC"),
-                c("delta_auroc_M", "auROC, mouse test set (vs best monoPWM)", "ΔauROC"),
-                c("delta_auprc_M", "auPRC, mouse test set (vs best monoPWM)", "ΔauPRC"))
+                c("delta_auroc_M", "auROC, mouse test set (human-trained,\nvs best monoPWM)", "ΔauROC"),
+                c("delta_auprc_M", "auPRC, mouse test set (human-trained,\nvs best monoPWM)", "ΔauPRC"))
 
 # data
 per_tf <- read.csv(per_tf_path, stringsAsFactors = FALSE) %>%

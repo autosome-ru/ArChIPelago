@@ -2,8 +2,9 @@
 (Figure_S9.pdf/png) goes to this folder. usage: python3 4_visualisation/supplementary_figures/Figure_S9/Figure_S9.py
 Reads the server outputs (b3_topN_results.csv, b3_peak_widths_per_dataset.csv, b3_join_test_*.csv) and b3_gain_vs_npos_*.csv.
 Human (H) rows exclude p53drop.EXCLUDE_TFS (35 TFs); peak widths are restricted to the used peak sets
-(human 361, mouse 276); mouse (M) top-N and join rows are the first-submission mouse data, marked stale.
-The figure (Fig. S9) is redrawn from these tables; its mouse panels A-D show the stale mouse data."""
+(human 361, mouse 276); mouse (M) top-N and join rows come from the rebuilt mouse data (status "current", checked below; the
+earlier note that they were stale first-submission data no longer applies).
+The figure (Fig. S9) is redrawn from these tables; panels C and D show the human-trained model on the mouse test set."""
 import warnings; warnings.filterwarnings("ignore")
 import numpy as np, pandas as pd
 from scipy.stats import wilcoxon, spearmanr
@@ -115,7 +116,7 @@ gs = fig.add_gridspec(3, 12, hspace=0.62, wspace=2.8, left=0.065, right=0.985, t
 def lab(ax, t, dx=-0.26): ax.text(dx, 1.14, t, transform=ax.transAxes, fontsize=10, fontweight="bold", va="bottom", ha="left")
 
 order = ["all", "2000", "1000", "500"]
-for k, (sp, met, ttl) in enumerate([("H", "auroc", "Human test set, auROC"), ("H", "auprc", "Human test set, auPRC"), ("M", "auroc", "Mouse test set, auROC"), ("M", "auprc", "Mouse test set, auPRC")]):
+for k, (sp, met, ttl) in enumerate([("H", "auroc", "Human test set, auROC"), ("H", "auprc", "Human test set, auPRC"), ("M", "auroc", "Mouse test set (human-trained),\nauROC"), ("M", "auprc", "Mouse test set (human-trained),\nauPRC")]):
     ax = fig.add_subplot(gs[0, 3 * k:3 * k + 3])
     base = d[(d.species == sp) & (d.variant == "allneg") & (d.selection == "top")]
     for gi, N in enumerate(order):

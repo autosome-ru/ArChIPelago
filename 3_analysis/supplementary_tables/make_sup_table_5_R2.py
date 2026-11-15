@@ -69,6 +69,13 @@ ren = {FAMILY_OLD: FAMILY_NEW, "H>M: dauROC": "H>M: dauROC (%s)" % S0, "H>M: dau
 missing = [c for c in ren if c not in per.columns]
 if missing:
     raise SystemExit("CHECK FAILED Sup. Table 5 per_TF: columns to rename missing %s" % missing)
+# the M>M minus H>M columns hold the difference of the two models' auROC / auPRC on the same mouse test set, not of their gains
+OLD_D = {"M>M minus H>M: dauROC (same mouse test set, mean of 2 seeds for both)": "M>M minus H>M: auROC of the models (same mouse test set, mean of 2 seeds for both)",
+         "M>M minus H>M: dauPRC (same mouse test set, mean of 2 seeds for both)": "M>M minus H>M: auPRC of the models (same mouse test set, mean of 2 seeds for both)"}
+missing = [c for c in OLD_D if c not in per.columns]
+if missing:
+    raise SystemExit("CHECK FAILED Sup. Table 5 per_TF: model-difference columns missing %s" % missing)
+ren.update(OLD_D)
 per = per.rename(columns=ren)
 gain = {m: hmo["HM_rf_test_M_%s_mean" % m].values - hmo["HM_%s_test_M_%s" % (b, m)].values for m, b in (("auroc", "broc"), ("auprc", "bprc"))}
 new = [("H>M: ArChIPelago auROC (mouse test, %s)" % S0, "H>M: ArChIPelago auROC (mouse test, %s)" % MEAN, hmo.HM_rf_test_M_auroc_mean.values),
@@ -88,6 +95,11 @@ dr, dp = pd.Series(gain["auroc"], index=per.TF), pd.Series(gain["auprc"], index=
 row = [lab0 + ", %s" % MEAN, "%g" % round(dr.median(), 4), str(int((dr > 0).sum())), "%.1e" % wilcoxon(dr).pvalue, "%g" % round(dp.median(), 4),
        str(int((dp > 0).sum())), "%.1e" % wilcoxon(dp).pvalue, ", ".join(sorted(set(dr.index[dr < 0]) | set(dp.index[dp < 0]))) or "none"]
 summ = pd.concat([summ.iloc[:i0[0] + 1], pd.DataFrame([row], columns=summ.columns), summ.iloc[i0[0] + 1:]], ignore_index=True)
+LAB_D_OLD = "Mouse-trained minus human-trained model on the same mouse test set (positive = the mouse-trained model is better)"
+LAB_D_NEW = "Mouse-trained minus human-trained model on the same mouse test set: difference of the models' auROC / auPRC, not of their gains (positive = the mouse-trained model is better)"
+if (summ.iloc[:, 0] == LAB_D_OLD).sum() != 1:
+    raise SystemExit("CHECK FAILED Sup. Table 5 summary: model-difference row not found once")
+summ.iloc[:, 0] = summ.iloc[:, 0].replace({LAB_D_OLD: LAB_D_NEW})
 num = [c for c in summ.columns if c.startswith(("median", "TFs with", "Wilcoxon"))]
 summ[num] = summ[num].astype(float)
 corr = x5["correlations"].replace({"H>M: dauROC": "H>M: dauROC (%s)" % S0, "H>M: dauPRC": "H>M: dauPRC (%s)" % S0})
@@ -138,6 +150,8 @@ if not (corr.astype(str) == "Fig. S6C shows the first pair of the second block (
 print("Sup. Table 5 correlations, two-seed mean: " + "; ".join("%s %s rho %.3f P %s" % (m[0][5:12], m[1][:30], m[3], m[4]) for m in mean_rows[:2]))
 print("Sup. Table 5 H>M two-seed mean: auROC %d/%d up (below: %s), auPRC %d/%d up (below: %s); median gain %.4f / %.4f" % (
     (dr > 0).sum(), len(dr), ",".join(dr.index[dr < 0]), (dp > 0).sum(), len(dp), ",".join(dp.index[dp < 0]), dr.median(), dp.median()))
+# P column of the correlation block as numbers (3 significant digits, as printed before)
+corr.iloc[hdr[0] + 1:, 4] = [float(v) for v in corr.iloc[hdr[0] + 1:, 4].astype(object)]
 w2.backup(OUT)
 with pd.ExcelWriter(OUT) as xw:
     summ.to_excel(xw, sheet_name="summary", index=False)

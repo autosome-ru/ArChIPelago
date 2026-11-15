@@ -15,6 +15,7 @@ usage: import sup_table_6_h3 as S6; S6.build(out_xlsx)   (called by 3_analysis/s
 """
 import json
 import os
+from decimal import ROUND_HALF_UP, Decimal
 import re
 import sys
 
@@ -115,8 +116,10 @@ def build(out):
     scanner_note = old["RF_inference"].iloc[:, 0].dropna().iloc[-1]
     if scanner_note.count(OLD_RATE) != 1:
         raise SystemExit("CHECK FAILED Sup. Table 6 companion scanner note: %r not found once in %r" % (OLD_RATE, scanner_note))
-    scanner_note = scanner_note.replace(OLD_RATE, "r x Mb, with r = %.2f-%.2f s/Mb (single scans and sequential loops, sheet PWM_scanning)" % (
-        mono1.mean(), monoL.min()))
+    # r spans the single scans and the sequential loops of the monoPWMs (sheet PWM_scanning): lowest single scan to highest loop, 3 decimals rounded half up to 2
+    r2 = lambda v: Decimal("%.3f" % v).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    scanner_note = scanner_note.replace(OLD_RATE, "r x Mb, with r = %s-%s s/Mb (single scans and sequential loops, sheet PWM_scanning)" % (
+        r2(mono1.min()), r2(monoL.max())))
     i = inf[cols_in].copy()
     ch, sg = inf[inf[cols_in[0]].str.startswith("chunked")], inf[inf[cols_in[0]].str.startswith("single")]
     p1, p4 = ch[ch["Threads (n_jobs)"] == 1], ch[ch["Threads (n_jobs)"] == 4]
@@ -141,8 +144,16 @@ def build(out):
     su.loc["OS", "Value"] = "Ubuntu 24.04.5 LTS, kernel 6.8.0 (%s runs); the %s rows ran on Ubuntu 20.04.6 LTS, kernel 5.4.0" % (NEW, OLD)
     su.loc["Java / SARUS", "Value"] = su.loc["Java / SARUS", "Value"].replace(
         "OpenJDK 1.8.0_232;", "OpenJDK 21.0.12 (%s runs; %s rows: OpenJDK 1.8.0_232);" % (NEW, OLD))
+    OLD_BENCH = "(10,000 CTCF human test positives + 40,000 GC-matched negatives)"
+    if su.loc["Benchmark input", "Value"].count(OLD_BENCH) != 1:
+        raise SystemExit("CHECK FAILED setup: benchmark input text %r not found once" % OLD_BENCH)
+    # the benchmark FASTA was drawn from an earlier version of the data set: positives from its pooled CTCF data, negatives from its
+    # GC-matched CTCF training negatives; it is not the test set of Sup. Table 2
+    su.loc["Benchmark input", "Value"] = su.loc["Benchmark input", "Value"].replace(OLD_BENCH, (
+        "(10,000 CTCF human ChIP-Seq positives and 40,000 GC-matched negatives from an earlier version of the data set; "
+        "a benchmark set, not the test set of Sup. Table 2)"))
     su.loc["Training matrices", "Value"] = ("the human training matrices of the final models (human positives with each peak set read "
-        "once, negatives v3, chromosomes %s): %s; features = best-hit log-odds of the monoPWMs" % (H.SPLIT["H_train"][3:], ", ".join(
+        "once, GC-matched negatives from the peaks of other TF families without windows that overlap the TF's own positives, chromosomes %s): %s; features = best-hit log-odds of the monoPWMs" % (H.SPLIT["H_train"][3:], ", ".join(
             "%s %s rows (%s positives)" % (tf, format(load[tf]["n_rows"], ","), format(load[tf]["n_pos"], ",")) for tf in TFS)))
     rf_cpu = [trj[(tf, 1)] for tf in TFS]
     su.loc["Thread policy", "Value"] = (

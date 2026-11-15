@@ -100,17 +100,19 @@ def test_sup4_tfs_in_the_median_and_precision_gain_decimals():
 
 
 def test_sup6_scanner_rate_from_the_scanning_sheet():
-    """The companion-scanner formula quotes the per-Mb rates of sheet PWM_scanning (single-scan mean, lowest loop rate).
+    """The companion-scanner formula quotes the per-Mb rates of sheet PWM_scanning (lowest single-scan rate, highest loop rate).
     Red: T1_MUTATE=sup6_old_rate reads the first-submission note (0.15 s/Mb)."""
     import re
     note = xl(6, "RF_inference").iloc[:, 0].dropna().iloc[-1]
     if T.mutate("sup6_old_rate"):
         note = note.replace(re.search(r"r x Mb, with r = [^)]*\)", note).group(0), "0.15 s/Mb x Mb")
     ps = " ".join(xl(6, "PWM_scanning").iloc[:, 0].dropna().astype(str))
-    single = float(re.search(r"per monoPWM per Mb \(mean ([\d.]+)\)", ps).group(1))
-    loop_lo = float(re.search(r"\): ([\d.]+)-[\d.]+ s per monoPWM per Mb", ps).group(1))
-    want = "r = %.2f-%.2f s/Mb" % (single, loop_lo)
-    print("PWM_scanning: single-scan mean %.3f, loops from %.3f -> %r; note: %s" % (single, loop_lo, want, note[:120]))
+    from decimal import ROUND_HALF_UP, Decimal
+    single = re.search(r"runs\): ([\d.]+)-[\d.]+ s wall-clock per monoPWM per Mb", ps).group(1)   # lowest single scan
+    loop_hi = re.search(r"\): [\d.]+-([\d.]+) s per monoPWM per Mb", ps).group(1)               # highest loop
+    r2 = lambda v: Decimal(v).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    want = "r = %s-%s s/Mb" % (r2(single), r2(loop_hi))
+    print("PWM_scanning: lowest single scan %s, highest loop %s -> %r; note: %s" % (single, loop_hi, want, note[:120]))
     assert want in note and "0.15 s/Mb x Mb" not in note
 
 

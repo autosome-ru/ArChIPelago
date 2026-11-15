@@ -12,3 +12,10 @@
   outputs:
     - {file: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.pdf", md5: "a6969a2dab36d5e8a480a1ee477ac53e"}
     - {file: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.png", md5: "c7d206c3ec000c2c6da4535cb8422301"}
+- script: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.R"
+  run: "2026-11-15 21:21:12"
+  git_commit: "2b6930f06dfb97f7e18c3987272bfbf351e7dbaa"
+  note: "re-rendered with Figure_S5.R (titles of panels C and D: mouse test set, human-trained; plot data unchanged); md5 recorded after the run"
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.pdf", md5: "873e678fcce02ccbc069d84620a5af04"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S5/Figure_S5.png", md5: "e5ea5f40eb4cede5f27f69ff836f9792"}

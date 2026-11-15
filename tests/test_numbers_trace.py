@@ -373,9 +373,9 @@ def _f3d(tf):
 
 def _vs_di(m):   # RF mono+di vs the best single diPWM, human test; read from the published Sup. Table 3
     p = pd.read_excel(J("outputs/supplementary_tables", "Sup_Table_3_ArChIPelago_performance.xlsx"), sheet_name="performance")
-    rf = p[(p.Model == "RandomForestClassifier") & (p["PWM type"] == "mono+di")].set_index("TF_name")
+    rf = p[(p.Model == "RandomForestClassifier") & (p["PWM type"] == "mono+di")].set_index("TF")
     ref = "Single best mono PWM" if T.mutate("vs_di_mono") else "Single best di PWM"   # red run: the best monoPWM as reference
-    sd = p[p.Model == ref].drop_duplicates("TF_name").set_index("TF_name").loc[rf.index]
+    sd = p[p.Model == ref].drop_duplicates("TF").set_index("TF").loc[rf.index]
     x = (rf[m + "_test_H"] - sd[m + "_test_H"]).to_numpy()
     return [int((x > 0).sum()), len(x), np.median(x), _wilcox(x)]
 

@@ -185,7 +185,7 @@ if "3" in BUILD:
     w2.backup(OUT3)
     with pd.ExcelWriter(OUT3) as xw:
         for sh, d in t3.items():
-            (perf if sh == "performance" else d).to_excel(xw, sheet_name=sh, index=False)
+            (perf.rename(columns={"TF_name": "TF"}) if sh == "performance" else d).to_excel(xw, sheet_name=sh, index=False)   # TF_name -> TF at the writing step only
         for sh, d in t3x.items():
             d.to_excel(xw, sheet_name=sh, index=False)
     w2.provenance(OUT, "3_analysis/supplementary_tables/make_sup_tables_1_3_R2.py (Sup. Table 3)", [OUT3],

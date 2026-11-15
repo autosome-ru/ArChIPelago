@@ -59,6 +59,42 @@ def drop_r100(df):
     print("topN: %d r100 rows (identical to allneg) dropped, %d rows kept" % (len(df) - len(out), len(out)))
     return out
 
+RF_TEST_COLS = {"auroc_sav": "RF auROC, human test set (seed 0)", "auprc_sav": "RF auPRC, human test set (seed 0)"}
+
+
+def concentration_cols(df):
+    """Sup. Table 9 'concentration': the run label column model_source is not published; auroc_sav / auprc_sav get plain names
+    (the CSV that Fig. S10 reads keeps the old names)."""
+    out = df.drop(columns="model_source").rename(columns=RF_TEST_COLS)
+    if list(RF_TEST_COLS.values()) != [c for c in out.columns if c in RF_TEST_COLS.values()]:
+        raise SystemExit("CHECK FAILED concentration: test columns not renamed")
+    return out
+
+
+def gini_without_file(df):
+    """Sup. Table 9 'gini_all_PWMs': feature_file (the name of an internal table) is not published; TF + kind + idx must still
+    identify every PWM once."""
+    key = ["TF", "kind", "idx"]
+    if df.duplicated(key).any() or df.duplicated(["TF", "pwm_header"]).any():
+        raise SystemExit("CHECK FAILED gini_all_PWMs: %s do not identify the PWMs uniquely (%d duplicated)" % (key, df.duplicated(key).sum()))
+    print("gini_all_PWMs: feature_file dropped; %d rows, unique by %s (%d distinct) and by TF + pwm_header (%d distinct)" % (
+        len(df), "+".join(key), len(df.drop_duplicates(key)), len(df.drop_duplicates(["TF", "pwm_header"]))))
+    return df.drop(columns="feature_file")
+
+
+def activation_label(df):
+    """Sup. Table 9 'activation': group 'secondary_only' of the definition any_nonprimary is published as 'nonprimary_only'
+    (rows of the definition subtype2 keep 'secondary_only'); the CSV that Fig. S10 reads keeps the old label."""
+    df = df.copy()
+    m = (df.defn == "any_nonprimary") & (df.group == "secondary_only")
+    if not m.any() or (df.defn == "subtype2")[df.group == "secondary_only"].sum() == 0:
+        raise SystemExit("CHECK FAILED activation: no secondary_only rows to relabel / keep")
+    df.loc[m, "group"] = "nonprimary_only"
+    print("activation: %d rows of any_nonprimary relabelled nonprimary_only; %d rows of subtype2 keep secondary_only" % (
+        m.sum(), ((df.defn == "subtype2") & (df.group == "secondary_only")).sum()))
+    return df
+
+
 TABLES = {
     "Sup_Table_7_low_FPR_metrics": [
         ("summary", "3_analysis/low_fpr_metrics/B2_summary.csv"),
@@ -84,12 +120,12 @@ TABLES = {
           "median_cover", "width_median_top1000", "width_median_rest", "cover_ge50_top1000", "cover_ge50_rest"]),
     ],
     "Sup_Table_9_feature_importance": [
-        ("concentration", "3_analysis/feature_importance/tables/B4_importance_concentration.csv"),
-        ("gini_all_PWMs", "3_analysis/feature_importance/tables/B4_gini_all_features.csv"),
+        ("concentration", "3_analysis/feature_importance/tables/B4_importance_concentration.csv", concentration_cols),
+        ("gini_all_PWMs", "3_analysis/feature_importance/tables/B4_gini_all_features.csv", gini_without_file),
         ("permutation_top20", "3_analysis/feature_importance/tables/B4_permutation_top20.csv"),
         ("subtypes_per_TF", "3_analysis/feature_importance/tables/B4_subtype_summary_per_TF.csv"),
         ("subtype_importance", "3_analysis/feature_importance/tables/B4_subtype_importance.csv"),
-        ("activation", "3_analysis/feature_importance/tables/B4_activation_groups.csv"),
+        ("activation", "3_analysis/feature_importance/tables/B4_activation_groups.csv", activation_label),
         ("activation_best_pwm", "3_analysis/feature_importance/tables/B4_activation_best_pwm.csv"),   # Fig. S10D
         ("ablation", "3_analysis/feature_importance/tables/B4_ablation_summary.csv"),
         ("PWM_origin", "3_analysis/feature_importance/tables/B4_pwm_origin_check.csv"),

@@ -23,7 +23,8 @@ The final run imports only the helper functions and constants of this module
 Outputs (all in this folder): tf_ranking.csv, importances/<TF>_HUMAN_forest_importances_all_features.csv,
 Figure_S7_source_data.csv, matrices/<TF>_<feature>.txt (probability matrices, 4 x L, for R).
 r_max_vs_panel1 of the source data = similarity of each panel to panel 1 = the top monoPWM (max over offsets/strands of the mean per-column Pearson r of the
-per-position z-scored probability matrices, min overlap 5, as in ../cross_species/motif_similarity.py; panels on the '-'
+per-position z-scored probability matrices, min overlap 5, as in ../cross_species/motif_similarity.py, except that here the function runs on position probability matrices, whereas motif_similarity.py and the subtype
+clustering use log-odds matrices; panels on the '-'
 strand are reverse-complemented for display so that all logos of a TF are on the strand of panel 1).  Never writes outside this folder.
 """
 import csv
@@ -138,7 +139,8 @@ def zrows(m):
 
 
 def pcc_max(a, b, min_overlap=5):
-    """As ../cross_species/motif_similarity.py: max over offsets and both strands of the mean
+    """As ../cross_species/motif_similarity.py (which runs it on log-odds matrices; here it runs on position probability matrices):
+    max over offsets and both strands of the mean
     per-column Pearson r of two per-position z-scored 4-column matrices. Returns (r, strand, offset, overlap):
     strand "-" = b reverse-complemented; offset k = a[i] is aligned with b[i-k]."""
     best = (-1.0, "+", 0, 0)

@@ -234,7 +234,7 @@ add("H>M TFs below the baseline on >= 1 metric", "ERG, P53 and STA5A (by up to 0
         "; ".join("%s %+.4f / %+.4f" % (t, mmr[t], mmp[t]) for t in below)) + "; mean of 2 seeds (V006); seed 0: %s" % (
         "; ".join("%s %+.4f / %+.4f" % (t, dr0[t], dp0[t]) for t in below)) if all((mmr[t] > 0) and (mmp[t] > 0) for t in below) else "CHECK: not all recover")
 mms = _t5r("Mouse-trained model on the mouse test set vs the best mouse monoPWM (selected on mouse training data)")
-dd = _t5r("Mouse-trained minus human-trained model on the same mouse test set (positive = the mouse-trained model is better)")
+dd = _t5r("Mouse-trained minus human-trained model on the same mouse test set: difference of the models' auROC / auPRC, not of their gains (positive = the mouse-trained model is better)")
 add("M>M median gain auROC / auPRC; TFs improved", "0.0224 / 0.0357; 35 / 36 of 36", "%.4f / %.4f; %d / %d of %d" % (mms["median dauROC"], mms["median dauPRC"], mms["TFs with dauROC > 0"], mms["TFs with dauPRC > 0"], NTF), rel("t5"), "T07, R06")
 _mmb = [t for t in str(mms["TFs below baseline on >= 1 metric"]).split(", ") if t != "none"]   # none below
 add("M>M TFs below the baseline", "USF2", mms["TFs below baseline on >= 1 metric"], rel("t5"), "T07",
