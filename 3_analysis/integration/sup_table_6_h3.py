@@ -153,7 +153,7 @@ def build(out):
         "(10,000 CTCF human ChIP-Seq positives and 40,000 GC-matched negatives from an earlier version of the data set; "
         "a benchmark set, not the test set of Sup. Table 2)"))
     su.loc["Training matrices", "Value"] = ("the human training matrices of the final models (human positives with each peak set read "
-        "once, GC-matched negatives from the peaks of other TF families without windows that overlap the TF's own positives, chromosomes %s): %s; features = best-hit log-odds of the monoPWMs" % (H.SPLIT["H_train"][3:], ", ".join(
+        "once, GC-matched negatives from the peaks of the other modelled TFs of other TFClass classes, without windows that overlap the TF's own positives, chromosomes %s): %s; features = best-hit log-odds of the monoPWMs" % (H.SPLIT["H_train"][3:], ", ".join(
             "%s %s rows (%s positives)" % (tf, format(load[tf]["n_rows"], ","), format(load[tf]["n_pos"], ",")) for tf in TFS)))
     rf_cpu = [trj[(tf, 1)] for tf in TFS]
     su.loc["Thread policy", "Value"] = (

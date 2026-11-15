@@ -315,3 +315,25 @@
   outputs:
     - {file: "outputs/supplementary_tables/Sup_Table_6_runtime_memory.xlsx", md5: "753ba9532cd529d4381d7ef433691ec7"}
     - {file: "3_analysis/integration/sup6_methods_values_h3.csv", md5: "f4bdcab9746185075ea4b97b4a4ae28f"}
+- script: "3_analysis/integration/sup_table_6_h3.py (Sup. Table 6)"
+  run: "2026-11-15 21:48:12"
+  git_commit: "a3a2b6ded719d6a82f69ef21c07a5e2fe4e8bc03"
+  git_changed_tracked_files: 2
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  note: "V1-3: RF rows and single-PWM scans rerun on the H3a training matrices (server, 10 Nov 2026); k-PWM loops of 10 Sep 2026 kept"
+  inputs:
+    - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_RF_training_H3a.csv", md5: "aeb69265e63b5f231cee7a5ec02e96b2"}
+    - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_RF_inference_H3a.csv", md5: "6b1b8ede077f7fbee08f68b8b15420dd"}
+    - {file: "results/server/human/runtime/tables/Sup_Table_6_runtime_PWM_scanning_single_H3a_vs_round1.csv", md5: "189b5b0c173bbf634d7821740d5fa77e"}
+    - {file: "results/server/human/runtime/rf_timings.jsonl", md5: "253b3b745ba6b7a1220332ed152edbc7"}
+    - {file: "results/server/human/runtime/load_during_run.log", md5: "c56f1e00a55b4a772f24519772982a07"}
+    - {file: "results/server/human/runtime/machine.txt", md5: "1b84d7ca3b09c69929f32e6502cfb75f"}
+    - {file: "results/round1_package/Manuscript_analysis/Sup_Tables/Sup_Table_6_runtime_memory.xlsx", md5: "ff05637dbe509fd13e8d6c5e93954708"}
+    - {file: "results/server/human/hm_mm_results.csv", md5: "3596e03d3ce8b2fc82de6fa072d1e4fd"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_6_runtime_memory.xlsx", md5: "bc40ab5e41cb9f85e469d862bb80965f"}
+    - {file: "3_analysis/integration/sup6_methods_values_h3.csv", md5: "f4bdcab9746185075ea4b97b4a4ae28f"}
