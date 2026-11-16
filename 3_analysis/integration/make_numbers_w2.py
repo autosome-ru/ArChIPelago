@@ -358,9 +358,8 @@ for _, q in pd.read_csv(SRC["tok"]).iterrows():
 ab = pd.read_csv(SRC["abl"])
 _cut = ab.groupby("TF").sim_threshold.first()
 _cuts = "; ".join("%d at cut %g (%s)" % ((_cut == c).sum(), c, ", ".join(sorted(_cut.index[_cut == c]))) for c in sorted(_cut.unique()))
-_abl_old = "12 TFs (letter)"   # old text value (quote of the response letter)
-add("ablation: TFs and similarity cut", _abl_old, "%d TFs: %s" % (_cut.size, _cuts), rel("abl"), "H11, M14, R2-F3",
-    "Methods: the ablation ran on %d TFs (%s), not %s" % (_cut.size, _cuts, _abl_old.split(" (")[0]))
+add("ablation: TFs and similarity cut", "-", "%d TFs: %s" % (_cut.size, _cuts), rel("abl"), "H11, M14, R2-F3",
+    "Methods: the ablation ran on %d TFs (%s)" % (_cut.size, _cuts))
 _rnd = ab[ab.cond == "drop_random"].set_index("TF"); _sec = ab[ab.cond == "drop_secondary"].set_index("TF")
 _small = sorted(_rnd.index[_rnd.n_removed < _sec.n_removed])
 add("ablation: random control smaller than the secondary removal", "-", "; ".join("%s: %d random PWMs removed vs %d secondary (%d primary PWMs)" % (

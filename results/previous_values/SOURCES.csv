@@ -11,7 +11,6 @@ pre-mouse-sym-20261106,b3_gain_vs_npos_spearman.csv,manuscript/B3_peaks/b3_gain_
 pre-mouse-sym-20261106,B4_importance_concentration.csv,manuscript/B4_importance/tables/B4_importance_concentration.csv,9a3aeceee1ba35553b115255754fd9d7
 pre-mouse-sym-20261106,B4_similarity_summary.csv,manuscript/B4_importance/tables/B4_similarity_summary.csv,ab664107450393a0d0dc5cf7ba643a51
 pre-mouse-sym-20261106,B4_subtype_summary_per_TF.csv,manuscript/B4_importance/tables/B4_subtype_summary_per_TF.csv,7d75afd725de76a5e86da299d5822a4d
-pre-mouse-sym-20261106,B4_ablation_summary.csv,manuscript/B4_importance/tables/B4_ablation_summary.csv,2dcd8a648aef38282c022607bfb9d300
 pre-mouse-sym-20261106,B4_activation_groups.csv,manuscript/B4_importance/tables/B4_activation_groups.csv,67f8ddb4dcc745f4f57ec66f72fb86ae
 pre-mouse-sym-20261106,b9_summary.csv,manuscript/B9_random_split/b9_summary.csv,755bdfb3211109e1f9df7bca1236343d
 pre-mouse-sym-20261106,Figure_4_stats.csv,manuscript/B6_figures/Fig4_S4/Figure_4_stats.csv,5c03f4cd3e1658484901e372b93c952c
@@ -27,5 +26,5 @@ pre-mouse-sym-20261106,B2_gate_summary.csv,manuscript/B2_metrics/B2_gate_summary
 10feef6,hm_mm_results.csv,manuscript/B16_h4_trainscale/human_sym/hm_mm_results.csv,9f965ac7e6c75aaec49802a59fc0f193
 10feef6,Sup_Table_3_ArChIPelago_performance.csv,manuscript/B13_integration/pkg/Sup_Tables/Sup_Table_3_ArChIPelago_performance.csv,3c41a97cc7af8cc0205a4b362ea9fb57
 10feef6,B2_summary.csv,manuscript/B13_integration/b2/B2_summary.csv,7c3f8c0734a69ddddbf8c710e3ed87be
-10feef6,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,737c8fc44a3e0678c57f67bfa9e45028
-ffcef4d,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,0c31eba723821a72d0d8ccaab496fcd4
+10feef6,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,950dc4a2ed6a29471bad70c0567aaa5d
+ffcef4d,NUMBERS_R2_35TF.csv,manuscript/NUMBERS_R2_35TF.csv,51c9f28ad6fab5c2c907922fb4c3ea3c

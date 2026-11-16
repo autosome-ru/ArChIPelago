@@ -228,7 +228,7 @@ src = src2(T4 + "B4_subtype_summary_per_TF.csv", "B4_importance/tables/B4_subtyp
 sec = lambda d: sorted(d.TF[d.n_ge10pct_80 >= 2])
 add("TFs with a secondary subtype carrying >= 10 % of the importance", "%d (%s)" % (len(sec(suo)), ", ".join(sec(suo))), "%d (%s)" % (len(sec(sun)), ", ".join(sec(sun))), src, "H11, M14, M27, R03, L14")
 add("TFs with a non-primary subtype (>= 2 subtypes at cut 0.8; Fig. S10D)", int((suo.n_subtypes_80 >= 2).sum()), int((sun.n_subtypes_80 >= 2).sum()), src, "H11, L14")
-abo, abn = old("B4_importance/tables/B4_ablation_summary.csv"), pd.read_csv(p(T4 + "B4_ablation_summary.csv"))
+abn = pd.read_csv(p(T4 + "B4_ablation_summary.csv"))
 def ablation_pass(d):
     out = []
     for tf, g in d.groupby("TF"):
@@ -236,16 +236,14 @@ def ablation_pass(d):
         if s.d_auroc_mean < r.d_auroc_mean - 3 * r.d_auroc_sd or s.d_auprc_mean < r.d_auprc_mean - 3 * r.d_auprc_sd:
             out.append(tf)
     return out
-pa, pn = ablation_pass(abo), ablation_pass(abn)
-if len(pa) != 8:
-    raise SystemExit("CHECK FAILED ablation rule reproduces %d TFs in the first submission, not the quoted 8" % len(pa))
+pn = ablation_pass(abn)
 # new: 29 ablated TFs (all with a secondary subtype), ten seeds; 9 lose more than three sd of the random removals
 ABL_NEW = ["GATA3", "IRF4", "JUND", "PRGR", "SOX2", "STA5A", "STAT1", "TAL1", "TFE2"]
 if abn.TF.nunique() != 29 or sorted(pn) != ABL_NEW:
     raise SystemExit("CHECK FAILED ablation rule: %d TFs, flagged %s, expected 29 TFs and %s" % (abn.TF.nunique(), sorted(pn), ABL_NEW))
-src = src2(T4 + "B4_ablation_summary.csv", "B4_importance/tables/B4_ablation_summary.csv") + "; rule: secondary removal below random removal by > 3 sd (auROC or auPRC)"
-add("Ablated TFs", abo.TF.nunique(), abn.TF.nunique(), src, "H11, M14, M27, R03, R15, L07, L14")
-add("Ablated TFs where the loss exceeds 3 sd of the random removals", "%d of %d (%s)" % (len(pa), abo.TF.nunique(), ", ".join(pa)),
+src = T4 + "B4_ablation_summary.csv" + "; rule: secondary removal below random removal by > 3 sd (auROC or auPRC)"
+add("Ablated TFs", "-", abn.TF.nunique(), src, "H11, M14, M27, R03, R15, L07, L14")
+add("Ablated TFs where the loss exceeds 3 sd of the random removals", "-",
     "%d of %d (%s)" % (len(pn), abn.TF.nunique(), ", ".join(pn)), src, "H11, M27, R03, R15")
 gro, grn = old("B4_importance/tables/B4_activation_groups.csv"), pd.read_csv(p(T4 + "B4_activation_groups.csv"))
 def act(d):

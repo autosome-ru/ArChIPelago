@@ -17,7 +17,7 @@ the unpacked PWM folders in `datasets/zenodo_v1.0.0/` (not tracked).
 | `datasets/round1_fig_s4/`, `datasets/round1_b2_gate/` | earlier Fig. S4 numbers and low FPR gate summary, read for the comparison columns | |
 | `datasets/text_tokens/manuscript_text_tokens.txt` | text lines with `[PENDING_H3B:<name>]` tokens; `../3_analysis/integration/fig4_tokens_h3b.py` computes one value per token | |
 | `round1_package/` | earlier released tables read for the comparison columns of the numbers and tables: `Manuscript_analysis/` (results table, Sup. Table 6, Fig. 4 and S5 source data, motif similarity), `Resubmission/Sup_Tables/` (Sup. Tables 1, 2 and 4), `analysis_mouse_swap/hm_mm_results.csv` | |
-| `previous_values/` | frozen copies of earlier versions of tables that the comparison columns of `../outputs/numbers/NUMBERS_R2_35TF.csv` read (through `../3_analysis/integration/h3_old.py`); one folder per git reference; `previous_values/SOURCES.csv` lists the md5 of each file | |
+| `previous_values/` | frozen copies of earlier versions of tables that the comparison columns of `../outputs/numbers/NUMBERS_R2_35TF.csv` read (through `../3_analysis/integration/h3_old.py`); one folder per git reference; `previous_values/SOURCES.csv` lists the md5 of each file; the frozen copies of `NUMBERS_R2_35TF.csv` do not contain the rows of the ablation of the secondary motif subtype or of the comparison of the motif subtypes with the HOCOMOCO v11 subtypes | |
 
 The analysis package keeps its own inputs in `../3_analysis/package/analysis/inputs/` (GTRD experiment table and
 metadata, TF table, single-PWM features); `../3_analysis/integration/make_pkg_copy.py` copies the server tables there.
