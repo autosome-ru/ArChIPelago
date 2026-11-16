@@ -128,6 +128,9 @@ TABLES = {
         ("activation", "3_analysis/feature_importance/tables/B4_activation_groups.csv", activation_label),
         ("activation_best_pwm", "3_analysis/feature_importance/tables/B4_activation_best_pwm.csv"),   # Fig. S10D
         ("ablation", "3_analysis/feature_importance/tables/B4_ablation_summary.csv"),
+        # the single fits behind the summary (29 TFs x 4 conditions x 10 seeds), so that the criterion and its chance rate can be recomputed
+        ("ablation_fits", "3_analysis/feature_importance/tables/B4_ablation_all_fits.csv",
+         ["TF", "sim_threshold", "cond", "seed", "n_features", "n_removed", "auroc", "auprc", "n_train_pos", "n_train_neg", "n_prim", "n_sec"]),
         ("PWM_origin", "3_analysis/feature_importance/tables/B4_pwm_origin_check.csv"),
         # ablation subtypes vs nearest HOCOMOCO v11 subtype, per TF and per PWM (1,749 PWMs of the 29 ablated TFs)
         ("subtypes_vs_HOCOMOCO_v11", "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv"),

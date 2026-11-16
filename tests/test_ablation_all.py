@@ -74,3 +74,27 @@ def test_sup_table_9_ablation_sheet_is_the_summary():
     assert len(x) == len(s) == 116 and list(x.columns) == list(s.columns)
     assert x.TF.nunique() == 29 and set(x.cond) == {"full", "drop_secondary", "drop_random", "drop_primary"}
     assert np.allclose(x.d_auroc_mean.astype(float), s.d_auroc_mean.astype(float), rtol=1e-9, atol=0)
+
+
+def test_sup_table_9_ablation_fits_sheet_gives_the_chance_rate():
+    """Sheet 'ablation_fits' holds every fit; the chance rate quoted in Methods 2.10 (each random draw against the other nine
+    of its TF: 12 of 290 draws flagged in either metric) is recomputed from the sheet alone.
+    Red: T1_MUTATE=ablation_rule (2 SD) flags more draws."""
+    x = pd.read_excel(os.path.join(T.R2, "outputs/supplementary_tables/Sup_Table_9_feature_importance.xlsx"), sheet_name="ablation_fits")
+    assert len(x) == 1160 and x.TF.nunique() == 29 and sorted(x.seed.unique()) == list(range(10))
+    k = 2 if T.mutate("ablation_rule") else 3
+    full = x[x.cond == "full"].set_index(["TF", "seed"])
+    r = x[x.cond == "drop_random"].copy()
+    key = pd.MultiIndex.from_frame(r[["TF", "seed"]])
+    flagged = 0
+    for m in ("auroc", "auprc"):
+        r["d_" + m] = r[m].values - full[m].reindex(key).values
+    for tf, g in r.groupby("TF"):
+        g = g.sort_values("seed")
+        for d in range(10):
+            either = False
+            for m in ("auroc", "auprc"):
+                v = g["d_" + m].values; rest = np.delete(v, d)
+                either |= bool(v[d] < rest.mean() - k * rest.std(ddof=1))
+            flagged += either
+    assert flagged == 12, flagged

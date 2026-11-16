@@ -383,3 +383,27 @@
     - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "ebd803166f6240f321834c65963ded1a"}
   outputs:
     - {file: "outputs/supplementary_tables/Sup_Table_9_feature_importance.xlsx", md5: "2a2aad56b77211dc85d240bfbc18d7f5"}
+- script: "3_analysis/supplementary_tables/make_sup_tables_7_10.py (Sup_Table_9_feature_importance)"
+  run: "2026-11-16 09:47:55"
+  git_commit: "3ce81ac7138db738c1c1c2909cc63dd8fca31f41"
+  git_changed_tracked_files: 3
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  inputs:
+    - {file: "3_analysis/feature_importance/tables/B4_importance_concentration.csv", md5: "6e470b1dacee129c11f6a4465e350f98"}
+    - {file: "3_analysis/feature_importance/tables/B4_gini_all_features.csv", md5: "b5c715f67a3765a4510a3a32ba7a439d"}
+    - {file: "3_analysis/feature_importance/tables/B4_permutation_top20.csv", md5: "0b5953e60e805d4c8cd14621b44d4052"}
+    - {file: "3_analysis/feature_importance/tables/B4_subtype_summary_per_TF.csv", md5: "ff76d0f30d1cf4de49212a116fa80e4a"}
+    - {file: "3_analysis/feature_importance/tables/B4_subtype_importance.csv", md5: "72f5fa4f1d11bd1de9aa7cb54bd470bc"}
+    - {file: "3_analysis/feature_importance/tables/B4_activation_groups.csv", md5: "ef293f3ee439be1766c888b20c8b2736"}
+    - {file: "3_analysis/feature_importance/tables/B4_activation_best_pwm.csv", md5: "afe169a3ad97adc2c36eeeaae69ff6d9"}
+    - {file: "3_analysis/feature_importance/tables/B4_ablation_summary.csv", md5: "fda1760102019e9ae4e8463cb23d924f"}
+    - {file: "3_analysis/feature_importance/tables/B4_ablation_all_fits.csv", md5: "c95b839151d6eb5347052132dfac05ec"}
+    - {file: "3_analysis/feature_importance/tables/B4_pwm_origin_check.csv", md5: "f24df1a3098a9657edca9c081efc893b"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv", md5: "0e8fa12a51734f02ef03f5dad8fc307f"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "ebd803166f6240f321834c65963ded1a"}
+  outputs:
+    - {file: "outputs/supplementary_tables/Sup_Table_9_feature_importance.xlsx", md5: "7b9419abb7864f246356f94a5774b7fc"}
