@@ -1,7 +1,7 @@
 """Step 5 of the feature-importance analysis aggregate the per-TF outputs into the result tables.
 Input : {gini,perm,metrics,subtypes,usage,ablation}/<TF>_*.csv under the folder B4_IN (and <TF>_sim.npy under B4_SIM)
 Output: 3_analysis/feature_importance/tables/B4_*.csv
-TFs in p53drop.EXCLUDE_TFS are not read (35 TFs; ablation 11 TFs).
+TFs in p53drop.EXCLUDE_TFS are not read (35 TFs). The ablation covers the 29 TFs with a secondary subtype, ten seeds (0-9) per condition.
 usage: B4_IN=<folder> B4_SIM=<folder> python3 3_analysis/feature_importance/scripts/b4_05_aggregate.py
 """
 import os, sys, glob, csv
@@ -124,6 +124,11 @@ A, _ = cat("ablation", "*_ablation.csv")
 if set(A.TF) & set(PD.EXCLUDE_TFS):
     raise SystemExit("CHECK FAILED ablation contains %s" % sorted(set(A.TF) & set(PD.EXCLUDE_TFS)))
 print("ablation TFs:", A.TF.nunique())
+N_SEEDS = 10   # b4_04_ablation.py --n-seeds 10
+_ns = A.groupby(["TF", "cond"]).seed.nunique()
+if (_ns != N_SEEDS).any():
+    raise SystemExit("CHECK FAILED ablation: (TF, cond) with a seed count other than %d: %s" % (N_SEEDS, _ns[_ns != N_SEEDS].to_dict()))
+print("ablation fits per TF and condition: %d (%d TFs x 4 conditions)" % (N_SEEDS, A.TF.nunique()))
 rows = []
 for tf, a in A.groupby("TF"):
     full = a[a.cond == "full"].set_index("seed")

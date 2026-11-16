@@ -459,7 +459,7 @@ add("Fig. S7 subtype match: method (V1-S7)", "-", "pcc_max: max over offsets and
     "HOCOMOCO v11 HUMAN mono, full collection", "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/subtype_vs_hocomoco11.py", "V1-S7, Methods 2.10")
 _cv0 = pd.read_csv(SRC["cv11"])
 _cv = _cv0.assign(key=_cv0.TF.fillna(_cv0.summary)).set_index("key")
-_cvt = _cv[_cv.TF.notna()]                        # the 11 TF rows (summary rows: TF empty, label in 'summary')
+_cvt = _cv[_cv.TF.notna()]                        # the TF rows (summary rows: TF empty, label in 'summary')
 _cvi = _cv.index[_cv.index.str.startswith("median, informative")][0]
 _cut9 = ", ".join(_cvt.index[_cvt.cut != 0.8])
 add("Fig. S7 cluster subtype vs nearest HOCOMOCO v11 subtype, agreement (V1-S7)",
@@ -561,6 +561,34 @@ add("ablation: d auPRC of SOX2, secondary-subtype removal vs random removal (mea
 _lossm = lambda m: sorted(t_ for t_ in _sec.index if _sec.loc[t_, "d_%s_mean" % m] < _rnd.loc[t_, "d_%s_mean" % m] - 3 * _rnd.loc[t_, "d_%s_sd" % m])
 add("ablation: TFs with a loss beyond 3 sd of the random removals, by auROC / by auPRC", "-",
     "auROC: %s; auPRC: %s" % (", ".join(_lossm("auroc")) or "none", ", ".join(_lossm("auprc")) or "none"), rel("abl"), "Results 3.3, letter R1-B")
+_ABL_ROC, _ABL_PRC = ["GATA3", "IRF4", "JUND", "STAT1", "TAL1", "TFE2"], ["GATA3", "IRF4", "PRGR", "SOX2", "STA5A", "STAT1", "TAL1", "TFE2"]
+if len(_sec) != 29 or _lossm("auroc") != _ABL_ROC or _lossm("auprc") != _ABL_PRC:
+    raise SystemExit("CHECK FAILED ablation: %d TFs, loss by auROC %s, by auPRC %s; expected 29 TFs, %s and %s" % (
+        len(_sec), _lossm("auroc"), _lossm("auprc"), _ABL_ROC, _ABL_PRC))
+_lost = sorted(set(_lossm("auroc")) | set(_lossm("auprc")))
+_c = _cut.reindex(_sec.index)
+add("ablation: TFs with a loss in either metric, by similarity cut", "-", "%d of %d: %s" % (len(_lost), len(_sec), "; ".join(
+    "%d of %d at cut %g" % (sum(t_ in _lost for t_ in _c.index[_c == c_]), (_c == c_).sum(), c_) for c_ in sorted(_c.unique()))),
+    rel("abl"), "Results 3.3, Methods 2.10", "Results 3.3: 9 of the 29 TFs, all among the 20 TFs that split at 0.8; none of the 9 TFs that split only at 0.9")
+# chance rate of the rule: every random removal (draw) against the other nine of its TF, same rule (mean - 3 sd, ddof 1), either metric
+def _chance_rate(fits):
+    fl = {"auroc": 0, "auprc": 0}; draws = 0; anyd = 0; tfs = set()
+    for tf_, g_ in fits.groupby("TF"):
+        f_ = g_[g_.cond == "full"].set_index("seed"); r_ = g_[g_.cond == "drop_random"].set_index("seed")
+        d_ = {m_: r_[m_] - f_[m_].reindex(r_.index) for m_ in ("auroc", "auprc")}
+        for sd_ in r_.index:
+            h_ = [m_ for m_ in d_ if d_[m_][sd_] < d_[m_].drop(sd_).mean() - 3 * d_[m_].drop(sd_).std(ddof=1)]
+            draws += 1; anyd += bool(h_)
+            if h_:
+                tfs.add(tf_)
+            for m_ in h_:
+                fl[m_] += 1
+    return fl, draws, anyd, tfs
+_fl, _dr, _any, _tfs = _chance_rate(_ab)
+add("ablation: chance rate of the 3 sd rule on the random removals (each draw against the other nine of its TF)", "-",
+    "%d of %d comparisons (%d auROC, %d auPRC); %d of %d draws in either metric (%.1f %%), in %d TFs; about %.1f of %d TFs" % (
+        sum(_fl.values()), 2 * _dr, _fl["auroc"], _fl["auprc"], _any, _dr, 100 * _any / _dr, len(_tfs), _any / _dr * len(_sec), len(_sec)),
+    rel("abf"), "Results 3.3, Methods 2.10", "Methods 2.10 or the Fig. S10 legend (one place): the rule flags %d of %d random draws in either metric" % (_any, _dr))
 _co = pd.read_csv(SRC["conc"])
 add("importance concentration: PWMs that carry 50 % / 80 % of the Gini importance, median (range) over TFs (N11)", "-",
     "%g (%d-%d) / %g (%d-%d)" % (_co.n_for_50.median(), _co.n_for_50.min(), _co.n_for_50.max(), _co.n_for_80.median(), _co.n_for_80.min(), _co.n_for_80.max()),

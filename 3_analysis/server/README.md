@@ -13,6 +13,7 @@ local stages read.
 | `b2_compute.py`, `b2_lib.py` | low FPR metrics |
 | `b3_topN_h5.py`, `b3_join_sym.py` | top-N peaks; peak widths and join of the test windows with the peak files |
 | `feature_importance/b4_01_importance.py` to `feature_importance/b4_07_checks.py`, `feature_importance/b4_common.py` | feature importance, PWM subtypes, ablation |
+| `feature_importance/run_ablation.sh` | driver of `b4_04_ablation.py` for one similarity cut (`--n-seeds 10`, one `--out-dir`, no overwrite): cut 0.8 for the 20 TFs with at least two subtypes at 0.8, cut 0.9 for the 9 TFs with one subtype at 0.8 and at least two at 0.9; called by `../../2_training/h5_server_v2.sh` |
 | `b9_random_split_h5.py`, `b9_summary_h2b.py` | random split retraining (5 TFs) |
 | `saturation_HUMAN/run_saturation_h5.py`, `saturation_MOUSE/run_saturation_h5.py` | PWM saturation |
 | `h5_fig4_server_v2.sh`, `one_tf_h5.sh`, `scan_tf_h5.sh`, `run_fig4_h5.py`, `assemble_fig4_s4.py`, `s4_numbers.py` | Fig. 4 and Fig. S4: Slim and diChIPMunk scans, RF refit, assembly |

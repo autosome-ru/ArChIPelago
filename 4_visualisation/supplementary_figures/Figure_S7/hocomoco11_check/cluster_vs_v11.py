@@ -1,11 +1,11 @@
-"""Agreement of the clustering subtypes used for the ablation (Methods 2.10: cut 0.8, but 0.9 for the TFs ablated at 0.9, i.e. MAFK
-and SPI1; the cut per TF is read from B4_ablation_summary.csv) with the nearest HOCOMOCO v11 subtype, for the
-11 ablated TFs. Every feature PWM of the TF's final model (diPWMs as their mononucleotide marginal, as
+"""Agreement of the clustering subtypes used for the ablation (Methods 2.10: cut 0.8 for the 20 TFs that split there, 0.9 for the 9 TFs that
+split only at 0.9; the cut per TF is read from B4_ablation_summary.csv) with the nearest HOCOMOCO v11 subtype, for the
+29 ablated TFs. Every feature PWM of the TF's final model (diPWMs as their mononucleotide marginal, as
 for Fig. S7) is matched to the TF's own v11 HUMAN mono models with pcc_max (subtype_vs_hocomoco11.py); its v11 subtype is the
 index of the nearest own model. Agreement per TF = Rand index of the two partitions (share of PWM pairs on which both agree:
 same cluster and same v11 subtype, or different and different); also the adjusted Rand index, the contingency table and the
 number of PWMs whose two nearest own subtypes are within TIE in r, and 'informative' (both partitions have at least 2 groups, so
-that the ARI is defined). Summary rows: median Rand over the 11 TFs, median ARI over the informative TFs, pooled pairs.
+that the ARI is defined). Summary rows: median Rand over the ablated TFs, median ARI over the informative TFs, pooled pairs, and the two medians per cut.
 Output: cluster_vs_v11.csv (one row per TF, then "all"), cluster_vs_v11_per_PWM.csv, _provenance_h3.yaml (this folder).
 usage: ARCHI_STAGE=H5 python3 4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.py
 """
@@ -28,6 +28,7 @@ P, V11, w2 = S7.P, S7.V11, S7.w2
 TIE = S7.TIE
 IN = {"sub": os.path.join(R2, "3_analysis/feature_importance", "tables", "B4_feature_subtypes.csv"),
       "abl": os.path.join(R2, "3_analysis/feature_importance", "tables", "B4_ablation_summary.csv"), "v11": V11.PCM}
+N_ABLATED = 29   # TFs of B4_ablation_summary.csv
 OUT = {"tf": os.path.join(HERE, "cluster_vs_v11.csv"), "pwm": os.path.join(HERE, "cluster_vs_v11_per_PWM.csv")}
 
 
@@ -41,8 +42,8 @@ def main():
         w2.backup(f)
     ab = pd.read_csv(IN["abl"])
     cut = ab.groupby("TF").sim_threshold.unique()
-    if len(cut) != 11 or (cut.str.len() != 1).any():
-        raise SystemExit("CHECK FAILED %d ablated TFs (expected 11), or a TF with several cuts" % len(cut))
+    if len(cut) != N_ABLATED or (cut.str.len() != 1).any():
+        raise SystemExit("CHECK FAILED %d ablated TFs (expected %d), or a TF with several cuts" % (len(cut), N_ABLATED))
     cut = cut.str[0]
     tfs = sorted(cut.index)
     sub = pd.read_csv(IN["sub"])
@@ -78,12 +79,18 @@ def main():
                                                 for c in ct.index)))
     t = pd.DataFrame(rows)
     inf = t[t.informative]
+    by_cut = []   # the same two medians for the TFs clustered at each cut (the text reports them per cut)
+    for c, g in t.groupby("cut"):
+        gi = g[g.informative]
+        by_cut += [dict(TF="median, TFs at cut %.1f (%d)" % (c, len(g)), n_PWMs=g.n_PWMs.sum(), rand_index=g.rand_index.median()),
+                   dict(TF="median, informative TFs at cut %.1f (%d)" % (c, len(gi)), n_PWMs=gi.n_PWMs.sum(), rand_index=gi.rand_index.median(),
+                        adjusted_rand=gi.adjusted_rand.median())]
     t = pd.concat([t, pd.DataFrame([
         dict(TF="median, all TFs", n_PWMs=t.n_PWMs.sum(), rand_index=t.rand_index.median()),   # ARI only over informative TFs
         dict(TF="median, informative TFs (%d)" % len(inf), n_PWMs=inf.n_PWMs.sum(), rand_index=inf.rand_index.median(),
              adjusted_rand=inf.adjusted_rand.median()),
         dict(TF="pooled pairs, all TFs", n_PWMs=t.n_PWMs.sum(), n_tie=t.n_tie.sum(), agreeing_pairs=t.agreeing_pairs.sum(),
-             pairs=t.pairs.sum(), rand_index=t.agreeing_pairs.sum() / t.pairs.sum())])], ignore_index=True)
+             pairs=t.pairs.sum(), rand_index=t.agreeing_pairs.sum() / t.pairs.sum())] + by_cut)], ignore_index=True)
     # summary rows: label in 'summary', TF left empty (the TF column of a Sup. Table holds TF names only)
     t.insert(0, "summary", np.where(t.TF.isin(tfs), "", t.TF)); t.loc[~t.TF.isin(tfs), "TF"] = np.nan
     t.to_csv(OUT["tf"], index=False)

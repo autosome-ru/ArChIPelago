@@ -1,5 +1,5 @@
 """NUMBERS_human_35TF.csv: every human number of the inventory (and the rows that quote them): old = first submission
-(36 TFs), new = final data (35 TFs).
+(36 TFs), new = final data (35 TFs; the ablation of the secondary subtype: 29 TFs, ten seeds).
 
 Old values are read from the frozen copies under results/previous_values/<git ref>/ (3_analysis/integration/h3_old.py), from
 the released package results/round1_package/Manuscript_analysis or from the first-submission Sup. Tables
@@ -238,7 +238,11 @@ def ablation_pass(d):
     return out
 pa, pn = ablation_pass(abo), ablation_pass(abn)
 if len(pa) != 8:
-    raise SystemExit("CHECK FAILED ablation rule reproduces %d TFs, not the quoted 8" % len(pa))
+    raise SystemExit("CHECK FAILED ablation rule reproduces %d TFs in the first submission, not the quoted 8" % len(pa))
+# new: 29 ablated TFs (all with a secondary subtype), ten seeds; 9 lose more than three sd of the random removals
+ABL_NEW = ["GATA3", "IRF4", "JUND", "PRGR", "SOX2", "STA5A", "STAT1", "TAL1", "TFE2"]
+if abn.TF.nunique() != 29 or sorted(pn) != ABL_NEW:
+    raise SystemExit("CHECK FAILED ablation rule: %d TFs, flagged %s, expected 29 TFs and %s" % (abn.TF.nunique(), sorted(pn), ABL_NEW))
 src = src2(T4 + "B4_ablation_summary.csv", "B4_importance/tables/B4_ablation_summary.csv") + "; rule: secondary removal below random removal by > 3 sd (auROC or auPRC)"
 add("Ablated TFs", abo.TF.nunique(), abn.TF.nunique(), src, "H11, M14, M27, R03, R15, L07, L14")
 add("Ablated TFs where the loss exceeds 3 sd of the random removals", "%d of %d (%s)" % (len(pa), abo.TF.nunique(), ", ".join(pa)),

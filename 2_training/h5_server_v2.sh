@@ -42,18 +42,21 @@ chainA() {
   OMP_NUM_THREADS=8 $P $B4/b4_01_importance.py --tfs $TFS --n-jobs 8 > ../../logs/b4_01.log 2>&1 || die b4_01
   $P $B4/b4_02_subtypes.py --tfs $TFS --workers 8 > ../../logs/b4_02.log 2>&1 || die b4_02
   OMP_NUM_THREADS=8 $P $B4/b4_03_usage.py --tfs $TFS --n-jobs 8 > ../../logs/b4_03.log 2>&1 || die b4_03
+  # ablation of the secondary subtype: every TF with at least two subtypes at similarity 0.8 (cut 0.8); every TF with one subtype
+  # at 0.8 and at least two at 0.9 (cut 0.9); ten seeds in each of the four conditions
   ABL=$($PY -c "
 import pandas as pd, glob
 s = pd.concat([pd.read_csv(f) for f in glob.glob('../subtypes/*_sim_summary.csv')]).set_index('TF')
-new = set(s.index[s.n_subtypes_ge10pct_80 >= 2]); old = {'IRF4','TAL1','E2F4','TFE2','SRF','PRGR','SOX2','STA5A','RXRA'}
-print(' '.join(sorted(t for t in new | old if s.loc[t, 'n_subtypes_80'] >= 2)))")
+print(' '.join(sorted(s.index[s.n_subtypes_80 >= 2])))")
   ABL9=$($PY -c "
 import pandas as pd, glob
 s = pd.concat([pd.read_csv(f) for f in glob.glob('../subtypes/*_sim_summary.csv')]).set_index('TF')
-print(' '.join(t for t in ('MAFK', 'SPI1', 'IRF4','TAL1','E2F4','TFE2','SRF','PRGR','SOX2','STA5A','RXRA') if s.loc[t, 'n_subtypes_80'] < 2 and s.loc[t, 'n_subtypes_90'] >= 2))")
+print(' '.join(sorted(s.index[(s.n_subtypes_80 < 2) & (s.n_subtypes_90 >= 2)])))")
   echo "ablation thr 0.8: $ABL | thr 0.9: $ABL9" > ../../logs/b4_04_tf_lists.txt
-  OMP_NUM_THREADS=8 $P $B4/b4_04_ablation.py --tfs $ABL --n-jobs 8 --thr 80 > ../../logs/b4_04.log 2>&1 || die b4_04
-  if [ -n "$ABL9" ]; then OMP_NUM_THREADS=8 $P $B4/b4_04_ablation.py --tfs $ABL9 --n-jobs 8 --thr 90 > ../../logs/b4_04_thr90.log 2>&1 || die b4_04_thr90; fi
+  mkdir ../ablation ../logs || die mkdir_ablation   # b4_04_ablation.py never overwrites
+  bash $B4/run_ablation.sh $(cd ..; pwd) 80 1 $ABL
+  if [ -n "$ABL9" ]; then bash $B4/run_ablation.sh $(cd ..; pwd) 90 1 $ABL9; fi
+  if grep -q FAILED ../logs/driver.log; then die b4_04; fi
   $P $B4/b4_07_checks.py > ../../logs/b4_07.log 2>&1 || die b4_07
   cd $G; log CHAIN_A_DONE
 }

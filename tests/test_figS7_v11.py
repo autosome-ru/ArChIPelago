@@ -74,9 +74,9 @@ def test_drawn_tfs_are_the_v11_examples(pdf):
 
 
 def test_cluster_vs_v11_uses_the_ablation_cuts_and_its_numbers_recompute():
-    """The clustering of cluster_vs_v11 is the ablation subtype (cut per TF from B4_ablation_summary.csv: 0.8, MAFK and
-    SPI1 0.9), Rand index and ARI per TF recompute from the per-PWM table, informative = both partitions with >= 2 groups, and the
-    summary rows are the median Rand over the 11 TFs and the median ARI over the informative TFs.
+    """The clustering of cluster_vs_v11 is the ablation subtype (cut per TF from B4_ablation_summary.csv: 0.8 for 20 TFs,
+    0.9 for the 9 TFs that split only at 0.9), Rand index and ARI per TF recompute from the per-PWM table, informative = both partitions with >= 2 groups, and the
+    summary rows are the median Rand over the 29 TFs and the median ARI over the informative TFs.
     Red: T1_MUTATE=cluster_cut reads every TF at the 0.8 cut."""
     from itertools import combinations
     from sklearn.metrics import adjusted_rand_score
@@ -88,7 +88,7 @@ def test_cluster_vs_v11_uses_the_ablation_cuts_and_its_numbers_recompute():
     if T.mutate("cluster_cut"):
         cut[:] = 0.8
     sub = pd.read_csv(os.path.join(T.R2, "3_analysis/feature_importance", "tables", "B4_feature_subtypes.csv")).set_index(["TF", "feature"])
-    assert len(cut) == 11 and sorted(cut.index[cut == 0.9]) == ["MAFK", "SPI1"]
+    assert len(cut) == 29 and sorted(cut.index[cut == 0.9]) == ["COE1", "ERG", "FLI1", "GATA1", "GATA2", "MAFK", "MYC", "PPARG", "SPI1"]
     want = [sub.loc[(r.TF, r.feature), "subtype_%d" % round(100 * cut[r.TF])] for r in per.itertuples()]
     assert (per.cluster.values == np.array(want)).all(), "per-PWM clusters are not the ablation subtypes"
     rows = {}
@@ -98,7 +98,7 @@ def test_cluster_vs_v11_uses_the_ablation_cuts_and_its_numbers_recompute():
         rows[tf] = (sum((a[i] == a[j]) == (b[i] == b[j]) for i, j in pr) / len(pr), adjusted_rand_score(a, b),
                     len(set(a)) >= 2 and len(set(b)) >= 2)
     r = pd.DataFrame(rows, index=["rand", "ari", "inf"]).T
-    assert len(r) == 11 and len(per) == 265
+    assert len(r) == 29 and len(per) == 1749
     assert np.allclose(tab.loc[r.index, "rand_index"].astype(float), r.rand.astype(float))
     assert np.allclose(tab.loc[r.index, "adjusted_rand"].astype(float), r.ari.astype(float))
     assert (tab.loc[r.index, "informative"].astype(str) == r.inf.astype(str)).all()

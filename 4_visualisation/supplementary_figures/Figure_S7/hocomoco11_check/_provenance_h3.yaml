@@ -54,3 +54,95 @@
   outputs:
     - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv", md5: "00cc8dd9cd35493f8e9fdff7fd4e987b"}
     - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "0553b3dfabf88f6f09f7c4c1661a6488"}
+- script: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.py"
+  run: "2026-11-16 09:17:45"
+  git_commit: "cec5cd3544b1fdefb502f0dfa624ac905d26302f"
+  git_changed_tracked_files: 21
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{clustering: ablation cut per TF (COE1 0.9, ERG 0.9, FLI1 0.9, GATA1 0.9, GATA2 0.9, MAFK 0.9, MYC 0.9, PPARG 0.9, SPI1 0.9), tie: 0.01, v11_min_overlap: 5, agreement: Rand index, ARI}"
+  inputs:
+    - {file: "3_analysis/feature_importance/tables/B4_feature_subtypes.csv", md5: "f09fe2e08583c97300246e3b410db94f"}
+    - {file: "3_analysis/feature_importance/tables/B4_ablation_summary.csv", md5: "fda1760102019e9ae4e8463cb23d924f"}
+    - {file: "results/datasets/hocomoco11/HOCOMOCOv11_full_pcms_HUMAN_mono.txt", md5: "ace4698cb56d1c50431465a45d6f02f6"}
+    - {file: "results/server/human/B4_importance/gini/ANDR_gini.csv", md5: "57c7a941d8132a8bd6973f17924d3c0e"}
+    - {file: "results/server/human/B4_importance/gini/COE1_gini.csv", md5: "88f7e7ca9ef505df3081504b1d0096fb"}
+    - {file: "results/server/human/B4_importance/gini/E2F4_gini.csv", md5: "b473034b026c29c12eeee2ac24855031"}
+    - {file: "results/server/human/B4_importance/gini/ERG_gini.csv", md5: "b4d92a23d478f5197c86c5af1984d0d5"}
+    - {file: "results/server/human/B4_importance/gini/ESR1_gini.csv", md5: "25ee498067d0b732d75eea17686b54b9"}
+    - {file: "results/server/human/B4_importance/gini/FLI1_gini.csv", md5: "93ff8c778f812c24940eea62fb01c104"}
+    - {file: "results/server/human/B4_importance/gini/GATA1_gini.csv", md5: "a7592b8267fd8f08a35e6b40bd348900"}
+    - {file: "results/server/human/B4_importance/gini/GATA2_gini.csv", md5: "b31a0b4c1a7bdb013d2fe7da5f4bec28"}
+    - {file: "results/server/human/B4_importance/gini/GATA3_gini.csv", md5: "13a1e8b6672acfd724e44446f079de62"}
+    - {file: "results/server/human/B4_importance/gini/GCR_gini.csv", md5: "b4b7dd71631ac9c6ed753271d6c4185d"}
+    - {file: "results/server/human/B4_importance/gini/IRF1_gini.csv", md5: "0df124757396a13c427e34f028f82d82"}
+    - {file: "results/server/human/B4_importance/gini/IRF4_gini.csv", md5: "75768e059c7d095e3c275b8e4bb83872"}
+    - {file: "results/server/human/B4_importance/gini/JUND_gini.csv", md5: "99c1d8fd274480760d8ad4d217fcdd3d"}
+    - {file: "results/server/human/B4_importance/gini/MAFK_gini.csv", md5: "3a473b6d48b86663ed2e298e9d573670"}
+    - {file: "results/server/human/B4_importance/gini/MAX_gini.csv", md5: "8d808cc4f608225268ee74cb128e4287"}
+    - {file: "results/server/human/B4_importance/gini/MYC_gini.csv", md5: "26744ee8bf3bcea850469a7ea0bbac43"}
+    - {file: "results/server/human/B4_importance/gini/PPARG_gini.csv", md5: "f2dd392ce765b68f082fc7f745f07019"}
+    - {file: "results/server/human/B4_importance/gini/PRGR_gini.csv", md5: "55974eb0e608d9653244d4eceee8ee22"}
+    - {file: "results/server/human/B4_importance/gini/REST_gini.csv", md5: "f7c065887839cac8f4b4665b17555779"}
+    - {file: "results/server/human/B4_importance/gini/RXRA_gini.csv", md5: "55845cf8aeeb5907ddc2a2a192c81cde"}
+    - {file: "results/server/human/B4_importance/gini/SOX2_gini.csv", md5: "56e19dd22c99fef16666e94ff529b1dd"}
+    - {file: "results/server/human/B4_importance/gini/SPI1_gini.csv", md5: "e3fabf87252157f37a2732f7daf3cbd6"}
+    - {file: "results/server/human/B4_importance/gini/SRF_gini.csv", md5: "809d6a4fb80d49b7541d7aa96411c022"}
+    - {file: "results/server/human/B4_importance/gini/STA5A_gini.csv", md5: "ea1ef0bd9f2d463f6bda708337dfd3bb"}
+    - {file: "results/server/human/B4_importance/gini/STAT1_gini.csv", md5: "b68a4ee3fcf033fd7c4b27a0c17c9580"}
+    - {file: "results/server/human/B4_importance/gini/STAT3_gini.csv", md5: "784954bc409bb11c95838036e70594f8"}
+    - {file: "results/server/human/B4_importance/gini/TAL1_gini.csv", md5: "7e8f8dd0e52be846d409536fb9ab7e96"}
+    - {file: "results/server/human/B4_importance/gini/TF65_gini.csv", md5: "be7ae91cb8a8c1adfb5bd1cfff934a39"}
+    - {file: "results/server/human/B4_importance/gini/TFE2_gini.csv", md5: "eddf0eadc95eab7f53284aec0c1cc852"}
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv", md5: "ad598779bb821112ebde74891e21841d"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "ebd803166f6240f321834c65963ded1a"}
+- script: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.py"
+  run: "2026-11-16 09:31:54"
+  git_commit: "cec5cd3544b1fdefb502f0dfa624ac905d26302f"
+  git_changed_tracked_files: 39
+  task: "H3 integration (final data: human B14 + H3a, mouse B11 + H3a, negatives v3)"
+  python: "3.9.12"
+  exclude_tfs: ["P53"]
+  human_used_ids: {file: "results/datasets/peak_ids/human_used_peak_ids.csv", md5: "c0e9d46d3be010d1927f021a2288489c"}
+  mouse_used_ids: {file: "results/datasets/peak_ids/mouse_sym_peak_ids.csv", md5: "78c0e1f564c09edc1e7a9492947d16e2"}
+  parameters: "{clustering: ablation cut per TF (COE1 0.9, ERG 0.9, FLI1 0.9, GATA1 0.9, GATA2 0.9, MAFK 0.9, MYC 0.9, PPARG 0.9, SPI1 0.9), tie: 0.01, v11_min_overlap: 5, agreement: Rand index, ARI}"
+  inputs:
+    - {file: "3_analysis/feature_importance/tables/B4_feature_subtypes.csv", md5: "f09fe2e08583c97300246e3b410db94f"}
+    - {file: "3_analysis/feature_importance/tables/B4_ablation_summary.csv", md5: "fda1760102019e9ae4e8463cb23d924f"}
+    - {file: "results/datasets/hocomoco11/HOCOMOCOv11_full_pcms_HUMAN_mono.txt", md5: "ace4698cb56d1c50431465a45d6f02f6"}
+    - {file: "results/server/human/B4_importance/gini/ANDR_gini.csv", md5: "57c7a941d8132a8bd6973f17924d3c0e"}
+    - {file: "results/server/human/B4_importance/gini/COE1_gini.csv", md5: "88f7e7ca9ef505df3081504b1d0096fb"}
+    - {file: "results/server/human/B4_importance/gini/E2F4_gini.csv", md5: "b473034b026c29c12eeee2ac24855031"}
+    - {file: "results/server/human/B4_importance/gini/ERG_gini.csv", md5: "b4d92a23d478f5197c86c5af1984d0d5"}
+    - {file: "results/server/human/B4_importance/gini/ESR1_gini.csv", md5: "25ee498067d0b732d75eea17686b54b9"}
+    - {file: "results/server/human/B4_importance/gini/FLI1_gini.csv", md5: "93ff8c778f812c24940eea62fb01c104"}
+    - {file: "results/server/human/B4_importance/gini/GATA1_gini.csv", md5: "a7592b8267fd8f08a35e6b40bd348900"}
+    - {file: "results/server/human/B4_importance/gini/GATA2_gini.csv", md5: "b31a0b4c1a7bdb013d2fe7da5f4bec28"}
+    - {file: "results/server/human/B4_importance/gini/GATA3_gini.csv", md5: "13a1e8b6672acfd724e44446f079de62"}
+    - {file: "results/server/human/B4_importance/gini/GCR_gini.csv", md5: "b4b7dd71631ac9c6ed753271d6c4185d"}
+    - {file: "results/server/human/B4_importance/gini/IRF1_gini.csv", md5: "0df124757396a13c427e34f028f82d82"}
+    - {file: "results/server/human/B4_importance/gini/IRF4_gini.csv", md5: "75768e059c7d095e3c275b8e4bb83872"}
+    - {file: "results/server/human/B4_importance/gini/JUND_gini.csv", md5: "99c1d8fd274480760d8ad4d217fcdd3d"}
+    - {file: "results/server/human/B4_importance/gini/MAFK_gini.csv", md5: "3a473b6d48b86663ed2e298e9d573670"}
+    - {file: "results/server/human/B4_importance/gini/MAX_gini.csv", md5: "8d808cc4f608225268ee74cb128e4287"}
+    - {file: "results/server/human/B4_importance/gini/MYC_gini.csv", md5: "26744ee8bf3bcea850469a7ea0bbac43"}
+    - {file: "results/server/human/B4_importance/gini/PPARG_gini.csv", md5: "f2dd392ce765b68f082fc7f745f07019"}
+    - {file: "results/server/human/B4_importance/gini/PRGR_gini.csv", md5: "55974eb0e608d9653244d4eceee8ee22"}
+    - {file: "results/server/human/B4_importance/gini/REST_gini.csv", md5: "f7c065887839cac8f4b4665b17555779"}
+    - {file: "results/server/human/B4_importance/gini/RXRA_gini.csv", md5: "55845cf8aeeb5907ddc2a2a192c81cde"}
+    - {file: "results/server/human/B4_importance/gini/SOX2_gini.csv", md5: "56e19dd22c99fef16666e94ff529b1dd"}
+    - {file: "results/server/human/B4_importance/gini/SPI1_gini.csv", md5: "e3fabf87252157f37a2732f7daf3cbd6"}
+    - {file: "results/server/human/B4_importance/gini/SRF_gini.csv", md5: "809d6a4fb80d49b7541d7aa96411c022"}
+    - {file: "results/server/human/B4_importance/gini/STA5A_gini.csv", md5: "ea1ef0bd9f2d463f6bda708337dfd3bb"}
+    - {file: "results/server/human/B4_importance/gini/STAT1_gini.csv", md5: "b68a4ee3fcf033fd7c4b27a0c17c9580"}
+    - {file: "results/server/human/B4_importance/gini/STAT3_gini.csv", md5: "784954bc409bb11c95838036e70594f8"}
+    - {file: "results/server/human/B4_importance/gini/TAL1_gini.csv", md5: "7e8f8dd0e52be846d409536fb9ab7e96"}
+    - {file: "results/server/human/B4_importance/gini/TF65_gini.csv", md5: "be7ae91cb8a8c1adfb5bd1cfff934a39"}
+    - {file: "results/server/human/B4_importance/gini/TFE2_gini.csv", md5: "eddf0eadc95eab7f53284aec0c1cc852"}
+  outputs:
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv", md5: "0e8fa12a51734f02ef03f5dad8fc307f"}
+    - {file: "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv", md5: "ebd803166f6240f321834c65963ded1a"}

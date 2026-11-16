@@ -129,7 +129,7 @@ TABLES = {
         ("activation_best_pwm", "3_analysis/feature_importance/tables/B4_activation_best_pwm.csv"),   # Fig. S10D
         ("ablation", "3_analysis/feature_importance/tables/B4_ablation_summary.csv"),
         ("PWM_origin", "3_analysis/feature_importance/tables/B4_pwm_origin_check.csv"),
-        # ablation subtypes vs nearest HOCOMOCO v11 subtype, per TF and per PWM (265 PWMs of the 11 ablated TFs)
+        # ablation subtypes vs nearest HOCOMOCO v11 subtype, per TF and per PWM (1,749 PWMs of the 29 ablated TFs)
         ("subtypes_vs_HOCOMOCO_v11", "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11.csv"),
         ("HOCOMOCO_v11_per_PWM", "4_visualisation/supplementary_figures/Figure_S7/hocomoco11_check/cluster_vs_v11_per_PWM.csv"),
     ],

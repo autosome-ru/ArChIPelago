@@ -307,6 +307,36 @@ def _below():
 DERIVED["Fig. 3C open diamond: RF (monoPWMs + diPWMs) below the best monoPWM on auROC or auPRC, human test set (V1-19)"] = _below
 DERIVED["ablation: seeds behind the 3 SD rule (random removals per TF; V1-25)"] = lambda: [
     pd.read_csv(J("3_analysis/feature_importance", "tables", "B4_ablation_all_fits.csv")).query("cond == 'drop_random'").groupby("TF").seed.nunique().min()]
+def _ablation_chance():
+    """Chance rate of the 3 sd rule, recomputed from the per-fit table with a leave-one-out on arrays: every random removal (draw) against the other nine
+    of its TF, in auROC and auPRC. Order of the numbers in the NUMBERS text."""
+    A = pd.read_csv(J("3_analysis/feature_importance", "tables", "B4_ablation_all_fits.csv"))
+    n_cmp = {"auroc": 0, "auprc": 0}; n_draw = n_any = 0; tfs = set()
+    for tf, g in A.groupby("TF"):
+        fu = g[g.cond == "full"].sort_values("seed"); rn = g[g.cond == "drop_random"].sort_values("seed")
+        hit = np.zeros(len(rn), bool)
+        for m in ("auroc", "auprc"):
+            d = rn[m].values - fu[m].values
+            n = len(d); loo_mean = (d.sum() - d) / (n - 1)
+            loo_sd = np.sqrt(((d[None, :] - loo_mean[:, None]) ** 2 * (1 - np.eye(n))).sum(1) / (n - 2))
+            f = d < loo_mean - 3 * loo_sd
+            n_cmp[m] += int(f.sum()); hit |= f
+        n_draw += n; n_any += int(hit.sum())
+        if hit.any(): tfs.add(tf)
+    n_tf = A.TF.nunique()
+    return [sum(n_cmp.values()), 2 * n_draw, n_cmp["auroc"], n_cmp["auprc"], n_any, n_draw, round(100 * n_any / n_draw, 1), len(tfs), round(n_any / n_draw * n_tf, 1), n_tf]
+DERIVED["ablation: chance rate of the 3 sd rule on the random removals (each draw against the other nine of its TF)"] = _ablation_chance
+def _cv11_summary():   # recomputed from the per-PWM table of cluster_vs_v11: median Rand over the TFs, number of TFs, median ARI over the informative TFs, their number
+    from itertools import combinations
+    from sklearn.metrics import adjusted_rand_score
+    per = pd.read_csv(J("4_visualisation", "supplementary_figures", "Figure_S7", "hocomoco11_check", "cluster_vs_v11_per_PWM.csv"))
+    rd, ari = [], []
+    for tf, d in per.groupby("TF"):
+        a, b = d.cluster.values, d.v11_subtype.values
+        rd.append(np.mean([(a[i] == a[j]) == (b[i] == b[j]) for i, j in combinations(range(len(a)), 2)]))
+        if len(set(a)) >= 2 and len(set(b)) >= 2: ari.append(adjusted_rand_score(a, b))
+    return [round(float(np.median(rd)), 2), len(rd), round(float(np.median(ari)), 2), len(ari)]
+DERIVED["Fig. S7 cluster subtype vs nearest HOCOMOCO v11 subtype, agreement (V1-S7)"] = _cv11_summary
 def _s7_counts():   # Fig. S7 legend counts recomputed from the source data and the verdicts
     s = pd.read_csv(J("4_visualisation", "supplementary_figures", "Figure_S7", "Figure_S7_source_data.csv"))
     v = pd.read_csv(J("4_visualisation", "supplementary_figures", "Figure_S7", "subtype_verdicts_v11_h3.csv"))
